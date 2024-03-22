@@ -105,6 +105,9 @@ public:
     QLabel *satModeLabel;
     QComboBox *satModeEdit;
 
+    QLabel *contestIDLabel;
+    NewContactEditLine *contestIDEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);

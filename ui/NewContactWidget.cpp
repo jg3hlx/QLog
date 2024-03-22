@@ -1247,6 +1247,12 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     {
        record.setValue("my_wwff_ref", profile.wwff.toUpper());
     }
+
+    if ( record.value("contest_id").toString().isEmpty()
+         && uiDynamic->contestIDEdit->isVisible() )
+    {
+        record.setValue("contest_id", uiDynamic->contestIDEdit->text());
+    }
 }
 
 bool NewContactWidget::eventFilter(QObject *object, QEvent *event)
@@ -1436,6 +1442,9 @@ void NewContactWidget::connectFieldChanged()
             this, &NewContactWidget::formFieldChangedString);
 
     connect(uiDynamic->gridEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->contestIDEdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
     /* no other fields are currently considered
@@ -3284,6 +3293,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_WEB, "url", urlLabel, urlEdit);
     initializeWidgets(LogbookModel::COLUMN_SAT_NAME, "satName", satNameLabel, satNameEdit);
     initializeWidgets(LogbookModel::COLUMN_SAT_MODE, "satMode", satModeLabel, satModeEdit);
+    initializeWidgets(LogbookModel::COLUMN_CONTEST_ID, "contestID", contestIDLabel, contestIDEdit);
 
     if ( allocateWidgets )
     {
@@ -3390,6 +3400,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         satModesList.prepend("");
         QStringListModel* satModesModel = new QStringListModel(satModesList, satModeEdit);
         satModeEdit->setModel(satModesModel);
+
+        contestIDEdit->setToolTip(QCoreApplication::translate("NewContactWidget", "It is not the name of the contest but it is an assigned<br>Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) ", nullptr));
     }
 }
 
