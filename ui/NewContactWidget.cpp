@@ -995,6 +995,7 @@ void NewContactWidget::resetContact()
     ui->flagView->setPixmap(QPixmap());
     uiDynamic->ageEdit->clear();
     uiDynamic->srxStringEdit->clear();
+    uiDynamic->srxEdit->clear();
 
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1267,6 +1268,11 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         record.setValue("stx_string", uiDynamic->stxStringEdit->text());
     }
 
+    if ( record.value("srx").toString().isEmpty()
+         && uiDynamic->srxEdit->isVisible() )
+    {
+        record.setValue("srx", uiDynamic->srxEdit->text());
+    }
 }
 
 bool NewContactWidget::eventFilter(QObject *object, QEvent *event)
@@ -1465,6 +1471,9 @@ void NewContactWidget::connectFieldChanged()
             this, &NewContactWidget::formFieldChangedString);
 
     connect(uiDynamic->stxStringEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->srxEdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
     /* no other fields are currently considered
@@ -3316,6 +3325,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_CONTEST_ID, "contestID", contestIDLabel, contestIDEdit);
     initializeWidgets(LogbookModel::COLUMN_SRX_STRING, "srx_string", srxStringLabel, srxStringEdit);
     initializeWidgets(LogbookModel::COLUMN_STX_STRING, "stx_string", stxStringLabel, stxStringEdit);
+    initializeWidgets(LogbookModel::COLUMN_SRX, "srx", srxLabel, srxEdit);
 
     if ( allocateWidgets )
     {
@@ -3424,6 +3434,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         satModeEdit->setModel(satModesModel);
 
         contestIDEdit->setToolTip(QCoreApplication::translate("NewContactWidget", "It is not the name of the contest but it is an assigned<br>Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) ", nullptr));
+
+        srxEdit->setValidator(new QIntValidator(0,INT_MAX, srxEdit));
     }
 }
 
