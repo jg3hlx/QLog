@@ -1281,7 +1281,7 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         record.setValue("stx", uiDynamic->stxEdit->text());
         // the field always contains a number - validator is enable for it
         // therefore it is possible to do this
-        uiDynamic->stxEdit->setText(QString::number(uiDynamic->stxEdit->text().toInt() + 1));
+        uiDynamic->stxEdit->setText(QString::number(uiDynamic->stxEdit->text().toInt() + 1).rightJustified(3,'0'));
     }
 
     if ( record.value("rx_pwr").toString().isEmpty()
@@ -3476,7 +3476,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         srxEdit->setValidator(new QIntValidator(0,INT_MAX, srxEdit));
 
         stxEdit->setValidator(new QIntValidator(0,INT_MAX, stxEdit));
-        stxEdit->setText("1");
+        stxEdit->setText("001");
 
         rxPWREdit->setValidator(new QDoubleValidator(0, 100000.0, 9));
     }
