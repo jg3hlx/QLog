@@ -165,11 +165,11 @@ LogbookModel::LogbookModel(QObject* parent, QSqlDatabase db)
     setHeaderData(COLUMN_SILENT_KEY, Qt::Horizontal, tr("Silent Key"));
     setHeaderData(COLUMN_SKCC, Qt::Horizontal, tr("SKCC Member"));
     setHeaderData(COLUMN_SOTA_REF, Qt::Horizontal, tr("SOTA"));
-    setHeaderData(COLUMN_SRX, Qt::Horizontal, tr("Contest Serial Number RX"));
-    setHeaderData(COLUMN_SRX_STRING, Qt::Horizontal, tr("Contest Exchange RX"));
+    setHeaderData(COLUMN_SRX, Qt::Horizontal, tr("RcvNr"));
+    setHeaderData(COLUMN_SRX_STRING, Qt::Horizontal, tr("RcvExch"));
     setHeaderData(COLUMN_STATION_CALLSIGN, Qt::Horizontal, tr("Logging Station Callsign"));
-    setHeaderData(COLUMN_STX, Qt::Horizontal, tr("Contest Serial Number TX"));
-    setHeaderData(COLUMN_STX_STRING, Qt::Horizontal, tr("Contest Exchange TX"));
+    setHeaderData(COLUMN_STX, Qt::Horizontal, tr("SentNr"));
+    setHeaderData(COLUMN_STX_STRING, Qt::Horizontal, tr("SentExch"));
     setHeaderData(COLUMN_SWL, Qt::Horizontal, tr("SWL"));
     setHeaderData(COLUMN_TEN_TEN, Qt::Horizontal, tr("Ten-Ten Number"));
     setHeaderData(COLUMN_UKSMG, Qt::Horizontal, tr("UKSMG Member"));

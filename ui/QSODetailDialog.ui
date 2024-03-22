@@ -2008,7 +2008,7 @@
            <item row="0" column="0">
             <widget class="QLabel" name="contestIDLabel">
              <property name="text">
-              <string>Contest Name</string>
+              <string>Contest ID</string>
              </property>
             </widget>
            </item>
