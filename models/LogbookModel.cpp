@@ -154,7 +154,7 @@ LogbookModel::LogbookModel(QObject* parent, QSqlDatabase db)
     setHeaderData(COLUMN_REGION, Qt::Horizontal, tr("Region"));
     setHeaderData(COLUMN_RIG, Qt::Horizontal, tr("Rig (ASCII)"));
     setHeaderData(COLUMN_RIG_INTL, Qt::Horizontal, tr("Rig"));
-    setHeaderData(COLUMN_RX_PWR, Qt::Horizontal, tr("Contact PWR"));
+    setHeaderData(COLUMN_RX_PWR, Qt::Horizontal, tr("RcvPWR"));
     setHeaderData(COLUMN_SAT_MODE, Qt::Horizontal, tr("SAT Mode"));
     setHeaderData(COLUMN_SAT_NAME, Qt::Horizontal, tr("SAT Name"));
     setHeaderData(COLUMN_SFI, Qt::Horizontal, tr("Solar Flux"));

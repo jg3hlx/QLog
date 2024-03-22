@@ -996,6 +996,7 @@ void NewContactWidget::resetContact()
     uiDynamic->ageEdit->clear();
     uiDynamic->srxStringEdit->clear();
     uiDynamic->srxEdit->clear();
+    uiDynamic->rxPWREdit->clear();
 
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1282,6 +1283,13 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         // therefore it is possible to do this
         uiDynamic->stxEdit->setText(QString::number(uiDynamic->stxEdit->text().toInt() + 1));
     }
+
+    if ( record.value("rx_pwr").toString().isEmpty()
+         && uiDynamic->rxPWREdit->isVisible()
+         && !uiDynamic->rxPWREdit->text().isEmpty() )
+    {
+        record.setValue("rx_pwr", uiDynamic->rxPWREdit->text());
+    }
 }
 
 bool NewContactWidget::eventFilter(QObject *object, QEvent *event)
@@ -1483,6 +1491,9 @@ void NewContactWidget::connectFieldChanged()
             this, &NewContactWidget::formFieldChangedString);
 
     connect(uiDynamic->srxEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->rxPWREdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
     /* no other fields are currently considered
@@ -3336,6 +3347,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_STX_STRING, "stx_string", stxStringLabel, stxStringEdit);
     initializeWidgets(LogbookModel::COLUMN_SRX, "srx", srxLabel, srxEdit);
     initializeWidgets(LogbookModel::COLUMN_STX, "stx", stxLabel, stxEdit);
+    initializeWidgets(LogbookModel::COLUMN_RX_PWR, "rx_pwr", rxPWRLabel, rxPWREdit);
 
     if ( allocateWidgets )
     {
@@ -3449,6 +3461,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
 
         stxEdit->setValidator(new QIntValidator(0,INT_MAX, stxEdit));
         stxEdit->setText("1");
+
+        rxPWREdit->setValidator(new QDoubleValidator(0, 100000.0, 9));
     }
 }
 

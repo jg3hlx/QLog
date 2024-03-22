@@ -120,6 +120,9 @@ public:
     QLabel *stxLabel;
     NewContactEditLine *stxEdit;
 
+    QLabel *rxPWRLabel;
+    NewContactEditLine *rxPWREdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);
