@@ -497,6 +497,9 @@ void CWConsoleWidget::expandMacros(QString &text)
     static QRegularExpression myWWFTRE("<MYWWFT>");
     static QRegularExpression myVUCCRE("<MYVUCC>");
     static QRegularExpression myPWRRE("<MYPWR>");
+    static QRegularExpression myEXCHSTRRE("<EXCHSTR>");
+    static QRegularExpression myEXCHNRRE("<EXCHNR>");
+    static QRegularExpression myEXCHNRNRE("<EXCHNRN>");
 
     if ( contact )
     {
@@ -518,5 +521,10 @@ void CWConsoleWidget::expandMacros(QString &text)
         text.replace(myWWFTRE, contact->getMyWWFT().toUpper());
         text.replace(myVUCCRE, contact->getMyVUCC().toUpper());
         text.replace(myPWRRE, contact->getMyPWR().toUpper());
+        text.replace(myEXCHSTRRE, contact->getSentExch().toUpper());
+        text.replace(myEXCHNRRE, contact->getSentNr().rightJustified(3, '0'));
+        text.replace(myEXCHNRNRE, contact->getSentNr().rightJustified(3, '0')
+                                                      .replace('9', 'N')
+                                                      .replace('0', 'T'));
     }
 }

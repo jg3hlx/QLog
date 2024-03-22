@@ -2905,6 +2905,22 @@ QString NewContactWidget::getMode() const
     return ui->modeEdit->currentText();
 }
 
+QString NewContactWidget::getSentNr() const
+{
+    FCT_IDENTIFICATION;
+
+    return (uiDynamic->stxEdit->isVisible()) ? uiDynamic->stxEdit->text()
+                                             : QString();
+}
+
+QString NewContactWidget::getSentExch() const
+{
+    FCT_IDENTIFICATION;
+
+    return (uiDynamic->stxEdit->isVisible()) ? uiDynamic->stxStringEdit->text()
+                                             : QString();
+}
+
 double NewContactWidget::getQSOBearing() const
 {
     FCT_IDENTIFICATION;

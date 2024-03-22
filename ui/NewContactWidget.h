@@ -186,6 +186,8 @@ public:
     QString getMyPWR() const;
     QString getBand() const;
     QString getMode() const;
+    QString getSentNr() const;
+    QString getSentExch() const;
     double getQSOBearing() const;
     double getQSODistance() const;
 

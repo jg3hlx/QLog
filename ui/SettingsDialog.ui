@@ -42,7 +42,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -418,7 +418,7 @@
        <item>
         <widget class="QTabWidget" name="equipmentTabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="documentMode">
           <bool>true</bool>
@@ -1030,7 +1030,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                    <property name="inputMask">
                     <string/>
@@ -1095,7 +1099,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
@@ -1118,7 +1126,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
@@ -1141,7 +1153,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
@@ -1164,7 +1180,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
@@ -1187,7 +1207,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
@@ -1210,7 +1234,11 @@
 &lt;MYSOTA&gt; = MY SOTA
 &lt;MYWWFT&gt; = My WWFT
 &lt;MYVUCC&gt; = MY VUCC
-&lt;MYPWR&gt; = My Power in W</string>
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</string>
                    </property>
                   </widget>
                  </item>
