@@ -5,7 +5,6 @@
 #include <QSqlRecord>
 #include <QCompleter>
 #include <QComboBox>
-#include <QSpinBox>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
@@ -117,6 +116,9 @@ public:
 
     QLabel *srxLabel;
     NewContactEditLine *srxEdit;
+
+    QLabel *stxLabel;
+    NewContactEditLine *stxEdit;
 
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);

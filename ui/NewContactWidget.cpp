@@ -1273,6 +1273,15 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     {
         record.setValue("srx", uiDynamic->srxEdit->text());
     }
+
+    if ( record.value("stx").toString().isEmpty()
+         && uiDynamic->stxEdit->isVisible() )
+    {
+        record.setValue("stx", uiDynamic->stxEdit->text());
+        // the field always contains a number - validator is enable for it
+        // therefore it is possible to do this
+        uiDynamic->stxEdit->setText(QString::number(uiDynamic->stxEdit->text().toInt() + 1));
+    }
 }
 
 bool NewContactWidget::eventFilter(QObject *object, QEvent *event)
@@ -3326,6 +3335,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_SRX_STRING, "srx_string", srxStringLabel, srxStringEdit);
     initializeWidgets(LogbookModel::COLUMN_STX_STRING, "stx_string", stxStringLabel, stxStringEdit);
     initializeWidgets(LogbookModel::COLUMN_SRX, "srx", srxLabel, srxEdit);
+    initializeWidgets(LogbookModel::COLUMN_STX, "stx", stxLabel, stxEdit);
 
     if ( allocateWidgets )
     {
@@ -3436,6 +3446,9 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         contestIDEdit->setToolTip(QCoreApplication::translate("NewContactWidget", "It is not the name of the contest but it is an assigned<br>Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) ", nullptr));
 
         srxEdit->setValidator(new QIntValidator(0,INT_MAX, srxEdit));
+
+        stxEdit->setValidator(new QIntValidator(0,INT_MAX, stxEdit));
+        stxEdit->setText("1");
     }
 }
 
