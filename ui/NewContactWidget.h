@@ -111,6 +111,9 @@ public:
     QLabel *srxStringLabel;
     NewContactEditLine *srxStringEdit;
 
+    QLabel *stxStringLabel;
+    NewContactEditLine *stxStringEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);
