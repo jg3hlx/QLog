@@ -108,6 +108,9 @@ public:
     QLabel *contestIDLabel;
     NewContactEditLine *contestIDEdit;
 
+    QLabel *srxStringLabel;
+    NewContactEditLine *srxStringEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);

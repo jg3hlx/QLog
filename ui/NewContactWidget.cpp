@@ -994,6 +994,7 @@ void NewContactWidget::resetContact()
     ui->dxccStatus->clear();
     ui->flagView->setPixmap(QPixmap());
     uiDynamic->ageEdit->clear();
+    uiDynamic->srxStringEdit->clear();
 
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1253,6 +1254,13 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     {
         record.setValue("contest_id", uiDynamic->contestIDEdit->text());
     }
+
+    if ( record.value("srx_string").toString().isEmpty()
+         && uiDynamic->srxStringEdit->isVisible() )
+    {
+        record.setValue("srx_string", uiDynamic->srxStringEdit->text());
+    }
+
 }
 
 bool NewContactWidget::eventFilter(QObject *object, QEvent *event)
@@ -1445,6 +1453,9 @@ void NewContactWidget::connectFieldChanged()
             this, &NewContactWidget::formFieldChangedString);
 
     connect(uiDynamic->contestIDEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->srxStringEdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
     /* no other fields are currently considered
@@ -3294,6 +3305,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_SAT_NAME, "satName", satNameLabel, satNameEdit);
     initializeWidgets(LogbookModel::COLUMN_SAT_MODE, "satMode", satModeLabel, satModeEdit);
     initializeWidgets(LogbookModel::COLUMN_CONTEST_ID, "contestID", contestIDLabel, contestIDEdit);
+    initializeWidgets(LogbookModel::COLUMN_SRX_STRING, "srx_string", srxStringLabel, srxStringEdit);
 
     if ( allocateWidgets )
     {
