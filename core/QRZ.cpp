@@ -57,8 +57,8 @@ void QRZ::queryCallsign(const QString &callsign)
         return;
     }
 
-    QUrlQuery query;
-    query.addQueryItem("s", sessionId);
+    QUrlQuery params;
+    params.addQueryItem("s", sessionId);
 
     const Callsign qCall(callsign);
 
@@ -66,22 +66,25 @@ void QRZ::queryCallsign(const QString &callsign)
     {
         // currently QRZ.com does not handle correctly prefixes and suffixes.
         // That's why it's better to give it away if possible
-        query.addQueryItem("callsign", qCall.getBase());
+        params.addQueryItem("callsign", qCall.getBase());
     }
     else
     {
-        query.addQueryItem("callsign", callsign);
+        params.addQueryItem("callsign", callsign);
     }
 
     QUrl url(API_URL);
-    url.setQuery(query);
 
     if ( currentReply )
-    {
         qCWarning(runtime) << "processing a new request but the previous one hasn't been completed yet !!!";
-    }
 
-    currentReply = nam->get(QNetworkRequest(url));
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    qCDebug(runtime) << url;
+
+    currentReply = nam->post(request, params.query(QUrl::FullyEncoded).toUtf8());
+
     currentReply->setProperty("queryCallsign", QVariant(callsign));
     currentReply->setProperty("messageType", QVariant("callsignInfoQuery"));
 
@@ -102,7 +105,6 @@ void QRZ::abortQuery()
         currentReply = nullptr;
     }
 }
-
 
 void QRZ::uploadContact(const QSqlRecord &record)
 {
@@ -137,15 +139,12 @@ void QRZ::actionInsert(QByteArray& data, const QString &insertPolicy)
     QUrl url(API_LOGBOOK_URL);
 
     QNetworkRequest request(url);
-
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 
     qCDebug(runtime) << url;
 
     if ( currentReply )
-    {
         qCWarning(runtime) << "processing a new request but the previous one hasn't been completed yet !!!";
-    }
 
     currentReply = nam->post(request, params.query(QUrl::FullyEncoded).toUtf8());
 
@@ -266,20 +265,20 @@ void QRZ::authenticate()
 
     if ( !username.isEmpty() && !password.isEmpty() )
     {
-        QUrlQuery query;
-        query.addQueryItem("username", username.toUtf8().toPercentEncoding());
-        query.addQueryItem("password", password.toUtf8().toPercentEncoding());
-        query.addQueryItem("agent", "QLog");
+        QUrlQuery params;
+        params.addQueryItem("username", username.toUtf8().toPercentEncoding());
+        params.addQueryItem("password", password.toUtf8().toPercentEncoding());
+        params.addQueryItem("agent", "QLog");
 
         QUrl url(API_URL);
-        url.setQuery(query);
 
         if ( currentReply )
-        {
             qCWarning(runtime) << "processing a new request but the previous one hasn't been completed yet !!!";
-        }
 
-        currentReply = nam->get(QNetworkRequest(url));
+        QNetworkRequest request(url);
+        request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+        currentReply = nam->post(request, params.query(QUrl::FullyEncoded).toUtf8());
         currentReply->setProperty("messageType", QVariant("authenticate"));
         lastSeenPassword = password;
     }
