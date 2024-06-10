@@ -840,7 +840,7 @@ void DxWidget::receive()
                                         QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatch toAllSpotMatch;
 
-    static QRegularExpression SHDXFormatRE(QStringLiteral("^ \\s+([0-9|.]+)\\s+([a-zA-Z0-9\\/]+)[^\\s]*\\s+(.*)\\s+(\\d{4}Z) (.*)<([a-zA-Z0-9\\/]+)>$"),
+    static QRegularExpression SHDXFormatRE(QStringLiteral("^\\s{0,8}([0-9|.]+)\\s+([a-zA-Z0-9\\/]+)[^\\s]*\\s+(.*)\\s+(\\d{4}Z) (.*)<([a-zA-Z0-9\\/]+)>$"),
                                         QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatch SHDXFormatMatch;
 
