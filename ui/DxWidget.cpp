@@ -29,6 +29,7 @@
 #include "ui/InputPasswordDialog.h"
 #include "data/BandPlan.h"
 #include "core/DxServerString.h"
+#include "rig/macros.h"
 
 #define CONSOLE_VIEW 4
 #define NUM_OF_RECONNECT_ATTEMPTS 3
@@ -1268,7 +1269,9 @@ void DxWidget::actionCommandSpotQSO()
             double spotFreq = ( lastQSO.contains("freq_rx") ) ? lastQSO.value("freq_rx").toDouble()
                                                               : lastQSO.value("freq").toDouble();
 
-            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(spotFreq, 'f', 3),
+            // DX Spider allow to enter QSO freq in MHz but it is not reliable for SHF bands.
+            // a more reliable way is to send a spot with kHz value
+            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(Hz2kHz(MHz(spotFreq)), 'f', 0),
                                                              lastQSO.value("callsign").toString()));
             ui->commandEdit->setFocus();
         }
