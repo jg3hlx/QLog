@@ -131,6 +131,7 @@ public slots:
     void adjusteServerSelectSize(QString);
     void serverSelectChanged(int);
     void setLastQSO(QSqlRecord);
+    void reloadSetting();
 
 private slots:
     void actionCommandSpotQSO();
