@@ -1265,13 +1265,11 @@ void DxWidget::actionCommandSpotQSO()
         if ( lastQSO.contains(QStringLiteral("freq"))
              && lastQSO.contains(QStringLiteral("callsign")) )
         {
-            QString command;
-            command = "dx " + QString::number(lastQSO.value("freq").toDouble(), 'f', 3)
-                    + " "
-                    + lastQSO.value("callsign").toString()
-                    + " ";
+            double spotFreq = ( lastQSO.contains("freq_rx") ) ? lastQSO.value("freq_rx").toDouble()
+                                                              : lastQSO.value("freq").toDouble();
 
-            ui->commandEdit->setText(command);
+            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(spotFreq, 'f', 3),
+                                                             lastQSO.value("callsign").toString()));
             ui->commandEdit->setFocus();
 //            bool ok;
 //            QString remarks = QInputDialog::getText(this,
