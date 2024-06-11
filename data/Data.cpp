@@ -27,6 +27,9 @@ Data::Data(QObject *parent) :
     loadPOTA();
     loadTZ();
 
+
+    // dxcc_prefixes.exact DESC, dxcc_prefixes.prefix DESC
+    // is used because it prefers an exact-match record over a partial-match records
     isDXCCQueryValid = queryDXCC.prepare(
                 "SELECT "
                 "    dxcc_entities.id, "
@@ -50,8 +53,8 @@ Data::Data(QObject *parent) :
                 "INNER JOIN dxcc_entities ON (dxcc_prefixes.dxcc = dxcc_entities.id) "
                 "WHERE (dxcc_prefixes.prefix = :callsign and dxcc_prefixes.exact = true) "
                 "    OR (dxcc_prefixes.exact = false and :callsign LIKE dxcc_prefixes.prefix || '%') "
-                "ORDER BY dxcc_prefixes.prefix "
-                "DESC LIMIT 1 "
+                "ORDER BY dxcc_prefixes.exact DESC, dxcc_prefixes.prefix DESC "
+                "LIMIT 1 "
                 );
 
     isSOTAQueryValid = querySOTA.prepare(

@@ -217,23 +217,55 @@ void LOVDownloader::parseCTY(const SourceDefinition &sourceDef, QTextStream &dat
         return;
     }
 
-    QSqlTableModel entityTableModel;
-    entityTableModel.setTable(sourceDef.tableName);
-    entityTableModel.setEditStrategy(QSqlTableModel::OnManualSubmit);
-    QSqlRecord entityRecord = entityTableModel.record();
+    QSqlQuery insertEntityQuery;
 
-    QSqlTableModel prefixTableModel;
-    prefixTableModel.setTable("dxcc_prefixes");
-    prefixTableModel.setEditStrategy(QSqlTableModel::OnManualSubmit);
-    prefixTableModel.removeColumn(prefixTableModel.fieldIndex("id"));
-    QSqlRecord prefixRecord = prefixTableModel.record();
+    if ( ! insertEntityQuery.prepare("INSERT INTO dxcc_entities (id,"
+                               "                        name,"
+                               "                        prefix,"
+                               "                        cont,"
+                               "                        cqz,"
+                               "                        ituz,"
+                               "                        lat,"
+                               "                        lon,"
+                               "                        tz) "
+                               " VALUES (               :id,"
+                               "                        :name,"
+                               "                        :prefix,"
+                               "                        :cont,"
+                               "                        :cqz,"
+                               "                        :ituz,"
+                               "                        :lat,"
+                               "                        :lon,"
+                               "                        :tz)") )
+    {
+        qWarning() << "cannot prepare Insert statement - Entity";
+        abortRequested = true;
+    }
 
-    int count = 0;
+    QSqlQuery insertPrefixesQuery;
+
+    if ( ! insertPrefixesQuery.prepare("INSERT INTO dxcc_prefixes ("
+                               "                        prefix,"
+                               "                        exact,"
+                               "                        dxcc,"
+                               "                        cqz,"
+                               "                        ituz) "
+                               " VALUES (               :prefix,"
+                               "                        :exact,"
+                               "                        :dxcc,"
+                               "                        :cqz,"
+                               "                        :ituz)") )
+    {
+        qWarning() << "cannot prepare Insert statement - Prefixes";
+        abortRequested = true;
+    }
+
+    unsigned int count = 0;
 
     while ( !data.atEnd() && !abortRequested )
     {
-        QString line = data.readLine();
-        QStringList fields = line.split(',');
+        const QString &line = data.readLine();
+        const QStringList &fields = line.split(',');
 
         if ( fields.count() != 10 )
         {
@@ -241,86 +273,87 @@ void LOVDownloader::parseCTY(const SourceDefinition &sourceDef, QTextStream &dat
             continue;
         }
         else if ( fields.at(0).startsWith("*") )
-        {
             continue;
-        }
 
         qCDebug(runtime) << fields;
 
         int dxcc_id = fields.at(2).toInt();
 
-        entityRecord.clearValues();
-        entityRecord.setValue("id", dxcc_id);
-        entityRecord.setValue("prefix", fields.at(0));
-        entityRecord.setValue("name", fields.at(1));
-        entityRecord.setValue("cont", fields.at(3));
-        entityRecord.setValue("cqz", fields.at(4));
-        entityRecord.setValue("ituz", fields.at(5));
-        entityRecord.setValue("lat", fields.at(6).toFloat());
-        entityRecord.setValue("lon", -fields.at(7).toFloat());
-        entityRecord.setValue("tz", fields.at(8).toFloat());
-        if ( !entityTableModel.insertRecord(-1, entityRecord) )
+        insertEntityQuery.bindValue(":id", dxcc_id);
+        insertEntityQuery.bindValue(":prefix", fields.at(0));
+        insertEntityQuery.bindValue(":name", fields.at(1));
+        insertEntityQuery.bindValue(":cont", fields.at(3));
+        insertEntityQuery.bindValue(":cqz", fields.at(4));
+        insertEntityQuery.bindValue(":ituz", fields.at(5));
+        insertEntityQuery.bindValue(":lat", fields.at(6).toFloat());
+        insertEntityQuery.bindValue(":lon", -fields.at(7).toFloat());
+        insertEntityQuery.bindValue(":tz", fields.at(8).toFloat());
+
+        if ( ! insertEntityQuery.exec() )
         {
-            qWarning() << "Cannot insert a record to Entity Table - " << entityTableModel.lastError();
-            qCDebug(runtime) << entityRecord;
+            qWarning() << "DXCC Entity insert error "
+                       << insertEntityQuery.lastError().text()
+                       << insertEntityQuery.lastQuery();
+            qCDebug(runtime) << fields;
+            abortRequested = true;
+            continue;
         }
         else
-        {
             count++;
-        }
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-        QStringList prefixList = fields.at(9).split(CTYPrefixSeperatorRe, Qt::SkipEmptyParts);
+        const QStringList &prefixList = fields.at(9).split(CTYPrefixSeperatorRe, Qt::SkipEmptyParts);
 #else /* Due to ubuntu 20.04 where qt5.12 is present */
-        QStringList prefixList = fields.at(9).split(CTYPrefixSeperatorRe, QString::SkipEmptyParts);
+        const QStringList &prefixList = fields.at(9).split(CTYPrefixSeperatorRe, QString::SkipEmptyParts);
 #endif
         qCDebug(runtime) << prefixList;
 
         QStringList dup;
 
-        for (auto &prefix : qAsConst(prefixList))
+        for ( auto &prefix : prefixList )
         {
             matchExp = CTYPrefixFormatRe.match(prefix);
             if ( matchExp.hasMatch() )
             {
                 // removing duplicities in CTY file.
-                QString pfx = matchExp.captured(2);
+                const QString &pfx = matchExp.captured(2);
 
-                if ( !dup.contains(pfx))
+                if ( !dup.contains(pfx) )
                 {
                     dup << pfx;
+                    insertPrefixesQuery.bindValue(":prefix", pfx);
+                    insertPrefixesQuery.bindValue(":exact", !matchExp.captured(1).isEmpty());
+                    insertPrefixesQuery.bindValue(":dxcc", dxcc_id);
+                    insertPrefixesQuery.bindValue(":cqz", matchExp.captured(3).toInt());
+                    insertPrefixesQuery.bindValue(":ituz", matchExp.captured(4).toInt());
 
-                    prefixRecord.clearValues();
-                    prefixRecord.setValue("dxcc", dxcc_id);
-                    prefixRecord.setValue("exact", !matchExp.captured(1).isEmpty());
-                    prefixRecord.setValue("prefix", pfx);
-                    prefixRecord.setValue("cqz", matchExp.captured(3).toInt());
-                    prefixRecord.setValue("ituz", matchExp.captured(4).toInt());
-
-                    if ( !prefixTableModel.insertRecord(-1, prefixRecord) )
+                    if ( ! insertPrefixesQuery.exec() )
                     {
-                        qWarning() << "Cannot insert a record to DXCC Table - " << prefixTableModel.lastError();
-                        qCDebug(runtime) << prefixRecord;
+                        qWarning() << "DXCC Prefix insert error "
+                                   << insertPrefixesQuery.lastError().text()
+                                   << insertPrefixesQuery.lastQuery();
+                        qCDebug(runtime) << prefix << prefixList;
+                        abortRequested = true;
                     }
                 }
                 else
-                {
-                    qCDebug(runtime) << "Removing non-unique prefix" << pfx;
-                }
+                    qWarning() << "Removing non-unique prefix" << pfx;
             }
             else
-            {
                 qCDebug(runtime) << "Failed to match " << prefix;
-            }
+        }
+
+        if ( count% 20 == 0 )
+        {
+            emit progress(data.pos());
+            QCoreApplication::processEvents();
         }
 
         emit progress(data.pos());
         QCoreApplication::processEvents();
     }
 
-    if ( entityTableModel.submitAll()
-         && prefixTableModel.submitAll()
-         && !abortRequested )
+    if ( !abortRequested )
     {
         qCDebug(runtime) << "DXCC update finished:" << count << "entities loaded.";
         QSqlDatabase::database().commit();
@@ -328,7 +361,7 @@ void LOVDownloader::parseCTY(const SourceDefinition &sourceDef, QTextStream &dat
     else
     {
         //can be a result of abort
-        qCWarning(runtime) << "DXCC update failed - rollback" << entityTableModel.lastError();
+        qCWarning(runtime) << "DXCC update failed - rollback";
         QSqlDatabase::database().rollback();
     }
 }
