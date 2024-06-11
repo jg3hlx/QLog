@@ -38,6 +38,7 @@ private:
     bool createTriggers();
     bool importQSLCards2DB();
     bool fillCQITUZStationProfiles();
+    bool resetCTYLastDate();
     QString fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl);
     bool refreshUploadStatusTrigger();
 

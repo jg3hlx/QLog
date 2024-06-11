@@ -337,7 +337,7 @@ void LOVDownloader::parseCTY(const SourceDefinition &sourceDef, QTextStream &dat
                     }
                 }
                 else
-                    qWarning() << "Removing non-unique prefix" << pfx;
+                    qCDebug(runtime) << "Removing non-unique prefix" << pfx;
             }
             else
                 qCDebug(runtime) << "Failed to match " << prefix;
