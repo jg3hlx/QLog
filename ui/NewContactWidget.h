@@ -245,6 +245,7 @@ private slots:
 
 private:
     void fillFieldsFromLastQSO(const QString &callsign);
+    void setCurrentDxcc(const DxccEntity &curr);
     void queryDxcc(const QString &callsign);
     void clearCallbookQueryFields();
     void clearMemberQueryFields();

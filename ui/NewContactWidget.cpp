@@ -423,14 +423,12 @@ void NewContactWidget::editCallsignFinished()
     }
 }
 
-/* Obtain DXCC info from local database */
-void NewContactWidget::queryDxcc(const QString &callsign)
+
+void NewContactWidget::setCurrentDxcc(const DxccEntity &curr)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << callsign;
-
-    dxccEntity = Data::instance()->lookupDxcc(callsign);
+    dxccEntity = curr;
 
     if ( dxccEntity.dxcc )
     {
@@ -440,16 +438,16 @@ void NewContactWidget::queryDxcc(const QString &callsign)
         updateCoordinates(dxccEntity.latlon[0], dxccEntity.latlon[1], COORD_DXCC);
         ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
         uiDynamic->contEdit->setCurrentText(dxccEntity.cont);
+
         updateDxccStatus();
+
         if ( !dxccEntity.flag.isEmpty() )
         {
             QPixmap flag(QString(":/flags/64/%1.png").arg(dxccEntity.flag));
             ui->flagView->setPixmap(flag);
         }
         else
-        {
             ui->flagView->setPixmap(QPixmap());
-        }
     }
     else
     {
@@ -468,6 +466,16 @@ void NewContactWidget::queryDxcc(const QString &callsign)
 
         emit newTarget(qQNaN(), qQNaN());
     }
+}
+
+/* Obtain DXCC info from local database */
+void NewContactWidget::queryDxcc(const QString &callsign)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << callsign;
+
+    setCurrentDxcc(Data::instance()->lookupDxcc(callsign));
 }
 
 void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
@@ -649,8 +657,19 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
         ui->lotwLabel->setText("LoTW");
     }
 
-    // always replace cqz/itu
+    if ( !data.value("dxcc").isEmpty() )
+    {
+        int callbookDXCC = data.value("dxcc").toInt();
 
+        if ( callbookDXCC != 0 && callbookDXCC != dxccEntity.dxcc )
+        {
+            qCDebug(runtime) << "Received different DXCC Info" << data.value("dxcc")
+                             << dxccEntity.dxcc;
+            setCurrentDxcc(Data::instance()->lookupDxccID(callbookDXCC));
+        }
+    }
+
+    // always replace cqz/itu
     if ( !data.value("ituz").isEmpty() )
         uiDynamic->ituEdit->setText(data.value("ituz"));
 
