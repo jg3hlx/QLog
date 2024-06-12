@@ -48,13 +48,21 @@ Data::Data(QObject *parent) :
                 "    END AS ituz , "
                 "    dxcc_entities.lat, "
                 "    dxcc_entities.lon, "
-                "    dxcc_entities.tz "
+                "    dxcc_entities.tz, "
+                "    dxcc_prefixes.exact "
                 "FROM dxcc_prefixes "
                 "INNER JOIN dxcc_entities ON (dxcc_prefixes.dxcc = dxcc_entities.id) "
                 "WHERE (dxcc_prefixes.prefix = :callsign and dxcc_prefixes.exact = true) "
                 "    OR (dxcc_prefixes.exact = false and :callsign LIKE dxcc_prefixes.prefix || '%') "
                 "ORDER BY dxcc_prefixes.exact DESC, dxcc_prefixes.prefix DESC "
                 "LIMIT 1 "
+                );
+
+    isDXCCIDQueryValid = queryDXCCID.prepare(
+                " SELECT dxcc_entities.id, dxcc_entities.name, dxcc_entities.prefix, dxcc_entities.cont, "
+                "        dxcc_entities.cqz, dxcc_entities.ituz, dxcc_entities.lat, dxcc_entities.lon, dxcc_entities.tz "
+                " FROM dxcc_entities "
+                " WHERE dxcc_entities.id = :dxccid"
                 );
 
     isSOTAQueryValid = querySOTA.prepare(
@@ -752,20 +760,11 @@ DxccEntity Data::lookupDxcc(const QString &callsign)
         return  DxccEntity();
 
     DxccEntity dxccRet;
-    DxccEntity * dxccCached = localCache.object(callsign);
+    DxccEntity *dxccCached = localCache.object(callsign);
 
     if ( dxccCached )
     {
-        dxccRet.dxcc = dxccCached->dxcc;
-        dxccRet.country = dxccCached->country;
-        dxccRet.prefix = dxccCached->prefix;
-        dxccRet.cont = dxccCached->cont;
-        dxccRet.cqz = dxccCached->cqz;
-        dxccRet.ituz = dxccCached->ituz;
-        dxccRet.latlon[0] = dxccCached->latlon[0];
-        dxccRet.latlon[1] = dxccCached->latlon[1];
-        dxccRet.tz = dxccCached->tz;
-        dxccRet.flag = dxccCached->flag;
+        dxccRet = *dxccCached;
     }
     else
     {
@@ -804,7 +803,8 @@ DxccEntity Data::lookupDxcc(const QString &callsign)
             qWarning() << "Cannot execute Select statement" << queryDXCC.lastError() << queryDXCC.lastQuery();
             return DxccEntity();
         }
-        if (queryDXCC.next())
+
+        if ( queryDXCC.next() )
         {
             dxccRet.dxcc = queryDXCC.value(0).toInt();
             dxccRet.country = queryDXCC.value(1).toString();
@@ -815,24 +815,27 @@ DxccEntity Data::lookupDxcc(const QString &callsign)
             dxccRet.latlon[0] = queryDXCC.value(6).toDouble();
             dxccRet.latlon[1] = queryDXCC.value(7).toDouble();
             dxccRet.tz = queryDXCC.value(8).toFloat();
+            bool isExactMatch = queryDXCC.value(9).toBool();
             dxccRet.flag = flags.value(dxccRet.dxcc);
+
+            if ( !isExactMatch )
+            {
+                // find the exceptions to the exceptions
+                if (  dxccRet.prefix == "KG4" && parsedCallsign.getBase().size() != 5 )
+                {
+                    //only KG4AA - KG4ZZ are US Navy in Guantanamo Bay. Other KG4s are USA
+                    dxccRet = lookupDxccID(291); // USA
+
+                    //do not overwrite the original prefix
+                    dxccRet.prefix = "KG4";
+                }
+            }
 
             dxccCached = new DxccEntity;
 
             if ( dxccCached )
             {
-
-                dxccCached->dxcc = dxccRet.dxcc;
-                dxccCached->country = dxccRet.country;
-                dxccCached->prefix = dxccRet.prefix;
-                dxccCached->cont = dxccRet.cont;
-                dxccCached->cqz = dxccRet.cqz;
-                dxccCached->ituz = dxccRet.ituz;
-                dxccCached->latlon[0] = dxccRet.latlon[0];
-                dxccCached->latlon[1] = dxccRet.latlon[1];
-                dxccCached->tz = dxccRet.tz;
-                dxccCached->flag = dxccRet.flag;
-
+                *dxccCached = dxccRet;
                 localCache.insert(callsign, dxccCached);
             }
         }
@@ -845,6 +848,50 @@ DxccEntity Data::lookupDxcc(const QString &callsign)
         }
     }
 
+    return dxccRet;
+}
+
+DxccEntity Data::lookupDxccID(const int dxccID)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << dxccID;
+
+    if ( !isDXCCIDQueryValid )
+    {
+        qWarning() << "Cannot prepare Select statement";
+        return DxccEntity();
+    }
+
+    queryDXCCID.bindValue(":dxccid", dxccID);
+    if ( ! queryDXCCID.exec() )
+    {
+        qWarning() << "Cannot execte Select statement" << queryDXCCID.lastError();
+        return DxccEntity();
+    }
+
+    DxccEntity dxccRet;
+
+    if ( queryDXCCID.next() )
+    {
+        dxccRet.dxcc = queryDXCCID.value(0).toInt();
+        dxccRet.country = queryDXCCID.value(1).toString();
+        dxccRet.prefix = queryDXCCID.value(2).toString();
+        dxccRet.cont = queryDXCCID.value(3).toString();
+        dxccRet.cqz = queryDXCCID.value(4).toInt();
+        dxccRet.ituz = queryDXCCID.value(5).toInt();
+        dxccRet.latlon[0] = queryDXCCID.value(6).toDouble();
+        dxccRet.latlon[1] = queryDXCCID.value(7).toDouble();
+        dxccRet.tz = queryDXCCID.value(8).toFloat();
+        dxccRet.flag = flags.value(dxccRet.dxcc);
+    }
+    else
+    {
+        dxccRet.dxcc = 0;
+        dxccRet.ituz = 0;
+        dxccRet.cqz = 0;
+        dxccRet.tz = 0;
+    }
     return dxccRet;
 }
 

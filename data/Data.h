@@ -93,6 +93,7 @@ public:
     QString propagationModeTextToID(const QString &propagationText) { return propagationModes.key(propagationText);}
     QString propagationModeIDToText(const QString &propagationID) { return propagationModes.value(propagationID);}
     DxccEntity lookupDxcc(const QString &callsign);
+    DxccEntity lookupDxccID(const int dxccID);
     SOTAEntity lookupSOTA(const QString &SOTACode);
     POTAEntity lookupPOTA(const QString &POTACode);
     WWFFEntity lookupWWFF(const QString &reference);
@@ -137,6 +138,7 @@ private:
     QMap<QString, QString> potaRefID;
     ZoneDetect * zd;
     QSqlQuery queryDXCC;
+    QSqlQuery queryDXCCID;
     QSqlQuery querySOTA;
     QSqlQuery queryWWFF;
     QSqlQuery queryPOTA;
@@ -144,6 +146,7 @@ private:
     bool isSOTAQueryValid;
     bool isWWFFQueryValid;
     bool isPOTAQueryValid;
+    bool isDXCCIDQueryValid;
 
     static const char translitTab[];
     static const int tranlitIndexMap[];
