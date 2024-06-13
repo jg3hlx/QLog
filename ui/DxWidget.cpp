@@ -29,6 +29,7 @@
 #include "ui/InputPasswordDialog.h"
 #include "data/BandPlan.h"
 #include "core/DxServerString.h"
+#include "rig/macros.h"
 
 #define CONSOLE_VIEW 4
 #define NUM_OF_RECONNECT_ATTEMPTS 3
@@ -36,19 +37,23 @@
 
 MODULE_IDENTIFICATION("qlog.ui.dxwidget");
 
-int DxTableModel::rowCount(const QModelIndex&) const {
+int DxTableModel::rowCount(const QModelIndex&) const
+{
     return dxData.count();
 }
 
-int DxTableModel::columnCount(const QModelIndex&) const {
+int DxTableModel::columnCount(const QModelIndex&) const
+{
     return 11;
 }
 
 QVariant DxTableModel::data(const QModelIndex& index, int role) const
 {
-    if (role == Qt::DisplayRole) {
-        DxSpot spot = dxData.at(index.row());
-        switch (index.column()) {
+    if ( role == Qt::DisplayRole )
+    {
+        const DxSpot &spot = dxData.at(index.row());
+        switch ( index.column() )
+        {
         case 0:
             return spot.time.toString(locale.formatTimeLongWithoutTZ());
         case 1:
@@ -75,26 +80,25 @@ QVariant DxTableModel::data(const QModelIndex& index, int role) const
             return QVariant();
         }
     }
-    else if (index.column() == 1 && role == Qt::BackgroundRole) {
-        DxSpot spot = dxData.at(index.row());
+    else if (index.column() == 1 && role == Qt::BackgroundRole)
+    {
+        const DxSpot &spot = dxData.at(index.row());
         return Data::statusToColor(spot.status, QColor(Qt::transparent));
     }
-    else if (index.column() == 1 && role == Qt::ToolTipRole) {
-        DxSpot spot = dxData.at(index.row());
+    else if (index.column() == 1 && role == Qt::ToolTipRole)
+    {
+        const DxSpot &spot = dxData.at(index.row());
         return QCoreApplication::translate("DBStrings", spot.dxcc.country.toUtf8().constData()) + " [" + Data::statusToText(spot.status) + "]";
     }
-    /*else if (index.column() == 1 && role == Qt::ForegroundRole) {
-        DxSpot spot = dxData.at(index.row());
-        return Data::statusToInverseColor(spot.status, QColor(Qt::black));
-    }*/
-
     return QVariant();
 }
 
-QVariant DxTableModel::headerData(int section, Qt::Orientation orientation, int role) const {
+QVariant DxTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal) return QVariant();
 
-    switch (section) {
+    switch ( section )
+    {
     case 0: return tr("Time");
     case 1: return tr("Callsign");
     case 2: return tr("Frequency");
@@ -143,11 +147,13 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
     return shouldInsert;
 }
 
-QString DxTableModel::getCallsign(const QModelIndex& index) {
+QString DxTableModel::getCallsign(const QModelIndex& index)
+{
     return dxData.at(index.row()).callsign;
 }
 
-double DxTableModel::getFrequency(const QModelIndex& index) {
+double DxTableModel::getFrequency(const QModelIndex& index)
+{
     return dxData.at(index.row()).freq;
 }
 
@@ -156,7 +162,8 @@ BandPlan::BandPlanMode DxTableModel::getBandPlanode(const QModelIndex &index)
     return dxData.at(index.row()).bandPlanMode;
 }
 
-void DxTableModel::clear() {
+void DxTableModel::clear()
+{
     beginResetModel();
     dxData.clear();
     endResetModel();
@@ -176,9 +183,10 @@ QVariant WCYTableModel::data(const QModelIndex& index, int role) const
 {
     if ( role == Qt::DisplayRole )
     {
-        WCYSpot spot = wcyData.at(index.row());
+        const WCYSpot &spot = wcyData.at(index.row());
 
-        switch (index.column()) {
+        switch ( index.column() )
+        {
         case 0:
             return spot.time.toString(locale.formatTimeLongWithoutTZ());
         case 1:
@@ -208,7 +216,7 @@ QVariant WCYTableModel::headerData(int section, Qt::Orientation orientation, int
 {
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal) return QVariant();
 
-    switch (section)
+    switch ( section )
     {
     case 0: return tr("Time");
     case 1: return tr("K");
@@ -253,9 +261,10 @@ QVariant WWVTableModel::data(const QModelIndex& index, int role) const
 
     if ( role == Qt::DisplayRole )
     {
-        WWVSpot spot = wwvData.at(index.row());
+        const WWVSpot &spot = wwvData.at(index.row());
 
-        switch (index.column()) {
+        switch ( index.column() )
+        {
         case 0:
             return spot.time.toString(locale.formatTimeLongWithoutTZ());
         case 1:
@@ -277,7 +286,7 @@ QVariant WWVTableModel::headerData(int section, Qt::Orientation orientation, int
 {
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal) return QVariant();
 
-    switch (section)
+    switch ( section )
     {
     case 0: return tr("Time");
     case 1: return tr("SFI");
@@ -318,7 +327,7 @@ QVariant ToAllTableModel::data(const QModelIndex& index, int role) const
 
     if ( role == Qt::DisplayRole )
     {
-        ToAllSpot spot = toAllData.at(index.row());
+        const ToAllSpot &spot = toAllData.at(index.row());
 
         switch (index.column()) {
         case 0:
@@ -338,7 +347,7 @@ QVariant ToAllTableModel::headerData(int section, Qt::Orientation orientation, i
 {
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal) return QVariant();
 
-    switch (section)
+    switch ( section )
     {
     case 0: return tr("Time");
     case 1: return tr("Spotter");
@@ -758,15 +767,11 @@ void DxWidget::saveWidgetSetting()
     FCT_IDENTIFICATION;
 
     QSettings settings;
-    QByteArray state = ui->dxTable->horizontalHeader()->saveState();
-    settings.setValue("dxc/dxtablestate", state);
-    state = ui->wcyTable->horizontalHeader()->saveState();
-    settings.setValue("dxc/wcytablestate", state);
-    state = ui->wwvTable->horizontalHeader()->saveState();
-    settings.setValue("dxc/wwvtablestate", state);
-    state = ui->toAllTable->horizontalHeader()->saveState();
-    settings.setValue("dxc/toalltablestate", state);
 
+    settings.setValue("dxc/dxtablestate", ui->dxTable->horizontalHeader()->saveState());
+    settings.setValue("dxc/wcytablestate", ui->wcyTable->horizontalHeader()->saveState());
+    settings.setValue("dxc/wwvtablestate", ui->wwvTable->horizontalHeader()->saveState());
+    settings.setValue("dxc/toalltablestate", ui->toAllTable->horizontalHeader()->saveState());
     settings.setValue("dxc/consolefontsize", ui->log->font().pointSize());
 }
 
@@ -848,10 +853,9 @@ void DxWidget::receive()
     static QRegularExpression loginRE(QStringLiteral("enter your call(sign)?:"));
 
     reconnectAttempts = 0;
-    QString data(QString::fromUtf8(socket->readAll()));
-    QStringList lines = data.split(splitLineRE);
+    const QStringList &lines = QString::fromUtf8(socket->readAll()).split(splitLineRE);
 
-    for ( const QString &line : qAsConst(lines) )
+    for ( const QString &line : lines )
     {
         if ( !socket || !connectedServerString )
         {
@@ -1195,23 +1199,23 @@ void DxWidget::entryDoubleClicked(QModelIndex index)
 void DxWidget::actionFilter()
 {
     FCT_IDENTIFICATION;
-  DxFilterDialog dialog;
+    DxFilterDialog dialog;
 
-  if (dialog.exec() == QDialog::Accepted)
-  {
-      moderegexp.setPattern(modeFilterRegExp());
-      contregexp.setPattern(contFilterRegExp());
-      spottercontregexp.setPattern(spotterContFilterRegExp());
-      bandregexp.setPattern(bandFilterRegExp());
-      dxccStatusFilter = dxccStatusFilterValue();
-      deduplicateSpots = spotDedupValue();
-      QStringList tmp = dxMemberList();
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        moderegexp.setPattern(modeFilterRegExp());
+        contregexp.setPattern(contFilterRegExp());
+        spottercontregexp.setPattern(spotterContFilterRegExp());
+        bandregexp.setPattern(bandFilterRegExp());
+        dxccStatusFilter = dxccStatusFilterValue();
+        deduplicateSpots = spotDedupValue();
+        QStringList tmp = dxMemberList();
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-      dxMemberFilter = QSet<QString>(tmp.begin(), tmp.end());
+        dxMemberFilter = QSet<QString>(tmp.begin(), tmp.end());
 #else /* Due to ubuntu 20.04 where qt5.12 is present */
-      dxMemberFilter = QSet<QString>(QSet<QString>::fromList(tmp));
+        dxMemberFilter = QSet<QString>(QSet<QString>::fromList(tmp));
 #endif
-  }
+    }
 }
 
 void DxWidget::adjusteServerSelectSize(QString input)
@@ -1265,38 +1269,14 @@ void DxWidget::actionCommandSpotQSO()
         if ( lastQSO.contains(QStringLiteral("freq"))
              && lastQSO.contains(QStringLiteral("callsign")) )
         {
-            QString command;
-            command = "dx " + QString::number(lastQSO.value("freq").toDouble(), 'f', 3)
-                    + " "
-                    + lastQSO.value("callsign").toString()
-                    + " ";
+            double spotFreq = ( lastQSO.contains("freq_rx") ) ? lastQSO.value("freq_rx").toDouble()
+                                                              : lastQSO.value("freq").toDouble();
 
-            ui->commandEdit->setText(command);
+            // DX Spider allow to enter QSO freq in MHz but it is not reliable for SHF bands.
+            // a more reliable way is to send a spot with kHz value
+            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(Hz2kHz(MHz(spotFreq)), 'f', 0),
+                                                             lastQSO.value("callsign").toString()));
             ui->commandEdit->setFocus();
-//            bool ok;
-//            QString remarks = QInputDialog::getText(this,
-//                                                 tr("DX Spot"),
-//                                                 tr("Callsign: ") + "<b>" + lastQSO.value("callsign").toString() + "</b>"
-//                                                 + " "
-//                                                 + tr("Frequency: ") + "<b>" + QString::number(lastQSO.value("freq").toDouble(), 'f', 3) + "</b>"
-//                                                 + "<br>"
-//                                                 + tr("Remarks:"),
-//                                                 QLineEdit::Normal,
-//                                                 QString(),
-//                                                 &ok,
-//                                                 Qt::Dialog);
-//            if ( ok )
-//            {
-//                QString command;
-//                command = "dx " + QString::number(lastQSO.value("freq").toDouble(), 'f', 3)
-//                          + " "
-//                          + lastQSO.value("callsign").toString()
-//                          + " "
-//                          + remarks;
-
-//                sendCommand(command);
-//                lastQSO.clear();
-//            }
         }
     }
     ui->commandButton->setDefaultAction(ui->actionSpotQSO);
