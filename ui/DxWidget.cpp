@@ -446,19 +446,7 @@ DxWidget::DxWidget(QWidget *parent) :
     spottercontregexp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
     bandregexp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
-    moderegexp.setPattern(modeFilterRegExp());
-    contregexp.setPattern(contFilterRegExp());
-    spottercontregexp.setPattern(spotterContFilterRegExp());
-    bandregexp.setPattern(bandFilterRegExp());
-    dxccStatusFilter = dxccStatusFilterValue();
-    deduplicateSpots = spotDedupValue();
-    QStringList tmp = dxMemberList();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-    dxMemberFilter = QSet<QString>(tmp.begin(), tmp.end());
-#else /* Due to ubuntu 20.04 where qt5.12 is present */
-    dxMemberFilter = QSet<QString>(QSet<QString>::fromList(tmp));
-#endif
-
+    reloadSetting();
     serverComboSetup();
 
     QMenu *commandsMenu = new QMenu(this);
@@ -845,7 +833,7 @@ void DxWidget::receive()
                                         QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatch toAllSpotMatch;
 
-    static QRegularExpression SHDXFormatRE(QStringLiteral("^ \\s+([0-9|.]+)\\s+([a-zA-Z0-9\\/]+)[^\\s]*\\s+(.*)\\s+(\\d{4}Z) (.*)<([a-zA-Z0-9\\/]+)>$"),
+    static QRegularExpression SHDXFormatRE(QStringLiteral("^\\s{0,8}([0-9|.]+)\\s+([a-zA-Z0-9\\/]+)[^\\s]*\\s+(.*)\\s+(\\d{4}Z) (.*)<([a-zA-Z0-9\\/]+)>$"),
                                         QRegularExpression::CaseInsensitiveOption);
     QRegularExpressionMatch SHDXFormatMatch;
 
@@ -1199,23 +1187,11 @@ void DxWidget::entryDoubleClicked(QModelIndex index)
 void DxWidget::actionFilter()
 {
     FCT_IDENTIFICATION;
+
     DxFilterDialog dialog;
 
     if (dialog.exec() == QDialog::Accepted)
-    {
-        moderegexp.setPattern(modeFilterRegExp());
-        contregexp.setPattern(contFilterRegExp());
-        spottercontregexp.setPattern(spotterContFilterRegExp());
-        bandregexp.setPattern(bandFilterRegExp());
-        dxccStatusFilter = dxccStatusFilterValue();
-        deduplicateSpots = spotDedupValue();
-        QStringList tmp = dxMemberList();
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-        dxMemberFilter = QSet<QString>(tmp.begin(), tmp.end());
-#else /* Due to ubuntu 20.04 where qt5.12 is present */
-        dxMemberFilter = QSet<QString>(QSet<QString>::fromList(tmp));
-#endif
-    }
+        reloadSetting();
 }
 
 void DxWidget::adjusteServerSelectSize(QString input)
@@ -1255,6 +1231,24 @@ void DxWidget::setLastQSO(QSqlRecord qsoRecord)
     FCT_IDENTIFICATION;
 
     lastQSO = qsoRecord;
+}
+
+void DxWidget::reloadSetting()
+{
+    FCT_IDENTIFICATION;
+
+    moderegexp.setPattern(modeFilterRegExp());
+    contregexp.setPattern(contFilterRegExp());
+    spottercontregexp.setPattern(spotterContFilterRegExp());
+    bandregexp.setPattern(bandFilterRegExp());
+    dxccStatusFilter = dxccStatusFilterValue();
+    deduplicateSpots = spotDedupValue();
+    QStringList tmp = dxMemberList();
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+    dxMemberFilter = QSet<QString>(tmp.begin(), tmp.end());
+#else /* Due to ubuntu 20.04 where qt5.12 is present */
+    dxMemberFilter = QSet<QString>(QSet<QString>::fromList(tmp));
+#endif
 }
 
 void DxWidget::actionCommandSpotQSO()

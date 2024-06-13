@@ -160,6 +160,16 @@ BandPlan::BandPlanMode BandPlan::freq2BandMode(const double freq)
     else if (freq >= 1296.15 && freq < 1296.4) return BAND_MODE_CW;
     else if (freq >= 1296.4 && freq < 1300.0) return BAND_MODE_PHONE;
 
+    // 3cm QO100
+    // at the moment there is no other satellite that would be used, so we can afford it.
+    // It will not affect tropo operation, because it is in the lower part of the band.
+    else if (freq >= 10489.505 && freq < 10489.540) return BAND_MODE_CW;
+    else if (freq >= 10489.540 && freq < 10489.580) return BAND_MODE_FT8;
+    else if (freq >= 10489.580 && freq < 10489.650) return BAND_MODE_DIGITAL;
+    else if (freq >= 10489.650 && freq < 10489.745) return BAND_MODE_USB;
+    else if (freq >= 10489.755 && freq < 10489.850) return BAND_MODE_USB;
+    else if (freq >= 10489.850 && freq < 10489.990) return BAND_MODE_PHONE;
+
     return BAND_MODE_PHONE;
 }
 
