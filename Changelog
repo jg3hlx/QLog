@@ -1,4 +1,5 @@
 TBC - 0.37.0
+- [CHANGED] - QRZ auth should be over POST with form data (issue #389)
 
 2024/06/07 - 0.36.0
 - [NEW] - WSJTX: Added support to received ADIF QSO Log record
