@@ -1,5 +1,7 @@
 TBC - 0.37.0
 - [CHANGED] - QRZ auth should be over POST with form data (issue #389)
+- Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
+- Fixed Spot Last QSO must contain Freq in kHz (issue #391)
 
 2024/06/07 - 0.36.0
 - [NEW] - WSJTX: Added support to received ADIF QSO Log record
