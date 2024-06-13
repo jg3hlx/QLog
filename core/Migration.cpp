@@ -203,6 +203,9 @@ bool Migration::functionMigration(int version)
     case 26:
         ret = fillCQITUZStationProfiles();
         break;
+    case 28:
+        ret = resetCTYLastDate();
+        break;
     default:
         ret = true;
     }
@@ -622,6 +625,16 @@ bool Migration::fillCQITUZStationProfiles()
         }
     }
 
+    return true;
+}
+
+bool Migration::resetCTYLastDate()
+{
+    FCT_IDENTIFICATION;
+
+    // to force redownload CTY file
+    QSettings settings;
+    settings.remove("last_cty_update");
     return true;
 }
 

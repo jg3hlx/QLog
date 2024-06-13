@@ -63,7 +63,7 @@ private:
 
     QMap<SourceType, SourceDefinition> sourceMapping = {
         {CTY, SourceDefinition(CTY,
-                               "http://www.country-files.com/cty/cty.csv",
+                               "https://www.country-files.com/bigcty/cty.csv",
                                "cty.csv",
                                "last_cty_update",
                                "dxcc_entities",

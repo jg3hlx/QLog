@@ -38,10 +38,11 @@ private:
     bool createTriggers();
     bool importQSLCards2DB();
     bool fillCQITUZStationProfiles();
+    bool resetCTYLastDate();
     QString fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl);
     bool refreshUploadStatusTrigger();
 
-    static const int latestVersion = 27;
+    static const int latestVersion = 28;
 };
 
 #endif // QLOG_CORE_MIGRATION_H

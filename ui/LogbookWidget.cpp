@@ -269,14 +269,10 @@ void LogbookWidget::filterCallsign(const QString &call)
 {
     FCT_IDENTIFICATION;
 
-    if ( !call.isEmpty() )
-    {
-       ui->callsignFilter->setText(call);
-    }
-    else
-    {
-       ui->callsignFilter->setText("");
-    }
+    if ( call == ui->callsignFilter->text() )
+        return;
+
+    ui->callsignFilter->setText(call);
 }
 
 void LogbookWidget::callsignFilterChanged()
