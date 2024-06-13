@@ -2,6 +2,9 @@ TBC - 0.37.0
 - [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots
 - [NEW] - Improveded detection of SH/DX SHF Spots
 - [CHANGED] - QRZ auth should be over POST with form data (issue #389)
+- [CHANGED] - Big CTY file is used
+- [CHANGED] - Callbook Country DXCC ID is used in case of difference from Big CTY
+- Fixed Guantanamo KG4 Issue (issue #372)
 - Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
 - Fixed Spot Last QSO must contain Freq in kHz (issue #391)
 
