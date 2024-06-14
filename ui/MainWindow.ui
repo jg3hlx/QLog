@@ -578,6 +578,182 @@
     <string>Profile Image</string>
    </property>
   </action>
+  <action name="actionSearchCallsign">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">Search Callsign</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Search Callsign</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionAddBandmapMark">
+   <property name="text">
+    <string notr="true">Add Bandmap Mark</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Add Bandmap Mark</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionBandSwitchDown">
+   <property name="text">
+    <string notr="true">Band Switch Down</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Band Switch Down</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+PgDown</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionBandSwitchUp">
+   <property name="text">
+    <string notr="true">Band Switch Up</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Band Switch Up</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+PgUp</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionUseNearestCallsign">
+   <property name="text">
+    <string notr="true">Nearest Callsign</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">Nearest Callsign</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Return</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionCWSpeedUp">
+   <property name="text">
+    <string notr="true">CW Speed Up</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">CW Speed Up</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Up</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionCWSpeedDown">
+   <property name="text">
+    <string notr="true">CW Speed Down</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">CW Speed Down</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Down</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionCWProfileUp">
+   <property name="text">
+    <string notr="true">CW Profile Up</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">CW Profile Up</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Right</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionCWProfileDown">
+   <property name="text">
+    <string notr="true">CW Profile Down</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">CW Profile Down</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Left</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionPTTOn">
+   <property name="text">
+    <string notr="true">PTT On</string>
+   </property>
+   <property name="toolTip">
+    <string notr="true">PTT On</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+\</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

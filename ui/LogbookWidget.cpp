@@ -190,8 +190,6 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     clublog = new ClubLog(this);
 
-    new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_F), this, SLOT(focusSearchCallsign()), nullptr, Qt::ApplicationShortcut);
-
     restoreFilters();
 }
 

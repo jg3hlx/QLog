@@ -95,6 +95,7 @@ private:
     QSettings settings;
     bool isFusionStyle;
     ClubLog* clublogRT;
+    QList<QAction *> globalShortcutActions;
 
     void setDarkMode();
     void setLightMode();

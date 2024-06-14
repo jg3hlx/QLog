@@ -223,16 +223,13 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     ui->rstSentEdit->installEventFilter(this);
     ui->rstRcvdEdit->installEventFilter(this);
 
-    /**************/
-    /* SHORTCUTs  */
-    /**************/
+    /********************/
+    /* Local SHORTCUTs  */
+    /********************/
     new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(resetContact()), nullptr, Qt::ApplicationShortcut);
-    new QShortcut(QKeySequence(Qt::ALT | Qt::Key_W), this, SLOT(resetContact()), nullptr, Qt::ApplicationShortcut);
     new QShortcut(QKeySequence(Qt::Key_F10), this, SLOT(saveContact()), nullptr, Qt::ApplicationShortcut);
     new QShortcut(QKeySequence(Qt::Key_F9), this, SLOT(stopContactTimer()), nullptr, Qt::ApplicationShortcut);
     new QShortcut(QKeySequence(Qt::Key_F8), this, SLOT(startContactTimer()), nullptr, Qt::ApplicationShortcut);
-    new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_M), this, SLOT(markContact()), nullptr, Qt::ApplicationShortcut);
-    new QShortcut(QKeySequence(Qt::ALT | Qt::Key_Return), this, SLOT(useNearestCallsign()), nullptr, Qt::ApplicationShortcut);
 
     /****************************/
     /* Set Visiable for widgets */

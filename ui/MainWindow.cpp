@@ -249,20 +249,35 @@ MainWindow::MainWindow(QWidget* parent) :
     {
         MembershipQE::instance()->updateLists();
     }
-    /*************/
-    /* SHORTCUTs */
-    /*************/
-    QShortcut *shortcut = new QShortcut(QKeySequence(Qt::ALT | Qt::Key_Backslash),
-                                        this,
-                                        SLOT(shortcutALTBackslash()),
-                                        nullptr, Qt::ApplicationShortcut);
-    shortcut->setAutoRepeat(false);
+    /********************/
+    /* GLOBAL SHORTCUTs */
+    /********************/
+    // Menu actions are defined in the MainWindow.ui file
+    // The rest of global shortcuts are defined below
+    connect(ui->actionSearchCallsign, &QAction::triggered, ui->logbookWidget, &LogbookWidget::focusSearchCallsign);
+    connect(ui->actionAddBandmapMark, &QAction::triggered, ui->newContactWidget, &NewContactWidget::markContact);
+    connect(ui->actionUseNearestCallsign, &QAction::triggered, ui->newContactWidget, &NewContactWidget::useNearestCallsign);
+    connect(ui->actionBandSwitchUp, &QAction::triggered, ui->rigWidget, &RigWidget::bandUp);
+    connect(ui->actionBandSwitchDown, &QAction::triggered, ui->rigWidget, &RigWidget::bandDown);
+    connect(ui->actionCWSpeedUp, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwKeySpeedIncrease);
+    connect(ui->actionCWSpeedDown, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwKeySpeedDecrease);
+    connect(ui->actionCWProfileUp, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwShortcutProfileIncrease);
+    connect(ui->actionCWProfileDown, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwShortcutProfileDecrease);
 
-    QShortcut *shortcutBandUp = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageUp), this);
-    connect(shortcutBandUp, &QShortcut::activated, ui->rigWidget, &RigWidget::bandUp);
+    // PTT Off is solved in the Event Handler because it is not possible to handle the Push/Release event for the shortcut.
+    connect(ui->actionPTTOn, &QAction::triggered, this, &MainWindow::shortcutALTBackslash);
 
-    QShortcut *shortcutBandDown = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageDown), this);
-    connect(shortcutBandDown, &QShortcut::activated, ui->rigWidget, &RigWidget::bandDown);
+    globalShortcutActions << ui->actionSearchCallsign
+                          << ui->actionAddBandmapMark
+                          << ui->actionBandSwitchUp
+                          << ui->actionBandSwitchDown
+                          << ui->actionUseNearestCallsign
+                          << ui->actionCWSpeedUp
+                          << ui->actionCWSpeedDown
+                          << ui->actionCWProfileUp
+                          << ui->actionCWProfileDown
+                          << ui->actionPTTOn;
+    addActions(globalShortcutActions);
 
     restoreEquipmentConnOptions();
     restoreConnectionStates();

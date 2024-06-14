@@ -26,23 +26,22 @@ public slots:
     void reloadSettings();
     void clearConsoles();
     void setWPM(qint32);
+    void cwKeySpeedIncrease();
+    void cwKeySpeedDecrease();
+    void cwShortcutProfileIncrease();
+    void cwShortcutProfileDecrease();
 
 private slots:
     void cwKeyProfileComboChanged(QString);
     void cwShortcutProfileComboChanged(QString);
-    void cwShortcutProfileIncrease();
-    void cwShortcutProfileDecrease();
     void refreshKeyProfileCombo();
     void refreshShortcutProfileCombo();
     void cwKeyConnected(QString);
     void cwKeyDisconnected();
     void cwKeySpeedChanged(int);
-    void cwKeySpeedIncrease();
-    void cwKeySpeedDecrease();
     void cwSendButtonPressed(bool insertNewLine = true);
     void rigDisconnectHandler();
     void rigConnectHandler();
-
     void cwKeyMacroF1();
     void cwKeyMacroF2();
     void cwKeyMacroF3();
