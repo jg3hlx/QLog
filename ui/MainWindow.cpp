@@ -267,17 +267,19 @@ MainWindow::MainWindow(QWidget* parent) :
     // PTT Off is solved in the Event Handler because it is not possible to handle the Push/Release event for the shortcut.
     connect(ui->actionPTTOn, &QAction::triggered, this, &MainWindow::shortcutALTBackslash);
 
-    globalShortcutActions << ui->actionSearchCallsign
-                          << ui->actionAddBandmapMark
-                          << ui->actionBandSwitchUp
-                          << ui->actionBandSwitchDown
-                          << ui->actionUseNearestCallsign
-                          << ui->actionCWSpeedUp
-                          << ui->actionCWSpeedDown
-                          << ui->actionCWProfileUp
-                          << ui->actionCWProfileDown
-                          << ui->actionPTTOn;
-    addActions(globalShortcutActions);
+    globalUserDefinedShortcutActions << ui->actionSearchCallsign
+                                     << ui->actionAddBandmapMark
+                                     << ui->actionBandSwitchUp
+                                     << ui->actionBandSwitchDown
+                                     << ui->actionUseNearestCallsign
+                                     << ui->actionCWSpeedUp
+                                     << ui->actionCWSpeedDown
+                                     << ui->actionCWProfileUp
+                                     << ui->actionCWProfileDown
+                                     << ui->actionPTTOn;
+    addActions(globalUserDefinedShortcutActions);
+
+    restoreUserDefinedShortcuts();
 
     restoreEquipmentConnOptions();
     restoreConnectionStates();
@@ -312,12 +314,43 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
     FCT_IDENTIFICATION;
 
-    if ( event->key() == Qt::Key_Backslash
-         && event->modifiers() == Qt::AltModifier
-         && ! event->isAutoRepeat() )
+    // shortcut has no Release signal therefore, it is necessary to handle it here.
+    const QKeySequence &pttShortcut = ui->actionPTTOn->shortcut();
+
+    // QKeySequence can contain many combinations. check them
+    for ( int pttShortcutIndex = 0; pttShortcutIndex < pttShortcut.count(); pttShortcutIndex++ )
     {
-        emit altBackslash(false);
+        int key = pttShortcut[pttShortcutIndex] & ~Qt::KeyboardModifierMask;
+        Qt::KeyboardModifiers modifiers = Qt::KeyboardModifiers(pttShortcut[pttShortcutIndex] & Qt::KeyboardModifierMask);
+
+        if ( event->key() == key
+             && event->modifiers() == modifiers
+             && !event->isAutoRepeat() )
+        {
+            emit altBackslash(false);
+        }
     }
+
+    QMainWindow::keyReleaseEvent(event);
+}
+
+QList<QAction *> MainWindow::getUserDefinedShortcutActionList()
+{
+    return globalUserDefinedShortcutActions;
+}
+
+QList<QAction *> MainWindow::getBuiltInStaticActionList() const
+{
+    FCT_IDENTIFICATION;
+
+    QList<QAction *> ret;
+    const QList<QAction*> actions = findChildren<QAction*>();
+    for ( QAction* action : actions)
+    {
+        if ( !globalUserDefinedShortcutActions.contains(action) )
+            ret << action;
+    }
+    return ret;
 }
 
 void MainWindow::rigConnect()
@@ -689,6 +722,47 @@ void MainWindow::restoreEquipmentConnOptions()
     ui->actionEquipmentKeepOptions->blockSignals(false);
 }
 
+void MainWindow::restoreUserDefinedShortcuts()
+{
+    FCT_IDENTIFICATION;
+
+    const QHash<QString, QVariant> &state = settings.value("shortcuts").toHash();
+
+    if ( state.count() > 0)
+    {
+        for ( QAction *action : qAsConst(globalUserDefinedShortcutActions) )
+        {
+            const QVariant &value = state.value(action->objectName());
+            const QString &current = action->shortcut().toString(QKeySequence::NativeText);
+            qCDebug(runtime) << "Object "<< action->objectName()
+                             << "current shortcut" << current
+                             << "requested" << value.toString();
+
+            if ( value != QVariant() &&  current != value.toString())
+            {
+                action->setShortcut(value.toString());
+                qCDebug(runtime) << "Changed";
+            }
+        }
+    }
+}
+
+void MainWindow::saveUserDefinedShortcuts()
+{
+    FCT_IDENTIFICATION;
+
+    QHash<QString, QVariant> state;
+    for ( const QAction *action : qAsConst(globalUserDefinedShortcutActions) )
+    {
+        const QString & newShortcut = action->shortcut().toString(QKeySequence::NativeText);
+
+        qCDebug(runtime) << "Object" << action->objectName()
+                         << "has a shortcut" << newShortcut;
+        state[action->objectName()] = newShortcut;
+    }
+    settings.setValue("shortcuts", state);
+}
+
 void MainWindow::rotConnect()
 {
     FCT_IDENTIFICATION;
@@ -772,18 +846,25 @@ void MainWindow::cwKeyerDisconnectProfile(QString requestedProfile)
     cwKeyerConnect();
 }
 
-void MainWindow::showSettings() {
+void MainWindow::showSettings()
+{
     FCT_IDENTIFICATION;
 
-    SettingsDialog sw;
-    if (sw.exec() == QDialog::Accepted) {
+    SettingsDialog sw(this);
+
+    if ( sw.exec() == QDialog::Accepted )
+    {
         rigConnect();
         rotConnect();
         stationProfileChanged();
+
         MembershipQE::instance()->updateLists();
+        saveUserDefinedShortcuts();
         //Do not call settingsChange because stationProfileChanged does it
         //emit settingsChanged();
     }
+    else
+        restoreUserDefinedShortcuts();
 }
 
 void MainWindow::showStatistics()

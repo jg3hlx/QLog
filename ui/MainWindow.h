@@ -26,6 +26,8 @@ public:
 
     void closeEvent(QCloseEvent* event);
     void keyReleaseEvent(QKeyEvent *event);
+    QList<QAction *> getUserDefinedShortcutActionList();
+    QList<QAction *> getBuiltInStaticActionList() const;
 
 signals:
     void settingsChanged();
@@ -95,7 +97,7 @@ private:
     QSettings settings;
     bool isFusionStyle;
     ClubLog* clublogRT;
-    QList<QAction *> globalShortcutActions;
+    QList<QAction *> globalUserDefinedShortcutActions;
 
     void setDarkMode();
     void setLightMode();
@@ -104,6 +106,9 @@ private:
     void saveEquipmentConnOptions();
     void restoreConnectionStates();
     void restoreEquipmentConnOptions();
+
+    void restoreUserDefinedShortcuts();
+    void saveUserDefinedShortcuts();
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

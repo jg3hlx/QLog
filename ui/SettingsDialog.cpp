@@ -39,6 +39,8 @@
 #include "core/GenericCallbook.h"
 #include "core/KSTChat.h"
 #include "core/HostsPortString.h"
+#include "models/ShortcutEditorModel.h"
+#include "ui/StyleItemDelegate.h"
 
 #define STACKED_WIDGET_SERIAL_SETTING  0
 #define STACKED_WIDGET_NETWORK_SETTING 1
@@ -63,7 +65,7 @@ MODULE_IDENTIFICATION("qlog.ui.settingdialog");
 #define CW_DEFAULT_KEY_SPEED 20
 #define CW_KEY_SPEED_DISABLED 0
 
-SettingsDialog::SettingsDialog(QWidget *parent) :
+SettingsDialog::SettingsDialog(MainWindow *parent) :
     QDialog(parent),
     stationProfManager(StationProfilesManager::instance()),
     rigProfManager(RigProfilesManager::instance()),
@@ -146,6 +148,21 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
 
     ui->stationCountryCombo->setModel(countryModel);
     ui->stationCountryCombo->setModelColumn(1);
+
+    ShortcutEditorModel *shortcutModel = new ShortcutEditorModel( parent->getUserDefinedShortcutActionList(),
+                                                                  parent->getBuiltInStaticActionList());
+    ui->shortcutsTableView->setModel(shortcutModel);
+    ui->shortcutsTableView->horizontalHeader()->setSectionResizeMode(ShortcutEditorModel::COLUMN_DESCRIPTION, QHeaderView::Stretch);
+    ui->shortcutsTableView->setItemDelegateForColumn(ShortcutEditorModel::COLUMN_SHORTCUT, new ShortcutDelegate(this));
+    connect(shortcutModel, &ShortcutEditorModel::conflictDetected, this, [this](const QString& text)
+    {
+        ui->shortcutInfoLabel->setText("<b>" + text + "</b>");
+    });
+
+    connect(shortcutModel, &ShortcutEditorModel::dataChanged, this, [this]()
+    {
+        ui->shortcutInfoLabel->clear();
+    });
 
     ui->stationCQZEdit->setValidator(new QIntValidator(Data::getCQZMin(), Data::getCQZMax(), ui->stationCQZEdit));
     ui->stationITUEdit->setValidator(new QIntValidator(Data::getITUZMin(), Data::getITUZMax(), ui->stationITUEdit));

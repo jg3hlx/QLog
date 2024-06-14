@@ -583,10 +583,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string notr="true">Search Callsign</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">Search Callsign</string>
+    <string>Logbook - Search Callsign</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
@@ -600,10 +597,7 @@
   </action>
   <action name="actionAddBandmapMark">
    <property name="text">
-    <string notr="true">Add Bandmap Mark</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">Add Bandmap Mark</string>
+    <string>Bandmap - Add text from Callsign Field to Bandmap</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
@@ -617,10 +611,7 @@
   </action>
   <action name="actionBandSwitchDown">
    <property name="text">
-    <string notr="true">Band Switch Down</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">Band Switch Down</string>
+    <string>Rig - Band Down</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+PgDown</string>
@@ -634,10 +625,7 @@
   </action>
   <action name="actionBandSwitchUp">
    <property name="text">
-    <string notr="true">Band Switch Up</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">Band Switch Up</string>
+    <string>Rig - Band Up</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+PgUp</string>
@@ -651,10 +639,7 @@
   </action>
   <action name="actionUseNearestCallsign">
    <property name="text">
-    <string notr="true">Nearest Callsign</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">Nearest Callsign</string>
+    <string>New QSO - Use Callsign from the Whisperer</string>
    </property>
    <property name="shortcut">
     <string>Alt+Return</string>
@@ -668,10 +653,7 @@
   </action>
   <action name="actionCWSpeedUp">
    <property name="text">
-    <string notr="true">CW Speed Up</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">CW Speed Up</string>
+    <string>CW Console - Key Speed Up</string>
    </property>
    <property name="shortcut">
     <string>Alt+Up</string>
@@ -685,10 +667,7 @@
   </action>
   <action name="actionCWSpeedDown">
    <property name="text">
-    <string notr="true">CW Speed Down</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">CW Speed Down</string>
+    <string>CW Console - Key Speed Down</string>
    </property>
    <property name="shortcut">
     <string>Alt+Down</string>
@@ -702,10 +681,7 @@
   </action>
   <action name="actionCWProfileUp">
    <property name="text">
-    <string notr="true">CW Profile Up</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">CW Profile Up</string>
+    <string>CW Console - Profile Up</string>
    </property>
    <property name="shortcut">
     <string>Alt+Right</string>
@@ -719,10 +695,7 @@
   </action>
   <action name="actionCWProfileDown">
    <property name="text">
-    <string notr="true">CW Profile Down</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">CW Profile Down</string>
+    <string>CW Console - Profile Down</string>
    </property>
    <property name="shortcut">
     <string>Alt+Left</string>
@@ -736,10 +709,7 @@
   </action>
   <action name="actionPTTOn">
    <property name="text">
-    <string notr="true">PTT On</string>
-   </property>
-   <property name="toolTip">
-    <string notr="true">PTT On</string>
+    <string>Rig - PTT On/Off</string>
    </property>
    <property name="shortcut">
     <string>Alt+\</string>
