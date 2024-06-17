@@ -1126,26 +1126,33 @@ void QSODetailDialog::callsignFound(const QMap<QString, QString> &data)
     callbookLookupFinished();
 
     /* blank or not fully filled then update it */
-    if ( ui->nameEdit->text().isEmpty() )
+    const QString fnamelname = QString("%1 %2").arg(data.value("fname"),
+                                                    data.value("lname"));
+
+    if (  ui->nameEdit->text().isEmpty()
+          || data.value("name_fmt").contains(ui->nameEdit->text())
+          || fnamelname.contains(ui->nameEdit->text())
+          || data.value("nick").contains(ui->nameEdit->text()) )
     {
-        QString name = data.value("name");
+        QString name = data.value("name_fmt");
 
         if ( name.isEmpty() )
         {
-            name = data.value("fname");
+            name = fnamelname;
+
+            if ( name.isEmpty() )
+                name = data.value("nick");
         }
 
-        if ( ui->nameEdit->text().isEmpty() )
-        {
-            ui->nameEdit->setText(name);
-        }
+        ui->nameEdit->setText(name);
     }
 
     if ( ui->gridEdit->text().isEmpty()
          || data.value("gridsquare").contains(ui->gridEdit->text()) )
         ui->gridEdit->setText(data.value("gridsquare"));
 
-    if ( ui->qthEdit->text().isEmpty() )
+    if ( ui->qthEdit->text().isEmpty()
+         || data.value("qth").contains(ui->qthEdit->text()))
         ui->qthEdit->setText(data.value("qth"));
 
     if ( ui->dokEdit->text().isEmpty() )

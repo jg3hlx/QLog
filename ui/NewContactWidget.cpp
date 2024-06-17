@@ -580,19 +580,21 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
     FCT_IDENTIFICATION;
 
     if ( data.value("call") != callsign )
-    {
         return;
-    }
 
     /* not filled or not fully filled then update it */
-
-    if ( uiDynamic->nameEdit->text().isEmpty() )
+    const QString fnamelname = QString("%1 %2").arg(data.value("fname"),
+                                                    data.value("lname"));
+    if ( uiDynamic->nameEdit->text().isEmpty()
+         || data.value("name_fmt").contains(uiDynamic->nameEdit->text())
+         || fnamelname.contains(uiDynamic->nameEdit->text())
+         || data.value("nick").contains(uiDynamic->nameEdit->text()) )
     {
         QString name = data.value("name_fmt");
 
         if ( name.isEmpty() )
         {
-            name = data.value("fname") + " " + data.value("lname");
+            name = fnamelname;
 
             if ( name.isEmpty() )
                 name = data.value("nick");
@@ -607,7 +609,8 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
         uiDynamic->gridEdit->setText(data.value("gridsquare"));
     }
 
-    if ( uiDynamic->qthEdit->text().isEmpty() )
+    if ( uiDynamic->qthEdit->text().isEmpty()
+         || data.value("qth").contains(uiDynamic->qthEdit->text()))
     {
         uiDynamic->qthEdit->setText(data.value("qth"));
     }
