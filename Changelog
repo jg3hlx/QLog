@@ -5,6 +5,7 @@ TBC - 0.37.0
 - [CHANGED] - Big CTY file is used
 - [CHANGED] - Callbook Country DXCC ID is used in case of difference from Big CTY
 - Fixed Guantanamo KG4 Issue (issue #372)
+- Fixed QRZ Lookup Not Including Full Name - History (issue #388)
 - Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
 - Fixed Spot Last QSO must contain Freq in kHz (issue #391)
 
