@@ -559,6 +559,9 @@
    <property name="text">
     <string>Delete Server</string>
    </property>
+   <property name="toolTip">
+    <string>DXC - Delete Server</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+Del</string>
    </property>

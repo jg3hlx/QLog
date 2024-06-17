@@ -267,17 +267,19 @@ MainWindow::MainWindow(QWidget* parent) :
     // PTT Off is solved in the Event Handler because it is not possible to handle the Push/Release event for the shortcut.
     connect(ui->actionPTTOn, &QAction::triggered, this, &MainWindow::shortcutALTBackslash);
 
-    globalUserDefinedShortcutActions << ui->actionSearchCallsign
-                                     << ui->actionAddBandmapMark
-                                     << ui->actionBandSwitchUp
-                                     << ui->actionBandSwitchDown
-                                     << ui->actionUseNearestCallsign
-                                     << ui->actionCWSpeedUp
-                                     << ui->actionCWSpeedDown
-                                     << ui->actionCWProfileUp
-                                     << ui->actionCWProfileDown
-                                     << ui->actionPTTOn;
-    addActions(globalUserDefinedShortcutActions);
+    // Register aditional action (global shortcuts)
+    addAction(ui->actionSearchCallsign);
+    addAction(ui->actionAddBandmapMark);
+    addAction(ui->actionBandSwitchUp);
+    addAction(ui->actionBandSwitchDown);
+    addAction(ui->actionUseNearestCallsign);
+    addAction(ui->actionCWSpeedUp);
+    addAction(ui->actionCWSpeedDown);
+    addAction(ui->actionCWProfileUp);
+    addAction(ui->actionCWProfileDown);
+    addAction(ui->actionPTTOn);
+    addAction(ui->actionNewContact);
+    addAction(ui->actionSaveContact);
 
     restoreUserDefinedShortcuts();
 
@@ -336,20 +338,51 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 
 QList<QAction *> MainWindow::getUserDefinedShortcutActionList()
 {
-    return globalUserDefinedShortcutActions;
+    QList<QAction *> ret;
+    const QList<QAction*> &actions = findChildren<QAction*>();
+
+    for ( QAction* action : actions)
+    {
+        if ( !action->shortcut().toString(QKeySequence::NativeText).isEmpty() )
+            qCDebug(runtime) << action->text() << action->shortcut().toString(QKeySequence::NativeText);
+
+        if ( action->property("changeableshortcut").toBool() )
+        {
+            qCDebug(runtime) << "User-Defined shortcut" << action->shortcut().toString(QKeySequence::NativeText);
+            ret << action;
+        }
+    }
+    return ret;
 }
 
-QList<QAction *> MainWindow::getBuiltInStaticActionList() const
+QStringList MainWindow::getBuiltInStaticShortcutList() const
 {
     FCT_IDENTIFICATION;
 
-    QList<QAction *> ret;
-    const QList<QAction*> actions = findChildren<QAction*>();
-    for ( QAction* action : actions)
+    QStringList ret;
+
+    const QList<QShortcut*> allShortcuts = findChildren<QShortcut*>();
+    for ( QShortcut* shortcut : allShortcuts)
     {
-        if ( !globalUserDefinedShortcutActions.contains(action) )
-            ret << action;
+        if ( !shortcut->key().toString().isEmpty() )
+        {
+            qCDebug(runtime) << "Built-In nonchangeble shortcut"
+                             << shortcut->key().toString(QKeySequence::NativeText);
+            ret << shortcut->key().toString(QKeySequence::NativeText);
+        }
     }
+
+    const QList<QPushButton*> allButtons = findChildren<QPushButton*>();
+    for ( QPushButton* button : allButtons)
+    {
+        if ( !button->shortcut().toString().isEmpty())
+        {
+            qCDebug(runtime) << "Built-In nonchangable shortcut - buttons"
+                    << button->shortcut().toString(QKeySequence::NativeText);
+            ret << button->shortcut().toString(QKeySequence::NativeText);
+        }
+    }
+
     return ret;
 }
 
@@ -730,7 +763,8 @@ void MainWindow::restoreUserDefinedShortcuts()
 
     if ( state.count() > 0)
     {
-        for ( QAction *action : qAsConst(globalUserDefinedShortcutActions) )
+        const QList<QAction*> actions = getUserDefinedShortcutActionList();
+        for ( QAction *action : actions )
         {
             const QVariant &value = state.value(action->objectName());
             const QString &current = action->shortcut().toString(QKeySequence::NativeText);
@@ -752,7 +786,8 @@ void MainWindow::saveUserDefinedShortcuts()
     FCT_IDENTIFICATION;
 
     QHash<QString, QVariant> state;
-    for ( const QAction *action : qAsConst(globalUserDefinedShortcutActions) )
+    const QList<QAction*> actions = getUserDefinedShortcutActionList();
+    for ( const QAction *action : actions )
     {
         const QString & newShortcut = action->shortcut().toString(QKeySequence::NativeText);
 

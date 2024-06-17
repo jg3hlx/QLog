@@ -67,8 +67,6 @@
     <property name="title">
      <string>&amp;Logbook</string>
     </property>
-    <addaction name="actionNewContact"/>
-    <addaction name="actionSaveContact"/>
     <addaction name="actionQSOFilters"/>
     <addaction name="actionManualContact"/>
     <addaction name="separator"/>
@@ -287,13 +285,19 @@
      <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
-    <string>&amp;Quit</string>
+    <string>Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Application - Quit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
    </property>
    <property name="menuRole">
     <enum>QAction::QuitRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionSettings">
@@ -314,10 +318,16 @@
      <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
-    <string>New Contact</string>
+    <string>New QSO - Clear</string>
+   </property>
+   <property name="toolTip">
+    <string>New QSO - Clear</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionImport">
@@ -364,10 +374,16 @@
      <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
-    <string>Save Contact</string>
+    <string>New QSO - Save</string>
+   </property>
+   <property name="toolTip">
+    <string>New QSO - Save</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionDXClusterWindow">
@@ -594,10 +610,16 @@
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionAddBandmapMark">
    <property name="text">
-    <string>Bandmap - Add text from Callsign Field to Bandmap</string>
+    <string>New QSO - Add text from Callsign field to Bandmap</string>
+   </property>
+   <property name="toolTip">
+    <string>New QSO - Add text from Callsign field to Bandmap</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+M</string>
@@ -607,6 +629,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionBandSwitchDown">
@@ -622,6 +647,9 @@
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionBandSwitchUp">
    <property name="text">
@@ -635,6 +663,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionUseNearestCallsign">
@@ -650,6 +681,9 @@
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionCWSpeedUp">
    <property name="text">
@@ -663,6 +697,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionCWSpeedDown">
@@ -678,6 +715,9 @@
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionCWProfileUp">
    <property name="text">
@@ -692,6 +732,9 @@
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
    </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
+   </property>
   </action>
   <action name="actionCWProfileDown">
    <property name="text">
@@ -705,6 +748,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionPTTOn">
@@ -722,6 +768,9 @@
    </property>
    <property name="menuRole">
     <enum>QAction::NoRole</enum>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
  </widget>

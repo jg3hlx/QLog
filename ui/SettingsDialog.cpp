@@ -150,7 +150,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->stationCountryCombo->setModelColumn(1);
 
     ShortcutEditorModel *shortcutModel = new ShortcutEditorModel( parent->getUserDefinedShortcutActionList(),
-                                                                  parent->getBuiltInStaticActionList());
+                                                                  parent->getBuiltInStaticShortcutList());
     ui->shortcutsTableView->setModel(shortcutModel);
     ui->shortcutsTableView->horizontalHeader()->setSectionResizeMode(ShortcutEditorModel::COLUMN_DESCRIPTION, QHeaderView::Stretch);
     ui->shortcutsTableView->setItemDelegateForColumn(ShortcutEditorModel::COLUMN_SHORTCUT, new ShortcutDelegate(this));

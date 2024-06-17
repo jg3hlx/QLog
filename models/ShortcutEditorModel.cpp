@@ -2,7 +2,7 @@
 #include "core/debug.h"
 
 ShortcutEditorModel::ShortcutEditorModel(const QList<QAction *> &actions,
-                                         const QList<QAction *> &builtInStaticActions,
+                                         const QStringList &builtInStaticActions,
                                          QObject *parent)
     : QAbstractTableModel{parent},
       actionList(actions),
@@ -12,7 +12,7 @@ ShortcutEditorModel::ShortcutEditorModel(const QList<QAction *> &actions,
               actionList.end(),
               [](const QAction *a, const QAction *b)
     {
-        return a->text().localeAwareCompare(b->text()) < 0;
+        return a->toolTip().localeAwareCompare(b->toolTip()) < 0;
     });
 }
 
@@ -50,7 +50,7 @@ QVariant ShortcutEditorModel::data(const QModelIndex &index, int role) const
     {
         switch ( index.column() )
         {
-        case COLUMN_DESCRIPTION: return action->text();
+        case COLUMN_DESCRIPTION: return action->toolTip();
         case COLUMN_SHORTCUT: return action->shortcut().toString(QKeySequence::NativeText);
         default: return QVariant();
         }
@@ -76,7 +76,7 @@ bool ShortcutEditorModel::setData(const QModelIndex &index, const QVariant &valu
             return true;
         }
 
-        if ( findShortcut(builtInStaticActionList, newShortcutString) )
+        if ( builtInStaticActionList.contains(newShortcutString) )
         {
             emit conflictDetected(tr("Conflict with a built-in shortcut"));
             return false;

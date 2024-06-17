@@ -27,7 +27,7 @@ public:
     void closeEvent(QCloseEvent* event);
     void keyReleaseEvent(QKeyEvent *event);
     QList<QAction *> getUserDefinedShortcutActionList();
-    QList<QAction *> getBuiltInStaticActionList() const;
+    QStringList getBuiltInStaticShortcutList() const;
 
 signals:
     void settingsChanged();
@@ -97,7 +97,6 @@ private:
     QSettings settings;
     bool isFusionStyle;
     ClubLog* clublogRT;
-    QList<QAction *> globalUserDefinedShortcutActions;
 
     void setDarkMode();
     void setLightMode();

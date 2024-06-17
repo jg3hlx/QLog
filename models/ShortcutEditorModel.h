@@ -9,7 +9,7 @@ class ShortcutEditorModel : public QAbstractTableModel
     Q_OBJECT
 public:
     explicit ShortcutEditorModel(const QList<QAction *> &actions,
-                                 const QList<QAction *> &builtInStaticActions,
+                                 const QStringList &builtInStaticActions,
                                  QObject *parent = nullptr);
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     int columnCount(const QModelIndex& = QModelIndex()) const override;
@@ -29,7 +29,7 @@ signals:
 
 private:
     QList<QAction *> actionList;
-    QList<QAction *> builtInStaticActionList;
+    QStringList builtInStaticActionList;
 
     const QAction *findShortcut(const QList<QAction *> &list,
                                 const QString&);
