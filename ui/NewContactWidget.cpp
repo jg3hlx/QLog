@@ -590,13 +590,8 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
         QString name = data.value("name_fmt");
 
         if ( name.isEmpty() )
-        {
-            name = fnamelname;
-
-            if ( name.isEmpty() )
-                name = data.value("nick");
-        }
-
+            name = ( data.value("fname").isEmpty() && data.value("lname").isEmpty() ) ? data.value("nick")
+                                                                                      : fnamelname;
         uiDynamic->nameEdit->setText(name);
     }
 
