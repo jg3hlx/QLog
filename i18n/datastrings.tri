@@ -1,4 +1,4 @@
-QT_TRANSLATE_NOOP("Data", "Aircraft Scatte");
+QT_TRANSLATE_NOOP("Data", "Aircraft Scatter");
 QT_TRANSLATE_NOOP("Data", "Aurora-E");
 QT_TRANSLATE_NOOP("Data", "Aurora");
 QT_TRANSLATE_NOOP("Data", "Back scatter");
