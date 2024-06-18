@@ -249,20 +249,39 @@ MainWindow::MainWindow(QWidget* parent) :
     {
         MembershipQE::instance()->updateLists();
     }
-    /*************/
-    /* SHORTCUTs */
-    /*************/
-    QShortcut *shortcut = new QShortcut(QKeySequence(Qt::ALT | Qt::Key_Backslash),
-                                        this,
-                                        SLOT(shortcutALTBackslash()),
-                                        nullptr, Qt::ApplicationShortcut);
-    shortcut->setAutoRepeat(false);
+    /********************/
+    /* GLOBAL SHORTCUTs */
+    /********************/
+    // Menu actions are defined in the MainWindow.ui file
+    // The rest of global shortcuts are defined below
+    connect(ui->actionSearchCallsign, &QAction::triggered, ui->logbookWidget, &LogbookWidget::focusSearchCallsign);
+    connect(ui->actionAddBandmapMark, &QAction::triggered, ui->newContactWidget, &NewContactWidget::markContact);
+    connect(ui->actionUseNearestCallsign, &QAction::triggered, ui->newContactWidget, &NewContactWidget::useNearestCallsign);
+    connect(ui->actionBandSwitchUp, &QAction::triggered, ui->rigWidget, &RigWidget::bandUp);
+    connect(ui->actionBandSwitchDown, &QAction::triggered, ui->rigWidget, &RigWidget::bandDown);
+    connect(ui->actionCWSpeedUp, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwKeySpeedIncrease);
+    connect(ui->actionCWSpeedDown, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwKeySpeedDecrease);
+    connect(ui->actionCWProfileUp, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwShortcutProfileIncrease);
+    connect(ui->actionCWProfileDown, &QAction::triggered, ui->cwconsoleWidget, &CWConsoleWidget::cwShortcutProfileDecrease);
 
-    QShortcut *shortcutBandUp = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageUp), this);
-    connect(shortcutBandUp, &QShortcut::activated, ui->rigWidget, &RigWidget::bandUp);
+    // PTT Off is solved in the Event Handler because it is not possible to handle the Push/Release event for the shortcut.
+    connect(ui->actionPTTOn, &QAction::triggered, this, &MainWindow::shortcutALTBackslash);
 
-    QShortcut *shortcutBandDown = new QShortcut(QKeySequence(Qt::CTRL | Qt::Key_PageDown), this);
-    connect(shortcutBandDown, &QShortcut::activated, ui->rigWidget, &RigWidget::bandDown);
+    // Register aditional action (global shortcuts)
+    addAction(ui->actionSearchCallsign);
+    addAction(ui->actionAddBandmapMark);
+    addAction(ui->actionBandSwitchUp);
+    addAction(ui->actionBandSwitchDown);
+    addAction(ui->actionUseNearestCallsign);
+    addAction(ui->actionCWSpeedUp);
+    addAction(ui->actionCWSpeedDown);
+    addAction(ui->actionCWProfileUp);
+    addAction(ui->actionCWProfileDown);
+    addAction(ui->actionPTTOn);
+    addAction(ui->actionNewContact);
+    addAction(ui->actionSaveContact);
+
+    restoreUserDefinedShortcuts();
 
     restoreEquipmentConnOptions();
     restoreConnectionStates();
@@ -297,12 +316,74 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
     FCT_IDENTIFICATION;
 
-    if ( event->key() == Qt::Key_Backslash
-         && event->modifiers() == Qt::AltModifier
-         && ! event->isAutoRepeat() )
+    // shortcut has no Release signal therefore, it is necessary to handle it here.
+    const QKeySequence &pttShortcut = ui->actionPTTOn->shortcut();
+
+    // QKeySequence can contain many combinations. check them
+    for ( int pttShortcutIndex = 0; pttShortcutIndex < pttShortcut.count(); pttShortcutIndex++ )
     {
-        emit altBackslash(false);
+        int key = pttShortcut[pttShortcutIndex] & ~Qt::KeyboardModifierMask;
+        Qt::KeyboardModifiers modifiers = Qt::KeyboardModifiers(pttShortcut[pttShortcutIndex] & Qt::KeyboardModifierMask);
+
+        if ( event->key() == key
+             && event->modifiers() == modifiers
+             && !event->isAutoRepeat() )
+        {
+            emit altBackslash(false);
+        }
     }
+
+    QMainWindow::keyReleaseEvent(event);
+}
+
+QList<QAction *> MainWindow::getUserDefinedShortcutActionList()
+{
+    QList<QAction *> ret;
+    const QList<QAction*> &actions = findChildren<QAction*>();
+
+    for ( QAction* action : actions)
+    {
+        if ( !action->shortcut().toString(QKeySequence::NativeText).isEmpty() )
+            qCDebug(runtime) << action->text() << action->shortcut().toString(QKeySequence::NativeText);
+
+        if ( action->property("changeableshortcut").toBool() )
+        {
+            qCDebug(runtime) << "User-Defined shortcut" << action->shortcut().toString(QKeySequence::NativeText);
+            ret << action;
+        }
+    }
+    return ret;
+}
+
+QStringList MainWindow::getBuiltInStaticShortcutList() const
+{
+    FCT_IDENTIFICATION;
+
+    QStringList ret;
+
+    const QList<QShortcut*> allShortcuts = findChildren<QShortcut*>();
+    for ( QShortcut* shortcut : allShortcuts)
+    {
+        if ( !shortcut->key().toString().isEmpty() )
+        {
+            qCDebug(runtime) << "Built-In nonchangeble shortcut"
+                             << shortcut->key().toString(QKeySequence::NativeText);
+            ret << shortcut->key().toString(QKeySequence::NativeText);
+        }
+    }
+
+    const QList<QPushButton*> allButtons = findChildren<QPushButton*>();
+    for ( QPushButton* button : allButtons)
+    {
+        if ( !button->shortcut().toString().isEmpty())
+        {
+            qCDebug(runtime) << "Built-In nonchangable shortcut - buttons"
+                    << button->shortcut().toString(QKeySequence::NativeText);
+            ret << button->shortcut().toString(QKeySequence::NativeText);
+        }
+    }
+
+    return ret;
 }
 
 void MainWindow::rigConnect()
@@ -674,6 +755,49 @@ void MainWindow::restoreEquipmentConnOptions()
     ui->actionEquipmentKeepOptions->blockSignals(false);
 }
 
+void MainWindow::restoreUserDefinedShortcuts()
+{
+    FCT_IDENTIFICATION;
+
+    const QHash<QString, QVariant> &state = settings.value("shortcuts").toHash();
+
+    if ( state.count() > 0)
+    {
+        const QList<QAction*> actions = getUserDefinedShortcutActionList();
+        for ( QAction *action : actions )
+        {
+            const QVariant &value = state.value(action->objectName());
+            const QString &current = action->shortcut().toString(QKeySequence::NativeText);
+            qCDebug(runtime) << "Object "<< action->objectName()
+                             << "current shortcut" << current
+                             << "requested" << value.toString();
+
+            if ( value != QVariant() &&  current != value.toString())
+            {
+                action->setShortcut(value.toString());
+                qCDebug(runtime) << "Changed";
+            }
+        }
+    }
+}
+
+void MainWindow::saveUserDefinedShortcuts()
+{
+    FCT_IDENTIFICATION;
+
+    QHash<QString, QVariant> state;
+    const QList<QAction*> actions = getUserDefinedShortcutActionList();
+    for ( const QAction *action : actions )
+    {
+        const QString & newShortcut = action->shortcut().toString(QKeySequence::NativeText);
+
+        qCDebug(runtime) << "Object" << action->objectName()
+                         << "has a shortcut" << newShortcut;
+        state[action->objectName()] = newShortcut;
+    }
+    settings.setValue("shortcuts", state);
+}
+
 void MainWindow::rotConnect()
 {
     FCT_IDENTIFICATION;
@@ -757,18 +881,25 @@ void MainWindow::cwKeyerDisconnectProfile(QString requestedProfile)
     cwKeyerConnect();
 }
 
-void MainWindow::showSettings() {
+void MainWindow::showSettings()
+{
     FCT_IDENTIFICATION;
 
-    SettingsDialog sw;
-    if (sw.exec() == QDialog::Accepted) {
+    SettingsDialog sw(this);
+
+    if ( sw.exec() == QDialog::Accepted )
+    {
         rigConnect();
         rotConnect();
         stationProfileChanged();
+
         MembershipQE::instance()->updateLists();
+        saveUserDefinedShortcuts();
         //Do not call settingsChange because stationProfileChanged does it
         //emit settingsChanged();
     }
+    else
+        restoreUserDefinedShortcuts();
 }
 
 void MainWindow::showStatistics()

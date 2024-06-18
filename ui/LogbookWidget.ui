@@ -218,8 +218,14 @@
    <property name="text">
     <string>Delete</string>
    </property>
+   <property name="toolTip">
+    <string>Logbook - DeleteQSO</string>
+   </property>
    <property name="shortcut">
     <string>Del</string>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionUploadClublog">
@@ -256,8 +262,14 @@
    <property name="text">
     <string>Edit Value</string>
    </property>
+   <property name="toolTip">
+    <string>Logbook - Edit Value</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+   <property name="changeableshortcut" stdset="0">
+    <bool>true</bool>
    </property>
   </action>
   <action name="actionDisplayedColumns">

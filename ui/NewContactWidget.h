@@ -208,6 +208,9 @@ public slots:
     void setManualMode(bool);
     void exitManualMode();
 
+    void markContact();
+    void useNearestCallsign();
+
     void setupCustomUi();
 
 private slots:
@@ -221,7 +224,6 @@ private slots:
     void updateTimeOff();
     void startContactTimer();
     void stopContactTimer();
-    void markContact();
     void editCallsignFinished();
     void callsignResult(const QMap<QString, QString>& data);
     void clubQueryResult(const QString&, QMap<QString, ClubStatusQuery::ClubStatus>);
@@ -234,7 +236,6 @@ private slots:
     void wwffChanged(const QString&);
     void formFieldChangedString(const QString&);
     void formFieldChanged();
-    void useNearestCallsign();
     void setCallbookStatusEnabled(bool);
     void changeCallbookSearchStatus();
     void satNameChanged();

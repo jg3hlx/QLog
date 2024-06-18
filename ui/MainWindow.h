@@ -26,6 +26,8 @@ public:
 
     void closeEvent(QCloseEvent* event);
     void keyReleaseEvent(QKeyEvent *event);
+    QList<QAction *> getUserDefinedShortcutActionList();
+    QStringList getBuiltInStaticShortcutList() const;
 
 signals:
     void settingsChanged();
@@ -103,6 +105,9 @@ private:
     void saveEquipmentConnOptions();
     void restoreConnectionStates();
     void restoreEquipmentConnOptions();
+
+    void restoreUserDefinedShortcuts();
+    void saveUserDefinedShortcuts();
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

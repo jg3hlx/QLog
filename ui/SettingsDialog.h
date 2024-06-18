@@ -19,6 +19,7 @@
 #include "data/RotUsrButtonsProfile.h"
 #include "core/LogLocale.h"
 #include "rig/Rig.h"
+#include "ui/MainWindow.h"
 
 namespace Ui {
 class SettingsDialog;
@@ -30,7 +31,7 @@ class SettingsDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = nullptr);
+    explicit SettingsDialog(MainWindow *parent = nullptr);
     ~SettingsDialog();
 
 public slots:

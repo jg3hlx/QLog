@@ -267,7 +267,7 @@ void ColumnSettingGenericDialog::addSortedCheckboxes(QGridLayout *grid, QList<QC
             checkboxlist.end(),
             [](const QCheckBox* a, const QCheckBox *b)->bool
     {
-       return a->text() < b->text();
+       return a->text().localeAwareCompare(b->text()) < 0;
     });
 
     for (auto item: checkboxlist)

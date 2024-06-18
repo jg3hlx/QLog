@@ -13,6 +13,8 @@
 #include <QAbstractItemModel>
 #include <QDebug>
 #include <QTextEdit>
+#include <QKeySequenceEdit>
+
 #include "core/LogLocale.h"
 #include "core/Gridsquare.h"
 
@@ -489,5 +491,55 @@ private slots:
     }
 };
 
+class ShortcutDelegate : public QStyledItemDelegate
+{
+     Q_OBJECT
+
+public:
+    ShortcutDelegate(QObject* parent = nullptr) :
+        QStyledItemDelegate(parent) { }
+
+    QWidget* createEditor(QWidget* parent,
+                          const QStyleOptionViewItem&,
+                          const QModelIndex&) const
+    {
+        QKeySequenceEdit *editor = new QKeySequenceEdit(parent);
+        connect(editor, &QKeySequenceEdit::editingFinished, this,
+                &ShortcutDelegate::commitAndCloseEditor);
+        return editor;
+    }
+
+    void updateEditorGeometry(QWidget* editor,
+                              const QStyleOptionViewItem& option,
+                              const QModelIndex&) const
+    {
+        editor->setGeometry(option.rect);
+    }
+
+    void setEditorData(QWidget* editor, const QModelIndex& index) const
+    {
+        QKeySequenceEdit *keySequenceEdit = static_cast<QKeySequenceEdit *>(editor);
+        if ( keySequenceEdit )
+            keySequenceEdit->setKeySequence(index.model()->data(index, Qt::EditRole).toString());
+    }
+
+    void setModelData(QWidget* editor, QAbstractItemModel* model,
+                      const QModelIndex& index) const
+    {
+        const QKeySequenceEdit *keySequenceEdit = static_cast<QKeySequenceEdit *>(editor);
+        if ( ! keySequenceEdit )
+            return;
+
+        model->setData(index, keySequenceEdit->keySequence().toString(QKeySequence::NativeText));
+    }
+
+private slots:
+    void commitAndCloseEditor()
+    {
+        QKeySequenceEdit *editor = static_cast<QKeySequenceEdit *>(sender());
+        emit commitData(editor);
+        emit closeEditor(editor);
+    }
+};
 
 #endif // QLOG_UI_STYLEITEMDELEGATE_H
