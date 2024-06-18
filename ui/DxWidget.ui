@@ -60,7 +60,7 @@
         <enum>Qt::DefaultContextMenu</enum>
        </property>
        <property name="toolTip">
-        <string>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Serveru. Press &lt;b&gt;CTRL + DEL&lt;/b&gt; to delete a highlighted DXC server.</string>
+        <string>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Serveru.</string>
        </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>
@@ -561,9 +561,6 @@
    </property>
    <property name="toolTip">
     <string>DXC - Delete Server</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Del</string>
    </property>
   </action>
   <action name="actionForgetPassword">
