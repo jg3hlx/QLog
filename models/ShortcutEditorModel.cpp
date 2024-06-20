@@ -82,7 +82,7 @@ bool ShortcutEditorModel::setData(const QModelIndex &index, const QVariant &valu
             return false;
         }
 
-        if ( findShortcut(actionList, newShortcutString) )
+        if ( findShortcut(actionList, action, newShortcutString) )
         {
             emit conflictDetected(tr("Conflict with a user-defined shortcut"));
             return false;
@@ -109,11 +109,13 @@ Qt::ItemFlags ShortcutEditorModel::flags(const QModelIndex &index) const
 }
 
 const QAction *ShortcutEditorModel::findShortcut(const QList<QAction *> &list,
-                                                 const QString &shortcut)
+                                                 const QAction *currAction,
+                                                 const QString &shortcut) const
 {
     for ( const QAction* action : list )
     {
-        if ( action->shortcut().toString(QKeySequence::NativeText) == shortcut )
+        if ( action->shortcut().toString(QKeySequence::NativeText) == shortcut
+             && action != currAction )
             return action;
     }
 

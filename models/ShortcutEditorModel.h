@@ -32,7 +32,8 @@ private:
     QStringList builtInStaticActionList;
 
     const QAction *findShortcut(const QList<QAction *> &list,
-                                const QString&);
+                                const QAction *currAction,
+                                const QString&) const;
 };
 
 #endif // SHORTCUTEDITORMODEL_H

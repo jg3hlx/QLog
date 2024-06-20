@@ -14,6 +14,9 @@
 #include <QDebug>
 #include <QTextEdit>
 #include <QKeySequenceEdit>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QApplication>
 
 #include "core/LogLocale.h"
 #include "core/Gridsquare.h"
@@ -491,6 +494,54 @@ private slots:
     }
 };
 
+class KeySequenceEdit : public QWidget
+{
+    Q_OBJECT
+
+public:
+    KeySequenceEdit(QWidget* parent = nullptr) : QWidget(parent)
+    {
+
+        QHBoxLayout* layout = new QHBoxLayout(this);
+        layout->setContentsMargins(0, 0, 0, 0);
+        QPushButton* clearButton = new QPushButton(QLatin1String(), this);
+        QIcon clearIcon = QApplication::style()->standardIcon(QStyle::SP_LineEditClearButton);
+        clearButton->setIcon(clearIcon);
+        clearButton->setToolTip(tr("Clear"));
+
+        keySequenceEdit = new QKeySequenceEdit(this);
+        layout->addWidget(keySequenceEdit);
+        layout->addWidget(clearButton);
+        connect(clearButton, &QPushButton::clicked, this, [=]()
+        {
+            keySequenceEdit->clear();
+            emit editingFinished();
+        });
+        connect(keySequenceEdit, &QKeySequenceEdit::editingFinished, this, [=]()
+        {
+            emit editingFinished();
+        });
+
+        setFocusProxy(keySequenceEdit);
+    }
+
+    void setKeySequence(const QKeySequence &keySequence)
+    {
+        keySequenceEdit->setKeySequence(keySequence);
+    }
+
+    QKeySequence keySequence() const
+    {
+        return keySequenceEdit->keySequence();
+    }
+
+signals:
+    void editingFinished();
+
+private:
+     QKeySequenceEdit* keySequenceEdit;
+};
+
 class ShortcutDelegate : public QStyledItemDelegate
 {
      Q_OBJECT
@@ -503,8 +554,8 @@ public:
                           const QStyleOptionViewItem&,
                           const QModelIndex&) const
     {
-        QKeySequenceEdit *editor = new QKeySequenceEdit(parent);
-        connect(editor, &QKeySequenceEdit::editingFinished, this,
+        KeySequenceEdit *editor = new KeySequenceEdit(parent);
+        connect(editor, &KeySequenceEdit::editingFinished, this,
                 &ShortcutDelegate::commitAndCloseEditor);
         return editor;
     }
@@ -518,7 +569,7 @@ public:
 
     void setEditorData(QWidget* editor, const QModelIndex& index) const
     {
-        QKeySequenceEdit *keySequenceEdit = static_cast<QKeySequenceEdit *>(editor);
+        KeySequenceEdit *keySequenceEdit = static_cast<KeySequenceEdit *>(editor);
         if ( keySequenceEdit )
             keySequenceEdit->setKeySequence(index.model()->data(index, Qt::EditRole).toString());
     }
@@ -526,7 +577,7 @@ public:
     void setModelData(QWidget* editor, QAbstractItemModel* model,
                       const QModelIndex& index) const
     {
-        const QKeySequenceEdit *keySequenceEdit = static_cast<QKeySequenceEdit *>(editor);
+        const KeySequenceEdit *keySequenceEdit = static_cast<KeySequenceEdit *>(editor);
         if ( ! keySequenceEdit )
             return;
 
@@ -536,7 +587,7 @@ public:
 private slots:
     void commitAndCloseEditor()
     {
-        QKeySequenceEdit *editor = static_cast<QKeySequenceEdit *>(sender());
+        KeySequenceEdit *editor = static_cast<KeySequenceEdit *>(sender());
         emit commitData(editor);
         emit closeEditor(editor);
     }
