@@ -31,13 +31,19 @@ WsjtxWidget::WsjtxWidget(QWidget *parent) :
 
     proxyModel = new QSortFilterProxyModel(this);
     proxyModel->setSourceModel(wsjtxTableModel);
+    proxyModel->setSortRole(Qt::UserRole);
 
     ui->tableView->setModel(proxyModel);
+    ui->tableView->setSortingEnabled(true);
+    ui->tableView->sortByColumn(WsjtxTableModel::COLUMN_LAST_ACTIVITY, Qt::DescendingOrder);
+    ui->tableView->setItemDelegateForColumn(WsjtxTableModel::COLUMN_DISTANCE,
+                                            new DistanceFormatDelegate(1, 0.1, ui->tableView));
     ui->tableView->horizontalHeader()->setSectionsMovable(true);
     ui->tableView->addAction(ui->actionFilter);
     ui->tableView->addAction(ui->actionDisplayedColumns);
+
     //set Distance Column Delegate Class
-    ui->tableView->setItemDelegateForColumn(2, new DistanceFormatDelegate(1, 0.1, ui->tableView));
+
     restoreTableHeaderState();
 
     contregexp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
@@ -157,7 +163,6 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
     }
 
     wsjtxTableModel->spotAging();
-    proxyModel->sort(4, Qt::DescendingOrder);
 
     ui->tableView->repaint();
 

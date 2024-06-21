@@ -27,21 +27,21 @@ QVariant WsjtxTableModel::data(const QModelIndex& index, int role) const
     {
         switch ( index.column() )
         {
-        case 0: return entry.callsign;
-        case 1: return entry.grid;
-        case 2: if ( entry.distance > 0.0 ) return entry.distance; else return QVariant();
-        case 3: return QString::number(entry.decode.snr);
-        case 4: return entry.decode.time.toString();
-        case 5: return entry.decode.message;
-        case 6: return entry.memberList2StringList().join(", ");
+        case COLUMN_CALLSIGN: return entry.callsign;
+        case COLUMN_GRID: return entry.grid;
+        case COLUMN_DISTANCE: if ( entry.distance > 0.0 ) return entry.distance; else return QVariant();
+        case COLUMN_SNR: return QString::number(entry.decode.snr);
+        case COLUMN_LAST_ACTIVITY: return entry.decode.time.toString();
+        case COLUMN_LAST_MESSAGE: return entry.decode.message;
+        case COLUMN_MEMBER: return entry.memberList2StringList().join(", ");
         default: return QVariant();
         }
     }
-    else if (index.column() == 0 && role == Qt::BackgroundRole)
+    else if (index.column() == COLUMN_CALLSIGN && role == Qt::BackgroundRole)
     {
         return Data::statusToColor(entry.status, QColor(Qt::transparent));
     }
-    else if (index.column() > 0 && role == Qt::BackgroundRole)
+    else if (index.column() > COLUMN_CALLSIGN && role == Qt::BackgroundRole)
     {
         if ( entry.receivedTime.secsTo(QDateTime::currentDateTimeUtc()) >= spotPeriod * 0.8)
             /* -20% time of period because WSTX sends messages in waves and not exactly in time period */
@@ -49,13 +49,30 @@ QVariant WsjtxTableModel::data(const QModelIndex& index, int role) const
             return QColor(Qt::darkGray);
         }
     }
-    else if (index.column() == 0 && role == Qt::ForegroundRole)
+    else if (index.column() == COLUMN_CALLSIGN && role == Qt::ForegroundRole)
     {
         //return Data::statusToInverseColor(entry.status, QColor(Qt::black));
     }
-    else if (index.column() == 0 && role == Qt::ToolTipRole)
+    else if (index.column() == COLUMN_CALLSIGN && role == Qt::ToolTipRole)
     {
         return  QCoreApplication::translate("DBStrings", entry.dxcc.country.toUtf8().constData()) + " [" + Data::statusToText(entry.status) + "]";
+    }
+    else if ( role == Qt::UserRole )
+    {
+        switch ( index.column() )
+        {
+        case COLUMN_DISTANCE:
+            return data(index, Qt::DisplayRole).toDouble();
+            break;
+        case COLUMN_SNR:
+            return data(index, Qt::DisplayRole).toInt();
+            break;
+        case COLUMN_LAST_ACTIVITY:
+            return data(index, Qt::DisplayRole).toTime();
+            break;
+        default:
+            return data(index, Qt::DisplayRole);
+        }
     }
 
     return QVariant();
@@ -67,13 +84,13 @@ QVariant WsjtxTableModel::headerData(int section, Qt::Orientation orientation, i
 
     switch (section)
     {
-    case 0: return tr("Callsign");
-    case 1: return tr("Gridsquare");
-    case 2: return tr("Distance");
-    case 3: return tr("SNR");
-    case 4: return tr("Last Activity");
-    case 5: return tr("Last Message");
-    case 6: return tr("Member");
+    case COLUMN_CALLSIGN: return tr("Callsign");
+    case COLUMN_GRID: return tr("Gridsquare");
+    case COLUMN_DISTANCE: return tr("Distance");
+    case COLUMN_SNR: return tr("SNR");
+    case COLUMN_LAST_ACTIVITY: return tr("Last Activity");
+    case COLUMN_LAST_MESSAGE: return tr("Last Message");
+    case COLUMN_MEMBER: return tr("Member");
     default: return QVariant();
     }
 }
