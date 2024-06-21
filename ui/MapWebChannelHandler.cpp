@@ -55,6 +55,9 @@ void MapWebChannelHandler::connectWebChannel(QWebEnginePage *page)
           "     case '" + tr("Chat") + "': "
           "        foo.handleLayerSelectionChanged('chatStationsLayer', 'on'); "
           "        break; "
+          "     case '" + tr("WSJTX") + "': "
+          "        foo.handleLayerSelectionChanged('wsjtxStationsLayer', 'on'); "
+          "        break; "
           "  } "
           "});"
           "map.on('overlayremove', function(e){ "
@@ -80,6 +83,9 @@ void MapWebChannelHandler::connectWebChannel(QWebEnginePage *page)
           "        break; "
           "     case '" + tr("Chat") + "': "
           "        foo.handleLayerSelectionChanged('chatStationsLayer', 'off'); "
+          "        break; "
+          "     case '" + tr("WSJTX") + "': "
+          "        foo.handleLayerSelectionChanged('wsjtxStationsLayer', 'off'); "
           "        break; "
           "   } "
           "});";
@@ -123,7 +129,8 @@ QString MapWebChannelHandler::generateMapMenuJS(bool gridLayer,
                                                 bool muf,
                                                 bool ibp,
                                                 bool antpath,
-                                                bool chatStations)
+                                                bool chatStations,
+                                                bool wsjtxStations)
 {
     FCT_IDENTIFICATION;
     QStringList options;
@@ -163,6 +170,11 @@ QString MapWebChannelHandler::generateMapMenuJS(bool gridLayer,
         options << "\"" + tr("MUF") + "\": mufLayer";
     }
 
+    if ( wsjtxStations )
+    {
+        options << "\"" + tr("WSJTX") + "\": wsjtxStationsLayer";
+    }
+
     QString ret = QString("var layerControl = new L.Control.Layers(null,"
                           "{ %1 },{}).addTo(map);").arg(options.join(","));
 
@@ -188,6 +200,13 @@ void MapWebChannelHandler::chatCallsignClicked(const QVariant &data)
     FCT_IDENTIFICATION;
 
     emit chatCallsignPressed(data.toString());
+}
+
+void MapWebChannelHandler::wsjtxCallsignClicked(const QVariant &data)
+{
+    FCT_IDENTIFICATION;
+
+    emit wsjtxCallsignPressed(data.toString());
 }
 
 void MapWebChannelHandler::IBPCallsignClicked(const QVariant &callsign, const QVariant &freq)

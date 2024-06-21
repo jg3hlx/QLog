@@ -18,11 +18,13 @@ class WsjtxWidget : public QWidget
 public:
     explicit WsjtxWidget(QWidget *parent = nullptr);
     ~WsjtxWidget();
+    WsjtxEntry getEntry(const QString &callsign);
 
 public slots:
     void decodeReceived(WsjtxDecode);
     void statusReceived(WsjtxStatus);
     void tableViewDoubleClicked(QModelIndex);
+    void callsignClicked(QString);
     void tableViewClicked(QModelIndex);
     void setSelectedCallsign(const QString&);
 
@@ -34,6 +36,8 @@ signals:
     void showDxDetails(QString callsign, QString grid);
     void reply(WsjtxDecode);
     void CQSpot(WsjtxEntry);
+    void filteredCQSpot(WsjtxEntry);
+    void spotsCleared();
 
 private:
     uint dxccStatusFilterValue();
@@ -42,6 +46,7 @@ private:
     int getSNRFilterValue();
     QStringList dxMemberList();
     void reloadSetting();
+    void clearTable();
 
     WsjtxTableModel* wsjtxTableModel;
     WsjtxStatus status;

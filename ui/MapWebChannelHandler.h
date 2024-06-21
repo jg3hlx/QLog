@@ -17,16 +17,19 @@ public:
                               bool muf = false,
                               bool ibp = false,
                               bool antpath = false,
-                              bool chatStations = false);
+                              bool chatStations = false,
+                              bool wsjtxStations = false);
 
 signals:
     void chatCallsignPressed(QString);
+    void wsjtxCallsignPressed(QString);
     void IBPPressed(QString, double);
 
 public slots:
     void handleLayerSelectionChanged(const QVariant &data,
                                      const QVariant &state);
     void chatCallsignClicked(const QVariant &data);
+    void wsjtxCallsignClicked(const QVariant &data);
     void IBPCallsignClicked(const QVariant &callsign,
                             const QVariant &freq);
 private:

@@ -46,6 +46,19 @@
         padding: 5px;
         font-weight: bold;
     }
+    .leaflet-tooltip.wsjtx-tooltip {
+        border-radius: 20px;
+        background-color: transparent;
+        padding: 5px;
+        font-weight: bold;
+    }
+    .leaflet-tooltip.wsjtx-tooltip.fade-out75 {
+        opacity: 0.75 !important; /* !important zajistí, že tato hodnota má přednost */
+    }
+
+    .leaflet-tooltip.wsjtx-tooltip.fade-out50 {
+        opacity: 0.5 !important; /* !important zajistí, že tato hodnota má přednost */
+    }
   </style>
 </head>
 
@@ -427,6 +440,41 @@
     }
 
     setInterval(function(){updateBeacon()}, 250);
+
+    function wsjtxCallsignPressed(e) {
+       foo.wsjtxCallsignClicked(this.callsign);
+    }
+
+    var wsjtxStationsLayer = L.layerGroup();
+
+    // this function show WSJTX spots
+    function addWSJTXSpot(lat, lng, callsign, color) {
+        let pointColor = color;
+        let marker = new L.marker([lat, lng], {opacity: 0.001 });
+        marker.bindTooltip(callsign, {pane: 'lowestPane', permanent: true, direction : 'bottom', offset: [-16, 8], className: 'wsjtx-tooltip' });
+        marker.on('dblclick', wsjtxCallsignPressed);
+        marker.callsign = callsign;
+        marker.getTooltip().setContent(`<div style="background-color: ${pointColor};border-radius: 20px;padding: 5px;font-weight: bold;">${marker.getTooltip().getContent()}</div>`);
+
+        wsjtxStationsLayer.addLayer(marker);
+
+        setTimeout(function() {
+            marker.getTooltip().getElement().classList.add('fade-out75');
+        }, 30000);
+
+        setTimeout(function() {
+            marker.getTooltip().getElement().classList.add('fade-out50');
+        }, 45000);
+
+        // remove spot after 60s
+        setTimeout(function() {
+            map.removeLayer(marker);
+        }, 60000);
+    }
+
+    function clearWSJTXSpots() {
+        wsjtxStationsLayer.clearLayers();
+    }
 
   </script>
 

@@ -56,6 +56,7 @@ OnlineMapWidget::OnlineMapWidget(QWidget *parent):
     connect(Rotator::instance(), &Rotator::rotConnected, this, &OnlineMapWidget::rotConnected);
     connect(Rotator::instance(), &Rotator::rotDisconnected, this, &OnlineMapWidget::rotDisconnected);
     connect(&webChannelHandler, &MapWebChannelHandler::chatCallsignPressed, this, &OnlineMapWidget::chatCallsignTrigger);
+    connect(&webChannelHandler, &MapWebChannelHandler::wsjtxCallsignPressed, this, &OnlineMapWidget::wsjtxCallsignTrigger);
     connect(&webChannelHandler, &MapWebChannelHandler::IBPPressed, this, &OnlineMapWidget::IBPCallsignTrigger);
 }
 
@@ -269,7 +270,7 @@ void OnlineMapWidget::finishLoading(bool)
     isMainPageLoaded = true;
 
     /* which layers will be active */
-    postponedScripts += webChannelHandler.generateMapMenuJS(true, true, true, true, true, true, true);
+    postponedScripts += webChannelHandler.generateMapMenuJS(true, true, true, true, true, true, true, true);
     main_page->runJavaScript(postponedScripts);
     postponedScripts = QString();
 
@@ -288,6 +289,15 @@ void OnlineMapWidget::chatCallsignTrigger(const QString &callsign)
     emit chatCallsignPressed(callsign);
 }
 
+void OnlineMapWidget::wsjtxCallsignTrigger(const QString &callsign)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << callsign;
+
+    emit wsjtxCallsignPressed(callsign);
+}
+
 void OnlineMapWidget::IBPCallsignTrigger(const QString &callsign, double freq)
 {
     FCT_IDENTIFICATION;
@@ -298,7 +308,7 @@ void OnlineMapWidget::IBPCallsignTrigger(const QString &callsign, double freq)
     Rig::instance()->setMode("CW", QString());
 }
 
-void OnlineMapWidget::runJavaScript(QString &js)
+void OnlineMapWidget::runJavaScript(const QString &js)
 {
     FCT_IDENTIFICATION;
 
@@ -359,6 +369,27 @@ void OnlineMapWidget::drawChatUsers(QList<KSTUsersInfo> list)
     QString js = QString("drawPointsGroup3([%1]);").arg(chatUsers.join(","));
 
     runJavaScript(js);
+}
+
+void OnlineMapWidget::drawWSJTXSpot(const WsjtxEntry &spot)
+{
+    FCT_IDENTIFICATION;
+
+    Gridsquare spotGrid(spot.grid);
+
+    if ( spotGrid.isValid() )
+    {
+        runJavaScript(QString("addWSJTXSpot(%1, %2, \"%3\", \"%4\");").arg(spotGrid.getLatitude())
+                                                                      .arg(spotGrid.getLongitude())
+                                                                      .arg(spot.callsign, Data::colorToHTMLColor(Data::statusToColor(spot.status, QColor(Qt::transparent)))));
+    }
+}
+
+void OnlineMapWidget::clearWSJTXSpots()
+{
+    FCT_IDENTIFICATION;
+
+    runJavaScript(QLatin1String("clearWSJTXSpots();"));
 }
 
 OnlineMapWidget::~OnlineMapWidget()

@@ -112,13 +112,11 @@ void WsjtxTableModel::spotAging()
 
     while ( entry.hasNext() )
     {
-        WsjtxEntry current = entry.next();
+        const WsjtxEntry &current = entry.next();
 
-        if ( current.receivedTime.secsTo(QDateTime::currentDateTimeUtc()) > (3.0 * spotPeriod)*1.2 )
-            /* +20% time of period because WSTX sends messages in waves and not exactly in time period */
-        {
+        // keep the entry longer than the spotPeriod, because it is used for querying from the Map.
+        if ( current.receivedTime.secsTo(QDateTime::currentDateTimeUtc()) > 3 * 60 )
             entry.remove();
-        }
     }
 
     endResetModel();
@@ -129,19 +127,18 @@ bool WsjtxTableModel::callsignExists(const WsjtxEntry &call)
     return wsjtxData.contains(call);
 }
 
-QString WsjtxTableModel::getCallsign(QModelIndex idx)
+const WsjtxEntry WsjtxTableModel::getEntry(QModelIndex idx) const
 {
-    return data(index(idx.row(),0),Qt::DisplayRole).toString();
+    return wsjtxData.at(idx.row());
 }
 
-QString WsjtxTableModel::getGrid(QModelIndex idx)
+const WsjtxEntry WsjtxTableModel::getEntry(const QString &callsign) const
 {
-    return data(index(idx.row(),1),Qt::DisplayRole).toString();
-}
+    WsjtxEntry entry;
+    entry.callsign = callsign;
+    int index = wsjtxData.indexOf(entry);
 
-WsjtxDecode WsjtxTableModel::getDecode(QModelIndex idx)
-{
-    return wsjtxData.at(idx.row()).decode;
+    return (index < 0) ? WsjtxEntry() : wsjtxData.at(index);
 }
 
 void WsjtxTableModel::setCurrentSpotPeriod(float period)

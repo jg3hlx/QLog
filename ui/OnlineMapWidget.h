@@ -10,6 +10,8 @@
 #include "rig/Rig.h"
 #include "ui/NewContactWidget.h"
 #include "core/KSTChat.h"
+#include "data/WsjtxEntry.h"
+#include "core/Wsjtx.h"
 
 namespace Ui {
 class OnlineMapWidget;
@@ -28,6 +30,7 @@ public:
 
 signals:
     void chatCallsignPressed(QString);
+    void wsjtxCallsignPressed(QString);
 
 public slots:
     void setTarget(double lat, double lon);
@@ -40,10 +43,13 @@ public slots:
     void rotDisconnected();
     void flyToMyQTH();
     void drawChatUsers(QList<KSTUsersInfo> list);
+    void drawWSJTXSpot(const WsjtxEntry &spot);
+    void clearWSJTXSpots();
 
 protected slots:
     void finishLoading(bool);
     void chatCallsignTrigger(const QString&);
+    void wsjtxCallsignTrigger(const QString&);
     void IBPCallsignTrigger(const QString&, double);
 
 private:
@@ -58,7 +64,7 @@ private:
     double lastSeenAzimuth, lastSeenElevation;
     bool isRotConnected;
 
-    void runJavaScript(QString &);
+    void runJavaScript(const QString &);
 };
 
 #endif // QLOG_UI_ONLINEMAPWIDGET_H

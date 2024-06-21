@@ -117,6 +117,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
                )
             {
                 wsjtxTableModel->addOrReplaceEntry(entry);
+                emit filteredCQSpot(entry);
             }
         }
     }
@@ -150,6 +151,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
                 // update it. Only CQ provides the club membeship info
 
                 wsjtxTableModel->addOrReplaceEntry(entry);
+                emit filteredCQSpot(entry);
             }
         }
     }
@@ -170,7 +172,7 @@ void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
         currFreq = Hz2MHz(newStatus.dial_freq);
         band = BandPlan::freq2Band(currFreq).name;
         ui->freqLabel->setText(QString("%1 MHz").arg(QSTRING_FREQ(currFreq)));
-        wsjtxTableModel->clear();
+        clearTable();
     }
 
     if ( this->status.dx_call != newStatus.dx_call )
@@ -190,6 +192,7 @@ void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
         ui->modeLabel->setText(newStatus.mode);
         currMode = newStatus.mode;
         wsjtxTableModel->setCurrentSpotPeriod(Wsjtx::modePeriodLenght(newStatus.mode)); /*currently, only Status has a correct Mode in the message */
+        clearTable();
     }
 
     status = newStatus;
@@ -201,19 +204,32 @@ void WsjtxWidget::tableViewDoubleClicked(QModelIndex index)
 {
     FCT_IDENTIFICATION;
 
-    QModelIndex source_index = proxyModel->mapToSource(index);
-    QString callsign = wsjtxTableModel->getCallsign(source_index);
-    QString grid = wsjtxTableModel->getGrid(source_index);
-    emit showDxDetails(callsign, grid);
-    emit reply(wsjtxTableModel->getDecode(source_index));
+    const QModelIndex &source_index = proxyModel->mapToSource(index);
+
+    const WsjtxEntry &entry = wsjtxTableModel->getEntry(source_index);
+    emit showDxDetails(entry.callsign, entry.grid);
+    emit reply(entry.decode);
+}
+
+void WsjtxWidget::callsignClicked(QString callsign)
+{
+    FCT_IDENTIFICATION;
+
+    const WsjtxEntry &entry = wsjtxTableModel->getEntry(callsign);
+    if ( entry.callsign.isEmpty() )
+        return;
+
+    emit showDxDetails(callsign, entry.grid);
+    emit reply(entry.decode);
 }
 
 void WsjtxWidget::tableViewClicked(QModelIndex index)
 {
     FCT_IDENTIFICATION;
 
-    QModelIndex source_index = proxyModel->mapToSource(index);
-    lastSelectedCallsign = wsjtxTableModel->getCallsign(source_index);
+    const QModelIndex &source_index = proxyModel->mapToSource(index);
+
+    lastSelectedCallsign = wsjtxTableModel->getEntry(source_index).callsign;
 }
 
 void WsjtxWidget::setSelectedCallsign(const QString &selectCallsign)
@@ -246,7 +262,7 @@ void WsjtxWidget::actionFilter()
     if (dialog.exec() == QDialog::Accepted)
     {
         reloadSetting();
-        wsjtxTableModel->clear();
+        clearTable();
     }
 }
 
@@ -306,6 +322,14 @@ void WsjtxWidget::reloadSetting()
 #endif
 }
 
+void WsjtxWidget::clearTable()
+{
+    FCT_IDENTIFICATION;
+
+    wsjtxTableModel->clear();
+    emit spotsCleared();
+}
+
 void WsjtxWidget::saveTableHeaderState()
 {
     FCT_IDENTIFICATION;
@@ -334,4 +358,11 @@ WsjtxWidget::~WsjtxWidget()
 
     saveTableHeaderState();
     delete ui;
+}
+
+WsjtxEntry WsjtxWidget::getEntry(const QString &callsign)
+{
+    FCT_IDENTIFICATION;
+
+    return ( !wsjtxTableModel ) ? WsjtxEntry() : wsjtxTableModel->getEntry(callsign);
 }

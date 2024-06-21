@@ -16,9 +16,9 @@ public:
     void addOrReplaceEntry(WsjtxEntry entry);
     void spotAging();
     bool callsignExists(const WsjtxEntry &);
-    QString getCallsign(QModelIndex idx);
-    QString getGrid(QModelIndex idx);
-    WsjtxDecode getDecode(QModelIndex idx);
+    const WsjtxEntry getEntry(const QString &callsign) const;
+    const WsjtxEntry getEntry(QModelIndex idx) const;
+
     void setCurrentSpotPeriod(float);
     void clear();
 
