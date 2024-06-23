@@ -10,7 +10,18 @@ class AlertTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 
+
 public:
+    struct AlertTableRecord
+    {
+        QStringList ruleName;
+        long long counter;
+        SpotAlert alert;
+
+        bool operator==(const AlertTableRecord &) const;
+        explicit AlertTableRecord(const SpotAlert&);
+    };
+
     AlertTableModel(QObject* parent = nullptr) : QAbstractTableModel(parent){};
     int rowCount(const QModelIndex& parent = QModelIndex()) const;
     int columnCount(const QModelIndex& parent = QModelIndex()) const;
@@ -18,29 +29,10 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     void addAlert(SpotAlert entry);
     void clear();
-    QString getCallsign(const QModelIndex& index);
-    double getFrequency(const QModelIndex& index);
-    BandPlan::BandPlanMode getBandPlanMode(const QModelIndex &index);
+    const AlertTableRecord getTableRecord(const QModelIndex& index);
     void aging(const int clear_interval_sec);
 
 private:
-    struct AlertTableRecord
-    {
-        QDateTime dateTime;
-        QStringList ruleName;
-        QString callsign;
-        double freq;
-        QString band;
-        QString mode;
-        BandPlan::BandPlanMode bandPlanMode;
-        QString comment;
-        long long counter;
-        DxccStatus status;
-
-        bool operator==(const AlertTableRecord &) const;
-        explicit AlertTableRecord(const SpotAlert&);
-    };
-
     LogLocale locale;
     QList<AlertTableRecord> alertList;
     QMutex alertListMutex;

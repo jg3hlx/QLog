@@ -97,6 +97,7 @@ private:
     QSettings settings;
     bool isFusionStyle;
     ClubLog* clublogRT;
+    Wsjtx* wsjtx;
 
     void setDarkMode();
     void setLightMode();

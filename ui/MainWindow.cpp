@@ -148,7 +148,7 @@ MainWindow::MainWindow(QWidget* parent) :
     Fldigi* fldigi = new Fldigi(this);
     connect(fldigi, &Fldigi::addContact, ui->newContactWidget, &NewContactWidget::saveExternalContact);
 
-    Wsjtx* wsjtx = new Wsjtx(this);
+    wsjtx = new Wsjtx(this);
     connect(wsjtx, &Wsjtx::statusReceived, ui->wsjtxWidget, &WsjtxWidget::statusReceived);
     connect(wsjtx, &Wsjtx::decodeReceived, ui->wsjtxWidget, &WsjtxWidget::decodeReceived);
     connect(wsjtx, &Wsjtx::addContact, ui->newContactWidget, &NewContactWidget::saveExternalContact);
@@ -226,6 +226,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     connect(alertWidget, &AlertWidget::alertsCleared, this, &MainWindow::clearAlertEvent);
     connect(alertWidget, &AlertWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
+    connect(alertWidget, &AlertWidget::tuneWsjtx, wsjtx, &Wsjtx::startReply);
 
     conditions = new PropConditions();
 
@@ -488,9 +489,12 @@ void MainWindow::processSpotAlert(SpotAlert alert)
 
     connect(alertTextButton, &QPushButton::clicked, this, [this, alert]()
     {
-        ui->newContactWidget->tuneDx(alert.callsign,
-                                     alert.freq,
-                                     alert.bandPlanMode);
+        if ( alert.source == SpotAlert::WSJTXCQSPOT )
+            this->wsjtx->startReply(alert.wsjtxDecode);
+        else
+            ui->newContactWidget->tuneDx(alert.callsign,
+                                         alert.freq,
+                                         alert.bandPlanMode);
     });
 
     if ( ui->actionBeepSettingAlert->isChecked() )
@@ -1203,5 +1207,8 @@ MainWindow::~MainWindow()
     locatorLabel->deleteLater();
     QSqlDatabase::database().close();
     clublogRT->deleteLater();
+    if ( wsjtx )
+        wsjtx->deleteLater();
+
     delete ui;
 }

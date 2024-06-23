@@ -7,6 +7,7 @@
 #include "Dxcc.h"
 #include "core/MembershipQE.h"
 #include "data/BandPlan.h"
+#include "core/Wsjtx.h"
 
 struct SpotAlert
 {
@@ -30,6 +31,7 @@ struct SpotAlert
     QString comment;
     QString spotter;
     DxccEntity dxcc_spotter;
+    WsjtxDecode wsjtxDecode;
 
     QStringList memberList2StringList() const
     {

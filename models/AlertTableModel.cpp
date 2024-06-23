@@ -2,6 +2,7 @@
 #include "AlertTableModel.h"
 #include "core/debug.h"
 #include "data/Data.h"
+#include "rig/macros.h"
 
 //-+ FREQ_MATCH_TOLERANCE MHz is OK when QLog evaluates the same spot freq
 #define FREQ_MATCH_TOLERANCE 0.005
@@ -25,18 +26,18 @@ QVariant AlertTableModel::data(const QModelIndex& index, int role) const
         switch ( index.column() )
         {
         case 0: return selectedRecord.ruleName.join(",");
-        case 1: return selectedRecord.callsign;
-        case 2: return QString::number(selectedRecord.freq, 'f', 5);
-        case 3: return selectedRecord.mode;
+        case 1: return selectedRecord.alert.callsign;
+        case 2: return QSTRING_FREQ(selectedRecord.alert.freq);
+        case 3: return selectedRecord.alert.modeGroupString;
         case 4: return selectedRecord.counter;
-        case 5: return selectedRecord.dateTime.toString(locale.formatTimeLongWithoutTZ());
-        case 6: return selectedRecord.comment;
+        case 5: return selectedRecord.alert.dateTime.toString(locale.formatTimeLongWithoutTZ());
+        case 6: return selectedRecord.alert.comment;
         default: return QVariant();
         }
     }
     else if ( index.column() == 1 && role == Qt::BackgroundRole )
     {
-        return Data::statusToColor(selectedRecord.status, QColor(Qt::transparent));
+        return Data::statusToColor(selectedRecord.alert.status, QColor(Qt::transparent));
     }
 
     return QVariant();
@@ -63,20 +64,31 @@ void AlertTableModel::addAlert(SpotAlert entry)
 {
     AlertTableRecord newRecord(entry);
 
-    alertListMutex.lock();
+    QMutexLocker locker(&alertListMutex);
 
     int spotIndex = alertList.indexOf(newRecord);
 
     if ( spotIndex >= 0)
     {
         /* QLog already contains the spot, update it */
-        alertList[spotIndex].freq = newRecord.freq;
         alertList[spotIndex].counter++;
-        alertList[spotIndex].dateTime = newRecord.dateTime;
-        alertList[spotIndex].comment = newRecord.comment;
         alertList[spotIndex].ruleName << entry.ruleName;
         alertList[spotIndex].ruleName.removeDuplicates();
         alertList[spotIndex].ruleName.sort();
+
+        // QLog have WSJTX record and Spot from DXC is processed.
+        // only change a limited number of fields to preserve the WSJTX Decode for an WSJTX application tuning
+        if ( entry.source == SpotAlert::DXSPOT
+             && alertList[spotIndex].alert.source == SpotAlert::WSJTXCQSPOT )
+        {
+            alertList[spotIndex].alert.comment = entry.comment;
+            alertList[spotIndex].alert.spotter = entry.spotter;
+            alertList[spotIndex].alert.dxcc_spotter = entry.dxcc_spotter;
+        }
+        else
+        {
+            alertList[spotIndex].alert = entry;
+        }
         emit dataChanged(createIndex(spotIndex,0), createIndex(spotIndex,5));
     }
     else
@@ -86,47 +98,27 @@ void AlertTableModel::addAlert(SpotAlert entry)
         alertList.prepend(newRecord);
         endInsertRows();
     }
-    alertListMutex.unlock();
 }
 
 void AlertTableModel::clear()
 {
-    alertListMutex.lock();
+    QMutexLocker locker(&alertListMutex);
     beginResetModel();
     alertList.clear();
     endResetModel();
-    alertListMutex.unlock();
 }
 
-QString AlertTableModel::getCallsign(const QModelIndex &index)
+const AlertTableModel::AlertTableRecord AlertTableModel::getTableRecord(const QModelIndex &index)
 {
-    alertListMutex.lock();
-    QString ret = alertList.at(index.row()).callsign;
-    alertListMutex.unlock();
-    return ret;
-}
-
-double AlertTableModel::getFrequency(const QModelIndex &index)
-{
-    alertListMutex.lock();
-    double ret = alertList.at(index.row()).freq;
-    alertListMutex.unlock();
-    return ret;
-}
-
-BandPlan::BandPlanMode AlertTableModel::getBandPlanMode(const QModelIndex &index)
-{
-    alertListMutex.lock();
-    BandPlan::BandPlanMode ret = alertList.at(index.row()).bandPlanMode;
-    alertListMutex.unlock();
-    return ret;
+    QMutexLocker locker(&alertListMutex);
+    return alertList.at(index.row());
 }
 
 void AlertTableModel::aging(const int clear_interval_sec)
 {
     if ( clear_interval_sec <= 0 ) return;
 
-    alertListMutex.lock();
+    QMutexLocker locker(&alertListMutex);
 
     QMutableListIterator<AlertTableRecord> alertIterator(alertList);
 
@@ -134,37 +126,27 @@ void AlertTableModel::aging(const int clear_interval_sec)
     while ( alertIterator.hasNext() )
     {
         alertIterator.next();
-        if ( alertIterator.value().dateTime.addSecs(clear_interval_sec) <= QDateTime::currentDateTimeUtc() )
+        if ( alertIterator.value().alert.dateTime.addSecs(clear_interval_sec) <= QDateTime::currentDateTimeUtc() )
         {
-
             alertIterator.remove();
-
         }
     }
     endResetModel();
-
-    alertListMutex.unlock();
 }
 
 
 bool AlertTableModel::AlertTableRecord::operator==(const AlertTableRecord &spot) const
 {
-   return ( (spot.callsign == this->callsign)
-            && (spot.mode == this->mode)
-            && (qAbs(this->freq - spot.freq) <= FREQ_MATCH_TOLERANCE)
+   return ( (spot.alert.callsign == this->alert.callsign)
+            && (spot.alert.modeGroupString == this->alert.modeGroupString)
+            && (qAbs(this->alert.freq - spot.alert.freq) <= FREQ_MATCH_TOLERANCE)
             );
 }
 
 AlertTableModel::AlertTableRecord::AlertTableRecord(const SpotAlert &spotAlert) :
-    dateTime(spotAlert.dateTime),
+
     ruleName(spotAlert.ruleName),
-    callsign(spotAlert.callsign),
-    freq(spotAlert.freq),
-    band(spotAlert.band),
-    mode(spotAlert.modeGroupString),
-    bandPlanMode(spotAlert.bandPlanMode),
-    comment(spotAlert.comment),
     counter(0),
-    status(spotAlert.status)
+    alert(spotAlert)
 {
 }

@@ -104,6 +104,7 @@ void AlertEvaluator::WSJTXCQSpot(const WsjtxEntry &wsjtx)
         alert.status = wsjtx.status;
         alert.spotter = wsjtx.spotter;
         alert.dxcc_spotter = wsjtx.dxcc_spotter;
+        alert.wsjtxDecode = wsjtx.decode;
 
         emit spotAlert(alert);
         return;

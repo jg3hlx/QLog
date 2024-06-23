@@ -65,9 +65,15 @@ void AlertWidget::clearAllAlerts()
 void AlertWidget::entryDoubleClicked(QModelIndex index)
 {
     FCT_IDENTIFICATION;
-    emit tuneDx(alertTableModel->getCallsign(index),
-                alertTableModel->getFrequency(index),
-                alertTableModel->getBandPlanMode(index));
+
+    const AlertTableModel::AlertTableRecord &record = alertTableModel->getTableRecord(index);
+
+    if ( record.alert.source == SpotAlert::WSJTXCQSPOT )
+        emit tuneWsjtx(record.alert.wsjtxDecode);
+    else
+        emit tuneDx(record.alert.callsign,
+                    record.alert.freq,
+                    record.alert.bandPlanMode);
 }
 
 void AlertWidget::alertAgingChanged(int)

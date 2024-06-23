@@ -29,6 +29,7 @@ public slots:
 signals:
     void alertsCleared();
     void tuneDx(QString, double, BandPlan::BandPlanMode);
+    void tuneWsjtx(WsjtxDecode);
 
 private:
     Ui::AlertWidget *ui;
