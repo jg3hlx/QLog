@@ -25,19 +25,29 @@ QVariant AlertTableModel::data(const QModelIndex& index, int role) const
     {
         switch ( index.column() )
         {
-        case 0: return selectedRecord.ruleName.join(",");
-        case 1: return selectedRecord.alert.callsign;
-        case 2: return QSTRING_FREQ(selectedRecord.alert.freq);
-        case 3: return selectedRecord.alert.modeGroupString;
-        case 4: return selectedRecord.counter;
-        case 5: return selectedRecord.alert.dateTime.toString(locale.formatTimeLongWithoutTZ());
-        case 6: return selectedRecord.alert.comment;
+        case COLUMN_RULENAME: return selectedRecord.ruleName.join(",");
+        case COLUMN_CALLSIGN: return selectedRecord.alert.callsign;
+        case COLUMN_FREQ: return QSTRING_FREQ(selectedRecord.alert.freq);
+        case COLUMN_MODE: return selectedRecord.alert.modeGroupString;
+        case COLUMN_UPDATED: return selectedRecord.counter;
+        case COLUMN_LAST_UPDATE: return selectedRecord.alert.dateTime.toString(locale.formatTimeLongWithoutTZ());
+        case COLUMN_LAST_COMMENT: return selectedRecord.alert.comment;
         default: return QVariant();
         }
     }
-    else if ( index.column() == 1 && role == Qt::BackgroundRole )
+    else if ( index.column() == COLUMN_CALLSIGN && role == Qt::BackgroundRole )
     {
         return Data::statusToColor(selectedRecord.alert.status, QColor(Qt::transparent));
+    }
+    else if ( role == Qt::UserRole )
+    {
+        switch ( index.column() )
+        {
+        case COLUMN_FREQ: return data(index, Qt::DisplayRole).toDouble(); break;
+        case COLUMN_UPDATED: return data(index, Qt::DisplayRole).toULongLong(); break;
+        case COLUMN_LAST_UPDATE: return selectedRecord.alert.dateTime; break;
+        default: return data(index, Qt::DisplayRole);
+        }
     }
 
     return QVariant();
@@ -49,13 +59,13 @@ QVariant AlertTableModel::headerData(int section, Qt::Orientation orientation, i
 
     switch (section)
     {
-    case 0: return tr("Rule Name");
-    case 1: return tr("Callsign");
-    case 2: return tr("Frequency");
-    case 3: return tr("Mode");
-    case 4: return tr("Updated");
-    case 5: return tr("Last Update");
-    case 6: return tr("Last Comment");
+    case COLUMN_RULENAME: return tr("Rule Name");
+    case COLUMN_CALLSIGN: return tr("Callsign");
+    case COLUMN_FREQ: return tr("Frequency");
+    case COLUMN_MODE: return tr("Mode");
+    case COLUMN_UPDATED: return tr("Updated");
+    case COLUMN_LAST_UPDATE: return tr("Last Update");
+    case COLUMN_LAST_COMMENT: return tr("Last Comment");
     default: return QVariant();
     }
 }

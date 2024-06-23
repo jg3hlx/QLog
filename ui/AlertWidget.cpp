@@ -14,13 +14,18 @@ AlertWidget::AlertWidget(QWidget *parent) :
     FCT_IDENTIFICATION;
     ui->setupUi(this);
 
-    alertTableModel = new AlertTableModel(this);
+    proxyModel = new QSortFilterProxyModel(this);
+    alertTableModel = new AlertTableModel(proxyModel);
+    proxyModel->setSourceModel(alertTableModel);
+    proxyModel->setSortRole(Qt::UserRole);
 
-    ui->alertTableView->setModel(alertTableModel);
-    ui->alertTableView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
-    ui->alertTableView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+    ui->alertTableView->setModel(proxyModel);
+    ui->alertTableView->setSortingEnabled(true);
+    ui->alertTableView->sortByColumn(AlertTableModel::COLUMN_UPDATED, Qt::DescendingOrder);
+    ui->alertTableView->horizontalHeader()->setSectionsMovable(true);
 
-    QSettings settings;
+    restoreTableHeaderState();
+
     ui->clearAlertOlderSpinBox->setValue(settings.value("alert/alert_aging", 0).toInt());
 
     aging_timer = new QTimer;
@@ -32,15 +37,12 @@ AlertWidget::~AlertWidget()
 {
     FCT_IDENTIFICATION;
 
+    saveTableHeaderState();
+
     if ( aging_timer )
     {
         aging_timer->stop();
         aging_timer->deleteLater();
-    }
-
-    if ( alertTableModel )
-    {
-        alertTableModel->deleteLater();
     }
 
     delete ui;
@@ -66,7 +68,8 @@ void AlertWidget::entryDoubleClicked(QModelIndex index)
 {
     FCT_IDENTIFICATION;
 
-    const AlertTableModel::AlertTableRecord &record = alertTableModel->getTableRecord(index);
+    const QModelIndex &source_index = proxyModel->mapToSource(index);
+    const AlertTableModel::AlertTableRecord &record = alertTableModel->getTableRecord(source_index);
 
     if ( record.alert.source == SpotAlert::WSJTXCQSPOT )
         emit tuneWsjtx(record.alert.wsjtxDecode);
@@ -80,8 +83,6 @@ void AlertWidget::alertAgingChanged(int)
 {
     FCT_IDENTIFICATION;
 
-    QSettings settings;
-
     settings.setValue("alert/alert_aging", ui->clearAlertOlderSpinBox->value());
 }
 
@@ -92,6 +93,26 @@ void AlertWidget::alertAging()
     alertTableModel->aging(ui->clearAlertOlderSpinBox->value() * 60);
     ui->alertTableView->repaint();
     emit alertsCleared();
+}
+
+void AlertWidget::saveTableHeaderState()
+{
+    FCT_IDENTIFICATION;
+
+    const QByteArray &state = ui->alertTableView->horizontalHeader()->saveState();
+    settings.setValue("alert/state", state);
+}
+
+void AlertWidget::restoreTableHeaderState()
+{
+    FCT_IDENTIFICATION;
+
+    const QVariant &state = settings.value("alert/state");
+
+    if (!state.isNull())
+    {
+        ui->alertTableView->horizontalHeader()->restoreState(state.toByteArray());
+    }
 }
 
 int AlertWidget::alertCount() const

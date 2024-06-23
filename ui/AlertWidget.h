@@ -34,10 +34,14 @@ signals:
 private:
     Ui::AlertWidget *ui;
     AlertTableModel* alertTableModel;
+    QSortFilterProxyModel *proxyModel;
     QTimer *aging_timer;
+    QSettings settings;
 
 private slots:
     void alertAging();
+    void saveTableHeaderState();
+    void restoreTableHeaderState();
 
 };
 

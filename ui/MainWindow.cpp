@@ -309,6 +309,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
     if ( alertWidget )
     {
         alertWidget->close();
+        alertWidget->deleteLater();
     }
 
     QMainWindow::closeEvent(event);
@@ -1199,7 +1200,6 @@ MainWindow::~MainWindow()
     Rotator::instance()->stopTimer();
     CWKeyer::instance()->stopTimer();
 
-    alertWidget->deleteLater();
     conditions->deleteLater();
     conditionsLabel->deleteLater();
     profileLabel->deleteLater();

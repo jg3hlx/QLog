@@ -12,6 +12,18 @@ class AlertTableModel : public QAbstractTableModel
 
 
 public:
+
+    enum column_id
+    {
+        COLUMN_RULENAME = 0,
+        COLUMN_CALLSIGN = 1,
+        COLUMN_FREQ = 2,
+        COLUMN_MODE = 3,
+        COLUMN_UPDATED = 4,
+        COLUMN_LAST_UPDATE = 5,
+        COLUMN_LAST_COMMENT = 6,
+    };
+
     struct AlertTableRecord
     {
         QStringList ruleName;
