@@ -2,6 +2,9 @@ TBC - 0.37.0
 - [NEW] - Added Shortcuts Editor (issue #293)
 - [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots
 - [NEW] - Improveded detection of SH/DX SHF Spots
+- [NEW] - Added Online Map WSJTX CQ Spots
+- [NEW] - WSJTX - Sortable View
+- [NEW] - Alerts - Sortable View
 - [NEW] - Added Spanish translation (thx LU1IDC)
 - [CHANGED] - QRZ auth should be over POST with form data (issue #389)
 - [CHANGED] - Big CTY file is used
@@ -11,6 +14,7 @@ TBC - 0.37.0
 - Fixed QRZ Lookup Not Including Full Name - History (issue #388)
 - Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
 - Fixed Spot Last QSO must contain Freq in kHz (issue #391)
+- Fixed Malfunctioning tuning of WSJTX Alert spot
 
 2024/06/07 - 0.36.0
 - [NEW] - WSJTX: Added support to received ADIF QSO Log record
