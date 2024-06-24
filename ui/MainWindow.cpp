@@ -141,6 +141,10 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(Rig::instance(), &Rig::frequencyChanged, ui->onlineMapWidget, &OnlineMapWidget::setIBPBand);
 
     connect(Rotator::instance(), &Rotator::rotErrorPresent, this, &MainWindow::rotErrorHandler);
+    connect(Rotator::instance(), &Rotator::positionChanged, ui->onlineMapWidget, &OnlineMapWidget::antPositionChanged);
+    connect(Rotator::instance(), &Rotator::rotConnected, ui->onlineMapWidget, &OnlineMapWidget::rotConnected);
+    connect(Rotator::instance(), &Rotator::rotDisconnected, ui->onlineMapWidget, &OnlineMapWidget::rotDisconnected);
+
     connect(CWKeyer::instance(), &CWKeyer::cwKeyerError, this, &MainWindow::cwKeyerErrorHandler);
     connect(CWKeyer::instance(), &CWKeyer::cwKeyWPMChanged, ui->cwconsoleWidget, &CWConsoleWidget::setWPM);
     connect(CWKeyer::instance(), &CWKeyer::cwKeyEchoText, ui->cwconsoleWidget, &CWConsoleWidget::appendCWEchoText);

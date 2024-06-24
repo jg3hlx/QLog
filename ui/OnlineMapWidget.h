@@ -42,7 +42,7 @@ public slots:
     void rotConnected();
     void rotDisconnected();
     void flyToMyQTH();
-    void drawChatUsers(QList<KSTUsersInfo> list);
+    void drawChatUsers(const QList<KSTUsersInfo> &list);
     void drawWSJTXSpot(const WsjtxEntry &spot);
     void clearWSJTXSpots();
 

@@ -101,20 +101,14 @@ void MapWebChannelHandler::restoreLayerControlStates(QWebEnginePage *page)
 
     settings.beginGroup(QString("%1/layerstate").arg(configID));
 
-    QStringList keys = settings.allKeys();
+    const QStringList &keys = settings.allKeys();
 
-    for ( const QString &key : qAsConst(keys))
+    for ( const QString &key : keys)
     {
         qCDebug(runtime) << "key:" << key << "value:" << settings.value(key);
 
-        if ( settings.value(key).toBool() )
-        {
-            js += QString("map.addLayer(%1);").arg(key);
-        }
-        else
-        {
-            js += QString("map.removeLayer(%1);").arg(key);
-        }
+        js += ( settings.value(key).toBool() ) ? QString("map.addLayer(%1);").arg(key)
+                                               : QString("map.removeLayer(%1);").arg(key);
     }
     qCDebug(runtime) << js;
 
@@ -136,44 +130,28 @@ QString MapWebChannelHandler::generateMapMenuJS(bool gridLayer,
     QStringList options;
 
     if ( aurora )
-    {
         options << "\"" + tr("Aurora") + "\": auroraLayer";
-    }
 
     if ( antpath )
-    {
         options << "\"" + tr("Beam") + "\": antPathLayer";
-    }
 
     if ( chatStations )
-    {
         options << "\"" + tr("Chat") + "\": chatStationsLayer";
-    }
 
     if ( gridLayer )
-    {
         options << "\"" + tr("Grid") + "\": maidenheadConfWorked";
-    }
 
     if ( grayline )
-    {
         options << "\"" + tr("Gray-Line") + "\": grayline";
-    }
 
     if ( ibp )
-    {
         options << "\"" + tr("IBP") + "\": IBPLayer";
-    }
 
     if ( muf )
-    {
         options << "\"" + tr("MUF") + "\": mufLayer";
-    }
 
     if ( wsjtxStations )
-    {
         options << "\"" + tr("WSJTX") + "\": wsjtxStationsLayer";
-    }
 
     QString ret = QString("var layerControl = new L.Control.Layers(null,"
                           "{ %1 },{}).addTo(map);").arg(options.join(","));

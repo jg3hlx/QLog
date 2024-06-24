@@ -40,7 +40,7 @@ OnlineMapWidget::OnlineMapWidget(QWidget *parent):
     main_page->setWebChannel(&channel);
 
     setPage(main_page);
-    main_page->load(QUrl(QStringLiteral("qrc:/res/map/onlinemap.html")));
+    main_page->load(QUrl(QLatin1String("qrc:/res/map/onlinemap.html")));
     connect(this, &OnlineMapWidget::loadFinished, this, &OnlineMapWidget::finishLoading);
 
     setFocusPolicy(Qt::ClickFocus);
@@ -52,9 +52,6 @@ OnlineMapWidget::OnlineMapWidget(QWidget *parent):
 
     setIBPBand(VFO1, 0.0, freq, 0.0);
 
-    connect(Rotator::instance(), &Rotator::positionChanged, this, &OnlineMapWidget::antPositionChanged);
-    connect(Rotator::instance(), &Rotator::rotConnected, this, &OnlineMapWidget::rotConnected);
-    connect(Rotator::instance(), &Rotator::rotDisconnected, this, &OnlineMapWidget::rotDisconnected);
     connect(&webChannelHandler, &MapWebChannelHandler::chatCallsignPressed, this, &OnlineMapWidget::chatCallsignTrigger);
     connect(&webChannelHandler, &MapWebChannelHandler::wsjtxCallsignPressed, this, &OnlineMapWidget::wsjtxCallsignTrigger);
     connect(&webChannelHandler, &MapWebChannelHandler::IBPPressed, this, &OnlineMapWidget::IBPCallsignTrigger);
@@ -75,21 +72,14 @@ void OnlineMapWidget::setTarget(double lat, double lon)
 
         if ( myGrid.isValid() )
         {
-            double my_lat=0;
-            double my_lon=0;
-            my_lat = myGrid.getLatitude();
-            my_lon = myGrid.getLongitude();
-
-            targetJavaScript += QString("drawPath([{lat: %1, lng: %2}, {lat: %3, lng: %4}]);").arg(my_lat)
-                                                                                              .arg(my_lon)
+            targetJavaScript += QString("drawPath([{lat: %1, lng: %2}, {lat: %3, lng: %4}]);").arg(myGrid.getLatitude())
+                                                                                              .arg(myGrid.getLongitude())
                                                                                               .arg(lat)
                                                                                               .arg(lon);
         }
     }
     else
-    {
-        targetJavaScript = QString("drawPath([]);");
-    }
+        targetJavaScript = QLatin1String("drawPath([]);");
 
     runJavaScript(targetJavaScript);
 
@@ -105,14 +95,9 @@ void OnlineMapWidget::changeTheme(int theme)
 
     QString themeJavaScript;
 
-    if ( theme == 1 ) /* dark mode */
-    {
-        themeJavaScript = "map.getPanes().tilePane.style.webkitFilter=\"brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.9)\";";
-    }
-    else
-    {
-        themeJavaScript = "map.getPanes().tilePane.style.webkitFilter=\"\";";
-    }
+    //theme == 1 dart
+    themeJavaScript = ( theme == 1 ) ? QLatin1String("map.getPanes().tilePane.style.webkitFilter=\"brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.9)\";")
+                                     : QLatin1String("map.getPanes().tilePane.style.webkitFilter=\"\";");
 
     runJavaScript(themeJavaScript);
 }
@@ -121,19 +106,15 @@ void OnlineMapWidget::auroraDataUpdate()
 {
     FCT_IDENTIFICATION;
 
-    QString targetJavaScript;
     QStringList mapPoints;
 
-    if ( !prop_cond )
-    {
-        return;
-    }
+    if ( !prop_cond ) return;
 
     if ( prop_cond->isAuroraMapValid() )
     {
-        const QList<GenericValueMap<double>::MapPoint> points = prop_cond->getAuroraPoints();
+        const QList<GenericValueMap<double>::MapPoint> &points = prop_cond->getAuroraPoints();
 
-        for (const GenericValueMap<double>::MapPoint &point : points )
+        for ( const GenericValueMap<double>::MapPoint &point : points )
         {
             if ( point.value > 10 )
             {
@@ -147,9 +128,7 @@ void OnlineMapWidget::auroraDataUpdate()
         }
     }
 
-    targetJavaScript = QString(" auroraLayer.setData({max: 100, data:[%1]});").arg(mapPoints.join(","));
-
-    runJavaScript(targetJavaScript);
+    runJavaScript(QString(" auroraLayer.setData({max: 100, data:[%1]});").arg(mapPoints.join(",")));
 }
 
 void OnlineMapWidget::mufDataUpdate()
@@ -158,16 +137,13 @@ void OnlineMapWidget::mufDataUpdate()
 
     QStringList mapPoints;
 
-    if ( !prop_cond )
-    {
-        return;
-    }
+    if ( !prop_cond ) return;
 
     if ( prop_cond->isMufMapValid() )
     {
-        const QList<GenericValueMap<double>::MapPoint> points = prop_cond->getMUFPoints();
+        const QList<GenericValueMap<double>::MapPoint> &points = prop_cond->getMUFPoints();
 
-        for (const GenericValueMap<double>::MapPoint &point : points )
+        for ( const GenericValueMap<double>::MapPoint &point : points )
         {
             mapPoints << QString("['%1', %2, %3]").arg(QString::number(point.value,'f',0))
                                                 .arg(point.latitude)
@@ -178,18 +154,14 @@ void OnlineMapWidget::mufDataUpdate()
         }
     }
 
-    QString targetJavaScript = QString(" drawMuf([%1]);").arg(mapPoints.join(","));
-
-    runJavaScript(targetJavaScript);
+    runJavaScript(QString(" drawMuf([%1]);").arg(mapPoints.join(",")));
 }
 
 void OnlineMapWidget::setIBPBand(VFOID , double, double ritFreq, double)
 {
     FCT_IDENTIFICATION;
 
-    QString targetJavaScript = QString("currentBand=\"%1\";").arg(BandPlan::freq2Band(ritFreq).name);
-
-    runJavaScript(targetJavaScript);
+    runJavaScript(QString("currentBand=\"%1\";").arg(BandPlan::freq2Band(ritFreq).name));
 }
 
 void OnlineMapWidget::antPositionChanged(double in_azimuth, double in_elevation)
@@ -210,11 +182,6 @@ void OnlineMapWidget::antPositionChanged(double in_azimuth, double in_elevation)
 
     if ( myGrid.isValid() )
     {
-        double my_lat=0.0;
-        double my_lon=0.0;
-        my_lat = myGrid.getLatitude();
-        my_lon = myGrid.getLongitude();
-
         double beamLen = 3000; // in km
         double azimuthBeamWidth = AntProfilesManager::instance()->getCurProfile1().azimuthBeamWidth;
 
@@ -226,8 +193,8 @@ void OnlineMapWidget::antPositionChanged(double in_azimuth, double in_elevation)
                 beamLen = newBeamLen;
             }
         }
-        targetJavaScript += QString("drawAntPath({lat: %1, lng: %2}, %3, %4, %5);").arg(my_lat)
-                                                                                   .arg(my_lon)
+        targetJavaScript += QString("drawAntPath({lat: %1, lng: %2}, %3, %4, %5);").arg(myGrid.getLatitude())
+                                                                                   .arg(myGrid.getLongitude())
                                                                                    .arg(beamLen)
                                                                                    .arg(in_azimuth)
                                                                                    .arg(azimuthBeamWidth);
@@ -235,7 +202,7 @@ void OnlineMapWidget::antPositionChanged(double in_azimuth, double in_elevation)
     else
     {
         // clean paths
-        targetJavaScript = QString("drawAntPath({}, 0, 0, 0);");
+        targetJavaScript = QLatin1String("drawAntPath({}, 0, 0, 0);");
     }
 
     runJavaScript(targetJavaScript);
@@ -256,16 +223,12 @@ void OnlineMapWidget::rotDisconnected()
     isRotConnected = false;
 
     // clear the Ant Path
-    QString targetJavaScript = QString("drawAntPath({}, 0, 0, 0);");
-
-    runJavaScript(targetJavaScript);
+    runJavaScript(QLatin1String("drawAntPath({}, 0, 0, 0);"));
 }
 
 void OnlineMapWidget::finishLoading(bool)
 {
     FCT_IDENTIFICATION;
-
-    QSettings settings;
 
     isMainPageLoaded = true;
 
@@ -315,13 +278,9 @@ void OnlineMapWidget::runJavaScript(const QString &js)
     qCDebug(function_parameters) << js;
 
     if ( !isMainPageLoaded )
-    {
         postponedScripts.append(js);
-    }
     else
-    {
         main_page->runJavaScript(js);
-    }
 }
 
 void OnlineMapWidget::flyToMyQTH()
@@ -333,42 +292,32 @@ void OnlineMapWidget::flyToMyQTH()
 
     if ( myGrid.isValid() )
     {
-        double my_lat = myGrid.getLatitude();
-        double my_lon = myGrid.getLongitude();
-        QString currentProfilePosition(QString("[\"\", %1, %2, yellowIcon]").arg(my_lat).arg(my_lon));
-        QString js = QString("flyToPoint(%1, 4);").arg(currentProfilePosition);
-        runJavaScript(js);
+        QString currentProfilePosition(QString("[\"\", %1, %2, yellowIcon]").arg(myGrid.getLatitude())
+                                                                            .arg(myGrid.getLongitude()));
+        runJavaScript(QString("flyToPoint(%1, 4);").arg(currentProfilePosition));
     }
     // redraw ant path because QSO distance can change
     antPositionChanged(lastSeenAzimuth, lastSeenElevation);
 }
 
-void OnlineMapWidget::drawChatUsers(QList<KSTUsersInfo> list)
+void OnlineMapWidget::drawChatUsers(const QList<KSTUsersInfo> &list)
 {
     FCT_IDENTIFICATION;
 
     QList<QString> chatUsers;
 
-    for ( const KSTUsersInfo &user : qAsConst(list) )
+    for ( const KSTUsersInfo &user : list )
     {
         if ( user.grid.isValid() )
         {
-            double lat = user.grid.getLatitude();
-            double lon = user.grid.getLongitude();
             chatUsers.append(QString("[\"%1\", %2, %3, %4]").arg(user.callsign)
-                             //.arg(user.callsign + "<br/>" + user.stationComment)
-                                                                 //+ "<br/><button id=\'chatButton\'>Chat</button>")
-                                                              //   + "<br/><button onclick='chatButtonPressed(\\\"" + user.callsign + "\\\")'>Chat</button>")
-                                                           .arg(lat)
-                                                           .arg(lon)
-                                                           .arg("yellowIcon"));
-
+                                                            .arg(user.grid.getLatitude())
+                                                            .arg(user.grid.getLongitude())
+                                                            .arg("yellowIcon"));
         }
     }
 
-    QString js = QString("drawPointsGroup3([%1]);").arg(chatUsers.join(","));
-
-    runJavaScript(js);
+    runJavaScript(QString("drawPointsGroup3([%1]);").arg(chatUsers.join(",")));
 }
 
 void OnlineMapWidget::drawWSJTXSpot(const WsjtxEntry &spot)
