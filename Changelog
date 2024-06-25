@@ -2,7 +2,7 @@ TBC - 0.37.0
 - [NEW] - Added Shortcuts Editor (issue #293)
 - [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots
 - [NEW] - Improveded detection of SH/DX SHF Spots
-- [NEW] - Added Online Map WSJTX CQ Spots
+- [NEW] - Online Map - Added WSJTX CQ Spots
 - [NEW] - WSJTX - Sortable View
 - [NEW] - Alerts - Sortable View
 - [NEW] - Added Spanish translation (thx LU1IDC)
