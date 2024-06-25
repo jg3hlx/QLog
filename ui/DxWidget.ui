@@ -60,7 +60,7 @@
         <enum>Qt::DefaultContextMenu</enum>
        </property>
        <property name="toolTip">
-        <string>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Serveru.</string>
+        <string>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Server.</string>
        </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>

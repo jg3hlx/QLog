@@ -219,10 +219,10 @@
     <string>Delete</string>
    </property>
    <property name="toolTip">
-    <string>Logbook - DeleteQSO</string>
+    <string>Logbook - Delete QSO</string>
    </property>
    <property name="shortcut">
-    <string>Del</string>
+    <string notr="true">Del</string>
    </property>
    <property name="changeableshortcut" stdset="0">
     <bool>true</bool>
@@ -264,12 +264,6 @@
    </property>
    <property name="toolTip">
     <string>Logbook - Edit Value</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+E</string>
-   </property>
-   <property name="changeableshortcut" stdset="0">
-    <bool>true</bool>
    </property>
   </action>
   <action name="actionDisplayedColumns">

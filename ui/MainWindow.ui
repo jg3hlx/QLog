@@ -291,7 +291,7 @@
     <string>Application - Quit</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+Q</string>
+    <string notr="true">Ctrl+Q</string>
    </property>
    <property name="menuRole">
     <enum>QAction::QuitRole</enum>
@@ -324,7 +324,7 @@
     <string>New QSO - Clear</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+N</string>
+    <string notr="true">Ctrl+N</string>
    </property>
    <property name="changeableshortcut" stdset="0">
     <bool>true</bool>
@@ -355,6 +355,9 @@
    <property name="text">
     <string>Connect R&amp;ig</string>
    </property>
+   <property name="shortcut">
+    <string notr="true"/>
+   </property>
   </action>
   <action name="actionAbout">
    <property name="icon">
@@ -380,7 +383,7 @@
     <string>New QSO - Save</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string notr="true">Ctrl+S</string>
    </property>
    <property name="changeableshortcut" stdset="0">
     <bool>true</bool>
@@ -602,7 +605,7 @@
     <string>Logbook - Search Callsign</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+F</string>
+    <string notr="true">Ctrl+F</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -622,7 +625,7 @@
     <string>New QSO - Add text from Callsign field to Bandmap</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+M</string>
+    <string notr="true">Ctrl+M</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -639,7 +642,7 @@
     <string>Rig - Band Down</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+PgDown</string>
+    <string notr="true">Ctrl+PgDown</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -656,7 +659,7 @@
     <string>Rig - Band Up</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+PgUp</string>
+    <string notr="true">Ctrl+PgUp</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -673,7 +676,7 @@
     <string>New QSO - Use Callsign from the Whisperer</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Return</string>
+    <string notr="true">Alt+Return</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -690,7 +693,7 @@
     <string>CW Console - Key Speed Up</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Up</string>
+    <string notr="true">Alt+Up</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -707,7 +710,7 @@
     <string>CW Console - Key Speed Down</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Down</string>
+    <string notr="true">Alt+Down</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -724,7 +727,7 @@
     <string>CW Console - Profile Up</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Right</string>
+    <string notr="true">Alt+Right</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -741,7 +744,7 @@
     <string>CW Console - Profile Down</string>
    </property>
    <property name="shortcut">
-    <string>Alt+Left</string>
+    <string notr="true">Alt+Left</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -758,7 +761,7 @@
     <string>Rig - PTT On/Off</string>
    </property>
    <property name="shortcut">
-    <string>Alt+\</string>
+    <string notr="true">Alt+\</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
