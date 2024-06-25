@@ -316,6 +316,8 @@ private:
     QSettings settings;
     Band bandTX;
     Band bandRX;
+    QSqlQuery prevQSOQuery;
+    bool isprevQSOQueryPrepared;
 };
 
 #endif // QLOG_UI_NEWCONTACTWIDGET_H

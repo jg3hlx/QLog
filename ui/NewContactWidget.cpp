@@ -260,6 +260,19 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     /* whether form changed */
     /************************/
     connectFieldChanged();
+
+    isprevQSOQueryPrepared = prevQSOQuery.prepare("SELECT name_intl, "
+                                                  "       qth_intl, "
+                                                  "       gridsquare, "
+                                                  "       notes_intl, "
+                                                  "       email, "
+                                                  "       web ,"
+                                                  "       darc_dok "
+                                                  "FROM contacts "
+                                                  "WHERE callsign = :callsign "
+                                                  "ORDER BY start_time DESC LIMIT 1");
+    if ( !isprevQSOQueryPrepared)
+        qWarning() << "Cannot prepare prevQSOquery statement";
 }
 
 void NewContactWidget::setComboBaseData(QComboBox *combo, const QString &data)
@@ -379,13 +392,9 @@ void NewContactWidget::callsignChanged()
     }
 
     if ( newCallsign == callsign )
-    {
         return;
-    }
-    else
-    {
-        callsign = newCallsign;
-    }
+
+    callsign = newCallsign;
 
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -400,9 +409,7 @@ void NewContactWidget::callsignChanged()
         queryDxcc(callsign);
 
         if ( callsign.length() >= 3 )
-        {
             fillFieldsFromLastQSO(callsign);
-        }
     }
 }
 
@@ -481,55 +488,42 @@ void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
 
     qCDebug(function_parameters) << callsign;
 
+    if ( !isprevQSOQueryPrepared )
+        return;
+
     Callsign enteredCallsign(callsign);
 
     if ( enteredCallsign.isValid() )
     {
-        QSqlQuery query;
-
-        if ( !query.prepare("SELECT name_intl, "
-                            "       qth_intl, "
-                            "       gridsquare, "
-                            "       notes_intl, "
-                            "       email, "
-                            "       web ,"
-                            "       darc_dok "
-                            "FROM contacts "
-                            "WHERE callsign = :callsign "
-                            "ORDER BY start_time DESC LIMIT 1") )
-        {
-            qWarning() << "Cannot prepare select statement";
-            return;
-        }
 
         /* The first attempt, try to find full callsign */
         qCDebug(runtime) << "Trying prefix + callsign match - " << enteredCallsign.getHostPrefixWithDelimiter()
                                                                    + enteredCallsign.getBase();
 
-        query.bindValue(":callsign", enteredCallsign.getHostPrefixWithDelimiter()
+        prevQSOQuery.bindValue(":callsign", enteredCallsign.getHostPrefixWithDelimiter()
                                      + enteredCallsign.getBase());
 
-        if ( !query.exec() )
+        if ( !prevQSOQuery.exec() )
         {
-            qWarning() << "Cannot execute statement" << query.lastError();
+            qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
             return;
         }
 
-        if ( query.next() )
+        if ( prevQSOQuery.next() )
         {
             /* If callsign has a suffix ("/p", "/mm"  etc)
                then do not reuse QTH, Grid and DOK - may vary
                otherwise reuse all captured information */
             if ( enteredCallsign.getSuffix().isEmpty() )
             {
-                uiDynamic->qthEdit->setText(query.value(1).toString());
-                uiDynamic->gridEdit->setText(query.value(2).toString());
-                uiDynamic->dokEdit->setText(query.value(6).toString());
+                uiDynamic->qthEdit->setText(prevQSOQuery.value(1).toString());
+                uiDynamic->gridEdit->setText(prevQSOQuery.value(2).toString());
+                uiDynamic->dokEdit->setText(prevQSOQuery.value(6).toString());
             }
-            uiDynamic->nameEdit->setText(query.value(0).toString());
-            ui->noteEdit->insertPlainText(query.value(3).toString());
-            uiDynamic->emailEdit->setText(query.value(4).toString());
-            uiDynamic->urlEdit->setText(query.value(5).toString());
+            uiDynamic->nameEdit->setText(prevQSOQuery.value(0).toString());
+            ui->noteEdit->insertPlainText(prevQSOQuery.value(3).toString());
+            uiDynamic->emailEdit->setText(prevQSOQuery.value(4).toString());
+            uiDynamic->urlEdit->setText(prevQSOQuery.value(5).toString());
 
             emit filterCallsign(enteredCallsign.getBase());
         }
@@ -538,22 +532,22 @@ void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
             /* The second attempt - a callsign with its prefix not found, try only the base callsign */
             qCDebug(runtime) << "Callsign not found - trying a base callsign match " << enteredCallsign.getBase();
 
-            query.bindValue(":callsign", enteredCallsign.getBase());
+            prevQSOQuery.bindValue(":callsign", enteredCallsign.getBase());
 
-            if ( ! query.exec() )
+            if ( ! prevQSOQuery.exec() )
             {
-                qWarning() << "Cannot execute statement" << query.lastError();
+                qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
                 return;
             }
 
-            if ( query.next() )
+            if ( prevQSOQuery.next() )
             {
                 /* we have found a callsign but only a base callsign match, therefore do not reuse
                    QTH, Grid and DOK - may vary */
-                uiDynamic->nameEdit->setText(query.value(0).toString());
-                ui->noteEdit->insertPlainText(query.value(3).toString());
-                uiDynamic->emailEdit->setText(query.value(4).toString());
-                uiDynamic->urlEdit->setText(query.value(5).toString());
+                uiDynamic->nameEdit->setText(prevQSOQuery.value(0).toString());
+                ui->noteEdit->insertPlainText(prevQSOQuery.value(3).toString());
+                uiDynamic->emailEdit->setText(prevQSOQuery.value(4).toString());
+                uiDynamic->urlEdit->setText(prevQSOQuery.value(5).toString());
 
                 emit filterCallsign(enteredCallsign.getBase());
             }
