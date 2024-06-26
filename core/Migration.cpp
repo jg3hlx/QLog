@@ -204,7 +204,7 @@ bool Migration::functionMigration(int version)
         ret = fillCQITUZStationProfiles();
         break;
     case 28:
-        ret = resetCTYLastDate();
+        ret = resetConfigs();
         break;
     default:
         ret = true;
@@ -628,13 +628,18 @@ bool Migration::fillCQITUZStationProfiles()
     return true;
 }
 
-bool Migration::resetCTYLastDate()
+bool Migration::resetConfigs()
 {
     FCT_IDENTIFICATION;
 
     // to force redownload CTY file
     QSettings settings;
     settings.remove("last_cty_update");
+
+    // it changes to sortable view.
+    // I don't know why, but when the layout is saved, the sort indicator
+    // is not displayed when the sortable view is turned on. So I rather remove the view state
+    settings.remove("wsjtx/state");
     return true;
 }
 
