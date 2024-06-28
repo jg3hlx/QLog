@@ -608,7 +608,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="193"/>
         <source>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</source>
-        <translation>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;todo&lt;/b&gt; (separated by a new line).</translation>
+        <translation>Cambiar entre enviar &lt;b&gt;palabras&lt;/b&gt; individualmente (separadas por espacios)&lt;br&gt; y enviar el texto completo como un &lt;b&gt;todo&lt;/b&gt; (separado por una nueva línea).</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="233"/>
@@ -658,7 +658,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="419"/>
         <source>Clear Sent and Echo Console</source>
-        <translation>Borrar enviados y consola Echo</translation>
+        <translation>Borrar enviados y consola Eco</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="422"/>
@@ -3279,7 +3279,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="63"/>
         <source>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inserte &lt;b&gt;nombre de host:puerto&lt;/b&gt; del servidor del  Cluster DX.</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="94"/>
@@ -3385,7 +3385,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="563"/>
         <source>DXC - Delete Server</source>
-        <translation>DXC - Borrar Servidor</translation>
+        <translation>Cluster DX - Eliminar Servidor</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="568"/>
@@ -5481,7 +5481,12 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="222"/>
         <source>Logbook - Delete QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>Libro de Guardia - Eliminar QSO</translation>
+    </message>
+    <message>
+        <location filename="../ui/LogbookWidget.ui" line="266"/>
+        <source>Logbook - Edit Value</source>
+        <translation>Libro de Guardia - Editar Valor</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="237"/>
@@ -5503,11 +5508,6 @@
         <location filename="../ui/LogbookWidget.ui" line="263"/>
         <source>Edit Value</source>
         <translation>Editar Valor</translation>
-    </message>
-    <message>
-        <location filename="../ui/LogbookWidget.ui" line="266"/>
-        <source>Logbook - Edit Value</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="271"/>
@@ -5962,7 +5962,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="81"/>
         <source>&amp;Equipment</source>
-        <translation>&amp;Equipo</translation>
+        <translation>E&amp;quipo</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="91"/>
@@ -5982,7 +5982,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="127"/>
         <source>La&amp;yout</source>
-        <translation>&amp;Disposición</translation>
+        <translation>D&amp;isposición</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="131"/>
@@ -6087,24 +6087,24 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="288"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="291"/>
         <source>Application - Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicación - Salir</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="321"/>
         <location filename="../ui/MainWindow.ui" line="324"/>
         <source>New QSO - Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo QSO - Limpiar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="380"/>
         <location filename="../ui/MainWindow.ui" line="383"/>
         <source>New QSO - Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo QSO - Guardar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="416"/>
@@ -6230,53 +6230,53 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="605"/>
         <source>Logbook - Search Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Libro de Guardia - Buscar Indicativo</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="622"/>
         <location filename="../ui/MainWindow.ui" line="625"/>
         <source>New QSO - Add text from Callsign field to Bandmap</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo QSO - Agregar texto del campo Indicativo al Mapa de Banda</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="642"/>
         <source>Rig - Band Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio - Bajar Banda</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="659"/>
         <source>Rig - Band Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio - Subir Banda</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="676"/>
         <source>New QSO - Use Callsign from the Whisperer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo QSO - Usar el indicativo del Whisperer</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="693"/>
         <source>CW Console - Key Speed Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola CW - Subir Velocidad</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="710"/>
         <source>CW Console - Key Speed Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola CW - Bajar Velocidad</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="727"/>
         <source>CW Console - Profile Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola CW - Subir Perfil</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="744"/>
         <source>CW Console - Profile Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Consola CW - Bajar Perfil</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="761"/>
         <source>Rig - PTT On/Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio - PTT Enc./Apag.</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="60"/>
@@ -6298,7 +6298,7 @@
         <location filename="../ui/MainWindow.cpp" line="430"/>
         <location filename="../ui/MainWindow.cpp" line="440"/>
         <source>&lt;b&gt;Error Detail:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Detalle del Error&lt;/b&gt; </translation>
+        <translation>&lt;b&gt;Detalle del Error:&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="653"/>
@@ -6411,7 +6411,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="87"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="154"/>
         <source>WSJTX - CQ</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJTX - CQ</translation>
     </message>
 </context>
 <context>
@@ -6615,7 +6615,7 @@
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1451"/>
         <source>M&amp;y Station</source>
-        <translation>Mi &amp;Estación</translation>
+        <translation>&amp;Mi Estación</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1459"/>
@@ -6650,7 +6650,7 @@
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1579"/>
         <source>My &amp;Notes</source>
-        <translation>Mis &amp;Notas</translation>
+        <translation>Mis N&amp;otas</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1622"/>
@@ -7207,7 +7207,7 @@
     <message>
         <location filename="../ui/MainWindow.cpp" line="419"/>
         <source>&lt;b&gt;Rig Error:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Errorde la Radio:&lt;/b&gt; </translation>
+        <translation>&lt;b&gt;Error de la Radio:&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="429"/>
@@ -9096,7 +9096,7 @@
         <location filename="../ui/SettingsDialog.ui" line="1402"/>
         <location filename="../ui/SettingsDialog.ui" line="2215"/>
         <source>List of all available Rigs</source>
-        <translation>Lista de Radios disponibles</translation>
+        <translation>Lista de Equipos disponibles</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1466"/>
@@ -9619,12 +9619,12 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3781"/>
         <source>Join Multicast</source>
-        <translation>Join Multicast</translation>
+        <translation>Unirse a Multidifusión</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3794"/>
         <source>Enable/Disable Multicast option for WSJTX</source>
-        <translation>Enable/Disable Multicast option for WSJTX</translation>
+        <translation>Activar/desactivar la opción de multidifusión para WSJTX</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3804"/>
@@ -9704,7 +9704,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3974"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajos del teclado</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="88"/>
@@ -9908,22 +9908,22 @@
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="36"/>
         <source>Description</source>
-        <translation type="unfinished">Descripción</translation>
+        <translation>Descripción</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="37"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajo</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="81"/>
         <source>Conflict with a built-in shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Conflicto con un atajo integrado</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="87"/>
         <source>Conflict with a user-defined shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Conflicto con un atajo definido por el usuario</translation>
     </message>
 </context>
 <context>
