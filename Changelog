@@ -6,6 +6,7 @@ TBC - 0.37.0
 - [NEW] - WSJTX - Sortable View
 - [NEW] - Alerts - Sortable View
 - [NEW] - Added Spanish translation (thx LU1IDC)
+- [NEW[ - Added Search Callsign Clear Button (issue #396)
 - [CHANGED] - QRZ auth should be over POST with form data (issue #389)
 - [CHANGED] - Big CTY file is used
 - [CHANGED] - Callbook Country DXCC ID is used in case of difference from Big CTY
