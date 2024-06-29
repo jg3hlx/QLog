@@ -67,12 +67,6 @@ BandmapWidget::BandmapWidget(QWidget *parent) :
 
     ui->clearSpotOlderSpin->setValue(settings.value("bandmap/spot_aging", 0).toInt());
 
-    Rig* rig = Rig::instance();
-    connect(rig, &Rig::frequencyChanged,
-            this, &BandmapWidget::updateTunedFrequency);
-    connect(rig, &Rig::modeChanged,
-            this, &BandmapWidget::updateMode);
-
     update_timer = new QTimer;
     connect(update_timer, &QTimer::timeout, this, &BandmapWidget::updateStationTimer);
     update_timer->start(BANDMAP_MAX_REFRESH_TIME);
@@ -144,7 +138,7 @@ void BandmapWidget::update()
         }
     }
 
-    QString endFreqDigits= QString::number(currentBand.end + step*steps, 'f', digits);
+    const QString &endFreqDigits= QString::number(currentBand.end + step*steps, 'f', digits);
     bandmapScene->setSceneRect(160 - (endFreqDigits.size() * PIXELSPERSTEP),
                                0,
                                0,
