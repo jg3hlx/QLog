@@ -3057,6 +3057,7 @@ void NewContactWidget::useNearestCallsign()
 {
     FCT_IDENTIFICATION;
 
+    updateTime();
     changeCallsignManually(ui->nearStationLabel->text());
     ui->callsignEdit->setFocus();
 }
