@@ -674,6 +674,17 @@ void BandmapWidget::spotClicked(const QString &call,
     emit tuneDx(call, freq, mode);
     lastTunedDX.callsign = call;
     lastTunedDX.freq = freq;
+
+    // allow to re-click the spot.
+    // I don't want to use double click here because users expect to single-clicking on the map and double click
+    // can emit tuneDX two times what causes an issue in Callbooks section and other parts of QLog.
+    // However, to be able to click on the callsign again, it needs to be disabled for a short while.
+    // That's why there is a delay.
+    QTimer::singleShot(3000, this, [this]() {
+        lastTunedDX.callsign.clear();
+        lastTunedDX.freq = 0.0;
+    });
+
 }
 
 void BandmapWidget::showContextMenu(const QPoint &point)

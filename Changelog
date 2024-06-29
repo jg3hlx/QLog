@@ -16,6 +16,7 @@ TBC - 0.37.0
 - Fixed QRZ Lookup Not Including Full Name - History (issue #388)
 - Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
 - Fixed Spot Last QSO must contain Freq in kHz (issue #391)
+- Fixed Bandmap select previous selected callsign issue (issue #394)
 - Fixed Malfunctioning tuning of WSJTX Alert spot
 
 2024/06/07 - 0.36.0
