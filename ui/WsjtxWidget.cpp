@@ -166,7 +166,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
 
     ui->tableView->repaint();
 
-    setSelectedCallsign(lastSelectedCallsign);
+    //setSelectedCallsign(lastSelectedCallsign);
 }
 
 void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
@@ -183,7 +183,7 @@ void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
     if ( this->status.dx_call != newStatus.dx_call )
     {
         lastSelectedCallsign = newStatus.dx_call;
-        setSelectedCallsign(lastSelectedCallsign);
+        //setSelectedCallsign(lastSelectedCallsign);
     }
 
     if ( this->status.dx_call != newStatus.dx_call
