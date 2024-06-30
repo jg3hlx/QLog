@@ -21,7 +21,7 @@ MODULE_IDENTIFICATION("qlog.ui.wsjtxswidget");
 WsjtxWidget::WsjtxWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WsjtxWidget),
-    lastSelectedCallsign(QString())
+    cqRE("^CQ (DX |TEST |[A-Z]{0,2} )?([A-Z0-9\\/]+) ?([A-Z]{2}[0-9]{2})?.*")
 {
     FCT_IDENTIFICATION;
 
@@ -42,11 +42,7 @@ WsjtxWidget::WsjtxWidget(QWidget *parent) :
     ui->tableView->addAction(ui->actionFilter);
     ui->tableView->addAction(ui->actionDisplayedColumns);
 
-    //set Distance Column Delegate Class
-
     restoreTableHeaderState();
-
-    contregexp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
     reloadSetting();
 }
@@ -56,8 +52,6 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters)<<decode.message;
-
-    static QRegularExpression cqRE("^CQ (DX |TEST |[A-Z]{0,2} )?([A-Z0-9\\/]+) ?([A-Z]{2}[0-9]{2})?.*");
 
     const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
 
@@ -73,11 +67,11 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
             entry.callsign = match.captured(2);
             entry.grid = match.captured(3);
             entry.dxcc = Data::instance()->lookupDxcc(entry.callsign);
-            entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, BandPlan::MODE_GROUP_STRING_DIGITAL);
+            entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, currBand, BandPlan::MODE_GROUP_STRING_DIGITAL);
             entry.receivedTime = QDateTime::currentDateTimeUtc();
             entry.freq = currFreq;
-            entry.band = band;
-            entry.decodedMode = currMode;
+            entry.band = currBand;
+            entry.decodedMode = status.mode;
             entry.spotter = profile.callsign.toUpper();
             entry.dxcc_spotter = Data::instance()->lookupDxcc(entry.spotter);
             // fix dxcc_spotter based on station prifile setting - cont is not calculated
@@ -129,22 +123,22 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
     }
     else
     {
-        QStringList decodedElements = decode.message.split(" ");
+        const QStringList &decodedElements = decode.message.split(" ");
 
         if ( decodedElements.count() > 1 )
         {
-            QString callsign = decode.message.split(" ").at(1);
             WsjtxEntry entry;
-            entry.callsign = callsign;
+            entry.callsign = decodedElements.at(1);
+
             if ( wsjtxTableModel->callsignExists(entry) )
             {
                 entry.dxcc = Data::instance()->lookupDxcc(entry.callsign);
-                entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, BandPlan::MODE_GROUP_STRING_DIGITAL);
+                entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, currBand, BandPlan::MODE_GROUP_STRING_DIGITAL);
                 entry.decode = decode;
                 entry.receivedTime = QDateTime::currentDateTimeUtc();
                 entry.freq = currFreq;
-                entry.band = band;
-                entry.decodedMode = currMode;
+                entry.band = currBand;
+                entry.decodedMode = status.mode;
                 entry.spotter = profile.callsign.toUpper();
                 entry.dxcc_spotter = Data::instance()->lookupDxcc(entry.spotter);
                 // fix dxcc_spotter based on station prifile setting - cont is not calculated
@@ -165,25 +159,18 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
     wsjtxTableModel->spotAging();
 
     ui->tableView->repaint();
-
-    //setSelectedCallsign(lastSelectedCallsign);
 }
 
 void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
 {
     FCT_IDENTIFICATION;
 
-    if (this->status.dial_freq != newStatus.dial_freq) {
+    if ( this->status.dial_freq != newStatus.dial_freq )
+    {
         currFreq = Hz2MHz(newStatus.dial_freq);
-        band = BandPlan::freq2Band(currFreq).name;
+        currBand = BandPlan::freq2Band(currFreq).name;
         ui->freqLabel->setText(QString("%1 MHz").arg(QSTRING_FREQ(currFreq)));
         clearTable();
-    }
-
-    if ( this->status.dx_call != newStatus.dx_call )
-    {
-        lastSelectedCallsign = newStatus.dx_call;
-        //setSelectedCallsign(lastSelectedCallsign);
     }
 
     if ( this->status.dx_call != newStatus.dx_call
@@ -195,7 +182,6 @@ void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
     if ( this->status.mode != newStatus.mode )
     {
         ui->modeLabel->setText(newStatus.mode);
-        currMode = newStatus.mode;
         wsjtxTableModel->setCurrentSpotPeriod(Wsjtx::modePeriodLenght(newStatus.mode)); /*currently, only Status has a correct Mode in the message */
         clearTable();
     }
@@ -228,25 +214,13 @@ void WsjtxWidget::callsignClicked(QString callsign)
     emit reply(entry.decode);
 }
 
-void WsjtxWidget::tableViewClicked(QModelIndex index)
+void WsjtxWidget::tableViewClicked(QModelIndex)
 {
     FCT_IDENTIFICATION;
 
-    const QModelIndex &source_index = proxyModel->mapToSource(index);
+    //const QModelIndex &source_index = proxyModel->mapToSource(index);
 
-    lastSelectedCallsign = wsjtxTableModel->getEntry(source_index).callsign;
-}
-
-void WsjtxWidget::setSelectedCallsign(const QString &selectCallsign)
-{
-    FCT_IDENTIFICATION;
-
-    QModelIndexList nextMatches = proxyModel->match(proxyModel->index(0,0), Qt::DisplayRole, selectCallsign, 1, Qt::MatchExactly);
-
-    if ( nextMatches.size() >= 1 )
-    {
-        ui->tableView->setCurrentIndex(nextMatches.at(0));
-    }
+    //lastSelectedCallsign = wsjtxTableModel->getEntry(source_index).callsign;
 }
 
 void WsjtxWidget::displayedColumns()
@@ -271,7 +245,7 @@ void WsjtxWidget::actionFilter()
     }
 }
 
-uint WsjtxWidget::dxccStatusFilterValue()
+uint WsjtxWidget::dxccStatusFilterValue() const
 {
     FCT_IDENTIFICATION;
 
@@ -279,7 +253,7 @@ uint WsjtxWidget::dxccStatusFilterValue()
     return settings.value("wsjtx/filter_dxcc_status", DxccStatus::All).toUInt();
 }
 
-QString WsjtxWidget::contFilterRegExp()
+QString WsjtxWidget::contFilterRegExp() const
 {
     FCT_IDENTIFICATION;
 
@@ -287,7 +261,7 @@ QString WsjtxWidget::contFilterRegExp()
     return settings.value("wsjtx/filter_cont_regexp","NOTHING|AF|AN|AS|EU|NA|OC|SA").toString();
 }
 
-int WsjtxWidget::getDistanceFilterValue()
+int WsjtxWidget::getDistanceFilterValue() const
 {
     FCT_IDENTIFICATION;
 
@@ -295,7 +269,7 @@ int WsjtxWidget::getDistanceFilterValue()
     return settings.value("wsjtx/filter_distance", 0).toInt();
 }
 
-int WsjtxWidget::getSNRFilterValue()
+int WsjtxWidget::getSNRFilterValue() const
 {
     FCT_IDENTIFICATION;
 
@@ -303,7 +277,7 @@ int WsjtxWidget::getSNRFilterValue()
     return settings.value("wsjtx/filter_snr", -41).toInt();
 }
 
-QStringList WsjtxWidget::dxMemberList()
+QStringList WsjtxWidget::dxMemberList() const
 {
     FCT_IDENTIFICATION;
 
@@ -315,6 +289,7 @@ void WsjtxWidget::reloadSetting()
 {
     FCT_IDENTIFICATION;
 
+    contregexp.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
     contregexp.setPattern(contFilterRegExp());
     dxccStatusFilter = dxccStatusFilterValue();
     distanceFilter = getDistanceFilterValue();
@@ -363,11 +338,4 @@ WsjtxWidget::~WsjtxWidget()
 
     saveTableHeaderState();
     delete ui;
-}
-
-WsjtxEntry WsjtxWidget::getEntry(const QString &callsign)
-{
-    FCT_IDENTIFICATION;
-
-    return ( !wsjtxTableModel ) ? WsjtxEntry() : wsjtxTableModel->getEntry(callsign);
 }

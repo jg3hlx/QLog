@@ -18,7 +18,6 @@ class WsjtxWidget : public QWidget
 public:
     explicit WsjtxWidget(QWidget *parent = nullptr);
     ~WsjtxWidget();
-    WsjtxEntry getEntry(const QString &callsign);
 
 public slots:
     void decodeReceived(WsjtxDecode);
@@ -26,7 +25,6 @@ public slots:
     void tableViewDoubleClicked(QModelIndex);
     void callsignClicked(QString);
     void tableViewClicked(QModelIndex);
-    void setSelectedCallsign(const QString&);
 
 private slots:
     void displayedColumns();
@@ -40,23 +38,22 @@ signals:
     void spotsCleared();
 
 private:
-    uint dxccStatusFilterValue();
-    QString contFilterRegExp();
-    int getDistanceFilterValue();
-    int getSNRFilterValue();
-    QStringList dxMemberList();
+    uint dxccStatusFilterValue() const;
+    QString contFilterRegExp() const;
+    int getDistanceFilterValue() const;
+    int getSNRFilterValue() const;
+    QStringList dxMemberList() const;
     void reloadSetting();
     void clearTable();
 
     WsjtxTableModel* wsjtxTableModel;
     WsjtxStatus status;
-    QString band;
+    QString currBand;
     double currFreq;
-    QString currMode;
     Ui::WsjtxWidget *ui;
     QSortFilterProxyModel *proxyModel;
-    QString lastSelectedCallsign;
     QRegularExpression contregexp;
+    QRegularExpression cqRE;
     int distanceFilter;
     int snrFilter;
     uint dxccStatusFilter;
