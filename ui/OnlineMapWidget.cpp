@@ -330,7 +330,7 @@ void OnlineMapWidget::drawWSJTXSpot(const WsjtxEntry &spot)
     {
         runJavaScript(QString("addWSJTXSpot(%1, %2, \"%3\", \"%4\");").arg(spotGrid.getLatitude())
                                                                       .arg(spotGrid.getLongitude())
-                                                                      .arg(spot.callsign, Data::colorToHTMLColor(Data::statusToColor(spot.status, QColor(Qt::transparent)))));
+                                                                      .arg(spot.callsign, Data::colorToHTMLColor(Data::statusToColor(spot.status, QColor(Qt::white)))));
     }
 }
 
