@@ -73,7 +73,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
             entry.callsign = match.captured(2);
             entry.grid = match.captured(3);
             entry.dxcc = Data::instance()->lookupDxcc(entry.callsign);
-            entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, status.mode);
+            entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, BandPlan::MODE_GROUP_STRING_DIGITAL);
             entry.receivedTime = QDateTime::currentDateTimeUtc();
             entry.freq = currFreq;
             entry.band = band;
@@ -139,7 +139,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
             if ( wsjtxTableModel->callsignExists(entry) )
             {
                 entry.dxcc = Data::instance()->lookupDxcc(entry.callsign);
-                entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, status.mode);
+                entry.status = Data::instance()->dxccStatus(entry.dxcc.dxcc, band, BandPlan::MODE_GROUP_STRING_DIGITAL);
                 entry.decode = decode;
                 entry.receivedTime = QDateTime::currentDateTimeUtc();
                 entry.freq = currFreq;
