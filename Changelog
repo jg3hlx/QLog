@@ -18,6 +18,7 @@ TBC - 0.37.0
 - Fixed Spot Last QSO must contain Freq in kHz (issue #391)
 - Fixed Bandmap select previous selected callsign issue (issue #394)
 - Fixed Malfunctioning tuning of WSJTX Alert spot
+- Fixed DXCC Status for FT4 Spots incorrectly identified in WSJTX
 
 2024/06/07 - 0.36.0
 - [NEW] - WSJTX: Added support to received ADIF QSO Log record
