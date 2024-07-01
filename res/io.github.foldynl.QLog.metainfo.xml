@@ -47,6 +47,32 @@
   <url type="vcs-browser">https://github.com/foldynl/QLog</url>
   <url type="contribute">https://github.com/foldynl/QLog/blob/master/CONTRIBUTING.md</url>
   <releases>
+    <release version="0.37.0" date="2024-07-01">
+      <description>
+        <ul>
+          <li>[NEW] - Added Shortcuts Editor (issue #293)</li>
+          <li>[NEW] - Added QO100 Bandplan to correctly categorize the DX Spots</li>
+          <li>[NEW] - Improveded detection of SH/DX SHF Spots</li>
+          <li>[NEW] - Online Map - Added WSJTX CQ Spots</li>
+          <li>[NEW] - WSJTX - Sortable View</li>
+          <li>[NEW] - Alerts - Sortable View</li>
+          <li>[NEW] - Added Spanish translation (thx LU1IDC)</li>
+          <li>[NEW[ - Added Search Callsign Clear Button (issue #396)</li>
+          <li>[CHANGED] - QRZ auth should be over POST with form data (issue #389)</li>
+          <li>[CHANGED] - Big CTY file is used</li>
+          <li>[CHANGED] - Callbook Country DXCC ID is used in case of difference from Big CTY</li>
+          <li>[CHANGED] - Removed ALT+W and CTRL+DEL shortcuts</li>
+          <li>[CHANGED] - Removed New Contact and Save Contact from Logbook Main Menu</li>
+          <li>Fixed Guantanamo KG4 Issue (issue #372)</li>
+          <li>Fixed QRZ Lookup Not Including Full Name - History (issue #388)</li>
+          <li>Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)</li>
+          <li>Fixed Spot Last QSO must contain Freq in kHz (issue #391)</li>
+          <li>Fixed Bandmap select previous selected callsign issue (issue #394)</li>
+          <li>Fixed Malfunctioning tuning of WSJTX Alert spot</li>
+          <li>Fixed DXCC Status for FT4 Spots incorrectly identified in WSJTX</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.36.0" date="2024-06-07">
       <description>
         <ul>

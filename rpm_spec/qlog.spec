@@ -42,6 +42,28 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_metainfodir}/*
 
 %changelog
+* Mon Jul 1 2024 Ladislav Foldyna - 0.37.0-1
+- [NEW] - Added Shortcuts Editor (issue #293)
+- [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots
+- [NEW] - Improveded detection of SH/DX SHF Spots
+- [NEW] - Online Map - Added WSJTX CQ Spots
+- [NEW] - WSJTX - Sortable View
+- [NEW] - Alerts - Sortable View
+- [NEW] - Added Spanish translation (thx LU1IDC)
+- [NEW[ - Added Search Callsign Clear Button (issue #396)
+- [CHANGED] - QRZ auth should be over POST with form data (issue #389)
+- [CHANGED] - Big CTY file is used
+- [CHANGED] - Callbook Country DXCC ID is used in case of difference from Big CTY
+- [CHANGED] - Removed ALT+W and CTRL+DEL shortcuts
+- [CHANGED] - Removed New Contact and Save Contact from Logbook Main Menu
+- Fixed Guantanamo KG4 Issue (issue #372)
+- Fixed QRZ Lookup Not Including Full Name - History (issue #388)
+- Fixed Spot Last QSO contains TX freq, should contain RX freq (issue #390)
+- Fixed Spot Last QSO must contain Freq in kHz (issue #391)
+- Fixed Bandmap select previous selected callsign issue (issue #394)
+- Fixed Malfunctioning tuning of WSJTX Alert spot
+- Fixed DXCC Status for FT4 Spots incorrectly identified in WSJTX
+
 * Fri Jun 7 2024 Ladislav Foldyna - 0.36.0-1
 - [NEW] - WSJTX: Added support to received ADIF QSO Log record
 - [NEW] - Sat mode is derived from RX/TX Freq
