@@ -559,6 +559,7 @@ void DxWidget::disconnectCluster(bool tryReconnect)
     FCT_IDENTIFICATION;
 
     reconnectTimer.stop();
+    ui->commandEdit->clear();
     ui->commandEdit->setEnabled(false);
     ui->commandButton->setEnabled(false);
     ui->connectButton->setEnabled(true);
