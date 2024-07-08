@@ -1263,8 +1263,9 @@ void DxWidget::actionCommandSpotQSO()
         if ( lastQSO.contains(QStringLiteral("freq"))
              && lastQSO.contains(QStringLiteral("callsign")) )
         {
-            double spotFreq = ( lastQSO.contains("freq_rx") ) ? lastQSO.value("freq_rx").toDouble()
-                                                              : lastQSO.value("freq").toDouble();
+            double spotFreq = ( lastQSO.contains("freq_rx")
+                                && lastQSO.value("freq_rx").toDouble() != 0.0 ) ? lastQSO.value("freq_rx").toDouble()
+                                                                                : lastQSO.value("freq").toDouble();
 
             // DX Spider allow to enter QSO freq in MHz but it is not reliable for SHF bands.
             // a more reliable way is to send a spot with kHz value
