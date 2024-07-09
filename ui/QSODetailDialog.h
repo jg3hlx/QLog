@@ -124,6 +124,7 @@ private:
     void callbookLookupFinished();
     void callbookLookupStart();
     void refreshDXCCTab();
+    const QString getButtonText(int index) const;
 
     Ui::QSODetailDialog *ui;
     QPointer<QDataWidgetMapper> mapper;
@@ -149,8 +150,6 @@ private:
     QScopedPointer<QCompleter> myWWFFCompleter;
     QWebChannel channel;
     MapWebChannelHandler layerControlHandler;
-    static const QString SAVE_BUTTON_TEXT;
-    static const QString EDIT_BUTTON_TEXT;
     LogLocale locale;
 };
 
