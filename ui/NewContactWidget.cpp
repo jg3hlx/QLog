@@ -261,16 +261,57 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     /************************/
     connectFieldChanged();
 
-    isprevQSOQueryPrepared = prevQSOQuery.prepare("SELECT name_intl, "
-                                                  "       qth_intl, "
-                                                  "       gridsquare, "
-                                                  "       notes_intl, "
-                                                  "       email, "
-                                                  "       web ,"
-                                                  "       darc_dok "
-                                                  "FROM contacts "
-                                                  "WHERE callsign = :callsign "
-                                                  "ORDER BY start_time DESC LIMIT 1");
+    // SQL query returns two QSOs. The first one is the last QSO with Base Callsign
+    // and the second one is the last QSO for the Callsign from a portable QTH.
+    isprevQSOQueryPrepared = prevQSOQuery.prepare(QLatin1String("SELECT callsign, "
+                                                                "       name_intl, "
+                                                                "       qth_intl, "
+                                                                "       gridsquare, "
+                                                                "       notes_intl, "
+                                                                "       email, "
+                                                                "       web , "
+                                                                "       darc_dok "
+                                                                "FROM ( "
+                                                                "  SELECT "
+                                                                "    callsign, "
+                                                                "    name_intl, "
+                                                                "    qth_intl, "
+                                                                "    gridsquare, "
+                                                                "    notes_intl, "
+                                                                "    email, "
+                                                                "    web , "
+                                                                "    darc_dok "
+                                                                "  FROM contacts "
+                                                                "  WHERE callsign = :exactCallsign "
+                                                                "  ORDER BY start_time DESC "
+                                                                "  LIMIT 1 "
+                                                                "  ) "
+                                                                "UNION ALL "
+                                                                "SELECT callsign, "
+                                                                "       name_intl, "
+                                                                "       qth_intl, "
+                                                                "       gridsquare, "
+                                                                "       notes_intl, "
+                                                                "       email, "
+                                                                "       web , "
+                                                                "       darc_dok "
+                                                                "FROM ( "
+                                                                "  SELECT "
+                                                                "     callsign, "
+                                                                "     name_intl, "
+                                                                "     qth_intl, "
+                                                                "     gridsquare, "
+                                                                "     notes_intl, "
+                                                                "     email, "
+                                                                "     web , "
+                                                                "     darc_dok "
+                                                                "  FROM contacts c, contacts_autovalue a "
+                                                                "  WHERE c.id = a.contactid "
+                                                                "        AND a.base_callsign = :partialCallsign "
+                                                                "  ORDER BY start_time DESC "
+                                                                "  LIMIT 1 "
+                                                                "  )"));
+
     if ( !isprevQSOQueryPrepared)
         qWarning() << "Cannot prepare prevQSOquery statement";
 }
@@ -491,76 +532,54 @@ void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
     if ( !isprevQSOQueryPrepared )
         return;
 
-    Callsign enteredCallsign(callsign);
+    const Callsign enteredCallsign(callsign);
 
-    if ( enteredCallsign.isValid() )
+    if ( !enteredCallsign.isValid() )
     {
+        emit filterCallsign(QString());
+        return;
+    }
 
-        /* The first attempt, try to find full callsign */
-        qCDebug(runtime) << "Trying prefix + callsign match - " << enteredCallsign.getHostPrefixWithDelimiter()
-                                                                   + enteredCallsign.getBase();
+    const QString &baseCallsign = enteredCallsign.getBase();
+    // search the base_callsign
+    prevQSOQuery.bindValue(":exactCallsign",baseCallsign );
+    prevQSOQuery.bindValue(":partialCallsign", baseCallsign);
 
-        prevQSOQuery.bindValue(":callsign", enteredCallsign.getHostPrefixWithDelimiter()
-                                     + enteredCallsign.getBase());
+    if ( !prevQSOQuery.exec() )
+    {
+        qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
+        emit filterCallsign(QString());
+        return;
+    }
 
-        if ( !prevQSOQuery.exec() )
+    if ( prevQSOQuery.next() )
+    {
+        // SQL query returns two QSOs. The first one is the last QSO with Base Callsign
+        // and the second one is the last QSO for callsign, which was made from a portable QTH.
+        // The recognition is possible because the record where Callsign == Based Callsign
+        // is a QSO with the given Callsign from the base QTH.
+        // Otherwise, it's a QSO with a given Callsign from a portable QTH.
+        if ( prevQSOQuery.value("callsign").toString() == baseCallsign
+             && enteredCallsign.getHostPrefix().isEmpty()
+             && enteredCallsign.getSuffix().isEmpty() )
         {
-            qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
-            return;
+            // entered callsign is base callsign - no portable QTH. Get all fields from
+            // previous QSO
+            uiDynamic->qthEdit->setText(prevQSOQuery.value("qth_intl").toString());
+            uiDynamic->gridEdit->setText(prevQSOQuery.value("gridsquare").toString());
+            uiDynamic->dokEdit->setText(prevQSOQuery.value("darc_dok").toString());
         }
+        uiDynamic->nameEdit->setText(prevQSOQuery.value("name_intl").toString());
+        ui->noteEdit->insertPlainText(prevQSOQuery.value("notes_intl").toString());
+        uiDynamic->emailEdit->setText(prevQSOQuery.value("email").toString());
+        uiDynamic->urlEdit->setText(prevQSOQuery.value("web").toString());
 
-        if ( prevQSOQuery.next() )
-        {
-            /* If callsign has a suffix ("/p", "/mm"  etc)
-               then do not reuse QTH, Grid and DOK - may vary
-               otherwise reuse all captured information */
-            if ( enteredCallsign.getSuffix().isEmpty() )
-            {
-                uiDynamic->qthEdit->setText(prevQSOQuery.value(1).toString());
-                uiDynamic->gridEdit->setText(prevQSOQuery.value(2).toString());
-                uiDynamic->dokEdit->setText(prevQSOQuery.value(6).toString());
-            }
-            uiDynamic->nameEdit->setText(prevQSOQuery.value(0).toString());
-            ui->noteEdit->insertPlainText(prevQSOQuery.value(3).toString());
-            uiDynamic->emailEdit->setText(prevQSOQuery.value(4).toString());
-            uiDynamic->urlEdit->setText(prevQSOQuery.value(5).toString());
-
-            emit filterCallsign(enteredCallsign.getBase());
-        }
-        else
-        {
-            /* The second attempt - a callsign with its prefix not found, try only the base callsign */
-            qCDebug(runtime) << "Callsign not found - trying a base callsign match " << enteredCallsign.getBase();
-
-            prevQSOQuery.bindValue(":callsign", enteredCallsign.getBase());
-
-            if ( ! prevQSOQuery.exec() )
-            {
-                qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
-                return;
-            }
-
-            if ( prevQSOQuery.next() )
-            {
-                /* we have found a callsign but only a base callsign match, therefore do not reuse
-                   QTH, Grid and DOK - may vary */
-                uiDynamic->nameEdit->setText(prevQSOQuery.value(0).toString());
-                ui->noteEdit->insertPlainText(prevQSOQuery.value(3).toString());
-                uiDynamic->emailEdit->setText(prevQSOQuery.value(4).toString());
-                uiDynamic->urlEdit->setText(prevQSOQuery.value(5).toString());
-
-                emit filterCallsign(enteredCallsign.getBase());
-            }
-            else
-            {
-                qCDebug(runtime) << "Callsign not found";
-                emit filterCallsign(QString());
-            }
-        }
+        emit filterCallsign(baseCallsign);
     }
     else
     {
-        qCDebug(runtime) << "Callsign does not match";
+        //callsign not found
+        qCDebug(runtime) << "Callsign not match in the Logbook";
         emit filterCallsign(QString());
     }
 }
