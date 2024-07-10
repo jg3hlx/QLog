@@ -42,6 +42,12 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_metainfodir}/*
 
 %changelog
+* Wed Jul 10 2024 Ladislav Foldyna - 0.37.1-1
+- Fixed QSO Table Callsign filter is not filled properly (issue #401)
+- Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)
+- Fixed Callsign Context Menu does not work (issue #409)
+- Fixed QSO Detail Save and Edit buttons are not translated (issue #410)
+
 * Mon Jul 1 2024 Ladislav Foldyna - 0.37.0-1
 - [NEW] - Added Shortcuts Editor (issue #293)
 - [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots

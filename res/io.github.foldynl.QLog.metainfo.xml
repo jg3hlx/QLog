@@ -47,6 +47,16 @@
   <url type="vcs-browser">https://github.com/foldynl/QLog</url>
   <url type="contribute">https://github.com/foldynl/QLog/blob/master/CONTRIBUTING.md</url>
   <releases>
+    <release version="0.37.1" date="2024-07-10">
+      <description>
+        <ul>
+          <li>Fixed QSO Table Callsign filter is not filled properly (issue #401)</li>
+          <li>Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)</li>
+          <li>Fixed Callsign Context Menu does not work (issue #409)</li>
+          <li>Fixed QSO Detail Save and Edit buttons are not translated (issue #410)</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.37.0" date="2024-07-01">
       <description>
         <ul>

@@ -1,3 +1,11 @@
+qlog (0.37.1-1) UNRELEASED; urgency=low
+  * Fixed QSO Table Callsign filter is not filled properly (issue #401)
+  * Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)
+  * Fixed Callsign Context Menu does not work (issue #409)
+  * Fixed QSO Detail Save and Edit buttons are not translated (issue #410)
+
+ -- foldynl <foldyna@gmail.com>  Wed, 10 Jul 2024 21:18:45 +0200
+
 qlog (0.37.0-1) UNRELEASED; urgency=low
   * [NEW] - Added Shortcuts Editor (issue #293)
   * [NEW] - Added QO100 Bandplan to correctly categorize the DX Spots
