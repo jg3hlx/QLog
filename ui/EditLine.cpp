@@ -21,7 +21,7 @@ void NewContactEditLine::focusInEvent(QFocusEvent *event)
     }
 
     //Deselect text when focus
-    if ( hasSelectedText() )
+    if ( hasSelectedText() && reason != Qt::PopupFocusReason )
     {
         deselect();
     }
