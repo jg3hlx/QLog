@@ -21,6 +21,8 @@
 MODULE_IDENTIFICATION("qlog.ui.qsodetaildialog");
 
 #define CHANGECSS "color: orange;"
+#define SAVE_BUTTON_TEXT 0
+#define EDIT_BUTTON_TEXT 1
 
 QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
                                  QWidget *parent) :
@@ -51,7 +53,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     channel.registerObject("layerControlHandler", &layerControlHandler);
 
     /* Edit Button */
-    editButton = new QPushButton(EDIT_BUTTON_TEXT);
+    editButton = new QPushButton(getButtonText(EDIT_BUTTON_TEXT));
     ui->buttonBox->addButton(editButton, QDialogButtonBox::ActionRole);
     connect(editButton, &QPushButton::clicked, this, &QSODetailDialog::editButtonPressed);
 
@@ -402,7 +404,7 @@ void QSODetailDialog::accept()
 {
     FCT_IDENTIFICATION;
 
-    if (editButton->text() == SAVE_BUTTON_TEXT )
+    if (editButton->text() == getButtonText(SAVE_BUTTON_TEXT) )
     {
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, tr("Submit changes"), tr("Really submit all changes?"),
@@ -449,7 +451,7 @@ void QSODetailDialog::editButtonPressed()
 {
     FCT_IDENTIFICATION;
 
-    if ( editButton->text() == SAVE_BUTTON_TEXT )
+    if ( editButton->text() == getButtonText(SAVE_BUTTON_TEXT) )
     {
         QSODetailDialog::SubmitError error = submitAllChanges();
         if ( error == QSODetailDialog::SubmitCancelledByUser )
@@ -586,7 +588,8 @@ void QSODetailDialog::setReadOnlyMode(bool inReadOnly)
         ui->satNameEdit->setEnabled(true);
     }
 
-    editButton->setText((( inReadOnly) ? EDIT_BUTTON_TEXT : SAVE_BUTTON_TEXT ));
+    editButton->setText((( inReadOnly) ? getButtonText(EDIT_BUTTON_TEXT)
+                                       : getButtonText(SAVE_BUTTON_TEXT) ));
 
     ui->timeLockButton->setEnabled(!inReadOnly);
     ui->freqLockButton->setEnabled(!inReadOnly);
@@ -1585,6 +1588,19 @@ void QSODetailDialog::refreshDXCCTab()
     }
 }
 
+const QString QSODetailDialog::getButtonText(int index) const
+{
+    FCT_IDENTIFICATION;
+
+    static const char *buttonText[] =
+    {
+        QT_TR_NOOP("&Save"),
+        QT_TR_NOOP("&Edit")
+    };
+
+    return tr(buttonText[index]);
+}
+
 void QSOEditMapperDelegate::setEditorData(QWidget *editor,
                                           const QModelIndex &index) const
 {
@@ -2173,6 +2189,3 @@ bool QSODetailDialog::LogbookModelPrivate::setData(const QModelIndex &index, con
 
     return main_update_result && depend_update_result;
 }
-
-const QString QSODetailDialog::SAVE_BUTTON_TEXT = tr("&Save");
-const QString QSODetailDialog::EDIT_BUTTON_TEXT = tr("&Edit");
