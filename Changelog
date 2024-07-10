@@ -1,4 +1,5 @@
 TBC - 0.37.1
+- Fixed QSO Table Callsign filter is not filled properly (issue #401)
 - Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)
 - Fixed Callsign Context Menu does not work (issue #409)
 - Fixed QSO Detail Save and Edit buttons are not translated (issue #410)
