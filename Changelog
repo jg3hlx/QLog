@@ -1,4 +1,5 @@
 TBC - 0.37.1
+- Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)
 
 2024/07/01 - 0.37.0
 - [NEW] - Added Shortcuts Editor (issue #293)
