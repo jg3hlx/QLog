@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN" sourcelanguage="en">
+<TS version="2.1" language="zh_CN" sourcelanguage="en_US">
 <context>
     <name>AlertRuleDetail</name>
     <message>
@@ -608,7 +608,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="193"/>
         <source>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</source>
-        <translation type="unfinished"></translation>
+        <translation>在发送 &lt;b&gt;单词&lt;/b&gt;(空格分隔) 和 &lt;b&gt;整句&lt;/b&gt;(回车分割) 间进行切换。</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="233"/>
@@ -673,12 +673,12 @@
     <message>
         <location filename="../ui/CWConsoleWidget.cpp" line="439"/>
         <source>Word</source>
-        <translation type="unfinished"></translation>
+        <translation>单词</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.cpp" line="439"/>
         <source>Whole</source>
-        <translation type="unfinished"></translation>
+        <translation>整句</translation>
     </message>
 </context>
 <context>
@@ -2950,7 +2950,7 @@
         <location filename="datastrings.tri" line="1"/>
         <source>Aircraft Scatter</source>
         <oldsource>Aircraft Scatte</oldsource>
-        <translation type="unfinished">飞机反射</translation>
+        <translation>飞机反射</translation>
     </message>
     <message>
         <location filename="datastrings.tri" line="2"/>
@@ -2975,7 +2975,7 @@
     <message>
         <location filename="datastrings.tri" line="6"/>
         <source>Earth-Moon-Earth</source>
-        <translation>地球-月球-地球：</translation>
+        <translation>地球-月球-地球</translation>
     </message>
     <message>
         <location filename="datastrings.tri" line="7"/>
@@ -3279,7 +3279,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="63"/>
         <source>Insert a &lt;b&gt;hostname:port&lt;/b&gt; of DXC Server.</source>
-        <translation type="unfinished"></translation>
+        <translation>增加 DXC 服务器 &lt;b&gt;hostname:port&lt;/b&gt;。</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="94"/>
@@ -3345,7 +3345,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="563"/>
         <source>DXC - Delete Server</source>
-        <translation type="unfinished"></translation>
+        <translation>DXC - 删除服务器</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="568"/>
@@ -3631,17 +3631,17 @@
     <message>
         <location filename="../ui/Eqsldialog.ui" line="117"/>
         <source>QSLs since</source>
-        <translation type="unfinished">QSLs 自</translation>
+        <translation>QSLs 自</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="131"/>
         <source>Start Date:</source>
-        <translation type="unfinished">开始日期:</translation>
+        <translation>开始日期:</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="138"/>
         <source>QSOs since</source>
-        <translation type="unfinished">QSOs 自</translation>
+        <translation>QSOs 自</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="151"/>
@@ -4029,32 +4029,32 @@
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="115"/>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="150"/>
         <source>Initialization Error</source>
-        <translation type="unfinished">初始化出错</translation>
+        <translation>初始化出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="175"/>
         <source>Unsupported Rig Driver</source>
-        <translation type="unfinished">不支持的设备驱动</translation>
+        <translation>不支持的设备驱动</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="282"/>
         <source>Set Frequency Error</source>
-        <translation type="unfinished">设置频率出错</translation>
+        <translation>设置频率出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="359"/>
         <source>Set PTT Error</source>
-        <translation type="unfinished">设置 PTT 出错</translation>
+        <translation>设置 PTT 出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="602"/>
         <source>Get Frequency Error</source>
-        <translation type="unfinished">获取频率出错</translation>
+        <translation>获取频率出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="659"/>
         <source>Get Mode Error</source>
-        <translation type="unfinished">获取模式出错</translation>
+        <translation>获取模式出错</translation>
     </message>
 </context>
 <context>
@@ -4063,22 +4063,22 @@
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="82"/>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="117"/>
         <source>Initialization Error</source>
-        <translation type="unfinished">初始化出错</translation>
+        <translation>初始化出错</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="142"/>
         <source>Unsupported Rotator Driver</source>
-        <translation type="unfinished"></translation>
+        <translation>不支持的云台驱动</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="204"/>
         <source>Set Possition Error</source>
-        <translation type="unfinished">设置方位出错</translation>
+        <translation>设置方位出错</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="289"/>
         <source>Get Possition Error</source>
-        <translation type="unfinished"></translation>
+        <translation>获取方位出错</translation>
     </message>
 </context>
 <context>
@@ -4508,7 +4508,7 @@
     <message>
         <location filename="../ui/StyleItemDelegate.h" line="510"/>
         <source>Clear</source>
-        <translation type="unfinished">清除</translation>
+        <translation>清除</translation>
     </message>
 </context>
 <context>
@@ -5475,7 +5475,7 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="222"/>
         <source>Logbook - Delete QSO</source>
-        <translation type="unfinished"></translation>
+        <translation>日志本 - 删除 QSO</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="237"/>
@@ -5501,7 +5501,7 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="266"/>
         <source>Logbook - Edit Value</source>
-        <translation type="unfinished"></translation>
+        <translation>日志本 - 编辑值</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="271"/>
@@ -5536,7 +5536,7 @@
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="544"/>
         <source>Deleting QSOs</source>
-        <translation type="unfinished"></translation>
+        <translation>删除 QSO</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="617"/>
@@ -5551,8 +5551,8 @@
     <message numerus="yes">
         <location filename="../ui/LogbookWidget.cpp" line="749"/>
         <source>Count: %n</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>计数：%n</numerusform>
         </translation>
     </message>
     <message>
@@ -6049,7 +6049,7 @@
         <location filename="../ui/MainWindow.ui" line="275"/>
         <location filename="../ui/MainWindow.ui" line="597"/>
         <source>Profile Image</source>
-        <translation type="unfinished"></translation>
+        <translation>资料图片</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="309"/>
@@ -6079,24 +6079,24 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="288"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="291"/>
         <source>Application - Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>程序 - 退出</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="321"/>
         <location filename="../ui/MainWindow.ui" line="324"/>
         <source>New QSO - Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>新 QSO - 清除</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="380"/>
         <location filename="../ui/MainWindow.ui" line="383"/>
         <source>New QSO - Save</source>
-        <translation type="unfinished"></translation>
+        <translation>新 QSO - 保存</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="416"/>
@@ -6212,63 +6212,63 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="589"/>
         <source>Keep Options</source>
-        <translation type="unfinished"></translation>
+        <translation>保持选项</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="592"/>
         <source>Restore connection options after application restart</source>
-        <translation type="unfinished"></translation>
+        <translation>应用程序重新启动后恢复连接选项</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="605"/>
         <source>Logbook - Search Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>日志本 - 查找呼号</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="622"/>
         <location filename="../ui/MainWindow.ui" line="625"/>
         <source>New QSO - Add text from Callsign field to Bandmap</source>
-        <translation type="unfinished"></translation>
+        <translation>新 QSO - 将呼号字段文本添加到波段图上</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="642"/>
         <source>Rig - Band Down</source>
-        <translation type="unfinished"></translation>
+        <translation>设备 - 波段向下</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="659"/>
         <source>Rig - Band Up</source>
-        <translation type="unfinished"></translation>
+        <translation>设备 - 波段向上</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="676"/>
         <source>New QSO - Use Callsign from the Whisperer</source>
-        <translation type="unfinished"></translation>
+        <translation>新 QSO - 使用来自 Whisperer 的呼号</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="693"/>
         <source>CW Console - Key Speed Up</source>
-        <translation type="unfinished"></translation>
+        <translation>CW 控制台 - 增加键速</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="710"/>
         <source>CW Console - Key Speed Down</source>
-        <translation type="unfinished"></translation>
+        <translation>CW 控制台 - 减慢键速</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="727"/>
         <source>CW Console - Profile Up</source>
-        <translation type="unfinished"></translation>
+        <translation>CW 控制台 - 上一个配置文件</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="744"/>
         <source>CW Console - Profile Down</source>
-        <translation type="unfinished"></translation>
+        <translation>CW 控制台 - 下一个配置文件</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="761"/>
         <source>Rig - PTT On/Off</source>
-        <translation type="unfinished"></translation>
+        <translation>设备 - PTT ON/OFF</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="60"/>
@@ -6403,7 +6403,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="87"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="154"/>
         <source>WSJTX - CQ</source>
-        <translation type="unfinished"></translation>
+        <translation>WSJTX - CQ</translation>
     </message>
 </context>
 <context>
@@ -6805,12 +6805,12 @@
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="23"/>
         <source>Rig 1</source>
-        <translation type="unfinished">设备 1</translation>
+        <translation>设备 1</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="24"/>
         <source>Rig 2</source>
-        <translation type="unfinished">设备 2</translation>
+        <translation>设备 2</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="69"/>
@@ -6818,22 +6818,22 @@
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="135"/>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="144"/>
         <source>Initialization Error</source>
-        <translation type="unfinished">初始化出错</translation>
+        <translation>初始化出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="454"/>
         <source>Rig status changed</source>
-        <translation type="unfinished">设备状态已更改</translation>
+        <translation>设备状态已更改</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="455"/>
         <source>Rig is not connected</source>
-        <translation type="unfinished">电台未连接</translation>
+        <translation>设备未连接</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="471"/>
         <source>Omnirig Error</source>
-        <translation type="unfinished">Omnirig 错误</translation>
+        <translation>Omnirig 错误</translation>
     </message>
 </context>
 <context>
@@ -6841,22 +6841,22 @@
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="22"/>
         <source>Rig 1</source>
-        <translation type="unfinished">设备 1</translation>
+        <translation>设备 1</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="23"/>
         <source>Rig 2</source>
-        <translation type="unfinished">设备 2</translation>
+        <translation>设备 2</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="24"/>
         <source>Rig 3</source>
-        <translation type="unfinished">设备 3</translation>
+        <translation>设备 3</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="25"/>
         <source>Rig 4</source>
-        <translation type="unfinished">设备 4</translation>
+        <translation>设备 4</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="71"/>
@@ -6864,22 +6864,22 @@
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="137"/>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="146"/>
         <source>Initialization Error</source>
-        <translation type="unfinished">初始化出错</translation>
+        <translation>初始化出错</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="406"/>
         <source>Rig status changed</source>
-        <translation type="unfinished">设备状态已更改</translation>
+        <translation>设备状态已更改</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="407"/>
         <source>Rig is not connected</source>
-        <translation type="unfinished">电台未连接</translation>
+        <translation>设备未连接</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="423"/>
         <source>Omnirig Error</source>
-        <translation type="unfinished">Omnirig 错误</translation>
+        <translation>Omnirig 错误</translation>
     </message>
 </context>
 <context>
@@ -6887,32 +6887,32 @@
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="27"/>
         <source>Rot 1</source>
-        <translation type="unfinished"></translation>
+        <translation>云台 1</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="66"/>
         <source>Cannot bind a port</source>
-        <translation type="unfinished"></translation>
+        <translation>无法绑定端口</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="76"/>
         <source>Cannot get IP Address for</source>
-        <translation type="unfinished"></translation>
+        <translation>无法获取 IP 地址给</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="95"/>
         <source>No IPv4 Address for</source>
-        <translation type="unfinished"></translation>
+        <translation>无法获取 IPv4 地址给</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="113"/>
         <source>Error Occured</source>
-        <translation type="unfinished">发生错误</translation>
+        <translation>发生错误</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="114"/>
         <source>Operation Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>操作超时</translation>
     </message>
 </context>
 <context>
@@ -6968,7 +6968,7 @@
     <message>
         <location filename="../ui/ProfileImageWidget.ui" line="14"/>
         <source>Profile Image</source>
-        <translation type="unfinished"></translation>
+        <translation>资料图片</translation>
     </message>
 </context>
 <context>
@@ -7294,17 +7294,17 @@
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1482"/>
         <source>Country must not be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>国家/地区 不能为空</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1489"/>
         <source>CQZ must not be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>CQ 分区不能为空</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1496"/>
         <source>ITU must not be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>ITU 不能为空</translation>
     </message>
 </context>
 <context>
@@ -7444,17 +7444,17 @@
     <message>
         <location filename="../data/StationProfile.cpp" line="195"/>
         <source>My ITU</source>
-        <translation type="unfinished">我的 ITU</translation>
+        <translation>我的 ITU</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="196"/>
         <source>My CQZ</source>
-        <translation type="unfinished">我的 CQ 分区</translation>
+        <translation>我的 CQ 分区</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="197"/>
         <source>My DXCC</source>
-        <translation type="unfinished">我的 DXCC</translation>
+        <translation>我的 DXCC</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="1059"/>
@@ -8217,17 +8217,17 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="905"/>
         <source>Based on Frequencies, Sat Mode should be </source>
-        <translation type="unfinished"></translation>
+        <translation>基于频率，卫星模式应该为 </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="905"/>
         <source>blank</source>
-        <translation type="unfinished"></translation>
+        <translation>空白</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="909"/>
         <source>Sat name must not be empty</source>
-        <translation type="unfinished"></translation>
+        <translation>卫星名不能为空</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="915"/>
@@ -8247,17 +8247,17 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="931"/>
         <source>Based on own callsign, own DXCC ITU is different from the entered value - expecting </source>
-        <translation type="unfinished"></translation>
+        <translation>基于自己的呼号,自己的 DXCC ITU 与输入的值不同 - 期望 </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="935"/>
         <source>Based on own callsign, own DXCC CQZ is different from the entered value - expecting </source>
-        <translation type="unfinished"></translation>
+        <translation>基于自己的呼号,自己的 DXCC CQ分区 与输入的值不同 - 期望 </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="939"/>
         <source>Based on own callsign, own DXCC Country is different from the entered value - expecting </source>
-        <translation type="unfinished"></translation>
+        <translation>基于自己的呼号,自己的 DXCC 国家/地区与输入的值不同 - 期望 </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="958"/>
@@ -8538,12 +8538,12 @@
     <message>
         <location filename="../rotator/Rotator.cpp" line="250"/>
         <source>Internal Error</source>
-        <translation type="unfinished">内部错误</translation>
+        <translation>内部错误</translation>
     </message>
     <message>
         <location filename="../rotator/Rotator.cpp" line="279"/>
         <source>Cannot open Rotator</source>
-        <translation type="unfinished"></translation>
+        <translation>无法打开云台</translation>
     </message>
 </context>
 <context>
@@ -8571,22 +8571,22 @@
     <message>
         <location filename="../ui/RotatorWidget.ui" line="273"/>
         <source>QSO LP</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO 长路径</translation>
     </message>
     <message>
         <location filename="../ui/RotatorWidget.ui" line="276"/>
         <source>QSO Long Path</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO 长路径</translation>
     </message>
     <message>
         <location filename="../ui/RotatorWidget.ui" line="281"/>
         <source>QSO SP</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO 短路经</translation>
     </message>
     <message>
         <location filename="../ui/RotatorWidget.ui" line="284"/>
         <source>QSO Short Path</source>
-        <translation type="unfinished"></translation>
+        <translation>QSO 短路径</translation>
     </message>
 </context>
 <context>
@@ -8772,17 +8772,17 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="204"/>
         <source>ITU</source>
-        <translation type="unfinished">ITU</translation>
+        <translation>ITU</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="227"/>
         <source>CQZ</source>
-        <translation type="unfinished">CQ分区</translation>
+        <translation>CQ分区</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="280"/>
         <source>Country</source>
-        <translation type="unfinished">国家/地区</translation>
+        <translation>国家/地区</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="400"/>
@@ -9302,7 +9302,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3974"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>快捷键</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1823"/>
@@ -9730,7 +9730,7 @@
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="195"/>
         <source>SAT Mode</source>
-        <translation type="unfinished">卫星模式</translation>
+        <translation>卫星模式</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="258"/>
@@ -9896,22 +9896,22 @@
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="36"/>
         <source>Description</source>
-        <translation type="unfinished">描述</translation>
+        <translation>描述</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="37"/>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>快捷键</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="81"/>
         <source>Conflict with a built-in shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>与内置快捷键发生冲突</translation>
     </message>
     <message>
         <location filename="../models/ShortcutEditorModel.cpp" line="87"/>
         <source>Conflict with a user-defined shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>与用户定义快捷键发生冲突</translation>
     </message>
 </context>
 <context>
@@ -10166,37 +10166,37 @@
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="19"/>
         <source>Rig 0</source>
-        <translation type="unfinished">设备 0</translation>
+        <translation>设备 0</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="20"/>
         <source>Rig 1</source>
-        <translation type="unfinished">设备 1</translation>
+        <translation>设备 1</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="21"/>
         <source>Rig 2</source>
-        <translation type="unfinished">设备 2</translation>
+        <translation>设备 2</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="22"/>
         <source>Rig 3</source>
-        <translation type="unfinished">设备 3</translation>
+        <translation>设备 3</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="341"/>
         <source>Error Occured</source>
-        <translation type="unfinished">发生错误</translation>
+        <translation>发生错误</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="545"/>
         <source>Rig status changed</source>
-        <translation type="unfinished">设备状态已更改</translation>
+        <translation>设备状态已更改</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="546"/>
         <source>Rig is not connected</source>
-        <translation type="unfinished">电台未连接</translation>
+        <translation>设备未连接</translation>
     </message>
 </context>
 <context>
