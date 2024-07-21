@@ -572,12 +572,16 @@ void MainWindow::setLayoutGeometry()
          || layoutProfile.mainState != QByteArray() )
     {
         restoreGeometry(layoutProfile.mainGeometry);
+        if ( isMaximized() )
+                setGeometry( QApplication::desktop()->availableGeometry( this ) );
         restoreState(layoutProfile.mainState);
         darkLightModeSwith->setChecked(layoutProfile.darkMode);
     }
     else
     {
         restoreGeometry(settings.value("geometry").toByteArray());
+        if ( isMaximized() )
+                setGeometry( QApplication::desktop()->availableGeometry( this ) );
         restoreState(settings.value("windowState").toByteArray());
         // leave dark mode as is
     }
