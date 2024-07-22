@@ -1,4 +1,5 @@
 TBC - 0.37.2
+- Fixed Set rotator position fails if azimuth > 180 (issue #417)
 - Updated Simplified Chinese translation
 - Added Italian translation
 
