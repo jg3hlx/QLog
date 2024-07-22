@@ -349,6 +349,7 @@ void NewContactWidget::readWidgetSettings()
     setComboBaseData(ui->qslSentBox, settings.value("newcontact/qslsent", "Q").toString());
     setComboBaseData(ui->lotwQslSentBox, settings.value("newcontact/lotwqslsent", "Q").toString());
     setComboBaseData(ui->eQSLSentBox, settings.value("newcontact/eqslqslsent", "Q").toString());
+    setComboBaseData(ui->qslSentViaBox, settings.value("newcontact/qslsentvia", "").toString());
     ui->propagationModeEdit->setCurrentText(Data::instance()->propagationModeIDToText(settings.value("newcontact/propmode", QString()).toString()));
 }
 
@@ -364,6 +365,7 @@ void NewContactWidget::writeWidgetSetting()
     settings.setValue("newcontact/qslsent", ui->qslSentBox->itemData(ui->qslSentBox->currentIndex()));
     settings.setValue("newcontact/eqslqslsent", ui->eQSLSentBox->itemData(ui->eQSLSentBox->currentIndex()));
     settings.setValue("newcontact/eqslqslsent", ui->lotwQslSentBox->itemData(ui->lotwQslSentBox->currentIndex()));
+    settings.setValue("newcontact/qslsentvia", ui->qslSentViaBox->itemData(ui->qslSentViaBox->currentIndex()));
     settings.setValue("newcontact/propmode", Data::instance()->propagationModeTextToID(ui->propagationModeEdit->currentText()));
 }
 
@@ -1001,7 +1003,6 @@ void NewContactWidget::resetContact()
     dxDistance = qQNaN();
     ui->bearingInfo->clear();
     ui->partnerLocTimeInfo->clear();
-    ui->qslSentViaBox->setCurrentIndex(0);
     uiDynamic->cqzEdit->clear();
     uiDynamic->ituEdit->clear();
     uiDynamic->contEdit->setCurrentText("");
