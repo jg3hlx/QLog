@@ -4,6 +4,7 @@
 #else
 #include <unistd.h>
 #endif
+#include <cmath>
 
 #include "HamlibRotDrv.h"
 #include "core/debug.h"
@@ -174,6 +175,8 @@ void HamlibRotDrv::sendState()
     forceSendState = true;
 }
 
+// in_azimuth range is 0 - 360
+// in_elevation, not used - always 0
 void HamlibRotDrv::setPosition(double in_azimuth, double in_elevation)
 {
     FCT_IDENTIFICATION;
@@ -182,20 +185,63 @@ void HamlibRotDrv::setPosition(double in_azimuth, double in_elevation)
 
     MUTEXLOCKER;
 
-    if ( !rot )
+    if ( !rot || !rot->caps )
     {
         qCWarning(runtime) << "Rot is not active";
         return;
     }
 
-    in_azimuth -= AntProfilesManager::instance()->getCurProfile1().azimuthOffset;
-
-    if ( in_azimuth > 180.0 )
+    if ( rot->caps->max_az == 0 )
     {
-        in_azimuth = in_azimuth - 360.0;
+        qCWarning(runtime) << "Rot does not support the Azimuth setting";
+        return;
     }
 
-    int status = rot_set_position(rot, static_cast<azimuth_t>(in_azimuth), static_cast<elevation_t>(in_elevation));
+    double newElevation = in_elevation;
+    double newAzimuth = in_azimuth - AntProfilesManager::instance()->getCurProfile1().azimuthOffset;
+    // offset interval is -180 to 180
+    // azimuth input interval is 0 to 360
+    // min value is -180
+    // max valus is 540
+    newAzimuth = fmod(newAzimuth + 360, 360);
+    qCDebug(runtime) << "Azimuth (with offset)" << newAzimuth;
+
+    /**********************************/
+    /* Rotator specific modifications */
+    /**********************************/
+
+    qCDebug(runtime) << "Rotator limits: AZ"
+                     << rot->caps->min_az << "to" << rot->caps->max_az
+                     << "EL"
+                     << rot->caps->min_el << "to" << rot->caps->max_el;
+
+    // recalculate azimuth to interval -180 to 180 for rotators that have this interval
+    if ( rot->caps->max_az == 180.0 && rot->caps->min_az == -180.0 )
+    {
+        if ( newAzimuth > 180.0 )
+        {
+            qCDebug(runtime) << "Azimuth need to be recalculated to interval -180 to 180";
+            newAzimuth -= 360.0;
+        }
+    }
+    else if ( rot->caps->max_az == 359.9 && newAzimuth > 359.9 )
+    {
+        // exception for Green Heron RT-21
+        newAzimuth = 0;
+    }
+
+    /************************/
+    /* END of modifications */
+    /************************/
+
+    // the final value of the azimuth and elevation is known
+    qCDebug(runtime) << "Set Az/El position"
+                     << static_cast<azimuth_t>(newAzimuth)
+                     << static_cast<elevation_t>(newElevation);
+
+    int status = rot_set_position(rot,
+                                  static_cast<azimuth_t>(newAzimuth),
+                                  static_cast<elevation_t>(newElevation));
 
     if ( status != RIG_OK )
     {
