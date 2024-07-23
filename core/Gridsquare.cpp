@@ -167,7 +167,7 @@ bool Gridsquare::distanceTo(double lat, double lon, double &distance) const
 
     if ( !isValid() )
     {
-        distance = 0;
+        distance = 0.0;
         return false;
     }
 
@@ -193,7 +193,7 @@ bool Gridsquare::distanceTo(const Gridsquare &in_grid, double &distance) const
 
     if ( !in_grid.isValid() )
     {
-        distance = 0;
+        distance = 0.0;
         return false;
     }
     return distanceTo(in_grid.getLatitude(), in_grid.getLongitude(), distance);
@@ -205,7 +205,7 @@ bool Gridsquare::bearingTo(double lat, double lon, double &bearing) const
 
     if ( !isValid() )
     {
-        bearing = 0;
+        bearing = 0.0;
         return false;
     }
 
@@ -227,7 +227,7 @@ bool Gridsquare::bearingTo(const Gridsquare &in_grid, double &bearing) const
 
     if ( ! in_grid.isValid() )
     {
-        bearing = 0;
+        bearing = 0.0;
         return false;
     }
 

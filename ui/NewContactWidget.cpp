@@ -2754,7 +2754,7 @@ double NewContactWidget::getQSOBearing() const
 
     if ( !ui->bearingInfo->text().isEmpty() )
     {
-        QString bearingString = ui->bearingInfo->text();
+        const QString &bearingString = ui->bearingInfo->text();
         ret_bearing = bearingString.mid(0,bearingString.length()-1).toDouble();
     }
 
