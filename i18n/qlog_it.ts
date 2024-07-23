@@ -471,12 +471,12 @@
     <message>
         <location filename="../ui/BandmapWidget.ui" line="136"/>
         <source>In</source>
-        <translation>Inserire</translation>
+        <translation>zoom in</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.ui" line="150"/>
         <source>Out</source>
-        <translation>Uscire</translation>
+        <translation>zoom out</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.ui" line="165"/>
@@ -4062,23 +4062,23 @@
 <context>
     <name>HamlibRotDrv</name>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="82"/>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="117"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="83"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="118"/>
         <source>Initialization Error</source>
         <translation>Errore di inizializzazione</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="142"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="143"/>
         <source>Unsupported Rotator Driver</source>
         <translation>Driver del rotore non supportato</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="204"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="250"/>
         <source>Set Possition Error</source>
         <translation>Errore di impostazione della posizione</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="289"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="335"/>
         <source>Get Possition Error</source>
         <translation>Errore di ricezione della posizione</translation>
     </message>
@@ -6300,56 +6300,56 @@
         <translation>&lt;b&gt;Dettagli errore:&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="655"/>
+        <location filename="../ui/MainWindow.cpp" line="659"/>
         <source>Classic</source>
         <translation>Classico</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="957"/>
-        <location filename="../ui/MainWindow.cpp" line="973"/>
-        <location filename="../ui/MainWindow.cpp" line="989"/>
-        <location filename="../ui/MainWindow.cpp" line="1005"/>
-        <location filename="../ui/MainWindow.cpp" line="1023"/>
+        <location filename="../ui/MainWindow.cpp" line="961"/>
+        <location filename="../ui/MainWindow.cpp" line="977"/>
+        <location filename="../ui/MainWindow.cpp" line="993"/>
+        <location filename="../ui/MainWindow.cpp" line="1009"/>
+        <location filename="../ui/MainWindow.cpp" line="1027"/>
         <source>QLog Warning</source>
         <translation>Allarme di QLog</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="957"/>
+        <location filename="../ui/MainWindow.cpp" line="961"/>
         <source>LoTW is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>LoTW non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="973"/>
+        <location filename="../ui/MainWindow.cpp" line="977"/>
         <source>eQSL is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>eQSL non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="989"/>
+        <location filename="../ui/MainWindow.cpp" line="993"/>
         <source>Clublog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>Clublog non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1005"/>
+        <location filename="../ui/MainWindow.cpp" line="1009"/>
         <source>HRDLog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>HRDLog non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1023"/>
+        <location filename="../ui/MainWindow.cpp" line="1027"/>
         <source>QRZ.com is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>QRZ.com non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1043"/>
+        <location filename="../ui/MainWindow.cpp" line="1047"/>
         <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
         <translation>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copia; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Basato su Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icona di &lt;a href=&apos; http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Immagini satellitari di &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect di &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;Database TimeZone di &lt;a href=&apos;https://github.com/evansiroky/timezone -boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1072"/>
+        <location filename="../ui/MainWindow.cpp" line="1076"/>
         <source>About</source>
         <translation>a proposito di...</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1116"/>
+        <location filename="../ui/MainWindow.cpp" line="1120"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -6717,92 +6717,92 @@
         <translation>Accesso al Logbook non riuscito</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1926"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1927"/>
         <source>New Entity!</source>
         <translation>Nuova Entità!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1929"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1930"/>
         <source>New Band!</source>
         <translation>Nuova Banda!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1932"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1933"/>
         <source>New Mode!</source>
         <translation>Nuovo Modo!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1935"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1936"/>
         <source>New Band &amp; Mode!</source>
         <translation>Nuova Banda e Modo!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1938"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1939"/>
         <source>New Slot!</source>
         <translation>Nuovo Slot!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1941"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1942"/>
         <source>Worked</source>
         <translation>Lavorato</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1944"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1945"/>
         <source>Confirmed</source>
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2617"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2618"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2627"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2628"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2633"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2634"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2906"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2907"/>
         <source> m</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3103"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3104"/>
         <source>Callbook search is inactive</source>
         <translation>Ricerca sul Callbook inattiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3108"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3109"/>
         <source>Callbook search is active</source>
         <translation>Ricerca sul Callbook attiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3239"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3240"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>due o quattro localizzatori di griglia Maidenhead adiacenti, ciascuno lungo quattro caratteri, (es. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3242"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3243"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>il DARC DOK (District Location Code) della stazione contattata (ex. A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3262"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3263"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3266"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3267"/>
         <source>Special Activity Group</source>
         <translation>Gruppo di attività speciali</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3270"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3271"/>
         <source>Special Activity Group Information</source>
         <translation>Informazioni sul gruppo di attività speciali</translation>
     </message>
@@ -7075,7 +7075,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <location filename="../ui/AlertRuleDetail.cpp" line="373"/>
         <location filename="../ui/ExportDialog.cpp" line="125"/>
         <location filename="../ui/KSTChatWidget.cpp" line="268"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1475"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1476"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="593"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="604"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="613"/>
@@ -7220,7 +7220,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>&lt;b&gt;Errore Keyer CW:&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1476"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1477"/>
         <source>Your callsign is empty. Please, set your Station Profile</source>
         <translation>Il tuo nominativo è vuoto. Per favore, imposta il profilo della tua stazione</translation>
     </message>
