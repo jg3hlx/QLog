@@ -216,7 +216,8 @@ bool Gridsquare::bearingTo(double lat, double lon, double &bearing) const
     double y = sin(dLon) * cos(lat2);
     double x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon);
 
-    bearing = (int)( 180 * atan2(y, x) / M_PI + 360) % 360;
+    bearing = fmod((180.0 * atan2(y, x) / M_PI + 360.0), 360.0);
+
     return true;
 }
 
