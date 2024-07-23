@@ -573,7 +573,10 @@ void MainWindow::setLayoutGeometry()
     {
         restoreGeometry(layoutProfile.mainGeometry);
         if ( isMaximized() )
-                setGeometry( QApplication::desktop()->availableGeometry( this ) );
+        {
+            const QList<QScreen *> &screens = QGuiApplication::screens();
+            setGeometry( screens[0]->availableGeometry() );
+        }
         restoreState(layoutProfile.mainState);
         darkLightModeSwith->setChecked(layoutProfile.darkMode);
     }
@@ -581,7 +584,10 @@ void MainWindow::setLayoutGeometry()
     {
         restoreGeometry(settings.value("geometry").toByteArray());
         if ( isMaximized() )
-                setGeometry( QApplication::desktop()->availableGeometry( this ) );
+        {
+            const QList<QScreen *> &screens = QGuiApplication::screens();
+            setGeometry( screens[0]->availableGeometry() );
+        }
         restoreState(settings.value("windowState").toByteArray());
         // leave dark mode as is
     }
@@ -699,6 +705,11 @@ void MainWindow::setupLayoutMenu()
                  || layoutProfile.mainState != QByteArray() )
             {
                 restoreGeometry(layoutProfile.mainGeometry);
+                if ( isMaximized() )
+                {
+                    const QList<QScreen *> &screens = QGuiApplication::screens();
+                    setGeometry( screens[0]->availableGeometry() );
+                }
                 restoreState(layoutProfile.mainState);
                 darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
             }
