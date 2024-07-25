@@ -4,6 +4,7 @@ TBC - 0.37.2
 - Fixed Windows State/Size does not save in case of fullscreen (issue #418)
 - Fixed Significant rounding during azimuth calculation (issue #422)
 - Updated Simplified Chinese translation
+- Updated Spanish translaction
 - Added Italian translation
 
 2024/07/10 - 0.37.1
