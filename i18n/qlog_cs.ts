@@ -6284,7 +6284,7 @@
         <translation>Vymazat upozornění</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1076"/>
+        <location filename="../ui/MainWindow.cpp" line="1096"/>
         <source>About</source>
         <translation>O aplikaci</translation>
     </message>
@@ -6316,51 +6316,51 @@
         <translation>&lt;b&gt;Detail chyby:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="659"/>
+        <location filename="../ui/MainWindow.cpp" line="671"/>
         <source>Classic</source>
         <translation>Klasické</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="961"/>
-        <location filename="../ui/MainWindow.cpp" line="977"/>
-        <location filename="../ui/MainWindow.cpp" line="993"/>
-        <location filename="../ui/MainWindow.cpp" line="1009"/>
-        <location filename="../ui/MainWindow.cpp" line="1027"/>
+        <location filename="../ui/MainWindow.cpp" line="981"/>
+        <location filename="../ui/MainWindow.cpp" line="997"/>
+        <location filename="../ui/MainWindow.cpp" line="1013"/>
+        <location filename="../ui/MainWindow.cpp" line="1029"/>
+        <location filename="../ui/MainWindow.cpp" line="1047"/>
         <source>QLog Warning</source>
         <translation>Upozornění QLog</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="961"/>
+        <location filename="../ui/MainWindow.cpp" line="981"/>
         <source>LoTW is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>LoTW není správně nastaven.&lt;p&gt; Prosím, použijte dialog &lt;b&gt;Nastavení&lt;/b&gt; pro konfiguraci služby.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="977"/>
+        <location filename="../ui/MainWindow.cpp" line="997"/>
         <source>eQSL is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>eQSL není správně nastaven.&lt;p&gt; Prosím, použijte dialog &lt;b&gt;Nastavení&lt;/b&gt; pro konfiguraci služby.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="993"/>
+        <location filename="../ui/MainWindow.cpp" line="1013"/>
         <source>Clublog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>Clublog není správně nastaven.&lt;p&gt; Prosím, použijte dialog &lt;b&gt;Nastavení&lt;/b&gt; pro konfiguraci služby.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1009"/>
+        <location filename="../ui/MainWindow.cpp" line="1029"/>
         <source>HRDLog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>HRDLog není správně nastaven.&lt;p&gt; Prosím, použijte dialog &lt;b&gt;Nastavení&lt;/b&gt; pro konfiguraci služby.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1027"/>
+        <location filename="../ui/MainWindow.cpp" line="1047"/>
         <source>QRZ.com is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>QRZ.com není správně nastaven.&lt;p&gt; Prosím, použijte dialog &lt;b&gt;Nastavení&lt;/b&gt; pro konfiguraci služby.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1047"/>
+        <location filename="../ui/MainWindow.cpp" line="1067"/>
         <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
         <translation>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Záloženo na Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Ikony &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satelitní snímky &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1120"/>
+        <location filename="../ui/MainWindow.cpp" line="1140"/>
         <source>N/A</source>
         <translation>-</translation>
     </message>
