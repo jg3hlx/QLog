@@ -711,14 +711,6 @@ void MainWindow::setupLayoutMenu()
                  || layoutProfile.mainState != QByteArray() )
             {
                 restoreGeometry(layoutProfile.mainGeometry);
-#if (QT_VERSION < QT_VERSION_CHECK(6, 3, 0))
-                // workaround for QTBUG-46620
-                if ( isMaximized() )
-                {
-                    const QList<QScreen *> &screens = QGuiApplication::screens();
-                    setGeometry( screens[0]->availableGeometry() );
-                }
-#endif
                 restoreState(layoutProfile.mainState);
                 darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
             }
