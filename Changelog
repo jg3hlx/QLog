@@ -5,7 +5,7 @@ TBC - 0.37.2
 - Fixed Significant rounding during azimuth calculation (issue #422)
 - Updated Simplified Chinese translation
 - Updated Spanish translaction
-- Added Italian translation
+- Added Italian translation (thx IK1VQY)
 
 2024/07/10 - 0.37.1
 - Fixed QSO Table Callsign filter is not filled properly (issue #401)
