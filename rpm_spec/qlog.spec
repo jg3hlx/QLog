@@ -42,6 +42,15 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_metainfodir}/*
 
 %changelog
+* Fri Jul 26 2024 Ladislav Foldyna - 0.37.2-1
+- Fixed Field QSL Send Via should be retained (issue #413)
+- Fixed Set rotator position fails if azimuth > 180 (issue #417)
+- Fixed Windows State/Size does not save in case of fullscreen (issue #418)
+- Fixed Significant rounding during azimuth calculation (issue #422)
+- Updated Simplified Chinese translation
+- Updated Spanish translaction
+- Added Italian translation (thx IK1VQY)
+
 * Wed Jul 10 2024 Ladislav Foldyna - 0.37.1-1
 - Fixed QSO Table Callsign filter is not filled properly (issue #401)
 - Fixed DXC zero frequency for last QSO in case of FT8 QSOs (issue #404)

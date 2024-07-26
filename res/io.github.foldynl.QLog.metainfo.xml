@@ -47,6 +47,19 @@
   <url type="vcs-browser">https://github.com/foldynl/QLog</url>
   <url type="contribute">https://github.com/foldynl/QLog/blob/master/CONTRIBUTING.md</url>
   <releases>
+    <release version="0.37.2" date="2024-07-26">
+      <description>
+        <ul>
+          <li>Fixed Field QSL Send Via should be retained (issue #413)</li>
+          <li>Fixed Set rotator position fails if azimuth > 180 (issue #417)</li>
+          <li>Fixed Windows State/Size does not save in case of fullscreen (issue #418)</li>
+          <li>Fixed Significant rounding during azimuth calculation (issue #422)</li>
+          <li>Updated Simplified Chinese translation</li>
+          <li>Updated Spanish translaction</li>
+          <li>Added Italian translation (thx IK1VQY)</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.37.1" date="2024-07-10">
       <description>
         <ul>

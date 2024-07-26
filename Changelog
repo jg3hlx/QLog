@@ -1,4 +1,4 @@
-TBC - 0.37.2
+2024/07/26 - 0.37.2
 - Fixed Field QSL Send Via should be retained (issue #413)
 - Fixed Set rotator position fails if azimuth > 180 (issue #417)
 - Fixed Windows State/Size does not save in case of fullscreen (issue #418)
