@@ -1,11 +1,12 @@
-# QLog
+# QLog(0.37.2) 日本語対応版
 
-QLog is an Amateur Radio logging application for Linux, Windows. It
-is based on the Qt framework and uses SQLite as database backend.
+QLog は、Linux、Windows 用のアマチュア無線ログ アプリケーションです。
+Qt フレームワークに基づいており、データベース バックエンドとして SQLite を使用します。
 
-QLogs aims to be as simple as possible, but to provide everything the operator expects from the log to be. This log is not currently focused on contests.
+QLogs は可能な限りシンプルであることを目指していますが、オペレーターがログに期待するすべてを提供することを目指しています。このログは現在、コンテストに焦点を当てていません。
 
-![Screenshot](https://foldynl.github.io/QLog/screens/qlog_main.png)
+![qlog](https://github.com/jg3hlx/QLog/assets/76939165/547ddd4b-b1d5-4a6c-b72e-5325d6fd9ed0)
+
 
 ## Features
 
