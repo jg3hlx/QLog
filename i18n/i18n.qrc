@@ -6,6 +6,7 @@
         <file>datastrings.tri</file>
         <file>qlog_es.qm</file>
         <file>qlog_it.qm</file>
+        <file>qlog_ja.qm</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>
