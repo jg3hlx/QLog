@@ -182,6 +182,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->logbookWidget, &LogbookWidget::clublogContactUpdated, clublogRT, &ClubLog::updateQSOImmediately);
     connect(ui->logbookWidget, &LogbookWidget::contactDeleted, &networknotification, &NetworkNotification::QSODeleted);
     connect(ui->logbookWidget, &LogbookWidget::clublogContactDeleted, clublogRT, &ClubLog::deleteQSOImmediately);
+    connect(ui->logbookWidget, &LogbookWidget::sendDXSpotContactReq, ui->dxWidget, &DxWidget::prepareQSOSpot);
 
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->logbookWidget, &LogbookWidget::updateTable);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, &networknotification, &NetworkNotification::QSOInserted);

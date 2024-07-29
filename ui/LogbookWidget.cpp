@@ -44,12 +44,20 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     ui->contactTable->setModel(model);
 
+    QAction *separator = new QAction(this);
+    separator->setSeparator(true);
+
+    QAction *separator1 = new QAction(this);
+    separator1->setSeparator(true);
+
     ui->contactTable->addAction(ui->actionEditContact);
     ui->contactTable->addAction(ui->actionFilter);
-    ui->contactTable->addAction(ui->actionExportAs);
     ui->contactTable->addAction(ui->actionLookup);
+    ui->contactTable->addAction(ui->actionSendDXCSpot);
+    ui->contactTable->addAction(ui->actionExportAs);
+    ui->contactTable->addAction(separator);
     ui->contactTable->addAction(ui->actionDisplayedColumns);
-    //ui->contactTable->addAction(ui->actionUploadClublog);
+    ui->contactTable->addAction(separator1);
     ui->contactTable->addAction(ui->actionDeleteContact);
 
     //ui->contactTable->sortByColumn(1, Qt::DescendingOrder);
@@ -876,6 +884,18 @@ void LogbookWidget::reloadSetting()
     FCT_IDENTIFICATION;
     /* Refresh dynamic Club selection combobox */
     refreshClubFilter();
+}
+
+void LogbookWidget::sendDXCSpot()
+{
+    FCT_IDENTIFICATION;
+
+    const QModelIndexList &selectedIndexes = ui->contactTable->selectionModel()->selectedRows();
+
+    if ( selectedIndexes.count() < 1 )
+        return;
+
+    emit sendDXSpotContactReq(model->record(selectedIndexes.at(0).row()));
 }
 
 void LogbookWidget::colorsFilterWidget(QComboBox *widget)
