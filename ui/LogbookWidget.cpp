@@ -599,17 +599,14 @@ void LogbookWidget::exportContact()
     FCT_IDENTIFICATION;
 
     QList<QSqlRecord>QSOs;
-    auto selectedIndexes = ui->contactTable->selectionModel()->selectedRows();
+    const QModelIndexList &selectedIndexes = ui->contactTable->selectionModel()->selectedRows();
 
     if ( selectedIndexes.count() < 1 )
-    {
         return;
-    }
 
-    for (auto &index : qAsConst(selectedIndexes))
-    {
+    for ( const QModelIndex &index : selectedIndexes )
         QSOs << model->record(index.row());
-    }
+
     ExportDialog dialog(QSOs);
     dialog.exec();
 }
