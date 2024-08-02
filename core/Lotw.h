@@ -16,7 +16,7 @@ public:
     ~Lotw();
 
     void update(const QDate &, bool, const QString &);
-    int uploadAdif(const QByteArray &, QString &);
+    void uploadAdif(const QByteArray &);
 
     static const QString getUsername();
     static const QString getPassword();
@@ -30,6 +30,9 @@ signals:
     void updateStarted();
     void updateComplete(QSLMergeStat update);
     void updateFailed(QString);
+
+    void uploadFinished();
+    void uploadError(QString);
 
 public slots:
     void processReply(QNetworkReply* reply);
