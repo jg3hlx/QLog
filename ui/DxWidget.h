@@ -16,8 +16,11 @@
 #include "core/LogLocale.h"
 #include "core/DxServerString.h"
 
+// in sec
 #define DEDUPLICATION_TIME 3
-#define DEDUPLICATION_FREQ_TOLERANCE 0.005
+
+// in kHz
+#define DEDUPLICATION_FREQ_TOLERANCE 5
 
 namespace Ui {
 class DxWidget;

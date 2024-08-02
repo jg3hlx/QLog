@@ -127,7 +127,7 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
                 break;
 
             if ( record.callsign == entry.callsign
-                 && qAbs(record.freq*1000 - entry.freq*1000) < dedup_freq_tolerance )
+                 && qAbs(MHz(record.freq) - MHz(entry.freq)) < kHz(dedup_freq_tolerance) )
             {
                 qCDebug(runtime) << "Duplicate spot" << record.callsign << record.freq <<  entry.callsign << entry.freq;
                 shouldInsert = false;
@@ -686,8 +686,7 @@ int DxWidget::getDedupTimeValue()
     FCT_IDENTIFICATION;
 
     QSettings settings;
-    return settings.value("dxc/filter_duplicationtime", 360).toInt();
-
+    return settings.value("dxc/filter_duplicationtime", DEDUPLICATION_TIME).toInt();
 }
 
 int DxWidget::getDedupFreqValue()
@@ -695,8 +694,7 @@ int DxWidget::getDedupFreqValue()
     FCT_IDENTIFICATION;
 
     QSettings settings;
-    return settings.value("dxc/filter_duplicationfreq", 5).toInt();
-
+    return settings.value("dxc/filter_duplicationfreq", DEDUPLICATION_FREQ_TOLERANCE).toInt();
 }
 
 bool DxWidget::spotDedupValue()
