@@ -1,3 +1,5 @@
+TBC - 0.38.0
+
 2024/07/26 - 0.37.2
 - Fixed Field QSL Send Via should be retained (issue #413)
 - Fixed Set rotator position fails if azimuth > 180 (issue #417)
