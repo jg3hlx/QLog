@@ -1258,6 +1258,9 @@ void DxWidget::prepareQSOSpot(QSqlRecord qso)
 
     qCDebug(runtime) << "QSO" << qso;
 
+    if ( !ui->commandEdit->isEnabled() )
+        return;
+
     if ( qso.contains(QStringLiteral("start_time")) )
     {
         //qso is valid record
