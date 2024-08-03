@@ -135,6 +135,7 @@ public slots:
     void serverSelectChanged(int);
     void setLastQSO(QSqlRecord);
     void reloadSetting();
+    void prepareQSOSpot(QSqlRecord);
 
 private slots:
     void actionCommandSpotQSO();

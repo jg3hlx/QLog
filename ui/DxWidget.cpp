@@ -1269,29 +1269,38 @@ void DxWidget::reloadSetting()
 #endif
 }
 
+void DxWidget::prepareQSOSpot(QSqlRecord qso)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(runtime) << "QSO" << qso;
+
+    if ( qso.contains(QStringLiteral("start_time")) )
+    {
+        //qso is valid record
+        if ( qso.contains(QStringLiteral("freq"))
+             && qso.contains(QStringLiteral("callsign")) )
+        {
+            double spotFreq = ( qso.contains("freq_rx")
+                                && qso.value("freq_rx").toDouble() != 0.0 ) ? qso.value("freq_rx").toDouble()
+                                                                            : qso.value("freq").toDouble();
+
+            // DX Spider allow to enter QSO freq in MHz but it is not reliable for SHF bands.
+            // a more reliable way is to send a spot with kHz value
+            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(Hz2kHz(MHz(spotFreq)), 'f', 0),
+                                                              qso.value("callsign").toString()));
+            ui->commandEdit->setFocus();
+        }
+    }
+}
+
 void DxWidget::actionCommandSpotQSO()
 {
     FCT_IDENTIFICATION;
 
     qCDebug(runtime) << "Last QSO" << lastQSO;
 
-    if ( lastQSO.contains(QStringLiteral("start_time")) )
-    {
-        //lastQSO is valid record
-        if ( lastQSO.contains(QStringLiteral("freq"))
-             && lastQSO.contains(QStringLiteral("callsign")) )
-        {
-            double spotFreq = ( lastQSO.contains("freq_rx")
-                                && lastQSO.value("freq_rx").toDouble() != 0.0 ) ? lastQSO.value("freq_rx").toDouble()
-                                                                                : lastQSO.value("freq").toDouble();
-
-            // DX Spider allow to enter QSO freq in MHz but it is not reliable for SHF bands.
-            // a more reliable way is to send a spot with kHz value
-            ui->commandEdit->setText(QString("dx %1 %2 ").arg(QString::number(Hz2kHz(MHz(spotFreq)), 'f', 0),
-                                                             lastQSO.value("callsign").toString()));
-            ui->commandEdit->setFocus();
-        }
-    }
+    prepareQSOSpot(lastQSO);
     ui->commandButton->setDefaultAction(ui->actionSpotQSO);
 }
 
