@@ -1,4 +1,5 @@
 TBC - 0.38.0
+- Fix for MacOS Layout Geometry Restore (@aa5sh)
 
 2024/07/26 - 0.37.2
 - Fixed Field QSL Send Via should be retained (issue #413)
