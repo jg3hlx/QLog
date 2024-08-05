@@ -177,6 +177,12 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     sotaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     uiDynamic->sotaEdit->setCompleter(nullptr);
 
+    sigCompleter = new QCompleter(uiDynamic->sigEdit);
+    sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    sigCompleter->setFilterMode(Qt::MatchStartsWith);
+    sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
+    uiDynamic->sigEdit->setCompleter(sigCompleter);
+
     /**************/
     /* CONNECTs   */
     /**************/
@@ -219,6 +225,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     connect(uiDynamic->wwffEdit, &QLineEdit::editingFinished, this, &NewContactWidget::wwffEditFinished);
     connect(uiDynamic->wwffEdit, &QLineEdit::textChanged, this, &NewContactWidget::wwffChanged);
     connect(uiDynamic->satNameEdit, &QLineEdit::textChanged, this, &NewContactWidget::satNameChanged);
+    connect(uiDynamic->sigEdit, &NewContactEditLine::focusIn, this, &NewContactWidget::refreshSIGCompleter);
 
     ui->rstSentEdit->installEventFilter(this);
     ui->rstRcvdEdit->installEventFilter(this);
@@ -2588,6 +2595,25 @@ void NewContactWidget::webLookup()
 
     if ( !callsign.isEmpty() )
         QDesktopServices::openUrl(GenericCallbook::getWebLookupURL(callsign));
+}
+
+void NewContactWidget::refreshSIGCompleter()
+{
+    FCT_IDENTIFICATION;
+
+    QStringListModel *model = static_cast<QStringListModel*>(sigCompleter->model());
+
+    if( !model )
+        model = new QStringListModel();
+
+    QStringList sigLOV;
+    QSqlQuery query(QLatin1String("SELECT DISTINCT sig_intl FROM contacts"));
+
+    while ( query.next() )
+        sigLOV << query.value(0).toString();
+
+    model->setStringList(sigLOV);
+    sigCompleter->setModel(model);
 }
 
 QString NewContactWidget::getCallsign() const

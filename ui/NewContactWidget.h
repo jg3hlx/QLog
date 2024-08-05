@@ -243,6 +243,7 @@ private slots:
     void rigProfileComboChanged(const QString&);
     void antProfileComboChanged(const QString&);
     void webLookup();
+    void refreshSIGCompleter();
 
 private:
     void fillFieldsFromLastQSO(const QString &callsign);
@@ -301,6 +302,7 @@ private:
     QCompleter *sotaCompleter;
     QCompleter *potaCompleter;
     QCompleter *wwffCompleter;
+    QCompleter *sigCompleter;
     QTimeZone partnerTimeZone;
     double QSOFreq;
     qint32 bandwidthFilter;
