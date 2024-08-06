@@ -43,15 +43,14 @@ BandmapWidget::BandmapWidget(QWidget *parent) :
 
     ui->setupUi(this);
 
-    double freq = settings.value("newcontact/frequency", 3.5).toDouble();
+    double newContactFreq = settings.value("newcontact/frequency", 3.5).toDouble();
+    double ritFreq = newContactFreq + RigProfilesManager::instance()->getCurProfile1().ritOffset;
+    double xitFreq = newContactFreq + RigProfilesManager::instance()->getCurProfile1().xitOffset;
     const QString &mode = settings.value("newcontact/mode", "CW").toString();
     const QString &submode = settings.value("newcontact/submode").toString();
-
-    freq += RigProfilesManager::instance()->getCurProfile1().ritOffset;
-
     keepRXCenter = settings.value("bandmap/centerrx", true).toBool();
 
-    setBand(BandPlan::freq2Band(freq), false);
+    setBand(BandPlan::freq2Band(ritFreq), false);
 
     bandmapScene = new GraphicsScene(this);
     bandmapScene->setFocusOnTouch(false);
@@ -72,7 +71,7 @@ BandmapWidget::BandmapWidget(QWidget *parent) :
     update_timer->start(BANDMAP_MAX_REFRESH_TIME);
 
     updateMode(VFO1, QString(), mode, submode, 0);
-    updateTunedFrequency(VFO1, freq, freq, freq);
+    updateTunedFrequency(VFO1, newContactFreq, ritFreq, xitFreq);
 }
 
 void BandmapWidget::update()
