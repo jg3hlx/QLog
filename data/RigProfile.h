@@ -75,7 +75,7 @@ private:
 
 Q_DECLARE_METATYPE(RigProfile)
 
-class RigProfilesManager : QObject, public ProfileManager<RigProfile>
+class RigProfilesManager : QObject, public ProfileManagerSQL<RigProfile>
 {
     Q_OBJECT
 

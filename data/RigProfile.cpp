@@ -62,7 +62,7 @@ QDataStream& operator>>(QDataStream& in, RigProfile& v)
 
 RigProfilesManager::RigProfilesManager(QObject *parent) :
     QObject(parent),
-    ProfileManager<RigProfile>("equipment/rig")
+    ProfileManagerSQL<RigProfile>("rig_profiles")
 {
     FCT_IDENTIFICATION;
 
