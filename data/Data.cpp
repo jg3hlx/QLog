@@ -1036,13 +1036,6 @@ WWFFEntity Data::lookupWWFF(const QString &reference)
     return WWFFRet;
 }
 
-QString Data::dxccFlag(int dxcc) {
-    FCT_IDENTIFICATION;
-
-    qCDebug(function_parameters) << dxcc;
-    return flags.value(dxcc);
-}
-
 const char Data::translitTab[] = {
 1, ' ', 1, '!', 2, 'C', '/', 2, 'P', 'S', 2, '$', '?', 2, 'Y', '=',
 1, '|', 2, 'S', 'S', 1, '\"', 3, '(', 'c', ')', 1, 'a', 2, '<', '<',
