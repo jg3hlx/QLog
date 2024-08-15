@@ -148,6 +148,7 @@ private:
     QScopedPointer<QCompleter> myPotaCompleter;
     QScopedPointer<QCompleter> wwffCompleter;
     QScopedPointer<QCompleter> myWWFFCompleter;
+    QScopedPointer<QCompleter> sigCompleter;
     QWebChannel channel;
     MapWebChannelHandler layerControlHandler;
     LogLocale locale;
