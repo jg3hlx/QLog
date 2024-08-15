@@ -137,6 +137,7 @@ private:
     QCompleter *iotaCompleter;
     QCompleter *wwffCompleter;
     QCompleter *potaCompleter;
+    QCompleter *sigCompleter;
     QList<QCheckBox*> memberListCheckBoxes;
     Ui::SettingsDialog *ui;
     LogLocale locale;
