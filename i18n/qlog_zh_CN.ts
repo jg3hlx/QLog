@@ -260,24 +260,34 @@
         <translation>警报</translation>
     </message>
     <message>
-        <location filename="../ui/AlertWidget.ui" line="62"/>
+        <location filename="../ui/AlertWidget.ui" line="86"/>
         <source>Clear older than</source>
         <translation>清除旧于</translation>
     </message>
     <message>
-        <location filename="../ui/AlertWidget.ui" line="69"/>
+        <location filename="../ui/AlertWidget.ui" line="93"/>
         <source>Never</source>
         <translation>从不</translation>
     </message>
     <message>
-        <location filename="../ui/AlertWidget.ui" line="72"/>
+        <location filename="../ui/AlertWidget.ui" line="96"/>
         <source> min(s)</source>
         <translation> 分钟</translation>
     </message>
     <message>
-        <location filename="../ui/AlertWidget.ui" line="98"/>
-        <source>Clear All</source>
-        <translation>清除全部</translation>
+        <location filename="../ui/AlertWidget.ui" line="121"/>
+        <source>Edit Rules</source>
+        <translation type="unfinished">编辑规则</translation>
+    </message>
+    <message>
+        <location filename="../ui/AlertWidget.ui" line="126"/>
+        <source>Column Visibility...</source>
+        <translation type="unfinished">列可见性...</translation>
+    </message>
+    <message>
+        <location filename="../ui/AlertWidget.ui" line="131"/>
+        <source>Clear</source>
+        <translation type="unfinished">清除</translation>
     </message>
 </context>
 <context>
@@ -3192,26 +3202,41 @@
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="336"/>
-        <source>Others</source>
-        <translation>其他</translation>
+        <source>Do not show the following spots when they have the same Callsign and their time difference is lower than Time Diff and their frequency difference is lower than Freq Diff</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/DxFilterDialog.ui" line="344"/>
-        <source>Spots Deduplication</source>
-        <translation>去除重复报告</translation>
-    </message>
-    <message>
-        <location filename="../ui/DxFilterDialog.ui" line="347"/>
+        <location filename="../ui/DxFilterDialog.ui" line="339"/>
         <source>Spots Dedup</source>
         <translation>报告去重</translation>
     </message>
     <message>
-        <location filename="../ui/DxFilterDialog.ui" line="359"/>
+        <location filename="../ui/DxFilterDialog.ui" line="366"/>
+        <source>Time difference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/DxFilterDialog.ui" line="373"/>
+        <source>s</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/DxFilterDialog.ui" line="386"/>
+        <source>Frequency difference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/DxFilterDialog.ui" line="393"/>
+        <source> kHz</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/DxFilterDialog.ui" line="412"/>
         <source>Member</source>
         <translation>成员</translation>
     </message>
     <message>
-        <location filename="../ui/DxFilterDialog.cpp" line="234"/>
+        <location filename="../ui/DxFilterDialog.cpp" line="241"/>
         <source>No Club List is enabled</source>
         <translation>未启用俱乐部列表</translation>
     </message>
@@ -3283,7 +3308,7 @@
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="94"/>
-        <location filename="../ui/DxWidget.cpp" line="587"/>
+        <location filename="../ui/DxWidget.cpp" line="586"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
@@ -3413,52 +3438,52 @@
         <translation>应该显示哪些列</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="536"/>
+        <location filename="../ui/DxWidget.cpp" line="535"/>
         <source>Connecting...</source>
         <translation>正在连接...</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="581"/>
+        <location filename="../ui/DxWidget.cpp" line="580"/>
         <source>DX Cluster is temporarily unavailable</source>
         <translation>DX 集群暂时不可用</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="878"/>
+        <location filename="../ui/DxWidget.cpp" line="893"/>
         <source>DXC Server Error</source>
         <translation>DXC 服务器出错</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="879"/>
+        <location filename="../ui/DxWidget.cpp" line="894"/>
         <source>An invalid callsign</source>
         <translation>无效的呼号</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="892"/>
+        <location filename="../ui/DxWidget.cpp" line="907"/>
         <source>DX Cluster Password</source>
         <translation>DX 集群密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="893"/>
+        <location filename="../ui/DxWidget.cpp" line="908"/>
         <source>Security Notice</source>
         <translation>安全注意</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="893"/>
+        <location filename="../ui/DxWidget.cpp" line="908"/>
         <source>The password can be sent via an unsecured channel</source>
         <translation>密码可能通过不安全的通道发送</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="895"/>
+        <location filename="../ui/DxWidget.cpp" line="910"/>
         <source>Server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="897"/>
+        <location filename="../ui/DxWidget.cpp" line="912"/>
         <source>Username</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1165"/>
+        <location filename="../ui/DxWidget.cpp" line="1180"/>
         <source>Disconnect</source>
         <translation>断开连接</translation>
     </message>
@@ -4135,7 +4160,7 @@
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="199"/>
-        <location filename="../ui/ImportDialog.cpp" line="94"/>
+        <location filename="../ui/ImportDialog.cpp" line="107"/>
         <source>The value is used when an input record does not contain the ADIF value</source>
         <translation>当输入记录不包含ADIF值时使用该值</translation>
     </message>
@@ -4156,7 +4181,7 @@
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="259"/>
-        <location filename="../ui/ImportDialog.cpp" line="95"/>
+        <location filename="../ui/ImportDialog.cpp" line="108"/>
         <source>Comment</source>
         <translation>备注</translation>
     </message>
@@ -4171,84 +4196,84 @@
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="123"/>
-        <location filename="../ui/ImportDialog.cpp" line="132"/>
+        <location filename="../ui/ImportDialog.cpp" line="136"/>
+        <location filename="../ui/ImportDialog.cpp" line="145"/>
         <source>The values below will be used when an input record does not contain the ADIF values</source>
         <translation>当输入记录不包含ADIF值时，将使用下面的值</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="148"/>
+        <location filename="../ui/ImportDialog.cpp" line="161"/>
         <source>&lt;p&gt;&lt;b&gt;In-Log QSO:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;在日志 QSO：&lt;/b&gt;&lt;/p&gt;&lt;p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="152"/>
+        <location filename="../ui/ImportDialog.cpp" line="165"/>
         <source>&lt;p&gt;&lt;b&gt;Importing:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;</source>
         <translation>&lt;p&gt;&lt;b&gt;导入中:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="157"/>
+        <location filename="../ui/ImportDialog.cpp" line="170"/>
         <source>Duplicate QSO</source>
         <translation>重复的 QSO</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="158"/>
+        <location filename="../ui/ImportDialog.cpp" line="171"/>
         <source>&lt;p&gt;Do you want to import duplicate QSO?&lt;/p&gt;%1 %2</source>
         <translation>&lt;p&gt;是否要导入重复的QSO?&lt;/p&gt; %1 %2</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="191"/>
+        <location filename="../ui/ImportDialog.cpp" line="204"/>
         <source>Save to File</source>
         <translation>保存至文件</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="204"/>
+        <location filename="../ui/ImportDialog.cpp" line="217"/>
         <source>QLog Import Summary</source>
         <translation>QLog 导入摘要</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="206"/>
+        <location filename="../ui/ImportDialog.cpp" line="219"/>
         <source>Import date</source>
         <translation>导入日期</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="207"/>
+        <location filename="../ui/ImportDialog.cpp" line="220"/>
         <source>Imported file</source>
         <translation>导入的文件</translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="209"/>
+        <location filename="../ui/ImportDialog.cpp" line="222"/>
         <source>Imported: %n contact(s)</source>
         <translation>
             <numerusform>已导入: %n 通联记录</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="210"/>
+        <location filename="../ui/ImportDialog.cpp" line="223"/>
         <source>Warning(s): %n</source>
         <translation>
             <numerusform>告警: %n</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="211"/>
+        <location filename="../ui/ImportDialog.cpp" line="224"/>
         <source>Error(s): %n</source>
         <translation>
             <numerusform>错误: %n</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="213"/>
+        <location filename="../ui/ImportDialog.cpp" line="226"/>
         <source>Details</source>
         <translation>详情</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="361"/>
+        <location filename="../ui/ImportDialog.cpp" line="374"/>
         <source>Import Result</source>
         <translation>导入结果</translation>
     </message>
     <message>
-        <location filename="../ui/ImportDialog.cpp" line="370"/>
+        <location filename="../ui/ImportDialog.cpp" line="383"/>
         <source>Save Details...</source>
         <translation>保存详情...</translation>
     </message>
@@ -4599,13 +4624,13 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="24"/>
-        <location filename="../models/LogbookModel.cpp" line="228"/>
+        <location filename="../models/LogbookModel.cpp" line="222"/>
         <source>Band</source>
         <translation>波段</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="25"/>
-        <location filename="../models/LogbookModel.cpp" line="232"/>
+        <location filename="../models/LogbookModel.cpp" line="226"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
@@ -4626,7 +4651,7 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="29"/>
-        <location filename="../models/LogbookModel.cpp" line="244"/>
+        <location filename="../models/LogbookModel.cpp" line="238"/>
         <source>Gridsquare</source>
         <translation>网格坐标</translation>
     </message>
@@ -4817,7 +4842,7 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="67"/>
-        <location filename="../models/LogbookModel.cpp" line="252"/>
+        <location filename="../models/LogbookModel.cpp" line="246"/>
         <source>Comment</source>
         <translation>备注</translation>
     </message>
@@ -4833,7 +4858,7 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="70"/>
-        <location filename="../models/LogbookModel.cpp" line="224"/>
+        <location filename="../models/LogbookModel.cpp" line="218"/>
         <source>Country</source>
         <translation>国家/地区</translation>
     </message>
@@ -5156,7 +5181,7 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="135"/>
-        <location filename="../models/LogbookModel.cpp" line="256"/>
+        <location filename="../models/LogbookModel.cpp" line="250"/>
         <source>Notes</source>
         <translation>笔记</translation>
     </message>
@@ -5212,7 +5237,7 @@
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="147"/>
-        <location filename="../models/LogbookModel.cpp" line="248"/>
+        <location filename="../models/LogbookModel.cpp" line="242"/>
         <source>QSL Message</source>
         <translation>QSL 信息</translation>
     </message>
@@ -5392,37 +5417,37 @@
         <translation>WWFF</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="236"/>
+        <location filename="../models/LogbookModel.cpp" line="230"/>
         <source>RST Sent</source>
         <translation>RST 发</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="240"/>
+        <location filename="../models/LogbookModel.cpp" line="234"/>
         <source>RST Rcvd</source>
         <translation>RST 收</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="263"/>
+        <location filename="../models/LogbookModel.cpp" line="257"/>
         <source>Paper</source>
         <translation>纸质卡片</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="263"/>
+        <location filename="../models/LogbookModel.cpp" line="257"/>
         <source>LoTW</source>
         <translation>LoTW</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="263"/>
+        <location filename="../models/LogbookModel.cpp" line="257"/>
         <source>eQSL</source>
         <translation>eQSL</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="266"/>
+        <location filename="../models/LogbookModel.cpp" line="260"/>
         <source>QSL Received</source>
         <translation>QSL 已接收</translation>
     </message>
     <message>
-        <location filename="../models/LogbookModel.cpp" line="278"/>
+        <location filename="../models/LogbookModel.cpp" line="272"/>
         <source>QSL Sent</source>
         <translation>QSL 已发送</translation>
     </message>
@@ -5437,38 +5462,38 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="79"/>
         <location filename="../ui/LogbookWidget.ui" line="86"/>
-        <location filename="../ui/LogbookWidget.cpp" line="161"/>
+        <location filename="../ui/LogbookWidget.cpp" line="169"/>
         <source>Band</source>
         <translation>波段</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="107"/>
-        <location filename="../ui/LogbookWidget.cpp" line="165"/>
+        <location filename="../ui/LogbookWidget.cpp" line="173"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="128"/>
-        <location filename="../ui/LogbookWidget.cpp" line="171"/>
+        <location filename="../ui/LogbookWidget.cpp" line="179"/>
         <source>Country</source>
         <translation>国家/地区</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="140"/>
-        <location filename="../ui/LogbookWidget.cpp" line="445"/>
+        <location filename="../ui/LogbookWidget.cpp" line="454"/>
         <source>Club</source>
         <translation>俱乐部</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="161"/>
-        <location filename="../ui/LogbookWidget.cpp" line="183"/>
+        <location filename="../ui/LogbookWidget.cpp" line="191"/>
         <source>User Filter</source>
         <translation>用户过滤器</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="237"/>
-        <location filename="../ui/LogbookWidget.cpp" line="509"/>
-        <location filename="../ui/LogbookWidget.cpp" line="522"/>
+        <location filename="../ui/LogbookWidget.cpp" line="519"/>
+        <location filename="../ui/LogbookWidget.cpp" line="532"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
@@ -5524,55 +5549,65 @@
         <translation>导出已选择的QSOs</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="509"/>
+        <location filename="../ui/LogbookWidget.ui" line="309"/>
+        <source>Send DX Spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/LogbookWidget.ui" line="312"/>
+        <source>Logbook - Send DX Spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/LogbookWidget.cpp" line="519"/>
         <source>Delete the selected contacts?</source>
         <translation>删除选中的联系人?</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="523"/>
+        <location filename="../ui/LogbookWidget.cpp" line="533"/>
         <source>Clublog&apos;s &lt;b&gt;Immediately Send&lt;/b&gt; supports only one-by-one deletion&lt;br&gt;&lt;br&gt;Do you want to continue despite the fact&lt;br&gt;that the DELETE operation will not be sent to Clublog?</source>
         <translation>Clublog&apos;s &lt;b&gt;Immediately Send&lt;/b&gt; supports only one-by-one deletion&lt;br&gt;&lt;br&gt;Do you want to continue despite the fact&lt;br&gt;that the DELETE operation will not be sent to Clublog?</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="544"/>
+        <location filename="../ui/LogbookWidget.cpp" line="554"/>
         <source>Deleting QSOs</source>
         <translation>删除 QSO</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="617"/>
+        <location filename="../ui/LogbookWidget.cpp" line="624"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="618"/>
+        <location filename="../ui/LogbookWidget.cpp" line="625"/>
         <source>By updating, all selected rows will be affected.&lt;br&gt;The value currently edited in the column will be applied to all selected rows.&lt;br&gt;&lt;br&gt;Do you want to edit them?</source>
         <translation>通过更新，所有选定的行都将受到影响。&lt;br&gt;当前在列中编辑的值将应用于所有选定的行。&lt;br&gt;&lt;br&gt;您想要编辑他们吗？</translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/LogbookWidget.cpp" line="749"/>
+        <location filename="../ui/LogbookWidget.cpp" line="756"/>
         <source>Count: %n</source>
         <translation>
             <numerusform>计数：%n</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="793"/>
+        <location filename="../ui/LogbookWidget.cpp" line="804"/>
         <source>Downloading eQSL Image</source>
         <translation>正在下载 eQSL 图片</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="545"/>
-        <location filename="../ui/LogbookWidget.cpp" line="793"/>
+        <location filename="../ui/LogbookWidget.cpp" line="555"/>
+        <location filename="../ui/LogbookWidget.cpp" line="804"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="811"/>
+        <location filename="../ui/LogbookWidget.cpp" line="822"/>
         <source>QLog Error</source>
         <translation>QLog 错误</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="811"/>
+        <location filename="../ui/LogbookWidget.cpp" line="822"/>
         <source>eQSL Download Image failed: </source>
         <translation>eQSL 图片下载失败: </translation>
     </message>
@@ -5967,196 +6002,202 @@
         <translation>窗口(&amp;W)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="117"/>
+        <location filename="../ui/MainWindow.ui" line="118"/>
         <source>Se&amp;rvice</source>
         <translation>服务(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="127"/>
+        <location filename="../ui/MainWindow.ui" line="128"/>
         <source>La&amp;yout</source>
         <translation>布局(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="131"/>
+        <location filename="../ui/MainWindow.ui" line="132"/>
         <source>Profiles</source>
         <translation>配置文件</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="153"/>
+        <location filename="../ui/MainWindow.ui" line="154"/>
         <source>Toolbar</source>
         <translation>工具栏</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="181"/>
-        <location filename="../ui/MainWindow.ui" line="454"/>
+        <location filename="../ui/MainWindow.ui" line="182"/>
+        <location filename="../ui/MainWindow.ui" line="464"/>
         <source>Clock</source>
         <translation>时钟</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="190"/>
-        <location filename="../ui/MainWindow.ui" line="407"/>
+        <location filename="../ui/MainWindow.ui" line="191"/>
+        <location filename="../ui/MainWindow.ui" line="417"/>
         <source>Map</source>
         <translation>地图</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="203"/>
-        <location filename="../ui/MainWindow.ui" line="398"/>
+        <location filename="../ui/MainWindow.ui" line="204"/>
+        <location filename="../ui/MainWindow.ui" line="408"/>
         <source>DX Cluster</source>
         <translation>DX动态</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="212"/>
+        <location filename="../ui/MainWindow.ui" line="213"/>
         <source>WSJTX</source>
         <translation>WSJTX</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="221"/>
-        <location filename="../ui/MainWindow.ui" line="439"/>
+        <location filename="../ui/MainWindow.ui" line="222"/>
+        <location filename="../ui/MainWindow.ui" line="449"/>
         <source>Rotator</source>
         <translation>云台</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="230"/>
-        <location filename="../ui/MainWindow.ui" line="444"/>
+        <location filename="../ui/MainWindow.ui" line="231"/>
+        <location filename="../ui/MainWindow.ui" line="454"/>
         <source>Bandmap</source>
         <translation>波段地图</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="239"/>
-        <location filename="../ui/MainWindow.ui" line="449"/>
+        <location filename="../ui/MainWindow.ui" line="240"/>
+        <location filename="../ui/MainWindow.ui" line="459"/>
         <source>Rig</source>
         <translation>设备</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="248"/>
-        <location filename="../ui/MainWindow.ui" line="473"/>
+        <location filename="../ui/MainWindow.ui" line="249"/>
+        <location filename="../ui/MainWindow.ui" line="483"/>
         <source>Online Map</source>
         <translation>在线地图</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="257"/>
+        <location filename="../ui/MainWindow.ui" line="258"/>
         <location filename="../ui/MainWindow.ui" line="528"/>
         <source>CW Console</source>
         <translation>CW 控制台</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="266"/>
+        <location filename="../ui/MainWindow.ui" line="267"/>
         <location filename="../ui/MainWindow.ui" line="573"/>
         <source>Chat</source>
         <translation>聊天</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="275"/>
+        <location filename="../ui/MainWindow.ui" line="276"/>
         <location filename="../ui/MainWindow.ui" line="597"/>
         <source>Profile Image</source>
         <translation>资料图片</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="309"/>
+        <location filename="../ui/MainWindow.ui" line="285"/>
+        <location filename="../ui/MainWindow.ui" line="781"/>
+        <source>Alerts</source>
+        <translation type="unfinished">警报</translation>
+    </message>
+    <message>
+        <location filename="../ui/MainWindow.ui" line="319"/>
         <source>&amp;Settings</source>
         <translation>设置（&amp;S）</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="339"/>
+        <location filename="../ui/MainWindow.ui" line="349"/>
         <source>&amp;Import</source>
         <translation>导入(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="348"/>
+        <location filename="../ui/MainWindow.ui" line="358"/>
         <source>&amp;Export</source>
         <translation>导出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="356"/>
+        <location filename="../ui/MainWindow.ui" line="366"/>
         <source>Connect R&amp;ig</source>
         <translation>连接设备(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="368"/>
+        <location filename="../ui/MainWindow.ui" line="378"/>
         <source>&amp;About</source>
         <translation>关于(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="288"/>
+        <location filename="../ui/MainWindow.ui" line="298"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="291"/>
+        <location filename="../ui/MainWindow.ui" line="301"/>
         <source>Application - Quit</source>
         <translation>程序 - 退出</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="321"/>
-        <location filename="../ui/MainWindow.ui" line="324"/>
+        <location filename="../ui/MainWindow.ui" line="331"/>
+        <location filename="../ui/MainWindow.ui" line="334"/>
         <source>New QSO - Clear</source>
         <translation>新 QSO - 清除</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="380"/>
-        <location filename="../ui/MainWindow.ui" line="383"/>
+        <location filename="../ui/MainWindow.ui" line="390"/>
+        <location filename="../ui/MainWindow.ui" line="393"/>
         <source>New QSO - Save</source>
         <translation>新 QSO - 保存</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="416"/>
+        <location filename="../ui/MainWindow.ui" line="426"/>
         <source>S&amp;tatistics</source>
         <translation>统计(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="421"/>
+        <location filename="../ui/MainWindow.ui" line="431"/>
         <source>Wsjtx</source>
         <translation>Wsjtx</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="426"/>
+        <location filename="../ui/MainWindow.ui" line="436"/>
         <source>&amp;LotW</source>
         <translation>&amp;LoTW</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="434"/>
+        <location filename="../ui/MainWindow.ui" line="444"/>
         <source>Connect R&amp;otator</source>
         <translation>连接云台(&amp;O)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="463"/>
+        <location filename="../ui/MainWindow.ui" line="473"/>
         <source>QSO &amp;Filters</source>
         <translation>QSO过滤(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="468"/>
+        <location filename="../ui/MainWindow.ui" line="478"/>
         <source>&amp;eQSL</source>
         <translation>&amp;eQSL</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="482"/>
+        <location filename="../ui/MainWindow.ui" line="492"/>
         <source>&amp;Awards</source>
         <translation>奖项(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="487"/>
+        <location filename="../ui/MainWindow.ui" line="497"/>
         <source>&amp;Clublog</source>
         <translation>&amp;Clublog</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="492"/>
+        <location filename="../ui/MainWindow.ui" line="502"/>
         <source>&amp;QRZ.com</source>
         <translation>&amp;QRZ.com</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="497"/>
+        <location filename="../ui/MainWindow.ui" line="507"/>
         <source>Edit Rules</source>
         <translation>编辑规则</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="502"/>
-        <source>Show Alerts</source>
-        <translation>显示告警</translation>
+        <location filename="../ui/MainWindow.ui" line="786"/>
+        <source>Clear</source>
+        <translation type="unfinished">清除</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.ui" line="507"/>
-        <source>Clear Alerts</source>
-        <translation>清除告警</translation>
+        <location filename="../ui/MainWindow.ui" line="791"/>
+        <source>Show Alerts</source>
+        <translation>显示告警</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="515"/>
@@ -6271,7 +6312,7 @@
         <translation>设备 - PTT ON/OFF</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="60"/>
+        <location filename="../ui/MainWindow.cpp" line="59"/>
         <source>Not enabled for non-Fusion style</source>
         <translation>非融合样式不允许使用</translation>
     </message>
@@ -6286,63 +6327,63 @@
         <translation>Clublog 立即上传出错</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="422"/>
-        <location filename="../ui/MainWindow.cpp" line="432"/>
-        <location filename="../ui/MainWindow.cpp" line="442"/>
+        <location filename="../ui/MainWindow.cpp" line="416"/>
+        <location filename="../ui/MainWindow.cpp" line="426"/>
+        <location filename="../ui/MainWindow.cpp" line="436"/>
         <source>&lt;b&gt;Error Detail:&lt;/b&gt; </source>
         <translation>&lt;b&gt;错误详情:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="671"/>
+        <location filename="../ui/MainWindow.cpp" line="665"/>
         <source>Classic</source>
         <translation>经典</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="981"/>
-        <location filename="../ui/MainWindow.cpp" line="997"/>
-        <location filename="../ui/MainWindow.cpp" line="1013"/>
-        <location filename="../ui/MainWindow.cpp" line="1029"/>
-        <location filename="../ui/MainWindow.cpp" line="1047"/>
+        <location filename="../ui/MainWindow.cpp" line="967"/>
+        <location filename="../ui/MainWindow.cpp" line="983"/>
+        <location filename="../ui/MainWindow.cpp" line="999"/>
+        <location filename="../ui/MainWindow.cpp" line="1015"/>
+        <location filename="../ui/MainWindow.cpp" line="1033"/>
         <source>QLog Warning</source>
         <translation>QLog 告警</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="981"/>
+        <location filename="../ui/MainWindow.cpp" line="967"/>
         <source>LoTW is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>LoTW 配置不正确。&lt;p&gt;请使用&lt;b&gt;设置&lt;/b&gt;对话框进行配置。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="997"/>
+        <location filename="../ui/MainWindow.cpp" line="983"/>
         <source>eQSL is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>eQSL 配置不正确。&lt;p&gt;请使用&lt;b&gt;设置&lt;/b&gt;对话框进行配置。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1013"/>
+        <location filename="../ui/MainWindow.cpp" line="999"/>
         <source>Clublog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>Clublog 配置不正确。&lt;p&gt;请使用&lt;b&gt;设置&lt;/b&gt;对话框进行配置。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1029"/>
+        <location filename="../ui/MainWindow.cpp" line="1015"/>
         <source>HRDLog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>HRDLog 配置不正确。&lt;p&gt;请使用&lt;b&gt;设置&lt;/b&gt;对话框进行配置。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1047"/>
+        <location filename="../ui/MainWindow.cpp" line="1033"/>
         <source>QRZ.com is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>QRZ.com 配置不正确。&lt;p&gt;请使用&lt;b&gt;设置&lt;/b&gt;对话框进行配置。&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1067"/>
+        <location filename="../ui/MainWindow.cpp" line="1053"/>
         <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
         <translation>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2024 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1096"/>
+        <location filename="../ui/MainWindow.cpp" line="1082"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1140"/>
+        <location filename="../ui/MainWindow.cpp" line="1126"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -6700,102 +6741,102 @@
         <translation>电子卡片</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="203"/>
+        <location filename="../ui/NewContactWidget.cpp" line="209"/>
         <source>QLog Error</source>
         <translation>QLog错误</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="203"/>
+        <location filename="../ui/NewContactWidget.cpp" line="209"/>
         <source>Callbook login failed</source>
         <translation>电台黄页登陆失败</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1927"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1934"/>
         <source>New Entity!</source>
         <translation>新实体！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1930"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1937"/>
         <source>New Band!</source>
         <translation>新波段！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1933"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1940"/>
         <source>New Mode!</source>
         <translation>新模式！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1936"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1943"/>
         <source>New Band &amp; Mode!</source>
         <translation>新波段与模式！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1939"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1946"/>
         <source>New Slot!</source>
         <translation>新组合！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1942"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1949"/>
         <source>Worked</source>
         <translation>已通联</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1945"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1952"/>
         <source>Confirmed</source>
         <translation>已确认</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2618"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2644"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2628"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2654"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2634"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2660"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2907"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2933"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3109"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3135"/>
         <source>Callbook search is active</source>
         <translation>电台黄页搜索可用</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3104"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3130"/>
         <source>Callbook search is inactive</source>
         <translation>电台黄页搜索不可用</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3240"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3266"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>两个或四个相邻的梅登黑德网格定位器，每个四个字符长，(例如 EN98, FM08, EM97, FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3243"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3269"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>联络电台的DARC DOK (地区位置代码) (例如 A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3263"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3289"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>世界动植物 (可选参数)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3267"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3293"/>
         <source>Special Activity Group</source>
         <translation>特别活动或兴趣团体名称</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3271"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3297"/>
         <source>Special Activity Group Information</source>
         <translation>特别活动或兴趣团体信息</translation>
     </message>
@@ -6943,22 +6984,22 @@
         <translation>添加文件</translation>
     </message>
     <message>
-        <location filename="../ui/PaperQSLDialog.cpp" line="110"/>
+        <location filename="../ui/PaperQSLDialog.cpp" line="121"/>
         <source>Remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="../ui/PaperQSLDialog.cpp" line="118"/>
+        <location filename="../ui/PaperQSLDialog.cpp" line="129"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="../ui/PaperQSLDialog.cpp" line="118"/>
+        <location filename="../ui/PaperQSLDialog.cpp" line="129"/>
         <source>Delete QSL?</source>
         <translation>删除 QSL？</translation>
     </message>
     <message>
-        <location filename="../ui/PaperQSLDialog.cpp" line="138"/>
+        <location filename="../ui/PaperQSLDialog.cpp" line="149"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
@@ -7005,10 +7046,10 @@
         <location filename="../core/MembershipQE.cpp" line="349"/>
         <location filename="../core/Migration.cpp" line="315"/>
         <location filename="../ui/ExportDialog.cpp" line="116"/>
-        <location filename="../ui/ImportDialog.cpp" line="227"/>
-        <location filename="../ui/MainWindow.cpp" line="420"/>
-        <location filename="../ui/MainWindow.cpp" line="430"/>
-        <location filename="../ui/MainWindow.cpp" line="440"/>
+        <location filename="../ui/ImportDialog.cpp" line="240"/>
+        <location filename="../ui/MainWindow.cpp" line="414"/>
+        <location filename="../ui/MainWindow.cpp" line="424"/>
+        <location filename="../ui/MainWindow.cpp" line="434"/>
         <location filename="../ui/SettingsDialog.cpp" line="309"/>
         <location filename="../ui/SettingsDialog.cpp" line="319"/>
         <location filename="../ui/SettingsDialog.cpp" line="327"/>
@@ -7029,7 +7070,7 @@
         <location filename="../ui/SettingsDialog.cpp" line="1481"/>
         <location filename="../ui/SettingsDialog.cpp" line="1488"/>
         <location filename="../ui/SettingsDialog.cpp" line="1495"/>
-        <location filename="../ui/SettingsDialog.cpp" line="1904"/>
+        <location filename="../ui/SettingsDialog.cpp" line="1915"/>
         <source>QLog Warning</source>
         <translation>QLog 告警</translation>
     </message>
@@ -7067,7 +7108,7 @@
         <location filename="../ui/AlertRuleDetail.cpp" line="373"/>
         <location filename="../ui/ExportDialog.cpp" line="125"/>
         <location filename="../ui/KSTChatWidget.cpp" line="268"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1476"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1483"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="593"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="604"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="613"/>
@@ -7132,33 +7173,33 @@
         <translation>无法更新告警规则</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="493"/>
+        <location filename="../ui/DxWidget.cpp" line="492"/>
         <source>DXC Server Name Error</source>
         <translation>DXC 服务器名称错误</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="494"/>
+        <location filename="../ui/DxWidget.cpp" line="493"/>
         <source>DXC Server address must be in format&lt;p&gt;&lt;b&gt;[username@]hostname:port&lt;/b&gt; (ex. hamqth.com:7300)&lt;/p&gt;</source>
         <translation>DXC 服务器地址格式必须为&lt;p&gt;&lt;b&gt;[用户名@]主机名:端口&lt;/b&gt; (例. hamqth.com:7300)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="928"/>
+        <location filename="../ui/DxWidget.cpp" line="943"/>
         <source>DX Cluster Password</source>
         <translation>DX 集群密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="929"/>
+        <location filename="../ui/DxWidget.cpp" line="944"/>
         <source>Invalid Password</source>
         <translation>无效的密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1097"/>
+        <location filename="../ui/DxWidget.cpp" line="1112"/>
         <source>DXC Server Connection Error</source>
         <translation>DXC 服务器连接出错</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.cpp" line="117"/>
-        <location filename="../ui/ImportDialog.cpp" line="228"/>
+        <location filename="../ui/ImportDialog.cpp" line="241"/>
         <source>Filename is empty</source>
         <translation>文件名为空</translation>
     </message>
@@ -7196,22 +7237,22 @@
         <translation>布局名称已存在。</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="421"/>
+        <location filename="../ui/MainWindow.cpp" line="415"/>
         <source>&lt;b&gt;Rig Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;设备出错:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="431"/>
+        <location filename="../ui/MainWindow.cpp" line="425"/>
         <source>&lt;b&gt;Rotator Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;旋转云台出错:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="441"/>
+        <location filename="../ui/MainWindow.cpp" line="435"/>
         <source>&lt;b&gt;CW Keyer Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;CW 键控器出错:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1477"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1484"/>
         <source>Your callsign is empty. Please, set your Station Profile</source>
         <translation>你的呼号为空。请先设置台站配置文件</translation>
     </message>
@@ -7232,7 +7273,7 @@
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="310"/>
-        <location filename="../ui/SettingsDialog.cpp" line="1905"/>
+        <location filename="../ui/SettingsDialog.cpp" line="1916"/>
         <source>Please, define at least one Station Locations Profile</source>
         <translation>请至少定义一个站点配置文件</translation>
     </message>
@@ -7322,42 +7363,42 @@
     <message>
         <location filename="../core/KSTChat.cpp" line="430"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="319"/>
-        <location filename="../ui/DxWidget.cpp" line="1067"/>
+        <location filename="../ui/DxWidget.cpp" line="1082"/>
         <source>Connection Refused</source>
         <translation>连接被拒绝</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="433"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="323"/>
-        <location filename="../ui/DxWidget.cpp" line="1070"/>
+        <location filename="../ui/DxWidget.cpp" line="1085"/>
         <source>Host closed the connection</source>
         <translation>主机关闭连接</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="438"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="328"/>
-        <location filename="../ui/DxWidget.cpp" line="1075"/>
+        <location filename="../ui/DxWidget.cpp" line="1090"/>
         <source>Host not found</source>
         <translation>找不到主机</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="441"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="331"/>
-        <location filename="../ui/DxWidget.cpp" line="1078"/>
+        <location filename="../ui/DxWidget.cpp" line="1093"/>
         <source>Timeout</source>
         <translation>超时</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="446"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="335"/>
-        <location filename="../ui/DxWidget.cpp" line="1082"/>
+        <location filename="../ui/DxWidget.cpp" line="1097"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="450"/>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="338"/>
-        <location filename="../ui/DxWidget.cpp" line="1085"/>
+        <location filename="../ui/DxWidget.cpp" line="1100"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
@@ -7457,26 +7498,26 @@
         <translation>我的 DXCC</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1060"/>
+        <location filename="../ui/DxWidget.cpp" line="1075"/>
         <source>Cannot connect to DXC Server &lt;p&gt;Reason &lt;b&gt;: </source>
         <translation>无法连接至 DXC 服务器 &lt;p&gt;原因 &lt;b&gt;: </translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="354"/>
+        <location filename="../ui/ImportDialog.cpp" line="367"/>
         <source>&lt;b&gt;Imported&lt;/b&gt;: %n contact(s)</source>
         <translation>
             <numerusform>&lt;b&gt;已导入&lt;/b&gt;: %n 通联</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="355"/>
+        <location filename="../ui/ImportDialog.cpp" line="368"/>
         <source>&lt;b&gt;Warning(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;告警&lt;/b&gt;: %n</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/ImportDialog.cpp" line="356"/>
+        <location filename="../ui/ImportDialog.cpp" line="369"/>
         <source>&lt;b&gt;Error(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;错误&lt;/b&gt;: %n</numerusform>
@@ -7486,12 +7527,12 @@
 <context>
     <name>QRZ</name>
     <message>
-        <location filename="../core/QRZ.cpp" line="248"/>
+        <location filename="../core/QRZ.cpp" line="242"/>
         <source>QRZ.com</source>
         <translation>QRZ.com</translation>
     </message>
     <message>
-        <location filename="../core/QRZ.cpp" line="540"/>
+        <location filename="../core/QRZ.cpp" line="535"/>
         <source>General Error</source>
         <translation>常见错误</translation>
     </message>
@@ -9396,7 +9437,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2967"/>
         <location filename="../ui/SettingsDialog.cpp" line="259"/>
-        <location filename="../ui/SettingsDialog.cpp" line="2086"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2097"/>
         <source>HamQTH</source>
         <translation>HamQTH</translation>
     </message>
@@ -9423,7 +9464,7 @@
         <location filename="../ui/SettingsDialog.ui" line="3007"/>
         <location filename="../ui/SettingsDialog.ui" line="3493"/>
         <location filename="../ui/SettingsDialog.cpp" line="260"/>
-        <location filename="../ui/SettingsDialog.cpp" line="2079"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2090"/>
         <source>QRZ.com</source>
         <translation>QRZ.com</translation>
     </message>
@@ -9734,8 +9775,8 @@
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="258"/>
-        <location filename="../ui/SettingsDialog.cpp" line="2078"/>
-        <location filename="../ui/SettingsDialog.cpp" line="2085"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2089"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2096"/>
         <source>Disabled</source>
         <translation>禁用</translation>
     </message>
@@ -9881,12 +9922,12 @@
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="../ui/SettingsDialog.cpp" line="2599"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2610"/>
         <source>members</source>
         <translation>成员</translation>
     </message>
     <message>
-        <location filename="../ui/SettingsDialog.cpp" line="2607"/>
+        <location filename="../ui/SettingsDialog.cpp" line="2618"/>
         <source>Required internet connection during application start</source>
         <translation>在应用程序启动时需要互联网连接</translation>
     </message>
@@ -10210,17 +10251,17 @@
 <context>
     <name>ToAllTableModel</name>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="352"/>
+        <location filename="../ui/DxWidget.cpp" line="351"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="353"/>
+        <location filename="../ui/DxWidget.cpp" line="352"/>
         <source>Spotter</source>
         <translation>报告者</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="354"/>
+        <location filename="../ui/DxWidget.cpp" line="353"/>
         <source>Message</source>
         <translation>消息</translation>
     </message>
@@ -10256,47 +10297,47 @@
 <context>
     <name>WCYTableModel</name>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="221"/>
+        <location filename="../ui/DxWidget.cpp" line="220"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="222"/>
+        <location filename="../ui/DxWidget.cpp" line="221"/>
         <source>K</source>
         <translation>K</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="223"/>
+        <location filename="../ui/DxWidget.cpp" line="222"/>
         <source>expK</source>
         <translation>expK</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="224"/>
+        <location filename="../ui/DxWidget.cpp" line="223"/>
         <source>A</source>
         <translation>A</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="225"/>
+        <location filename="../ui/DxWidget.cpp" line="224"/>
         <source>R</source>
         <translation>R</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="226"/>
+        <location filename="../ui/DxWidget.cpp" line="225"/>
         <source>SFI</source>
         <translation>SFI</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="227"/>
+        <location filename="../ui/DxWidget.cpp" line="226"/>
         <source>SA</source>
         <translation>SA</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="228"/>
+        <location filename="../ui/DxWidget.cpp" line="227"/>
         <source>GMF</source>
         <translation>GMF</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="229"/>
+        <location filename="../ui/DxWidget.cpp" line="228"/>
         <source>Au</source>
         <translation>Au</translation>
     </message>
@@ -10304,27 +10345,27 @@
 <context>
     <name>WWVTableModel</name>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="291"/>
+        <location filename="../ui/DxWidget.cpp" line="290"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="292"/>
+        <location filename="../ui/DxWidget.cpp" line="291"/>
         <source>SFI</source>
         <translation>SFI</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="293"/>
+        <location filename="../ui/DxWidget.cpp" line="292"/>
         <source>A</source>
         <translation>A</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="294"/>
+        <location filename="../ui/DxWidget.cpp" line="293"/>
         <source>K</source>
         <translation>K</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="295"/>
+        <location filename="../ui/DxWidget.cpp" line="294"/>
         <source>Info</source>
         <translation>信息</translation>
     </message>
