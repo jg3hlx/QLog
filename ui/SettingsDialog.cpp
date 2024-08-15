@@ -2290,7 +2290,7 @@ void SettingsDialog::readSettings() {
     ui->wsjtMulticastAddressEdit->setText(Wsjtx::getConfigMulticastAddress());
     ui->wsjtMulticastTTLSpin->setValue(Wsjtx::getConfigMulticastTTL());
 
-    ui->notifLogIDEdit->setText(LogParam::getParam("logid"));
+    ui->notifLogIDEdit->setText(LogParam::getParam("logid").toString());
     ui->notifQSOEdit->setText(NetworkNotification::getNotifQSOAdiAddrs());
     ui->notifDXSpotsEdit->setText(NetworkNotification::getNotifDXSpotAddrs());
     ui->notifWSJTXCQSpotsEdit->setText(NetworkNotification::getNotifWSJTXCQSpotAddrs());

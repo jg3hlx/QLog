@@ -668,6 +668,16 @@ bool Migration::profiles2DB()
     settings.remove("station/profile1");
     setSelectedProfile("main_layout_profiles", settings.value("newcontact/layoutprofile/profile1", QString()).toString());
     settings.remove("newcontact/layoutprofile/profile1");
+
+    // LOVs to DB
+    settings.remove("last_cty_update");
+    settings.remove("last_sat_update");
+    settings.remove("last_sotasummits_update");
+    settings.remove("last_wwffdirectory_update");
+    settings.remove("last_iota_update");
+    settings.remove("last_pota_update");
+    settings.remove("last_membershipcontent_update");
+
     return true;
 }
 
