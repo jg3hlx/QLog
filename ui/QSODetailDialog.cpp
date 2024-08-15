@@ -184,6 +184,13 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     myWWFFCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     ui->myWWFFEdit->setCompleter(nullptr);
 
+    /* SIF Completer */
+    sigCompleter.reset(new QCompleter(Data::instance()->sigIDList(), this));
+    sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    sigCompleter->setFilterMode(Qt::MatchStartsWith);
+    sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
+    ui->sigEdit->setCompleter(sigCompleter.data());
+
     /* Combo Mapping */
     /* do no use Data::qslPaperSentStatusBox for it because
      * Data::qslPaperSentStatusBox has a different ordering.

@@ -255,6 +255,12 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     potaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     ui->stationPOTAEdit->setCompleter(nullptr);
 
+    sigCompleter = new QCompleter(Data::instance()->sigIDList(), this);
+    sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    sigCompleter->setFilterMode(Qt::MatchStartsWith);
+    sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
+    ui->stationSIGEdit->setCompleter(sigCompleter);
+
     ui->primaryCallbookCombo->addItem(tr("Disabled"), QVariant(GenericCallbook::CALLBOOK_NAME));
     ui->primaryCallbookCombo->addItem(tr("HamQTH"),   QVariant(HamQTH::CALLBOOK_NAME));
     ui->primaryCallbookCombo->addItem(tr("QRZ.com"),  QVariant(QRZ::CALLBOOK_NAME));
@@ -2636,5 +2642,6 @@ SettingsDialog::~SettingsDialog() {
     bandTableModel->deleteLater();
     sotaCompleter->deleteLater();
     iotaCompleter->deleteLater();
+    sigCompleter->deleteLater();
     delete ui;
 }

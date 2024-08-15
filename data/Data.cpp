@@ -576,6 +576,19 @@ QString Data::getIANATimeZone(double lat, double lon)
     return ret;
 }
 
+QStringList Data::sigIDList()
+{
+    FCT_IDENTIFICATION;
+
+    QStringList sigLOV;
+    QSqlQuery query(QLatin1String("SELECT DISTINCT sig_intl FROM contacts"));
+
+    while ( query.next() )
+        sigLOV << query.value(0).toString();
+
+    return sigLOV;
+}
+
 void Data::loadContests()
 {
     FCT_IDENTIFICATION;

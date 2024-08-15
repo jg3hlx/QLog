@@ -110,6 +110,7 @@ public:
     QStringList wwffIDList() { return wwffRefID.keys();}
     QStringList potaIDList() { return potaRefID.keys();}
     QString getIANATimeZone(double, double);
+    QStringList sigIDList();
 
 signals:
 
