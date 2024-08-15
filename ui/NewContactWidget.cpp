@@ -2606,13 +2606,7 @@ void NewContactWidget::refreshSIGCompleter()
     if( !model )
         model = new QStringListModel();
 
-    QStringList sigLOV;
-    QSqlQuery query(QLatin1String("SELECT DISTINCT sig_intl FROM contacts"));
-
-    while ( query.next() )
-        sigLOV << query.value(0).toString();
-
-    model->setStringList(sigLOV);
+    model->setStringList(Data::instance()->sigIDList());
     sigCompleter->setModel(model);
 }
 

@@ -185,13 +185,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     ui->myWWFFEdit->setCompleter(nullptr);
 
     /* SIF Completer */
-    QStringList sigLOV;
-    QSqlQuery query(QLatin1String("SELECT DISTINCT sig_intl FROM contacts"));
-
-    while ( query.next() )
-        sigLOV << query.value(0).toString();
-
-    sigCompleter.reset(new QCompleter(sigLOV, this));
+    sigCompleter.reset(new QCompleter(Data::instance()->sigIDList(), this));
     sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     sigCompleter->setFilterMode(Qt::MatchStartsWith);
     sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);

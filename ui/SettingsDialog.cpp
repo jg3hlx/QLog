@@ -255,13 +255,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     potaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     ui->stationPOTAEdit->setCompleter(nullptr);
 
-    QStringList sigLOV;
-    QSqlQuery query(QLatin1String("SELECT DISTINCT sig_intl FROM contacts"));
-
-    while ( query.next() )
-        sigLOV << query.value(0).toString();
-
-    sigCompleter = new QCompleter(sigLOV, this);
+    sigCompleter = new QCompleter(Data::instance()->sigIDList(), this);
     sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     sigCompleter->setFilterMode(Qt::MatchStartsWith);
     sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
