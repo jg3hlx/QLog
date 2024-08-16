@@ -5,6 +5,7 @@ TBC - 0.38.0
 - [CHANGED] - Alert Widget is a Dock Widget (issue #399)
 - [CHANGED] - File Open dialogs are not a native dialog under Linux (issue #427)
 - Fix for MacOS Layout Geometry Restore (@aa5sh)
+- Fixed TQSL does not block GUI thread
 
 2024/07/26 - 0.37.2
 - Fixed Field QSL Send Via should be retained (issue #413)
