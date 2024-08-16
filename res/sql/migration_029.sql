@@ -33,3 +33,8 @@ CREATE INDEX IF NOT EXISTS contacts_start_time_idx ON contacts (start_time);
 
 DROP INDEX prefix_idx;
 CREATE INDEX IF NOT EXISTS dxcc_prefixes_prefix_idx ON dxcc_prefixes (prefix);
+
+ALTER TABLE rig_profiles ADD ptt_type TEXT;
+ALTER TABLE rig_profiles ADD ptt_port_pathname TEXT;
+
+UPDATE rig_profiles SET ptt_type = 'RIG' WHERE driver = 1;

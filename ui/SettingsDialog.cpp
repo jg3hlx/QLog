@@ -64,6 +64,8 @@ MODULE_IDENTIFICATION("qlog.ui.settingdialog");
 #define CW_NET_FLDIGI_PORT 7362
 #define CW_DEFAULT_KEY_SPEED 20
 #define CW_KEY_SPEED_DISABLED 0
+#define PTT_TYPE_NONE_INDEX 0
+#define PTT_TYPE_CAT_INDEX 1
 
 SettingsDialog::SettingsDialog(MainWindow *parent) :
     QDialog(parent),
@@ -220,6 +222,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->rigPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
     ui->rotPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
     ui->cwPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
+    ui->rigPTTPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
 
     /* https://stackoverflow.com/questions/13145397/regex-for-multicast-ip-address */
     static QRegularExpression multicastAddress("^2(?:2[4-9]|3\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d?|0)){3}$");
@@ -409,6 +412,25 @@ void SettingsDialog::addRigProfile()
         }
     }
 
+    if ( ui->rigStackedWidget->currentIndex() == STACKED_WIDGET_SERIAL_SETTING )
+    {
+        if ( ui->rigPTTTypeCombo->currentIndex() != PTT_TYPE_NONE_INDEX
+             && ui->rigPTTTypeCombo->currentIndex() != PTT_TYPE_CAT_INDEX
+             && ui->rigPTTPortEdit->text().isEmpty() )
+        {
+            ui->rigPTTPortEdit->setPlaceholderText(tr("Must not be empty"));
+            return;
+        }
+
+        if ( ! ui->rigPTTPortEdit->text().isEmpty()
+             && ! ui->rigPTTPortEdit->hasAcceptableInput() )
+        {
+            QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
+                                 QMessageBox::tr("Rig PTT port must be a valid COM port.<br>For Windows use COMxx, for unix-like OS use a path to device"));
+            return;
+        }
+    }
+
     if ( ui->rigTXFreqMaxSpinBox->value() == 0.0 )
     {
         QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
@@ -455,6 +477,8 @@ void SettingsDialog::addRigProfile()
         profile.stopbits = ui->rigStopBitsSelect->currentText().toFloat();
         profile.flowcontrol = ui->rigFlowControlSelect->currentData().toString();
         profile.parity = ui->rigParitySelect->currentData().toString();
+        profile.pttType = ui->rigPTTTypeCombo->currentData().toString();
+        profile.pttPortPath = ui->rigPTTPortEdit->text();
     }
 
     if ( ui->rigPollIntervalSpinBox->isEnabled() )
@@ -563,6 +587,10 @@ void SettingsDialog::doubleClickRigProfile(QModelIndex i)
 
     const RigCaps &caps = Rig::instance()->getRigCaps(static_cast<Rig::DriverID>(profile.driver), profile.model);
 
+    int pttIndex = ui->rigPTTTypeCombo->findData(profile.pttType);
+    ui->rigPTTTypeCombo->setCurrentIndex(( pttIndex < 0 ) ? PTT_TYPE_CAT_INDEX : pttIndex);
+    ui->rigPTTPortEdit->setText(profile.pttPortPath);
+
     setUIBasedOnRigCaps(caps);
 
     ui->rigAddProfileButton->setText(tr("Modify"));
@@ -575,6 +603,7 @@ void SettingsDialog::clearRigProfileForm()
     ui->rigProfileNameEdit->setPlaceholderText(QString());
     ui->rigPortEdit->setPlaceholderText(QString());
     ui->rigHostNameEdit->setPlaceholderText(QString());
+    ui->rigPTTPortEdit->setPlaceholderText(QString());
 
     ui->rigProfileNameEdit->clear();
     ui->rigTXFreqMinSpinBox->setValue(0.0);
@@ -604,6 +633,7 @@ void SettingsDialog::clearRigProfileForm()
     ui->rigKeySpeedSyncCheckBox->setChecked(false);
     ui->rigDXSpots2RigCheckBox->setChecked(false);
     ui->rigAddProfileButton->setText(tr("Add"));
+    ui->rigPTTPortEdit->clear();
 }
 
 void SettingsDialog::rigRXOffsetChanged(int)
@@ -702,16 +732,30 @@ void SettingsDialog::rigInterfaceChanged(int)
     }
 
     rigTypeModel->select(driverID);
+    ui->rigModelSelect->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? ui->rigModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL)
+                                                                           : 0 );
+    ui->rigPTTTypeCombo->clear();
 
-    if ( driverID == Rig::HAMLIB_DRIVER )
-    {
-        ui->rigModelSelect->setCurrentIndex(ui->rigModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL));
+    const QList<QPair<QString, QString>> &pttTypes = Rig::instance()->getPTTTypeList(static_cast<Rig::DriverID>(driverID));
 
-    }
-    else
-    {
-        ui->rigModelSelect->setCurrentIndex(0);
-    }
+    for ( const QPair<QString, QString> &type : pttTypes )
+        ui->rigPTTTypeCombo->addItem(type.second, type.first);
+
+    ui->rigPTTTypeCombo->setVisible(( driverID == Rig::HAMLIB_DRIVER ));
+    ui->rigPTTTypeLabel->setVisible(( driverID == Rig::HAMLIB_DRIVER ));
+    ui->rigPTTPortEdit->setVisible(( driverID == Rig::HAMLIB_DRIVER ));
+    ui->rigPTTPortLabel->setVisible(( driverID == Rig::HAMLIB_DRIVER ));
+    ui->rigPTTTypeCombo->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? PTT_TYPE_CAT_INDEX : 0);
+}
+
+void SettingsDialog::rigPTTTypeChanged(int index)
+{
+    FCT_IDENTIFICATION;
+
+    ui->rigPTTPortEdit->setVisible((index != PTT_TYPE_CAT_INDEX && index != PTT_TYPE_NONE_INDEX));
+    ui->rigPTTPortLabel->setVisible((index != PTT_TYPE_CAT_INDEX && index != PTT_TYPE_NONE_INDEX));
+    if ( index == PTT_TYPE_CAT_INDEX || index == PTT_TYPE_NONE_INDEX )
+        ui->rigPTTPortEdit->clear();
 }
 
 void SettingsDialog::addRotProfile()
