@@ -71,7 +71,6 @@ void Lotw::uploadAdif(const QByteArray &data)
 {
     FCT_IDENTIFICATION;
 
-    QTemporaryFile file;
     file.open();
     file.write(data);
     file.flush();
@@ -163,8 +162,16 @@ void Lotw::uploadAdif(const QByteArray &data)
         tqslProcess->deleteLater();
     });
 
-    tqslProcess->start("sleep", QStringList("4")); // TODO Only for test
-    //tqslProcess.start(getTQSLPath("tqsl"),args);
+    connect(tqslProcess, &QProcess::readyReadStandardOutput, this, [tqslProcess]()
+    {
+        qCDebug(runtime)<< "TQSL output: " << qPrintable(tqslProcess->readAllStandardOutput());
+    });
+
+    tqslProcess->setProcessChannelMode(QProcess::MergedChannels);
+    tqslProcess->setReadChannel(QProcess::StandardOutput);
+
+    qCDebug(runtime) << getTQSLPath("tqsl") << args;
+    tqslProcess->start(getTQSLPath("tqsl"),args);
 }
 
 const QString Lotw::getUsername()

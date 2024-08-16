@@ -41,6 +41,7 @@ public slots:
 private:
     QNetworkAccessManager* nam;
     QNetworkReply *currentReply;
+    QTemporaryFile file;
 
     static const QString SECURE_STORAGE_KEY;
     static const QString CONFIG_USERNAME_KEY;
