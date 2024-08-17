@@ -1,7 +1,8 @@
 TBC - 0.38.0
 - [NEW] - Logbook - Added Send DX Spot to the QSO Context Menu
 - [NEW] - DX Filter - Added Dedup Time/Freq difference setting (@aa5sh)
-- [NEW] - New Contact - Added a dynamic value completer for SIG field (#issue #425)
+- [NEW] - Rig Setting - Added RTS/DTR PTT Type support (issue #353)
+- [NEW] - New Contact - Added a dynamic value completer for SIG field (issue #425)
 - [NEW] - Awards - Added SOTA/POTA/WWFF (@aa5sh)
 - [CHANGED] - Alert Widget is a Dock Widget (issue #399)
 - [CHANGED] - File Open dialogs are not a native dialog under Linux (issue #427)
