@@ -81,9 +81,11 @@ QVariant LogParam::getParam(const QString &name)
             return QString();
         }
 
-        query.next();
-        ret = query.value(0);
-        localCache.insert(name, new QVariant(ret));
+        if ( query.first() )
+        {
+            ret = query.value(0);
+            localCache.insert(name, new QVariant(ret));
+        }
     }
     qDebug(runtime) << "value: " << ret;
     return ret;
