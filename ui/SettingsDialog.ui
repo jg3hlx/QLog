@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>770</width>
-    <height>794</height>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,6 +17,21 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>6</number>
+   </property>
+   <property name="topMargin">
+    <number>6</number>
+   </property>
+   <property name="rightMargin">
+    <number>6</number>
+   </property>
+   <property name="bottomMargin">
+    <number>6</number>
+   </property>
+   <property name="spacing">
+    <number>4</number>
+   </property>
    <item row="2" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
@@ -1377,12 +1392,42 @@
            <string>Rigs</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="spacing">
+            <number>4</number>
+           </property>
+           <property name="leftMargin">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
+            <number>4</number>
+           </property>
+           <property name="rightMargin">
+            <number>4</number>
+           </property>
+           <property name="bottomMargin">
+            <number>4</number>
+           </property>
            <item>
             <widget class="QGroupBox" name="rigsProfileGroup_2">
              <property name="title">
               <string>Profiles</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
+              <property name="leftMargin">
+               <number>4</number>
+              </property>
+              <property name="topMargin">
+               <number>4</number>
+              </property>
+              <property name="rightMargin">
+               <number>4</number>
+              </property>
+              <property name="bottomMargin">
+               <number>4</number>
+              </property>
+              <property name="spacing">
+               <number>4</number>
+              </property>
               <item row="1" column="2">
                <widget class="QPushButton" name="rigDelProfileButton">
                 <property name="text">
@@ -1441,7 +1486,16 @@
                   <number>2</number>
                  </property>
                  <property name="leftMargin">
-                  <number>9</number>
+                  <number>4</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>4</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>4</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>4</number>
                  </property>
                  <item row="0" column="0">
                   <widget class="QLabel" name="rigProfileNameLabel">
@@ -1850,7 +1904,7 @@
                       <number>6</number>
                      </property>
                      <property name="verticalSpacing">
-                      <number>4</number>
+                      <number>2</number>
                      </property>
                      <property name="leftMargin">
                       <number>0</number>
@@ -1887,7 +1941,7 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="0">
+                     <item row="2" column="0">
                       <widget class="QLabel" name="rigBaudLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1900,7 +1954,7 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="1">
+                     <item row="2" column="1">
                       <widget class="QComboBox" name="rigBaudSelect">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -1953,14 +2007,14 @@
                        </item>
                       </widget>
                      </item>
-                     <item row="2" column="0">
+                     <item row="3" column="0">
                       <widget class="QLabel" name="rigDataBitsLabel">
                        <property name="text">
                         <string>Data Bits</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="4" column="0">
+                     <item row="5" column="0">
                       <widget class="QLabel" name="rigFlowControlLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
@@ -1979,7 +2033,7 @@
                        </property>
                       </widget>
                      </item>
-                     <item row="4" column="1">
+                     <item row="5" column="1">
                       <layout class="QHBoxLayout" name="horizontalLayout_17">
                        <property name="spacing">
                         <number>6</number>
@@ -2022,7 +2076,7 @@
                        </item>
                       </layout>
                      </item>
-                     <item row="2" column="1">
+                     <item row="3" column="1">
                       <layout class="QHBoxLayout" name="horizontalLayout_26">
                        <property name="spacing">
                         <number>6</number>
@@ -2085,6 +2139,37 @@
                            <string>2</string>
                           </property>
                          </item>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item row="6" column="0">
+                      <widget class="QLabel" name="rigPTTTypeLabel">
+                       <property name="text">
+                        <string>PTT Type</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="6" column="1">
+                      <layout class="QHBoxLayout" name="horizontalLayout_32">
+                       <property name="spacing">
+                        <number>6</number>
+                       </property>
+                       <item>
+                        <widget class="QComboBox" name="rigPTTTypeCombo"/>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="rigPTTPortLabel">
+                         <property name="text">
+                          <string>PTT Port</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="rigPTTPortEdit">
+                         <property name="toolTip">
+                          <string>The port used for PTT. If it is empty, the same port as for CAT connection will be used.</string>
+                         </property>
                         </widget>
                        </item>
                       </layout>
@@ -2907,19 +2992,6 @@
           </layout>
          </widget>
         </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
@@ -5102,6 +5174,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>rigPTTTypeCombo</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>rigPTTTypeChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>661</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>396</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>save()</slot>
@@ -5163,5 +5251,6 @@
   <slot>rigInterfaceChanged(int)</slot>
   <slot>clublogSettingChanged()</slot>
   <slot>rotInterfaceChanged(int)</slot>
+  <slot>rigPTTTypeChanged(int)</slot>
  </slots>
 </ui>
