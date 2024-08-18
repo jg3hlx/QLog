@@ -11,6 +11,7 @@ TBC - 0.38.0
 - [CHANGED] - LOV last_dates transferred to DB
 - Fix for MacOS Layout Geometry Restore (@aa5sh)
 - Fixed TQSL does not block GUI thread
+- Fixed MacOS build process (@aa5sh)
 
 2024/07/26 - 0.37.2
 - Fixed Field QSL Send Via should be retained (issue #413)
