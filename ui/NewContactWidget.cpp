@@ -165,7 +165,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     wwffCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     uiDynamic->wwffEdit->setCompleter(nullptr);
 
-    potaCompleter = new QCompleter(Data::instance()->potaIDList(), this);
+    potaCompleter = new MultiselectCompleter(Data::instance()->potaIDList(), this);
     potaCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     potaCompleter->setFilterMode(Qt::MatchStartsWith);
     potaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);

@@ -20,6 +20,7 @@
 #include "core/LogLocale.h"
 #include "rig/Rig.h"
 #include "ui/MainWindow.h"
+#include "core/MultiselectCompleter.h"
 
 namespace Ui {
 class SettingsDialog;
@@ -137,7 +138,7 @@ private:
     QCompleter *sotaCompleter;
     QCompleter *iotaCompleter;
     QCompleter *wwffCompleter;
-    QCompleter *potaCompleter;
+    MultiselectCompleter *potaCompleter;
     QCompleter *sigCompleter;
     QList<QCheckBox*> memberListCheckBoxes;
     Ui::SettingsDialog *ui;

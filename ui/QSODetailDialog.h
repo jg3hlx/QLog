@@ -16,6 +16,7 @@
 #include "ui/WebEnginePage.h"
 #include "core/MembershipQE.h"
 #include "core/LogLocale.h"
+#include "core/MultiselectCompleter.h"
 
 namespace Ui {
 class QSODetailDialog;
@@ -144,7 +145,7 @@ private:
     QScopedPointer<QCompleter> myIotaCompleter;
     QScopedPointer<QCompleter> sotaCompleter;
     QScopedPointer<QCompleter> mySotaCompleter;
-    QScopedPointer<QCompleter> potaCompleter;
+    QScopedPointer<MultiselectCompleter> potaCompleter;
     QScopedPointer<QCompleter> myPotaCompleter;
     QScopedPointer<QCompleter> wwffCompleter;
     QScopedPointer<QCompleter> myWWFFCompleter;

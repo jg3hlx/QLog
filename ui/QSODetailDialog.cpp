@@ -143,7 +143,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     ui->sotaEdit->setCompleter(nullptr);
 
     /* POTA Completer */
-    potaCompleter.reset(new QCompleter(Data::instance()->potaIDList(), this));
+    potaCompleter.reset(new MultiselectCompleter(Data::instance()->potaIDList(), this));
     potaCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     potaCompleter->setFilterMode(Qt::MatchStartsWith);
     potaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);

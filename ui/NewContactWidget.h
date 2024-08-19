@@ -22,6 +22,7 @@
 #include "models/LogbookModel.h"
 #include "ui/EditLine.h"
 #include "data/BandPlan.h"
+#include "core/MultiselectCompleter.h"
 
 namespace Ui {
 class NewContactWidget;
@@ -300,7 +301,7 @@ private:
     PropConditions *prop_cond;
     QCompleter *satCompleter;
     QCompleter *sotaCompleter;
-    QCompleter *potaCompleter;
+    MultiselectCompleter *potaCompleter;
     QCompleter *wwffCompleter;
     QCompleter *sigCompleter;
     QTimeZone partnerTimeZone;

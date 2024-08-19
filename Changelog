@@ -7,6 +7,7 @@ TBC - 0.38.0
 - [NEW] - Awards - Added SOTA/POTA/WWFF (@aa5sh)
 - [NEW] - Awards - Added Not-Worked Filter
 - [NEW] - New Contact - Added Long Path Azimuth info
+- [NEW] - POTA Fields allow a comma-delimited list of one or more POTA Refs
 - [CHANGED] - Alert Widget is a Dock Widget (issue #399)
 - [CHANGED] - File Open dialogs are not a native dialog under Linux (issue #427)
 - [CHANGED] - Profiles transferred to DB
