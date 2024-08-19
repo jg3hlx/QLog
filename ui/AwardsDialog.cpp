@@ -482,8 +482,8 @@ void AwardsDialog::setEntityInputEnabled(bool enabled)
 {
     FCT_IDENTIFICATION;
 
-    ui->myEntityComboBox->setEnabled(enabled);
-    ui->myEntityLabel->setEnabled(enabled);
+    ui->myEntityComboBox->setVisible(enabled);
+    ui->myEntityLabel->setVisible(enabled);
 }
 
 void AwardsDialog::setNotWorkedEnabled(bool enabled)
@@ -491,7 +491,8 @@ void AwardsDialog::setNotWorkedEnabled(bool enabled)
     FCT_IDENTIFICATION;
 
     ui->notWorkedCheckBox->blockSignals(true);
-    ui->notWorkedCheckBox->setEnabled(enabled);
+    ui->notWorkedCheckBox->setVisible(enabled);
+    ui->notWorkedLabel->setVisible(enabled);
     ui->notWorkedCheckBox->setChecked(enabled && ui->notWorkedCheckBox->isChecked());
     ui->notWorkedCheckBox->blockSignals(false);
 }
