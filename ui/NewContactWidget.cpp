@@ -1889,9 +1889,15 @@ void NewContactWidget::updateCoordinates(double lat, double lon, CoordPrecision 
         dxDistance = distance;
         QString unit;
         double showDistance = Gridsquare::distance2localeUnitDistance(dxDistance, unit);
+        double LPBearing = bearing - 180;
+
+        if ( LPBearing < 0 )
+            LPBearing += 360;
 
         ui->distanceInfo->setText(QString::number(showDistance, '.', 1) + QString(" %1").arg(unit));
-        ui->bearingInfo->setText(QString("%1°").arg(QString::number(bearing,'.', 1)));
+        ui->bearingInfo->setText(QString("%1° (%2: %3°)").arg(QString::number(bearing, '.', 1),
+                                                              tr("LP"),
+                                                              QString::number(LPBearing, '.', 1)));
 
         QString partnerTimeZoneString = Data::instance()->getIANATimeZone(lat, lon);
 
@@ -2771,15 +2777,10 @@ double NewContactWidget::getQSOBearing() const
 {
     FCT_IDENTIFICATION;
 
-    double ret_bearing = qQNaN();
 
-    if ( !ui->bearingInfo->text().isEmpty() )
-    {
-        const QString &bearingString = ui->bearingInfo->text();
-        ret_bearing = bearingString.mid(0,bearingString.length()-1).toDouble();
-    }
-
-    return ret_bearing;
+    const QString &bearingString = ui->bearingInfo->text();
+    return ( !bearingString.isEmpty() ? bearingString.mid(0,bearingString.indexOf("°")).toDouble()
+                                      : qQNaN());
 }
 
 double NewContactWidget::getQSODistance() const
