@@ -4127,6 +4127,8 @@
   <tabstop>rigFlowControlSelect</tabstop>
   <tabstop>rigParitySelect</tabstop>
   <tabstop>rigHostNameEdit</tabstop>
+  <tabstop>rigPTTTypeCombo</tabstop>
+  <tabstop>rigPTTPortEdit</tabstop>
   <tabstop>rigNetPortSpin</tabstop>
   <tabstop>rigAddProfileButton</tabstop>
   <tabstop>rigDelProfileButton</tabstop>
@@ -4195,6 +4197,7 @@
   <tabstop>tabWidget_3</tabstop>
   <tabstop>kstUsernameEdit</tabstop>
   <tabstop>kstPasswordEdit</tabstop>
+  <tabstop>shortcutsTableView</tabstop>
  </tabstops>
  <resources/>
  <connections>
