@@ -82,7 +82,7 @@ Data::Data(QObject *parent) :
                 "       valid_from,"
                 "       valid_to "
                 "FROM sota_summits "
-                "WHERE summit_code = UPPER(:code)"
+                "WHERE summit_code = :code"
                 );
 
     isPOTAQueryValid = queryPOTA.prepare(
@@ -95,7 +95,7 @@ Data::Data(QObject *parent) :
                 "       longitude,"
                 "       grid "
                 "FROM pota_directory "
-                "WHERE reference = UPPER(:code)"
+                "WHERE reference = :code"
                 );
 
     isWWFFQueryValid = queryWWFF.prepare(
@@ -115,7 +115,7 @@ Data::Data(QObject *parent) :
                 "       valid_from,"
                 "       valid_to "
                 "FROM wwff_directory "
-                "WHERE reference = UPPER(:reference)"
+                "WHERE reference = :reference"
                 );
 }
 
@@ -922,7 +922,7 @@ SOTAEntity Data::lookupSOTA(const QString &SOTACode)
         return SOTAEntity();
     }
 
-    querySOTA.bindValue(":code", SOTACode);
+    querySOTA.bindValue(":code", SOTACode.toUpper());
 
     if ( ! querySOTA.exec() )
     {
@@ -974,7 +974,7 @@ POTAEntity Data::lookupPOTA(const QString &POTACode)
         return POTAEntity();
     }
 
-    queryPOTA.bindValue(":code", POTACode);
+    queryPOTA.bindValue(":code", POTACode.toUpper());
 
     if ( ! queryPOTA.exec() )
     {
@@ -1016,7 +1016,7 @@ WWFFEntity Data::lookupWWFF(const QString &reference)
         return WWFFEntity();
     }
 
-    queryWWFF.bindValue(":reference", reference);
+    queryWWFF.bindValue(":reference", reference.toUpper());
 
     if ( ! queryWWFF.exec() )
     {
