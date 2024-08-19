@@ -265,7 +265,7 @@ void AwardsDialog::refreshTable(int)
                     "   UNION ALL "
                     "   SELECT id, callsign, station_callsign, my_dxcc, band, "
                     "          dxcc, eqsl_qsl_rcvd, lotw_qsl_rcvd, qsl_rcvd,prop_mode,mode, "
-                    "          substr(str, 0, instr(str, ',')), substr(str, instr(str, ',') + 1) "
+                    "          substr(str, 0, instr(str, ',')), TRIM(substr(str, instr(str, ',') + 1)) "
                     "   FROM split "
                     "   WHERE str != '') ";
         sourceContactsTable = " source_contacts AS ("
@@ -291,7 +291,7 @@ void AwardsDialog::refreshTable(int)
                     "   UNION ALL "
                     "   SELECT id, callsign, station_callsign, my_dxcc, band, "
                     "          dxcc, eqsl_qsl_rcvd, lotw_qsl_rcvd, qsl_rcvd, prop_mode, mode, "
-                    "          substr(str, 0, instr(str, ',')), substr(str, instr(str, ',') + 1) "
+                    "          substr(str, 0, instr(str, ',')), TRIM(substr(str, instr(str, ',') + 1)) "
                     "   FROM split "
                     "   WHERE str != '') ";
         sourceContactsTable = " source_contacts AS ("
