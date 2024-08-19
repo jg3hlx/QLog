@@ -301,7 +301,6 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->cwKeyModeSelect->addItem(tr("Ultimate"), CWKey::ULTIMATE);
     ui->cwKeyModeSelect->setCurrentIndex(ui->cwKeyModeSelect->findData(CWKey::IAMBIC_B));
 
-    ui->dxccStartDate->setDisplayFormat(locale.formatDateShortWithYYYY());
     /* disable WSJTX Multicast by default */
     joinMulticastChanged(false);
 
@@ -2307,18 +2306,6 @@ void SettingsDialog::readSettings() {
     ui->kstUsernameEdit->setText(KSTChat::getUsername());
     ui->kstPasswordEdit->setText(KSTChat::getPassword());
 
-    /********/
-    /* DXCC */
-    /********/
-    if (settings.value("dxcc/start").toDate().isValid()) {
-       ui->dxccStartDateCheckBox->setCheckState(Qt::Checked);
-       ui->dxccStartDate->setDate(settings.value("dxcc/start").toDate());
-    }
-    else {
-        ui->dxccStartDateCheckBox->setCheckState(Qt::Unchecked);
-        ui->dxccStartDate->setDate(QDate::currentDate());
-    }
-
     /***********/
     /* MEMBERS */
     /***********/
@@ -2414,16 +2401,6 @@ void SettingsDialog::writeSettings() {
     /***************/
     KSTChat::saveUsernamePassword(ui->kstUsernameEdit->text(),
                                   ui->kstPasswordEdit->text());
-
-    /*********/
-    /* DXCC  */
-    /*********/
-    if (ui->dxccStartDateCheckBox->isChecked()) {
-        settings.setValue("dxcc/start", ui->dxccStartDate->date());
-    }
-    else {
-        settings.setValue("dxcc/start", QVariant());
-    }
 
     /***********/
     /* MEMBERS */

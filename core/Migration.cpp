@@ -678,6 +678,8 @@ bool Migration::profiles2DB()
     settings.remove("last_pota_update");
     settings.remove("last_membershipcontent_update");
 
+    settings.remove("dxcc/start");
+
     return true;
 }
 

@@ -11,6 +11,7 @@ TBC - 0.38.0
 - [CHANGED] - File Open dialogs are not a native dialog under Linux (issue #427)
 - [CHANGED] - Profiles transferred to DB
 - [CHANGED] - LOV last_dates transferred to DB
+- [REMOVED] - Setting DXCC Date
 - Fix for MacOS Layout Geometry Restore (@aa5sh)
 - Fixed TQSL does not block GUI thread
 - Fixed MacOS build process (@aa5sh)

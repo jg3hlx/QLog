@@ -141,14 +141,6 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode) 
     qCDebug(function_parameters) << dxcc << " " << band << " " << mode;
 
     QString filter;
-    QSettings settings;
-    const QVariant &start = settings.value("dxcc/start");
-
-    if ( start.toDate().isValid() )
-    {
-        filter = QString("AND start_time >= '%1'").arg(start.toDate().toString("yyyy-MM-dd"));
-    }
-
     QString sql_mode(":mode ");
 
     if ( mode != BandPlan::MODE_GROUP_STRING_CW
