@@ -80,6 +80,7 @@ void AwardsDialog::refreshTable(int)
     QStringList stmt_sum_confirmed;
     QStringList stmt_sum_worked;
     QStringList stmt_sum_total;
+    QStringList stmt_having;
     QStringList addlCTEs;
 
     const QString &awardSelected = getSelectedAward();
@@ -114,6 +115,7 @@ void AwardsDialog::refreshTable(int)
         stmt_sum_confirmed << QString("SUM(CASE WHEN a.'%1' > 1 THEN 1 ELSE 0 END) '%2'").arg(band.name, band.name);
         stmt_sum_worked << QString("SUM(CASE WHEN a.'%1' > 0 THEN 1 ELSE 0 END) '%2'").arg(band.name, band.name);
         stmt_sum_total << QString("SUM(d.'%1') '%2'").arg(band.name, band.name);
+        stmt_having << QString("SUM(d.'%1') = 0").arg(band.name);
     }
 
     stmt_max_part << QString(" MAX(CASE WHEN prop_mode = 'SAT' AND m.dxcc IN (%1) THEN %2 ELSE 0 END) as 'SAT' ").arg(modes.join(","), innerConfirmedCase)
@@ -126,6 +128,8 @@ void AwardsDialog::refreshTable(int)
                     << " SUM(CASE WHEN a.'EME' > 0 THEN 1 ELSE 0 END) 'EME' ";
     stmt_sum_total << " SUM(d.'SAT') 'SAT' "
                    << " SUM(d.'EME') 'EME' ";
+    stmt_having << " SUM(d.'SAT') = 0"
+                << " SUM(d.'EME') = 0";
 
     sourceContactsTable = " source_contacts AS ("
                           "  SELECT * "
@@ -134,6 +138,7 @@ void AwardsDialog::refreshTable(int)
     if ( awardSelected == "dxcc" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(true);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "translate_to_locale(d.name) col1, d.prefix col2 ";
         uniqColumns = "c.dxcc";
@@ -146,6 +151,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "waz" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(true);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "d.n col1, null col2 ";
         uniqColumns = "c.cqz";
@@ -164,6 +170,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "itu" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(true);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "d.n col1, null col2 ";
         uniqColumns = "c.ituz";
@@ -183,6 +190,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "wac" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(true);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "d.column2 col1, d.column1 col2 ";
         uniqColumns = "c.cont";
@@ -204,6 +212,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "was" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(true);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "d.subdivision_name col1, d.code col2 ";
         uniqColumns = "c.state";
@@ -216,6 +225,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "wpx" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(false);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "c.pfx col1, null col2 ";
         uniqColumns = "c.pfx";
@@ -228,6 +238,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "iota" )
     {
         setEntityInputEnabled(true);
+        setNotWorkedEnabled(false);
         const QString &entitySelected = getSelectedEntity();
         headersColumns = "c.iota col1, NULL col2 ";
         uniqColumns = "c.iota";
@@ -240,6 +251,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "potah" )
     {
         setEntityInputEnabled(false);
+        setNotWorkedEnabled(false);
         headersColumns = "p.reference col1, p.name col2 ";
         uniqColumns = "c.pota";
         sqlPartDetailTable = " FROM pota_directory p "
@@ -265,6 +277,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "potaa" )
     {
         setEntityInputEnabled(false);
+        setNotWorkedEnabled(false);
         headersColumns = "p.reference col1, p.name col2 ";
         uniqColumns = "c.my_pota_ref_str";
         sqlPartDetailTable = " FROM pota_directory p "
@@ -290,6 +303,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "sota" )
     {
         setEntityInputEnabled(false);
+        setNotWorkedEnabled(false);
         headersColumns = "s.summit_code col1, NULL col2 ";
         uniqColumns = "c.sota_ref";
 
@@ -300,6 +314,7 @@ void AwardsDialog::refreshTable(int)
     else if ( awardSelected == "wwff" )
     {
         setEntityInputEnabled(false);
+        setNotWorkedEnabled(false);
         headersColumns = "w.reference col1, w.name col2 ";
         uniqColumns = "c.wwff_ref";
         sqlPartDetailTable = " FROM wwff_directory w "
@@ -340,6 +355,7 @@ void AwardsDialog::refreshTable(int)
               "     SELECT 3 column_idx, col1, col2, %21"
               "     FROM detail_table d "
               "     GROUP BY 2,3 "
+              "     %22"
               ") "
               "ORDER BY 1,2 COLLATE LOCALEAWARE ASC ").arg(addlCTEs.join(","),
                                                            headersColumns,
@@ -361,7 +377,8 @@ void AwardsDialog::refreshTable(int)
                                                            stmt_sum_confirmed.join(","),
                                                            tr("Worked"),
                                                            stmt_sum_worked.join(","),
-                                                           stmt_sum_total.join(",")));
+                                                           stmt_sum_total.join(","),
+                                                           ui->notWorkedCheckBox->isChecked() ? QString("HAVING %1").arg(stmt_having.join(" AND ")) : "" ));
     qDebug(runtime) << finalSQL;
 
     detailedViewModel->setQuery(finalSQL);
@@ -467,4 +484,14 @@ void AwardsDialog::setEntityInputEnabled(bool enabled)
 
     ui->myEntityComboBox->setEnabled(enabled);
     ui->myEntityLabel->setEnabled(enabled);
+}
+
+void AwardsDialog::setNotWorkedEnabled(bool enabled)
+{
+    FCT_IDENTIFICATION;
+
+    ui->notWorkedCheckBox->blockSignals(true);
+    ui->notWorkedCheckBox->setEnabled(enabled);
+    ui->notWorkedCheckBox->setChecked(enabled && ui->notWorkedCheckBox->isChecked());
+    ui->notWorkedCheckBox->blockSignals(false);
 }
