@@ -2118,17 +2118,10 @@ void NewContactWidget::__changeFrequency(VFOID, double vfoFreq, double ritFreq, 
     updateRXBand(ritFreq);
     ui->freqRXEdit->blockSignals(false);
 
-    if ( ritFreq != xitFreq
-         || RigProfilesManager::instance()->getCurProfile1().ritOffset != 0.0
-         || RigProfilesManager::instance()->getCurProfile1().xitOffset != 0.0
-         || isManualEnterMode )
-    {
-        showRXTXFreqs(true);
-    }
-    else
-    {
-        showRXTXFreqs(false);
-    }
+    showRXTXFreqs(( ritFreq != xitFreq
+                    || RigProfilesManager::instance()->getCurProfile1().ritOffset != 0.0
+                    || RigProfilesManager::instance()->getCurProfile1().xitOffset != 0.0
+                    || isManualEnterMode ));
 }
 
 /* Power is changed from RIG */
