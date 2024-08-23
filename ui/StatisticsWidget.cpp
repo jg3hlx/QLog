@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QComboBox>
 #include <QStringListModel>
+#include <QGraphicsLayout>
 #include "StatisticsWidget.h"
 #include "ui_StatisticsWidget.h"
 #include "core/debug.h"
