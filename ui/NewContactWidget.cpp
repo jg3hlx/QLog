@@ -1714,7 +1714,7 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
 
     const DxccEntity &dxcc = Data::instance()->lookupDxcc(savedCallsign);
 
-    if ( !dxcc.country.isEmpty() )
+    if ( dxcc.dxcc != 0 )
     {
         if ( record.value("country_intl").toString().isEmpty()
              && record.value("country").toString().isEmpty() )
@@ -1734,12 +1734,63 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
     }
 
     // add information from callbook if it is a known callsign
-    if ( record.value("name_intl").toString().isEmpty()
-         && record.value("name").toString().isEmpty()
-         && savedCallsign == ui->callsignEdit->text()
-         && !uiDynamic->nameEdit->text().isEmpty() )
+    // based on the poll #420, QLog adds more information from callbook
+    if ( savedCallsign == ui->callsignEdit->text() )
     {
-       record.setValue("name_intl", uiDynamic->nameEdit->text());
+        // information independent of QTH
+        if ( record.value("name_intl").toString().isEmpty()
+             && record.value("name").toString().isEmpty()
+             && !uiDynamic->nameEdit->text().isEmpty() )
+            record.setValue("name_intl", uiDynamic->nameEdit->text());
+
+        if ( record.value("email").toString().isEmpty()
+             && !uiDynamic->emailEdit->text().isEmpty() )
+            record.setValue("email", uiDynamic->emailEdit->text());
+
+        if ( record.value("qsl_via").toString().isEmpty()
+             && !ui->qslViaEdit->text().isEmpty() )
+            record.setValue("qsl_via", ui->qslViaEdit->text());
+
+        if ( record.value("web").toString().isEmpty()
+             && !uiDynamic->urlEdit->text().isEmpty() )
+            record.setValue("web", uiDynamic->urlEdit->text());
+
+        if ( record.value("darc_dok").toString().isEmpty()
+             && !uiDynamic->dokEdit->text().isEmpty() )
+            record.setValue("darc_dok", uiDynamic->dokEdit->text());
+
+        // information depending on QTH (Grid)
+        const QString &savedGrid = record.value("gridsquare").toString();
+        if ( savedGrid.startsWith(uiDynamic->gridEdit->text(), Qt::CaseSensitivity::CaseInsensitive)
+             || uiDynamic->gridEdit->text().startsWith(savedGrid, Qt::CaseSensitivity::CaseInsensitive ) )
+        {
+            if ( uiDynamic->gridEdit->text().size() > savedGrid.size() )
+                record.setValue("gridsquare", uiDynamic->gridEdit->text());
+
+            if ( record.value("qth_intl").toString().isEmpty()
+                 && record.value("qth").toString().isEmpty()
+                 && !uiDynamic->qthEdit->text().isEmpty() )
+                record.setValue("qth_intl", uiDynamic->qthEdit->text());
+
+            if ( record.value("iota").toString().isEmpty()
+                 && !uiDynamic->iotaEdit->text().isEmpty() )
+                record.setValue("iota", uiDynamic->iotaEdit->text());
+
+            if ( record.value("cnty").toString().isEmpty()
+                 && !uiDynamic->countyEdit->text().isEmpty() )
+                record.setValue("cnty", uiDynamic->countyEdit->text());
+
+            if ( record.value("state").toString().isEmpty()
+                 && !uiDynamic->stateEdit->text().isEmpty() )
+                record.setValue("state", uiDynamic->stateEdit->text());
+
+            // fix ITUz and CQz from callbook, if necessary
+            if ( record.value("ituz").toString() != uiDynamic->ituEdit->text() )
+                record.setValue("ituz", uiDynamic->ituEdit->text());
+
+            if ( record.value("cqz").toString() != uiDynamic->cqzEdit->text() )
+                record.setValue("cqz", uiDynamic->cqzEdit->text());
+        }
     }
 
     const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
