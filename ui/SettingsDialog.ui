@@ -2166,11 +2166,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="rigPTTPortEdit">
-                         <property name="toolTip">
-                          <string>The port used for PTT. If it is empty, the same port as for CAT connection will be used.</string>
-                         </property>
-                        </widget>
+                        <widget class="QLineEdit" name="rigPTTPortEdit"/>
                        </item>
                       </layout>
                      </item>
