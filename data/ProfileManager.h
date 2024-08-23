@@ -101,7 +101,7 @@ public:
         QString logging_cat(MOD_NAME); logging_cat.append(".function.entered");
         qCDebug(QLoggingCategory(logging_cat.toLatin1().constData()));
 
-        QSqlQuery query(QLatin1String("SELECT profile_name FROM %1 WHERE IFNULL(selected, 0) = 1").arg(tableName));
+        QSqlQuery query(QString("SELECT profile_name FROM %1 WHERE IFNULL(selected, 0) = 1").arg(tableName));
         currentProfile1 = query.first() ? query.value(0).toString() : QString();
 
         if ( currentProfile1.isEmpty() )
@@ -125,7 +125,7 @@ public:
             QSqlQuery query;
 
             // atomic change
-            if ( !query.prepare(QLatin1String("UPDATE %1 "
+            if ( !query.prepare(QString("UPDATE %1 "
                                               "SET selected = CASE "
                                               "               WHEN profile_name = :profileName THEN 1 "
                                               "               ELSE NULL "

@@ -103,7 +103,7 @@ void AwardsDialog::refreshTable(int)
     if ( ui->paperCheckBox->isChecked() )
         confirmed << " qsl_rcvd = 'Y' ";
 
-    const QString innerConfirmedCase(QLatin1String(" CASE WHEN (%1) THEN 2 ELSE 1 END ").arg(confirmed.join("or")));
+    const QString innerConfirmedCase(QString(" CASE WHEN (%1) THEN 2 ELSE 1 END ").arg(confirmed.join("or")));
 
     for ( const Band& band : dxccBands )
     {
@@ -365,7 +365,12 @@ void AwardsDialog::refreshTable(int)
                                                            tr("TOTAL Worked"),
                                                            uniqColumns,
                                                            stmt_total_padding.join(","),
-                                                           modes.join(","),
+                                                           modes.join(",")
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+                                                           ,
+#else
+                                                           ).arg(
+#endif
                                                            addWherePart,
                                                            tr("TOTAL Confirmed"),
                                                            uniqColumns,
@@ -374,11 +379,16 @@ void AwardsDialog::refreshTable(int)
                                                            modes.join(","),
                                                            addWherePart,
                                                            tr("Confirmed"),
-                                                           stmt_sum_confirmed.join(","),
-                                                           tr("Worked"),
+                                                           stmt_sum_confirmed.join(",")
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+                         ,
+#else
+                                                           ).arg(
+#endif
+                                                           tr("Worked")).arg(
                                                            stmt_sum_worked.join(","),
                                                            stmt_sum_total.join(","),
-                                                           ui->notWorkedCheckBox->isChecked() ? QString("HAVING %1").arg(stmt_having.join(" AND ")) : "" ));
+                                                           ui->notWorkedCheckBox->isChecked() ? QString("HAVING %1").arg(stmt_having.join(" AND ")) : QString() ));
     qDebug(runtime) << finalSQL;
 
     detailedViewModel->setQuery(finalSQL);

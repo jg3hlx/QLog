@@ -154,7 +154,7 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
     }
 
     QSqlQuery query;
-    QString sqlStatement = QLatin1String("WITH all_dxcc_qsos AS (SELECT DISTINCT contacts.mode, contacts.band, "
+    QString sqlStatement = QString("WITH all_dxcc_qsos AS (SELECT DISTINCT contacts.mode, contacts.band, "
                                          "                                       contacts.qsl_rcvd, contacts.lotw_qsl_rcvd "
                                          "                       FROM contacts "
                                          "                       WHERE dxcc = :dxcc %1) "

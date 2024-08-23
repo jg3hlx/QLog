@@ -689,7 +689,7 @@ bool Migration::setSelectedProfile(const QString &tablename, const QString &prof
 
     QSqlQuery query;
 
-    if ( !query.prepare(QLatin1String("UPDATE %1 "
+    if ( !query.prepare(QString("UPDATE %1 "
                                       "SET selected = CASE "
                                       "               WHEN profile_name = :profileName THEN 1 "
                                       "               ELSE NULL "
