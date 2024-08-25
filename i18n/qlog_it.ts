@@ -463,17 +463,17 @@
         <translation>TOTALE Lavorato</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="370"/>
+        <location filename="../ui/AwardsDialog.cpp" line="375"/>
         <source>TOTAL Confirmed</source>
         <translation>TOTALE Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="376"/>
+        <location filename="../ui/AwardsDialog.cpp" line="381"/>
         <source>Confirmed</source>
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="378"/>
+        <location filename="../ui/AwardsDialog.cpp" line="388"/>
         <source>Worked</source>
         <translation>Lavorato</translation>
     </message>
@@ -10142,7 +10142,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="320"/>
-        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
         <source>Band</source>
         <translation>Banda</translation>
     </message>
@@ -10177,127 +10177,127 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="38"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
         <source>Month</source>
         <translation>Mese</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
         <source>Day in Week</source>
         <translation>Giorno della settimana</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
         <source>Hour</source>
         <translation>Ora</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
         <source>Mode</source>
         <translation>Modo</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
         <source>Continent</source>
         <translation>Continente</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="46"/>
         <source>Propagation Mode</source>
         <translation>Modo di Propagazione</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="52"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="53"/>
         <source>Confirmed / Not Confirmed</source>
         <translation>Confermato / Non Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="59"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
         <source>Countries</source>
         <translation>Nazioni</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="61"/>
         <source>Big Gridsquares</source>
         <translation>Grandi quadrati della griglia</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="69"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="70"/>
         <source>Distance</source>
         <translation>Distanza</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="76"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
         <source>QSOs</source>
         <translation>QSOs</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
         <source>Confirmed/Worked Grids</source>
         <translation>Griglia Confermata/Lavorata</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="79"/>
         <source>ODX</source>
         <translation>ODX</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="215"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
         <source>Sun</source>
         <translation>Dom</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
         <source>Mon</source>
         <translation>Lun</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
         <source>Tue</source>
         <translation>Mar</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
         <source>Wed</source>
         <translation>Mer</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
         <source>Thu</source>
         <translation>Gio</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
         <source>Fri</source>
         <translation>Ven</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="222"/>
         <source>Sat</source>
         <translation>Sab</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="267"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="268"/>
         <source>Not specified</source>
         <translation>Non specificato</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="306"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
         <source>Confirmed </source>
         <translation>Confermato </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="308"/>
         <source>Not Confirmed </source>
         <translation>Non confermato</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="786"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="787"/>
         <source>All</source>
         <translation>Tutti</translation>
     </message>

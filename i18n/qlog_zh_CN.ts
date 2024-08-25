@@ -463,17 +463,17 @@
         <translation>全部已通联</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="370"/>
+        <location filename="../ui/AwardsDialog.cpp" line="375"/>
         <source>TOTAL Confirmed</source>
         <translation>全部已确认</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="376"/>
+        <location filename="../ui/AwardsDialog.cpp" line="381"/>
         <source>Confirmed</source>
         <translation>已确认</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="378"/>
+        <location filename="../ui/AwardsDialog.cpp" line="388"/>
         <source>Worked</source>
         <translation>已通联</translation>
     </message>
@@ -10129,7 +10129,7 @@
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="320"/>
-        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
         <source>Band</source>
         <translation>波段</translation>
     </message>
@@ -10164,127 +10164,127 @@
         <translation>about:blank</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="38"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
         <source>Day in Week</source>
         <translation>星期几</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
         <source>Hour</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
         <source>Continent</source>
         <translation>大洲</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="46"/>
         <source>Propagation Mode</source>
         <translation>传播模式</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="52"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="53"/>
         <source>Confirmed / Not Confirmed</source>
         <translation>已确认/未确认</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="59"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
         <source>Countries</source>
         <translation>国家/地区</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="61"/>
         <source>Big Gridsquares</source>
         <translation>大网格坐标</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="69"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="70"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="76"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
         <source>QSOs</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
         <source>Confirmed/Worked Grids</source>
         <translation>确认/已通联 网格</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="79"/>
         <source>ODX</source>
         <translation>ODX</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="215"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
         <source>Sun</source>
         <translation>星期日</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
         <source>Mon</source>
         <translation>星期一</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
         <source>Tue</source>
         <translation>星期二</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
         <source>Wed</source>
         <translation>星期三</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
         <source>Thu</source>
         <translation>星期四</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
         <source>Fri</source>
         <translation>星期五</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="222"/>
         <source>Sat</source>
         <translation>星期六</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="267"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="268"/>
         <source>Not specified</source>
         <translation>未指定</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="306"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
         <source>Confirmed </source>
         <translation>已确认 </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="308"/>
         <source>Not Confirmed </source>
         <translation>未确认 </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="786"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="787"/>
         <source>All</source>
         <translation>全部</translation>
     </message>

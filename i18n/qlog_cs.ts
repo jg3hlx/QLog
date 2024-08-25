@@ -463,17 +463,17 @@
         <translation>Celkem Pracováno</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="370"/>
+        <location filename="../ui/AwardsDialog.cpp" line="375"/>
         <source>TOTAL Confirmed</source>
         <translation>Celkem Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="376"/>
+        <location filename="../ui/AwardsDialog.cpp" line="381"/>
         <source>Confirmed</source>
         <translation>Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/AwardsDialog.cpp" line="378"/>
+        <location filename="../ui/AwardsDialog.cpp" line="388"/>
         <source>Worked</source>
         <translation>Pracováno</translation>
     </message>
@@ -10186,132 +10186,132 @@
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="320"/>
-        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
         <source>Band</source>
         <translation>Pásmo</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="38"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
         <source>Year</source>
         <translation>rok</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
         <source>Month</source>
         <translation>měsíc</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
         <source>Day in Week</source>
         <translation>den v týdnu</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
         <source>Hour</source>
         <translation>hodinu</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
         <source>Mode</source>
         <translation>druh provozu</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
         <source>Continent</source>
         <translation>kontinent</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="46"/>
         <source>Propagation Mode</source>
         <translation>podmínky šíření</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="52"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="53"/>
         <source>Confirmed / Not Confirmed</source>
         <translation>Potvrzeno / Nepotvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="59"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
         <source>Countries</source>
         <translation>Země</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="61"/>
         <source>Big Gridsquares</source>
         <translation>Velké čtverce</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="69"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="70"/>
         <source>Distance</source>
         <translation>Vzdálenost</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="76"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
         <source>QSOs</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
         <source>Confirmed/Worked Grids</source>
         <translation>Potvrzené / Pracováno Lokátory</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="79"/>
         <source>ODX</source>
         <translation>ODX</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="215"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
         <source>Sun</source>
         <translation>Ned</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
         <source>Mon</source>
         <translation>Pon</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
         <source>Tue</source>
         <translation>Út</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
         <source>Wed</source>
         <translation>Stř</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
         <source>Thu</source>
         <translation>Čtvr</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
         <source>Fri</source>
         <translation>Pát</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="222"/>
         <source>Sat</source>
         <translation>Sob</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="267"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="268"/>
         <source>Not specified</source>
         <translation>Neurčeno</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="306"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
         <source>Confirmed </source>
         <translation>Potvrzeno </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="308"/>
         <source>Not Confirmed </source>
         <translation>Nepotvrzeno </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="786"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="787"/>
         <source>All</source>
         <translation>Vše</translation>
     </message>
