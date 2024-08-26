@@ -257,7 +257,7 @@
     <message>
         <location filename="../ui/AlertWidget.ui" line="14"/>
         <source>Alerts</source>
-        <translation>Allarmi</translation>
+        <translation>Avvisi</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="86"/>
@@ -277,17 +277,17 @@
     <message>
         <location filename="../ui/AlertWidget.ui" line="121"/>
         <source>Edit Rules</source>
-        <translation type="unfinished">Modifica Regole</translation>
+        <translation>Modifica Regole</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="126"/>
         <source>Column Visibility...</source>
-        <translation type="unfinished">Visibilità della colonna...</translation>
+        <translation>Visibilità della colonna...</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="131"/>
         <source>Clear</source>
-        <translation type="unfinished">Cancella</translation>
+        <translation>Cancella</translation>
     </message>
 </context>
 <context>
@@ -355,12 +355,12 @@
     <message>
         <location filename="../ui/AwardsDialog.ui" line="224"/>
         <source>Not-Worked Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Solo non lavorato</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="231"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="34"/>
@@ -400,22 +400,22 @@
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="41"/>
         <source>POTA Hunter</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA Hunter</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="42"/>
         <source>POTA Activator</source>
-        <translation type="unfinished"></translation>
+        <translation>POTA Activator</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="43"/>
         <source>SOTA</source>
-        <translation type="unfinished">SOTA</translation>
+        <translation>SOTA</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="44"/>
         <source>WWFF</source>
-        <translation type="unfinished">WWFF</translation>
+        <translation>WWFF</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="46"/>
@@ -1039,8 +1039,8 @@
         <location filename="../ui/ClublogDialog.cpp" line="127"/>
         <source>%n QSO(s) uploaded.</source>
         <translation>
-            <numerusform>%n QSO caricato/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSO caricato.</numerusform>
+            <numerusform>%n QSO caricati.</numerusform>
         </translation>
     </message>
     <message>
@@ -1051,7 +1051,7 @@
     <message>
         <location filename="../ui/ClublogDialog.cpp" line="143"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation>Impossibile caricare QSO:</translation>
+        <translation>Impossibile caricare il/i QSO: </translation>
     </message>
     <message>
         <location filename="../ui/ClublogDialog.cpp" line="161"/>
@@ -2856,7 +2856,7 @@
     <message>
         <location filename="../data/Data.cpp" line="420"/>
         <source>New Band&amp;Mode</source>
-        <translation>Nuova Banda e Modo</translation>
+        <translation>Nuovi  Banda&amp;Modo</translation>
     </message>
     <message>
         <location filename="../data/Data.cpp" line="422"/>
@@ -3233,7 +3233,7 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="336"/>
         <source>Do not show the following spots when they have the same Callsign and their time difference is lower than Time Diff and their frequency difference is lower than Freq Diff</source>
-        <translation type="unfinished"></translation>
+        <translation>Non mostrare i seguenti spot quando hanno lo stesso nominativo e la loro differenza di tempo è inferiore a Time Diff e la loro differenza di frequenza è inferiore a Freq Diff</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="339"/>
@@ -3243,22 +3243,22 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="366"/>
         <source>Time difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Differenza oraria</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="373"/>
         <source>s</source>
-        <translation type="unfinished"></translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="386"/>
         <source>Frequency difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Differenza di Frequenza</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="393"/>
         <source> kHz</source>
-        <translation type="unfinished"></translation>
+        <translation> kHz</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="412"/>
@@ -3745,8 +3745,8 @@
         <location filename="../ui/Eqsldialog.cpp" line="211"/>
         <source>%n QSO(s) uploaded.</source>
         <translation>
-            <numerusform>%n QSO caricato/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSO caricato.</numerusform>
+            <numerusform>%n QSO caricati.</numerusform>
         </translation>
     </message>
     <message>
@@ -3757,7 +3757,7 @@
     <message>
         <location filename="../ui/Eqsldialog.cpp" line="227"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation>Impossibile caricare QSO/i: </translation>
+        <translation>Impossibile caricare il/i QSO: </translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.cpp" line="243"/>
@@ -4053,8 +4053,8 @@
         <location filename="../ui/HRDLogDialog.cpp" line="134"/>
         <source>%n QSO(s) uploaded.</source>
         <translation>
-            <numerusform>%n QSO caricato/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSO caricato.</numerusform>
+            <numerusform>%n QSO caricati.</numerusform>
         </translation>
     </message>
     <message>
@@ -4065,7 +4065,7 @@
     <message>
         <location filename="../ui/HRDLogDialog.cpp" line="143"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation>Impossibile caricare QSO/i: </translation>
+        <translation>Impossibile caricare il/i QSO: </translation>
     </message>
     <message>
         <location filename="../ui/HRDLogDialog.cpp" line="154"/>
@@ -4086,22 +4086,22 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="47"/>
         <source>None</source>
-        <translation type="unfinished">Nessuno</translation>
+        <translation>Nessuno</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="48"/>
         <source>CAT</source>
-        <translation type="unfinished"></translation>
+        <translation>CAT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="49"/>
         <source>DTR</source>
-        <translation type="unfinished"></translation>
+        <translation>DTR</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="50"/>
         <source>RTS</source>
-        <translation type="unfinished"></translation>
+        <translation>RTS</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="133"/>
@@ -4112,12 +4112,12 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="201"/>
         <source>Cannot set PTT Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile impostare Tipo PTT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="208"/>
         <source>Cannot set PTT Share</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile impostare Condividi PTT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="215"/>
@@ -4308,24 +4308,24 @@
         <location filename="../ui/ImportDialog.cpp" line="222"/>
         <source>Imported: %n contact(s)</source>
         <translation>
-            <numerusform>Importato: %n contatto/i</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Importato: %n contatto</numerusform>
+            <numerusform>Importati: %n contatti</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../ui/ImportDialog.cpp" line="223"/>
         <source>Warning(s): %n</source>
         <translation>
-            <numerusform>Allarme/i: %n</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Allarme: %n</numerusform>
+            <numerusform>Allarmi: %n</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../ui/ImportDialog.cpp" line="224"/>
         <source>Error(s): %n</source>
         <translation>
-            <numerusform>Errore/i: %n</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Errore: %n</numerusform>
+            <numerusform>Errori: %n</numerusform>
         </translation>
     </message>
     <message>
@@ -5576,12 +5576,12 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="309"/>
         <source>Send DX Spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Invia DX Spot</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="312"/>
         <source>Logbook - Send DX Spot</source>
-        <translation type="unfinished"></translation>
+        <translation>Logbook - Invia DX Spot</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="255"/>
@@ -5607,7 +5607,7 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="289"/>
         <source>Column Visibility </source>
-        <translation>Visibilità della colonna</translation>
+        <translation>Visibilità della colonna </translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="292"/>
@@ -5627,7 +5627,7 @@
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="519"/>
         <source>Delete the selected contacts?</source>
-        <translation>Elimina i contatti selezionati</translation>
+        <translation>Eliminare i contatti selezionati?</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="533"/>
@@ -5654,7 +5654,7 @@
         <source>Count: %n</source>
         <translation>
             <numerusform>Conteggio: %n</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Conteggio: %n</numerusform>
         </translation>
     </message>
     <message>
@@ -5676,7 +5676,7 @@
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="822"/>
         <source>eQSL Download Image failed: </source>
-        <translation>Download immagine da eQSL fallito</translation>
+        <translation>Download immagine da eQSL fallito: </translation>
     </message>
 </context>
 <context>
@@ -5699,7 +5699,7 @@
     <message>
         <location filename="../core/Lotw.cpp" line="100"/>
         <source>Upload rejected by LoTW</source>
-        <translation>Upload rifiutato da LoTW </translation>
+        <translation>Upload rifiutato da LoTW</translation>
     </message>
     <message>
         <location filename="../core/Lotw.cpp" line="104"/>
@@ -5864,12 +5864,12 @@
     <message>
         <location filename="../ui/LotwDialog.cpp" line="79"/>
         <source>LoTW Update failed: </source>
-        <translation>Aggiornamento LotW fallito</translation>
+        <translation>Aggiornamento LotW fallito: </translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="168"/>
         <source>Processing LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Elaborazione LoTW</translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="184"/>
@@ -5881,19 +5881,19 @@
         <location filename="../ui/LotwDialog.cpp" line="184"/>
         <source>%n QSO(s) uploaded.</source>
         <translation>
-            <numerusform>%n QSO caricato/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSO caricato.</numerusform>
+            <numerusform>%n QSO caricati.</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="206"/>
         <source>QLog Warning</source>
-        <translation type="unfinished">Avviso QLog</translation>
+        <translation>Avviso QLog</translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="207"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare il/i QSO: </translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="215"/>
@@ -6169,7 +6169,7 @@
         <location filename="../ui/MainWindow.ui" line="285"/>
         <location filename="../ui/MainWindow.ui" line="781"/>
         <source>Alerts</source>
-        <translation type="unfinished">Allarmi</translation>
+        <translation>Avvisi</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="319"/>
@@ -6271,7 +6271,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="786"/>
         <source>Clear</source>
-        <translation type="unfinished">Cancella</translation>
+        <translation>Cancella</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="791"/>
@@ -6296,7 +6296,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="542"/>
         <source>Report &amp;Bug...</source>
-        <translation>&amp;segnala un errore..</translation>
+        <translation>&amp;segnala un errore...</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="550"/>
@@ -6410,7 +6410,7 @@
         <location filename="../ui/MainWindow.cpp" line="429"/>
         <location filename="../ui/MainWindow.cpp" line="439"/>
         <source>&lt;b&gt;Error Detail:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Dettagli errore:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dettagli errore:&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="668"/>
@@ -6459,7 +6459,7 @@
     <message>
         <location filename="../ui/MainWindow.cpp" line="1085"/>
         <source>About</source>
-        <translation>A proposito di...</translation>
+        <translation>A proposito di</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1129"/>
@@ -6571,12 +6571,12 @@
     <message>
         <location filename="../core/Migration.cpp" line="303"/>
         <source>Updating </source>
-        <translation>In aggiornamento</translation>
+        <translation>In aggiornamento </translation>
     </message>
     <message>
         <location filename="../core/Migration.cpp" line="319"/>
         <source> Update Failed</source>
-        <translation>Aggiornamento fallito</translation>
+        <translation> Aggiornamento fallito</translation>
     </message>
 </context>
 <context>
@@ -6832,7 +6832,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1950"/>
         <source>LP</source>
-        <translation type="unfinished"></translation>
+        <translation>LP</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1991"/>
@@ -7211,7 +7211,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../core/main.cpp" line="525"/>
         <source>Could not connect to database.</source>
-        <translation>Impossibile connettere il Database</translation>
+        <translation>Impossibile collegare il Database.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="535"/>
@@ -7221,7 +7221,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../core/main.cpp" line="542"/>
         <source>Database migration failed.</source>
-        <translation>Errore nella Migrazione del database</translation>
+        <translation>Errore nella Migrazione del database.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="549"/>
@@ -7303,8 +7303,8 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <location filename="../ui/ExportDialog.cpp" line="231"/>
         <source>Exported %n contact(s).</source>
         <translation>
-            <numerusform>Esportato: %n contatto/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>Esportato %n contatto.</numerusform>
+            <numerusform>Esportati %n contatti.</numerusform>
         </translation>
     </message>
     <message>
@@ -7331,12 +7331,12 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/MainWindow.cpp" line="428"/>
         <source>&lt;b&gt;Rotator Error:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Errore del rotore:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Errore del rotore:&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="438"/>
         <source>&lt;b&gt;CW Keyer Error:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Errore Keyer CW:&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Errore Keyer CW:&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1484"/>
@@ -7346,17 +7346,17 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSOFilterDetail.cpp" line="594"/>
         <source>Cannot update QSO Filter Conditions - </source>
-        <translation>Impossibile aggiornare le condizioni del filtro QSO -</translation>
+        <translation>Impossibile aggiornare le condizioni del filtro QSO - </translation>
     </message>
     <message>
         <location filename="../ui/QSOFilterDetail.cpp" line="605"/>
         <source>Cannot delete QSO Filter Conditions before updating - </source>
-        <translation>Impossibile eliminare le condizioni del filtro QSO prima dell&apos;aggiornamento -</translation>
+        <translation>Impossibile eliminare le condizioni del filtro QSO prima dell&apos;aggiornamento - </translation>
     </message>
     <message>
         <location filename="../ui/QSOFilterDetail.cpp" line="614"/>
         <source>Cannot Update QSO Filter Matching type - </source>
-        <translation>Impossibile aggiornare il tipo di corrispondenza del filtro QSO -</translation>
+        <translation>Impossibile aggiornare il tipo di corrispondenza del filtro QSO - </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="318"/>
@@ -7377,7 +7377,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="428"/>
         <source>Rig PTT port must be a valid COM port.&lt;br&gt;For Windows use COMxx, for unix-like OS use a path to device</source>
-        <translation type="unfinished"></translation>
+        <translation>La porta PTT della Radio deve essere una porta COM valida.&lt;br&gt;Per Windows utilizzare COMxx, per sistemi operativi di tipo Unix utilizzare un percorso al dispositivo</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="436"/>
@@ -7592,30 +7592,30 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/DxWidget.cpp" line="1075"/>
         <source>Cannot connect to DXC Server &lt;p&gt;Reason &lt;b&gt;: </source>
-        <translation>Impossibile connettersi al server DXC &lt;p&gt;Motivo &lt;b&gt;:</translation>
+        <translation>Impossibile connettersi al server DXC &lt;p&gt;Motivo &lt;b&gt;: </translation>
     </message>
     <message numerus="yes">
         <location filename="../ui/ImportDialog.cpp" line="367"/>
         <source>&lt;b&gt;Imported&lt;/b&gt;: %n contact(s)</source>
         <translation>
-            <numerusform>&lt;b&gt;Importato&lt;/b&gt;: %n contatto/i</numerusform>
-            <numerusform></numerusform>
+            <numerusform>&lt;b&gt;Importato&lt;/b&gt;: %n contatto</numerusform>
+            <numerusform>&lt;b&gt;Importati&lt;/b&gt;: %n contatti</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../ui/ImportDialog.cpp" line="368"/>
         <source>&lt;b&gt;Warning(s)&lt;/b&gt;: %n</source>
         <translation>
-            <numerusform>&lt;b&gt;Allarme/i&lt;/b&gt;: %n</numerusform>
-            <numerusform></numerusform>
+            <numerusform>&lt;b&gt;Allarme&lt;/b&gt;: %n</numerusform>
+            <numerusform>&lt;b&gt;Allarmi&lt;/b&gt;: %n</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../ui/ImportDialog.cpp" line="369"/>
         <source>&lt;b&gt;Error(s)&lt;/b&gt;: %n</source>
         <translation>
-            <numerusform>&lt;b&gt;Errore/i&lt;/b&gt;: %n</numerusform>
-            <numerusform></numerusform>
+            <numerusform>&lt;b&gt;Errore&lt;/b&gt;: %n</numerusform>
+            <numerusform>&lt;b&gt;Errori&lt;/b&gt;: %n</numerusform>
         </translation>
     </message>
 </context>
@@ -7694,8 +7694,8 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <location filename="../ui/QrzDialog.cpp" line="135"/>
         <source>%n QSO(s) uploaded.</source>
         <translation>
-            <numerusform>%n QSO caricato/i.</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSO caricato.</numerusform>
+            <numerusform>%n QSO caricati.</numerusform>
         </translation>
     </message>
     <message>
@@ -7706,7 +7706,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QrzDialog.cpp" line="144"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation>Impossibile caricare QSO/s: </translation>
+        <translation>Impossibile caricare il/i QSO: </translation>
     </message>
     <message>
         <location filename="../ui/QrzDialog.cpp" line="155"/>
@@ -7759,7 +7759,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSLImportStatDialog.cpp" line="26"/>
         <source>Unmatched QSLs: </source>
-        <translation>QSL senza corrispondenza:</translation>
+        <translation>QSL senza corrispondenza: </translation>
     </message>
 </context>
 <context>
@@ -8291,7 +8291,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="672"/>
         <source>eQSL Download Image failed: </source>
-        <translation>Download immagine da eQSL fallito</translation>
+        <translation>Download immagine da eQSL fallito: </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="857"/>
@@ -8328,22 +8328,22 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="893"/>
         <source>Based on callsign, DXCC Country is different from the entered value - expecting </source>
-        <translation>In base al nominativo, il Paese DXCC è diverso dal valore inserito come previsto</translation>
+        <translation>In base al nominativo, il Paese DXCC è diverso dal valore inserito come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="897"/>
         <source>Based on callsign, DXCC Continent is different from the entered value - expecting </source>
-        <translation>In base al nominativo, il continente DXCC è diverso dal valore inserito come previsto</translation>
+        <translation>In base al nominativo, il continente DXCC è diverso dal valore inserito come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="901"/>
         <source>Based on callsign, DXCC ITU is different from the entered value - expecting </source>
-        <translation>In base al nominativo, DXCC ITU è diverso dal valore inserito come previsto</translation>
+        <translation>In base al nominativo, DXCC ITU è diverso dal valore inserito come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="905"/>
         <source>Based on callsign, DXCC CQZ is different from the entered value - expecting </source>
-        <translation>In base al nominativo, DXCC CQZ è diverso dal valore inserito come previsto</translation>
+        <translation>In base al nominativo, DXCC CQZ è diverso dal valore inserito come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="909"/>
@@ -8353,7 +8353,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="915"/>
         <source>Based on Frequencies, Sat Mode should be </source>
-        <translation>In base alle frequenze, la modalità satellitare dovrebbe essere</translation>
+        <translation>In base alle frequenze, la modalità satellitare dovrebbe essere </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="915"/>
@@ -8383,57 +8383,57 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="941"/>
         <source>Based on own callsign, own DXCC ITU is different from the entered value - expecting </source>
-        <translation>In base al proprio nominativo, il proprio DXCC ITU è diverso dal valore inserito previsto</translation>
+        <translation>In base al proprio nominativo, il proprio DXCC ITU è diverso dal valore inserito previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="945"/>
         <source>Based on own callsign, own DXCC CQZ is different from the entered value - expecting </source>
-        <translation>In base al proprio nominativo, il proprio DXCC CQZ è diverso dal valore inserito previsto</translation>
+        <translation>In base al proprio nominativo, il proprio DXCC CQZ è diverso dal valore inserito previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="949"/>
         <source>Based on own callsign, own DXCC Country is different from the entered value - expecting </source>
-        <translation>In base al proprio nominativo, il proprio Paese DXCC è diverso dal valore inserito previsto</translation>
+        <translation>In base al proprio nominativo, il proprio Paese DXCC è diverso dal valore inserito previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="968"/>
         <source>Based on SOTA Summit, QTH does not match SOTA Summit Name - expecting </source>
-        <translation>Secondo il SOTA Summit, QTH non corrisponde al nome del SOTA Summit come previsto</translation>
+        <translation>Secondo il SOTA Summit, QTH non corrisponde al nome del SOTA Summit come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="977"/>
         <source>Based on SOTA Summit, Grid does not match SOTA Grid - expecting </source>
-        <translation>Secondo il SOTA Summit, la Griglia non corrisponde alla Griglia SOTA, come previsto</translation>
+        <translation>Secondo il SOTA Summit, la Griglia non corrisponde alla Griglia SOTA, come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="983"/>
         <source>Based on POTA record, QTH does not match POTA Name - expecting </source>
-        <translation>Secondo i record POTA, il QTH non corrisponde al nome POTA come previsto</translation>
+        <translation>Secondo i record POTA, il QTH non corrisponde al nome POTA come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="992"/>
         <source>Based on POTA record, Grid does not match POTA Grid - expecting </source>
-        <translation>Secondo i record POTA, la griglia non corrisponde alla griglia POTA come previsto</translation>
+        <translation>Secondo i record POTA, la griglia non corrisponde alla griglia POTA come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1011"/>
         <source>Based on SOTA Summit, my QTH does not match SOTA Summit Name - expecting </source>
-        <translation>Secondo il SOTA Summit, il mio QTH non corrisponde al nome SOTA Summit come previsto</translation>
+        <translation>Secondo il SOTA Summit, il mio QTH non corrisponde al nome SOTA Summit come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1020"/>
         <source>Based on SOTA Summit, my Grid does not match SOTA Grid - expecting </source>
-        <translation>Secondo il SOTA Summit, la mia griglia non corrisponde alla griglia SOTA, come previsto</translation>
+        <translation>Secondo il SOTA Summit, la mia griglia non corrisponde alla griglia SOTA, come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1026"/>
         <source>Based on POTA record, my QTH does not match POTA Name - expecting </source>
-        <translation>Secondo i record POTA, il mio QTH non corrisponde al nome POTA come previsto</translation>
+        <translation>Secondo i record POTA, il mio QTH non corrisponde al nome POTA come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1035"/>
         <source>Based on POTA record, my Grid does not match POTA Grid - expecting </source>
-        <translation>Secondo i record POTA, la mia griglia non corrisponde alla griglia POTA, come previsto</translation>
+        <translation>Secondo i record POTA, la mia griglia non corrisponde alla griglia POTA, come previsto </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1040"/>
@@ -8468,7 +8468,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1212"/>
         <source>Callbook error: </source>
-        <translation>Errore del Callbook</translation>
+        <translation>Errore del Callbook: </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1347"/>
@@ -8507,7 +8507,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSOFilterDetail.ui" line="24"/>
         <source>Filter Name:</source>
-        <translation>Nome del filtro</translation>
+        <translation>Nome del filtro:</translation>
     </message>
     <message>
         <location filename="../ui/QSOFilterDetail.ui" line="31"/>
@@ -8806,7 +8806,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="384"/>
         <source>Profile name that is used as the alias for the Callsign, Gridsquare, Operator name, and QTH (required parameter) </source>
-        <translation>Nome del profilo utilizzato come alias per Callsign, Gridsquare, Nome operatore e QTH (parametro obbligatorio)</translation>
+        <translation>Nome del profilo utilizzato come alias per Callsign, Gridsquare, Nome operatore e QTH (parametro obbligatorio) </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="195"/>
@@ -8945,7 +8945,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="480"/>
         <source>Azimuth Beamwidth </source>
-        <translation>Larghezza del fascio azimutale</translation>
+        <translation>Larghezza del fascio azimutale </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="487"/>
@@ -9449,12 +9449,12 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2149"/>
         <source>PTT Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo PTT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2164"/>
         <source>PTT Port</source>
-        <translation type="unfinished"></translation>
+        <translation>Porta PTT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2248"/>
@@ -9737,7 +9737,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3790"/>
         <source>Port </source>
-        <translation>Porta</translation>
+        <translation>Porta </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3803"/>
@@ -9772,7 +9772,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3877"/>
         <source>Time-To-Live determines the range&lt;br&gt; over which a multicast packet is propagated in your intranet. </source>
-        <translation>Time-To-Live determina l&apos;intervallo&lt;br&gt; entro il quale un pacchetto multicast viene propagato nella tua Intranet.</translation>
+        <translation>Time-To-Live determina l&apos;intervallo&lt;br&gt; entro il quale un pacchetto multicast viene propagato nella tua Intranet. </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3898"/>
@@ -9812,7 +9812,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3961"/>
         <source>QSO Changes </source>
-        <translation>Modifiche al QSO</translation>
+        <translation>Modifiche al QSO </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3968"/>
@@ -10294,7 +10294,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="308"/>
         <source>Not Confirmed </source>
-        <translation>Non confermato</translation>
+        <translation>Non confermato </translation>
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="787"/>
