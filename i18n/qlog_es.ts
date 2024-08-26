@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="es_AR">
+<TS version="2.1" language="es_ES">
 <context>
     <name>AlertRuleDetail</name>
     <message>
@@ -277,17 +277,20 @@
     <message>
         <location filename="../ui/AlertWidget.ui" line="121"/>
         <source>Edit Rules</source>
-        <translation type="unfinished">Editar Reglas</translation>
+        <translatorcomment>Editar Reglas</translatorcomment>
+        <translation>Editar Reglas</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="126"/>
         <source>Column Visibility...</source>
-        <translation type="unfinished">Visibilidad de Columnas...</translation>
+        <translatorcomment>Visibilidad de Columnas</translatorcomment>
+        <translation>Visibilidad de Columnas...</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="131"/>
         <source>Clear</source>
-        <translation type="unfinished">Borrar</translation>
+        <translatorcomment>Limpiar</translatorcomment>
+        <translation>Limpiar</translation>
     </message>
 </context>
 <context>
@@ -295,26 +298,31 @@
     <message>
         <location filename="../ui/AwardsDialog.ui" line="14"/>
         <source>Awards</source>
+        <translatorcomment>Diplomas</translatorcomment>
         <translation>Diplomas</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="35"/>
         <source>Options</source>
+        <translatorcomment>Opciones</translatorcomment>
         <translation>Opciones</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="59"/>
         <source>Award</source>
+        <translatorcomment>Diploma</translatorcomment>
         <translation>Diploma</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="94"/>
         <source>My DXCC Entity</source>
+        <translatorcomment>Mi entidad DXCC</translatorcomment>
         <translation>Mi Entidad DXCC</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="142"/>
         <source>Confirmed by</source>
+        <translatorcomment>Confirmado por</translatorcomment>
         <translation>Confirmado por</translation>
     </message>
     <message>
@@ -330,11 +338,13 @@
     <message>
         <location filename="../ui/AwardsDialog.ui" line="171"/>
         <source>Paper</source>
+        <translatorcomment>Papel</translatorcomment>
         <translation>Papel</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="183"/>
         <source>Mode</source>
+        <translatorcomment>Modo</translatorcomment>
         <translation>Modo</translation>
     </message>
     <message>
@@ -355,12 +365,14 @@
     <message>
         <location filename="../ui/AwardsDialog.ui" line="224"/>
         <source>Not-Worked Only</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Sólo no trabajado</translatorcomment>
+        <translation>Sólo no trabajado</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.ui" line="231"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Mostrar</translatorcomment>
+        <translation>Mostrar</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="34"/>
@@ -400,51 +412,61 @@
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="41"/>
         <source>POTA Hunter</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Cazador de POTA</translatorcomment>
+        <translation>Cazador de POTA</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="42"/>
         <source>POTA Activator</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Activador de POTA</translatorcomment>
+        <translation>Activador de POTA</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="43"/>
         <source>SOTA</source>
-        <translation type="unfinished">SOTA</translation>
+        <translatorcomment>Cumbres en el Aire</translatorcomment>
+        <translation>SOTA</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="44"/>
         <source>WWFF</source>
-        <translation type="unfinished">WWFF</translation>
+        <translatorcomment>Flora y Fauna Mundial</translatorcomment>
+        <translation>WWFF</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="46"/>
         <source>Done</source>
+        <translatorcomment>Hecho</translatorcomment>
         <translation>Hecho</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="198"/>
         <source>North America</source>
-        <translation>Norteamérica</translation>
+        <translatorcomment>América del Norte</translatorcomment>
+        <translation>América del Norte</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="199"/>
         <source>South America</source>
-        <translation>Sudamérica</translation>
+        <translatorcomment>América del Sur</translatorcomment>
+        <translation>América del Sur</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="200"/>
         <source>Europe</source>
+        <translatorcomment>Europa</translatorcomment>
         <translation>Europa</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="201"/>
         <source>Africa</source>
+        <translatorcomment>África</translatorcomment>
         <translation>África</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="202"/>
         <source>Oceania</source>
+        <translatorcomment>Oceanía</translatorcomment>
         <translation>Oceanía</translation>
     </message>
     <message>
@@ -455,26 +477,31 @@
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="204"/>
         <source>Antarctica</source>
+        <translatorcomment>Antártida</translatorcomment>
         <translation>Antártida</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="365"/>
         <source>TOTAL Worked</source>
+        <translatorcomment>TOTAL Trabajado</translatorcomment>
         <translation>TOTAL Trabajado</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="375"/>
         <source>TOTAL Confirmed</source>
+        <translatorcomment>TOTAL Confirmado</translatorcomment>
         <translation>TOTAL Confirmado</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="381"/>
         <source>Confirmed</source>
+        <translatorcomment>Confirmado</translatorcomment>
         <translation>Confirmado</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="388"/>
         <source>Worked</source>
+        <translatorcomment>Trabajado</translatorcomment>
         <translation>Trabajado</translation>
     </message>
 </context>
@@ -1017,7 +1044,8 @@
     <message>
         <location filename="../ui/ClublogDialog.ui" line="84"/>
         <source>My GridSquare</source>
-        <translation>Mi Grilla</translation>
+        <translatorcomment>Mi Cuadrícula</translatorcomment>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/ClublogDialog.cpp" line="115"/>
@@ -2773,7 +2801,7 @@
     <message>
         <location filename="dbstrings.tri" line="328"/>
         <source>Vatican City</source>
-        <translation>Ciudad de Vaticano</translation>
+        <translation>Ciudad del Vaticano</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="329"/>
@@ -3101,7 +3129,7 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="20"/>
         <source>DX Cluster Filters</source>
-        <translation>Filtros del Cluster DX</translation>
+        <translation>Filtros del DX Cluster</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="39"/>
@@ -3233,7 +3261,7 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="336"/>
         <source>Do not show the following spots when they have the same Callsign and their time difference is lower than Time Diff and their frequency difference is lower than Freq Diff</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar los siguientes spots cuando tengan el mismo indicativo y su diferencia horaria sea inferior a Time Diff y su diferencia de frecuencia sea inferior a Freq Diff</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="339"/>
@@ -3243,22 +3271,24 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="366"/>
         <source>Time difference</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Diferencia Horaria</translatorcomment>
+        <translation>Diferencia Horaria</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="373"/>
         <source>s</source>
-        <translation type="unfinished"></translation>
+        <translation>s</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="386"/>
         <source>Frequency difference</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Diferencia de Frecuencia</translatorcomment>
+        <translation>Diferencia de Frecuencia</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="393"/>
         <source> kHz</source>
-        <translation type="unfinished"></translation>
+        <translation>Khz</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="412"/>
@@ -3631,7 +3661,7 @@
     <message>
         <location filename="../ui/Eqsldialog.ui" line="26"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="33"/>
@@ -3864,12 +3894,12 @@
         <location filename="../ui/ExportDialog.ui" line="299"/>
         <location filename="../ui/ExportDialog.ui" line="312"/>
         <source>Export only QSOs that match the selected My Gridsquare</source>
-        <translation>Exporta solo QSOs que coincidan con Mi Grilla seleccionada</translation>
+        <translation>Exporta solo QSOs que coincidan con Mi Locator seleccionado</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="302"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="319"/>
@@ -4006,7 +4036,7 @@
     <message>
         <location filename="../ui/HRDLogDialog.ui" line="26"/>
         <source>My GridSquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/HRDLogDialog.ui" line="36"/>
@@ -4086,22 +4116,26 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="47"/>
         <source>None</source>
-        <translation type="unfinished">Ninguno</translation>
+        <translatorcomment>Ninguno</translatorcomment>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="48"/>
         <source>CAT</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Sintonización asistida por ordenador</translatorcomment>
+        <translation>CAT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="49"/>
         <source>DTR</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Terminal de datos listo (DTR) es una señal de control en comunicaciones serie RS-232, transmitida desde un equipo terminal de datos (DTE), como una computadora, a un equipo de comunicaciones de datos (DCE), por ejemplo un interface, para indicar que el terminal está listo para comunicaciones y el interface puede iniciar un canal de comunicaciones.</translatorcomment>
+        <translation>DTR</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="50"/>
         <source>RTS</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Control de Señal del Puerto Serie</translatorcomment>
+        <translation>RTS</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="133"/>
@@ -4112,12 +4146,14 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="201"/>
         <source>Cannot set PTT Type</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>No se puede configurar el tipo de PTT</translatorcomment>
+        <translation>No se puede configurar el tipo de PTT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="208"/>
         <source>Cannot set PTT Share</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>No se puede configurar la acción del PTT</translatorcomment>
+        <translation>No se puede configurar la acción del PTT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="215"/>
@@ -4415,7 +4451,7 @@
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="218"/>
         <source>Transfer Callsign and Gridsquare Information to the New QSO dialog</source>
-        <translation>Transferir información de Indicativo y Grilla a Nuevo QSO</translation>
+        <translation>Transferir información de Indicativo y Locator a Nuevo QSO</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="226"/>
@@ -4533,7 +4569,7 @@
     <message>
         <location filename="../ui/KSTHighlightRuleDetail.cpp" line="66"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../ui/KSTHighlightRuleDetail.cpp" line="79"/>
@@ -4719,7 +4755,7 @@
         <location filename="../models/LogbookModel.cpp" line="29"/>
         <location filename="../models/LogbookModel.cpp" line="238"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="30"/>
@@ -4879,7 +4915,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="61"/>
         <source>Gridsquare Extended</source>
-        <translation>Grilla Extendida</translation>
+        <translation>Locator Extendido</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="62"/>
@@ -5122,12 +5158,12 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="109"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="110"/>
         <source>My Gridsquare Extended</source>
-        <translation>Mi Grilla Extendida</translation>
+        <translation>Mi Locator Extendido</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="111"/>
@@ -5233,7 +5269,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="132"/>
         <source>My VUCC Grids</source>
-        <translation>Mi Grilla VUCC</translation>
+        <translation>Mi Locator VUCC</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="133"/>
@@ -5576,12 +5612,13 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="309"/>
         <source>Send DX Spot</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Envía un Spot de DX</translatorcomment>
+        <translation>Enviar Spot de DX</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="312"/>
         <source>Logbook - Send DX Spot</source>
-        <translation type="unfinished"></translation>
+        <translation>El libro envia Spot de DX</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="255"/>
@@ -5784,7 +5821,7 @@
     <message>
         <location filename="../ui/LotwDialog.ui" line="33"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.ui" line="40"/>
@@ -5869,7 +5906,7 @@
     <message>
         <location filename="../ui/LotwDialog.cpp" line="168"/>
         <source>Processing LoTW</source>
-        <translation type="unfinished"></translation>
+        <translation>Procesando LOTW</translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="184"/>
@@ -5888,12 +5925,13 @@
     <message>
         <location filename="../ui/LotwDialog.cpp" line="206"/>
         <source>QLog Warning</source>
-        <translation type="unfinished">Alerta de QLog</translation>
+        <translatorcomment>QLog te avisa de un error.</translatorcomment>
+        <translation>Aviso de QLog</translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="207"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation type="unfinished">No se puede subir el/los QSO/s: </translation>
+        <translation>No se puede subir el/los QSO/s: </translation>
     </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="215"/>
@@ -6169,7 +6207,7 @@
         <location filename="../ui/MainWindow.ui" line="285"/>
         <location filename="../ui/MainWindow.ui" line="781"/>
         <source>Alerts</source>
-        <translation type="unfinished">Alertas</translation>
+        <translation>Alertas</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="319"/>
@@ -6271,7 +6309,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="786"/>
         <source>Clear</source>
-        <translation type="unfinished">Borrar</translation>
+        <translation>Limpiar</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="791"/>
@@ -6474,7 +6512,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="66"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="142"/>
         <source>Grid</source>
-        <translation>Grilla</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../ui/MapWebChannelHandler.cpp" line="40"/>
@@ -6832,7 +6870,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1950"/>
         <source>LP</source>
-        <translation type="unfinished"></translation>
+        <translation>LP</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1991"/>
@@ -6902,7 +6940,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3305"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
-        <translation>dos o cuatro grillas adyacentes, cada uno de cuatro caracteres (ej. EN98,FM08,EM97,FM07)</translation>
+        <translation>dos o cuatro locators adyacentes, cada uno de cuatro caracteres (ej. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3308"/>
@@ -7376,7 +7414,7 @@
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="428"/>
         <source>Rig PTT port must be a valid COM port.&lt;br&gt;For Windows use COMxx, for unix-like OS use a path to device</source>
-        <translation type="unfinished"></translation>
+        <translation>El puerto de control del PTT debe ser un puerto COM válido.&lt;br&gt;Para Windows utilice COMxx, para SO tipo unix utilice una ruta al dispositivo</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="436"/>
@@ -7416,12 +7454,13 @@
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1514"/>
         <source>Gridsquare has an invalid format</source>
-        <translation>La Grilla tiene un formato no válido</translation>
+        <translatorcomment>La cuadrícula no es válida en ese formato.</translatorcomment>
+        <translation>El Locator tiene un formato no válido</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1523"/>
         <source>VUCC Grids have an invalid format (must be 2 or 4 Gridsquares separated by &apos;,&apos;)</source>
-        <translation>La Grilla VUCC tiene un formato no válido (debe se 2 o 4 Grillas separadas por &apos;,&apos;)</translation>
+        <translation>El Locator VUCC tiene un formato no válido (debe se 2 o 4 dígitos separadas por &apos;,&apos;)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1531"/>
@@ -7526,7 +7565,7 @@
     <message>
         <location filename="../data/StationProfile.cpp" line="185"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="186"/>
@@ -7561,7 +7600,7 @@
     <message>
         <location filename="../data/StationProfile.cpp" line="192"/>
         <source>My VUCC Grids</source>
-        <translation>Mi Grilla VUCC</translation>
+        <translation>Mi Locator VUCC</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="193"/>
@@ -7651,7 +7690,7 @@
     <message>
         <location filename="../ui/QrzDialog.ui" line="39"/>
         <source>My GridSquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/QrzDialog.ui" line="46"/>
@@ -7852,7 +7891,7 @@
         <location filename="../ui/QSODetailDialog.ui" line="571"/>
         <location filename="../ui/QSODetailDialog.ui" line="1298"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="600"/>
@@ -7956,7 +7995,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="966"/>
         <source>two or four adjacent Gridsquares, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
-        <translation>dos o cuatro grillas adyacentes, cada uno de cuatro caracteres (ej. EN98,FM08,EM97,FM07)</translation>
+        <translation>Locator VUCC (Opcional). Ej. EN98,FM08,EM97,FM07</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="986"/>
@@ -8322,7 +8361,7 @@
         <location filename="../ui/QSODetailDialog.cpp" line="887"/>
         <location filename="../ui/QSODetailDialog.cpp" line="933"/>
         <source>DX Grid has an incorrect format</source>
-        <translation>La Grilla del DX tiene formato incorrecto</translation>
+        <translation>El Locator del DX tiene formato incorrecto</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="893"/>
@@ -8377,7 +8416,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="937"/>
         <source>Own VUCC Grids have an incorrect format</source>
-        <translation>La Grilla VUCC propia tiene formato incorrecto</translation>
+        <translation>El Locator VUCC propio tiene formato incorrecto</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="941"/>
@@ -8402,7 +8441,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="977"/>
         <source>Based on SOTA Summit, Grid does not match SOTA Grid - expecting </source>
-        <translation>Según la Cumbre SOTA, la Grilla no coincide con la Grilla SOTA - se esperaba </translation>
+        <translation>Según la Cumbre SOTA, el Locator no coincide con el Locator SOTA - se esperaba </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="983"/>
@@ -8412,7 +8451,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="992"/>
         <source>Based on POTA record, Grid does not match POTA Grid - expecting </source>
-        <translation>Según los registros POTA, la Grilla no coincide con la Grilla POTA - se esperaba </translation>
+        <translation>Según los registros POTA, el Locator no coincide con el Locator POTA - se esperaba </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1011"/>
@@ -8422,7 +8461,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1020"/>
         <source>Based on SOTA Summit, my Grid does not match SOTA Grid - expecting </source>
-        <translation>Según la Cumbre SOTA, mi Grilla no coincide con la Grilla SOTA - se esperaba</translation>
+        <translation>Según la Cumbre SOTA, mi Locator no coincide con el Locator SOTA - se esperaba</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1026"/>
@@ -8432,7 +8471,7 @@
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1035"/>
         <source>Based on POTA record, my Grid does not match POTA Grid - expecting </source>
-        <translation>Según los registros POTA, mi Grilla no coincide con la Grilla POTA - se esperaba </translation>
+        <translation>Según los registros POTA, mi Locator no coincide con el Locator POTA - se esperaba </translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.cpp" line="1040"/>
@@ -8759,7 +8798,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="322"/>
         <source>Station Gridsquare (Mandatory parameter)</source>
-        <translation>Grilla de la Estación (Obligatorio)</translation>
+        <translation>Locator de la Estación (Obligatorio)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="128"/>
@@ -8805,7 +8844,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="384"/>
         <source>Profile name that is used as the alias for the Callsign, Gridsquare, Operator name, and QTH (required parameter) </source>
-        <translation>Nombre de perfil que se utiliza como alias para Indicativo, Grilla, Nombre del operador y QTH (obligatorio) </translation>
+        <translation>Nombre de perfil que se utiliza como alias para Indicativo, Locator, Nombre del operador y QTH (obligatorio) </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="195"/>
@@ -8815,7 +8854,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="82"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Locator</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="342"/>
@@ -8846,7 +8885,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="305"/>
         <source>VUCC  Grids (Optional parameter). Ex. EN98,FM08,EM97,FM07</source>
-        <translation>Grillas VUCC (Opcional). Ej. EN98,FM08,EM97,FM07</translation>
+        <translation>Locator VUCC (Opcional). Ej. EN98,FM08,EM97,FM07</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="377"/>
@@ -9170,8 +9209,8 @@
 &lt;MYCALL&gt; = MI Indicativo
 &lt;MYNAME&gt; = Mi Nombre
 &lt;MYQTH&gt; = Mi QTH
-&lt;MYLOCATOR&gt; = Mi Grilla
-&lt;MYGRID&gt; = Mi Grilla
+&lt;MYLOCATOR&gt; = Mi Locator
+&lt;MYGRID&gt; = Mi Cuadrícula
 &lt;MYSIG&gt; = Mi SIG
 &lt;MYSIGINFO&gt; = Mi Información SIG
 &lt;MYIOTA&gt; = Mi IOTA
@@ -9448,12 +9487,14 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2149"/>
         <source>PTT Type</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Tipo de PTT</translatorcomment>
+        <translation>Tipo de PTT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2164"/>
         <source>PTT Port</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Puerto para el PTT</translatorcomment>
+        <translation>PTT Puerto</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2248"/>
@@ -10092,7 +10133,7 @@
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="94"/>
         <source>My Gridsquare</source>
-        <translation>Mi Grilla</translation>
+        <translation>Mi Locator</translation>
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="127"/>
@@ -10223,7 +10264,7 @@
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="61"/>
         <source>Big Gridsquares</source>
-        <translation>Grillas Grandes</translation>
+        <translation>Grandes cuadrículas</translation>
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="70"/>
@@ -10238,7 +10279,7 @@
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="78"/>
         <source>Confirmed/Worked Grids</source>
-        <translation>Grillas Confirmadas/Trabajadas</translation>
+        <translation>Locators Confirmados/Trabajados</translation>
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.cpp" line="79"/>
@@ -10375,7 +10416,7 @@
     <message>
         <location filename="../ui/KSTChatWidget.cpp" line="697"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Cuadrícula</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.cpp" line="698"/>
@@ -10597,7 +10638,7 @@
     <message>
         <location filename="../models/WsjtxTableModel.cpp" line="88"/>
         <source>Gridsquare</source>
-        <translation>Grilla</translation>
+        <translation>Cuadrícula</translation>
     </message>
     <message>
         <location filename="../models/WsjtxTableModel.cpp" line="89"/>
