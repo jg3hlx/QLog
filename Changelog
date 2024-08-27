@@ -4,7 +4,7 @@ TBC - 0.38.0
 - [NEW] - Rig Setting - Added RTS/DTR PTT Type support (issue #353)
 - [NEW] - Bandmap - Scrollbar position is saved per band (issue #415)
 - [NEW] - New Contact - Added a dynamic value completer for SIG field (issue #425)
-- [NEW] - Awards - Added SOTA/POTA/WWFF (@aa5sh)
+- [NEW] - Awards - Added SOTA/POTA/WWFF (@aa5sh issue #311)
 - [NEW] - Awards - Added Not-Worked Filter
 - [NEW] - New Contact - Added Long Path Azimuth info
 - [NEW] - POTA Fields allow a comma-delimited list of one or more POTA Refs
