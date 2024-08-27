@@ -105,8 +105,8 @@ public:
         currentProfile1 = query.first() ? query.value(0).toString() : QString();
 
         if ( currentProfile1.isEmpty() )
-            qWarning() << "Empty profile name for " << tableName
-                       << "SQL Error" << query.lastError().text();
+            qDebug() << "Empty profile name for " << tableName
+                     << "SQL Error" << query.lastError().text();
     };
 
     const T getCurProfile1()
