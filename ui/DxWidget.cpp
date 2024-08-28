@@ -30,6 +30,7 @@
 #include "data/BandPlan.h"
 #include "core/DxServerString.h"
 #include "rig/macros.h"
+#include "core/Callsign.h"
 
 #define CONSOLE_VIEW 4
 #define NUM_OF_RECONNECT_ATTEMPTS 3
@@ -501,8 +502,10 @@ void DxWidget::connectCluster()
 {
     FCT_IDENTIFICATION;
 
+    const Callsign connectCallsign(StationProfilesManager::instance()->getCurProfile1().callsign);
     connectedServerString = new DxServerString(ui->serverSelect->currentText(),
-                                               StationProfilesManager::instance()->getCurProfile1().callsign.toLower());
+                                               connectCallsign.isValid() ? connectCallsign.getBase().toLower()
+                                                                         : QString());
 
     if ( !connectedServerString )
     {
