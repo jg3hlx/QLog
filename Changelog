@@ -1,4 +1,4 @@
-TBC - 0.38.0
+2024/08/29 - 0.38.0
 - [NEW] - Logbook - Added Send DX Spot to the QSO Context Menu
 - [NEW] - DX Filter - Added Dedup Time/Freq difference setting (@aa5sh)
 - [NEW] - Rig Setting - Added RTS/DTR PTT Type support (issue #353)
