@@ -164,6 +164,8 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->wsjtxWidget, &WsjtxWidget::spotsCleared, ui->onlineMapWidget, &OnlineMapWidget::clearWSJTXSpots);
     connect(ui->wsjtxWidget, &WsjtxWidget::reply, wsjtx, &Wsjtx::startReply);
     connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->newContactWidget, &NewContactWidget::changeFrequency);
+    connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->onlineMapWidget, &OnlineMapWidget::setIBPBand);
+    connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->bandmapWidget , &BandmapWidget::updateTunedFrequency);
     connect(ui->wsjtxWidget, &WsjtxWidget::modeChanged, ui->newContactWidget, &NewContactWidget::changeModefromRig);
 
     connect(this, &MainWindow::settingsChanged, wsjtx, &Wsjtx::reloadSetting);
