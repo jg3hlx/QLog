@@ -6,7 +6,6 @@
 #include "ui/SwitchButton.h"
 #include "core/NetworkNotification.h"
 #include "core/AlertEvaluator.h"
-#include "ui/AlertWidget.h"
 #include "core/PropConditions.h"
 #include "core/MembershipQE.h"
 #include "core/ClubLog.h"
@@ -31,7 +30,6 @@ public:
 
 signals:
     void settingsChanged();
-    void alertRulesChanged();
     void themeChanged(int);
     void altBackslash(bool active);
     void manualMode(bool);
@@ -42,6 +40,7 @@ public slots:
     void rotErrorHandler(const QString &error, const QString &errorDetail);
     void cwKeyerErrorHandler(const QString &error, const QString &errorDetail);
     void stationProfileChanged();
+    void setLayoutGeometry();
 
 private slots:
     void rigConnect();
@@ -75,7 +74,7 @@ private slots:
     void shortcutALTBackslash();
     void setManualContact(bool);
     void showEditLayout();
-    void setLayoutGeometry();
+
     void saveProfileLayoutGeometry();
     void setEquipmentKeepOptions(bool);
 
@@ -90,7 +89,6 @@ private:
     SwitchButton* darkLightModeSwith;
     QLabel* darkIconLabel;
     StatisticsWidget* stats;
-    AlertWidget* alertWidget;
     NetworkNotification networknotification;
     AlertEvaluator alertEvaluator;
     PropConditions *conditions;
