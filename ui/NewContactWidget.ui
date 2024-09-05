@@ -69,7 +69,7 @@
           <number>0</number>
          </property>
          <item row="1" column="2">
-          <widget class="NewContactEditLine" name="rstRcvdEdit">
+          <widget class="NewContactRSTEditLine" name="rstRcvdEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -284,7 +284,6 @@
             <widget class="QLabel" name="bandRXLabel">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -297,7 +296,6 @@
             <widget class="QLabel" name="bandTXLabel">
              <property name="font">
               <font>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -345,7 +343,6 @@
            <property name="font">
             <font>
              <pointsize>20</pointsize>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -355,7 +352,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="NewContactEditLine" name="rstSentEdit">
+          <widget class="NewContactRSTEditLine" name="rstSentEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -795,7 +792,6 @@
           <property name="font">
            <font>
             <pointsize>13</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -865,7 +861,6 @@
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -894,7 +889,6 @@
               <property name="font">
                <font>
                 <pointsize>9</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                </font>
               </property>
@@ -1668,6 +1662,11 @@
    <class>FreqQSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>ui/FreqQSpinBox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>NewContactRSTEditLine</class>
+   <extends>QLineEdit</extends>
+   <header>ui/EditLine.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
