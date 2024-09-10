@@ -603,6 +603,18 @@ bool AdiFormat::readContact(QMap<QString, QVariant>& contact)
     return false;
 }
 
+AdiFormat::AdiFormat(QTextStream &stream) :
+    LogFormat(stream)
+{
+    FCT_IDENTIFICATION;
+
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+    stream.setEncoding(QStringConverter::Latin1);
+#else
+    stream.setCodec("ISO 8859-1");
+#endif
+}
+
 bool AdiFormat::importNext(QSqlRecord& record)
 {
     FCT_IDENTIFICATION;
