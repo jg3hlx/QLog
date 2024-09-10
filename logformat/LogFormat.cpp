@@ -398,43 +398,40 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
             }
         }
 
-        const DxccEntity &entity = Data::instance()->lookupDxcc(call.toString());
+        int recordDXCCId = record.value(RECORDIDX(LogbookModel::COLUMN_DXCC)).toInt(); // 0 = NAN or not present
+                                                                                       // otherwise = DXCC ID
 
-        if ( entity.dxcc == 0 )
+        const DxccEntity &entity = ( recordDXCCId != 0 ) ? Data::instance()->lookupDxccID(recordDXCCId)
+                                                         : Data::instance()->lookupDxcc(call.toString());
+
+        if ( entity.dxcc == 0 )  // DXCC not found
         {
             writeImportLog(importLogStream,
-                           ERROR_SEVERITY,
+                           (updateDxcc) ? ERROR_SEVERITY : WARNING_SEVERITY,
                            processedRec,
                            record,
                            tr("Cannot find DXCC Entity Info"));
-            (*errors)++;
-            continue;
+            ( updateDxcc ) ? (*errors)++
+                         : (*warnings)++;
+            if ( updateDxcc )
+                continue;
         }
-
-        if ( record.value(RECORDIDX(LogbookModel::COLUMN_DXCC)).toString().isEmpty()
-             || updateDxcc )
+        else
         {
             record.setValue(RECORDIDX(LogbookModel::COLUMN_DXCC), entity.dxcc);
             record.setValue(RECORDIDX(LogbookModel::COLUMN_COUNTRY), Data::removeAccents(entity.country));
             record.setValue(RECORDIDX(LogbookModel::COLUMN_COUNTRY_INTL), entity.country);
-        }
 
-        if ( record.value(RECORDIDX(LogbookModel::COLUMN_CONTINENT)).toString().isEmpty()
-             || updateDxcc )
-        {
-            record.setValue(RECORDIDX(LogbookModel::COLUMN_CONTINENT), entity.cont);
-        }
+            // other DXCC related values ​​are not closely related to DXCC value and could have been filled
+            // therefore check if it is present or not.
+            if ( record.value(RECORDIDX(LogbookModel::COLUMN_CONTINENT)).toString().isEmpty() )
+                record.setValue(RECORDIDX(LogbookModel::COLUMN_CONTINENT), entity.cont);
 
-        if ( record.value(RECORDIDX(LogbookModel::COLUMN_ITUZ)).toString().isEmpty()
-             || updateDxcc )
-        {
-            record.setValue(RECORDIDX(LogbookModel::COLUMN_ITUZ), QString::number(entity.ituz));
-        }
+            if ( record.value(RECORDIDX(LogbookModel::COLUMN_ITUZ)).toString().isEmpty() )
+                record.setValue(RECORDIDX(LogbookModel::COLUMN_ITUZ), QString::number(entity.ituz));
 
-        if ( record.value(RECORDIDX(LogbookModel::COLUMN_CQZ)).toString().isEmpty()
-             || updateDxcc )
-        {
-            record.setValue(RECORDIDX(LogbookModel::COLUMN_CQZ), QString::number(entity.cqz));
+            if ( record.value(RECORDIDX(LogbookModel::COLUMN_CQZ)).toString().isEmpty() )
+                record.setValue(RECORDIDX(LogbookModel::COLUMN_CQZ), QString::number(entity.cqz));
         }
 
         if ( record.value(RECORDIDX(LogbookModel::COLUMN_PREFIX)).toString().isEmpty() )
