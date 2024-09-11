@@ -510,8 +510,8 @@ void AdiFormat::preprocessINTLField(const QString &fieldName,
 
     // NOTE: If modify this, modify also function below!!!!
 
-    QVariant fld = contact.value(fieldName);
-    QVariant fldIntl = contact.value(fieldIntlName);
+    const QVariant &fld = contact.value(fieldName);
+    const QVariant &fldIntl = contact.value(fieldIntlName);
 
     /* In general, it is a hack because ADI must not contain
      * _INTL fields. But some applications generate _INTL fields in ADI files
@@ -547,8 +547,8 @@ void AdiFormat::preprocessINTLField(const QString &fieldName,
     FCT_IDENTIFICATION;
 
     // NOTE: If modify this, modify also function above!!!!
-    QVariant fld = contact.value(fieldName);
-    QVariant fldIntl = contact.value(fieldIntlName);
+    const QVariant &fld = contact.value(fieldName);
+    const QVariant &fldIntl = contact.value(fieldIntlName);
 
     /* In general, it is a hack because ADI must not contain
      * _INTL fields. But some applications generate _INTL fields in ADI files
