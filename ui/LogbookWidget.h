@@ -81,6 +81,7 @@ private:
     SqlListModel* userFilterModel;
     QString externalFilter;
     bool blockClublogSignals;
+    bool eventFilter(QObject *obj, QEvent *event);
 
     void colorsFilterWidget(QComboBox *widget);
 };

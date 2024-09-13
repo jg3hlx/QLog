@@ -6,6 +6,8 @@
 #include <QNetworkReply>
 #include <QProgressDialog>
 #include <QShortcut>
+#include <QEvent>
+#include <QKeyEvent>
 
 #include "logformat/AdiFormat.h"
 #include "models/LogbookModel.h"
@@ -163,6 +165,7 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     ui->contactTable->horizontalHeader()->setSectionsMovable(true);
     ui->contactTable->setStyle(new ProxyStyle(ui->contactTable->style()));
+    ui->contactTable->installEventFilter(this);
 
     ui->bandFilter->blockSignals(true);
     ui->bandFilter->setModel(new SqlListModel("SELECT name FROM bands ORDER BY start_freq", tr("Band"), this));
@@ -895,6 +898,21 @@ void LogbookWidget::sendDXCSpot()
         return;
 
     emit sendDXSpotContactReq(model->record(selectedIndexes.at(0).row()));
+}
+
+bool LogbookWidget::eventFilter(QObject *obj, QEvent *event)
+{
+    FCT_IDENTIFICATION;
+
+    if ( event->type() == QEvent::KeyPress && obj == ui->contactTable )
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        // Block SelectAll
+        if ( QKeySequence(keyEvent->modifiers() | keyEvent->key()) == QKeySequence::SelectAll )
+            return true;
+    }
+
+    return QObject::eventFilter(obj, event);
 }
 
 void LogbookWidget::colorsFilterWidget(QComboBox *widget)
