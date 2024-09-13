@@ -1,6 +1,7 @@
 TBC - 0.39.0
 - [NEW] - Select S in RST Edit when focused (issue #454)
 - [CHANGED] - HamlibDrv - Added multiplatform reliable sleep
+- [CHANGED] - Backup policy
 Fixed WSJT-X does not emit band change if rig is disconnected (issue #447)
 
 2024/08/29 - 0.38.0
