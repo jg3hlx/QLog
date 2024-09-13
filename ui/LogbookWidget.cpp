@@ -746,10 +746,7 @@ void LogbookWidget::updateTable()
     qCDebug(runtime) << "SQL filter summary: " << filterString.join(" AND ");
     model->setFilter(filterString.join(" AND "));
     qCDebug(runtime) << model->query().lastQuery();
-
     model->select();
-    while (model->canFetchMore())
-        model->fetchMore();
 
     ui->contactTable->resizeColumnsToContents();
     ui->filteredQSOsLabel->setText(tr("Count: %n", "", model->rowCount()));
