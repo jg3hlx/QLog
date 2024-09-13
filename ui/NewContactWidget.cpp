@@ -1050,7 +1050,6 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
 {
     FCT_IDENTIFICATION;
 
-
     if ( record.value("pfx").toString().isEmpty() )
     {
         const QString &pfxRef = Callsign(record.value("callsign").toString()).getWPXPrefix();
@@ -1712,13 +1711,17 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
     QSqlField idField = model.record().field(model.fieldIndex("id"));
     model.removeColumn(model.fieldIndex("id"));
 
-    const DxccEntity &dxcc = Data::instance()->lookupDxcc(savedCallsign);
+    // if DXCC field is present then it must be used as DXCC Entity
+    int recordDXCCId = record.value("dxcc").toInt(); // 0 = NAN or not present
+                                                     // otherwise = DXCC ID
+    const DxccEntity &dxcc = ( recordDXCCId ) ? Data::instance()->lookupDxccID(recordDXCCId)
+                                              : Data::instance()->lookupDxcc(savedCallsign);
 
     if ( dxcc.dxcc != 0 )
     {
-        if ( record.value("country_intl").toString().isEmpty()
-             && record.value("country").toString().isEmpty() )
-            record.setValue("country_intl", dxcc.country);
+        // force overwrite
+        record.setValue("dxcc", dxcc.dxcc);
+        record.setValue("country_intl", dxcc.country);
 
         if ( record.value("cqz").toString().isEmpty() )
             record.setValue("cqz", dxcc.cqz);
@@ -1728,9 +1731,6 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
 
         if ( record.value("cont").toString().isEmpty() )
             record.setValue("cont", dxcc.cont);
-
-        if ( record.value("dxcc").toString().isEmpty() )
-            record.setValue("dxcc", dxcc.dxcc);
     }
 
     // add information from callbook if it is a known callsign
