@@ -1,11 +1,5 @@
 #include <QtGlobal>
 
-#ifdef Q_OS_WIN
-#include <windows.h>
-#else
-#include <unistd.h>
-#endif
-
 #include <QRegularExpression>
 #include "HamlibRigDrv.h"
 #include "core/debug.h"
@@ -1031,11 +1025,9 @@ void HamlibRigDrv::__setKeySpeed(qint16 wpm)
 
 void HamlibRigDrv::commandSleep()
 {
-#ifdef Q_OS_WIN
-        Sleep(100);
-#else
-        usleep(100000);
-#endif
+    FCT_IDENTIFICATION;
+
+    QThread::msleep(200);
 }
 
 const QString HamlibRigDrv::getModeNormalizedText(const rmode_t mode,
