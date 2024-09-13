@@ -9,6 +9,7 @@
 #include "LogParam.h"
 #include "LOVDownloader.h"
 #include "ClubLog.h"
+#include "logformat/AdxFormat.h"
 
 MODULE_IDENTIFICATION("qlog.core.migration");
 
@@ -28,13 +29,16 @@ bool Migration::run() {
         //refreshUploadStatusTrigger();
         return true;
     }
-    else if (currentVersion < latestVersion) {
-        qCDebug(runtime) << "Starting database migration";
-    }
-    else {
-        qCritical() << "database from the future";
+    else if ( currentVersion > latestVersion )
+    {
+        qCritical() << "Database from the future" << currentVersion;
         return false;
     }
+
+    qCDebug(runtime) << "Backup before migration";
+    backupDatabase(true);
+
+    qCDebug(runtime) << "Starting database migration";
 
     QProgressDialog progress("Migrating the database...", nullptr, currentVersion, latestVersion);
     progress.show();
@@ -73,6 +77,107 @@ bool Migration::run() {
 
     qCDebug(runtime) << "Database migration successful";
 
+    return true;
+}
+
+bool Migration::backupDatabase(bool force)
+{
+    FCT_IDENTIFICATION;
+
+    const int backupCount = 10;
+    const int backupIntervalDays = 7;
+    const QString lastBackupParamName("last_backup");
+
+    QDate lastBackupDate = LogParam::getParam(lastBackupParamName).toDate();
+    QDate now = QDate::currentDate();
+
+    qCDebug(runtime) << "The last backup date" << lastBackupDate
+                     << "Force" << force;
+
+    if ( !force
+         && lastBackupDate.isValid()
+         && lastBackupDate.addDays(backupIntervalDays) > now )
+    {
+        qCDebug(runtime) << "Backup skipped";
+        return true;
+    }
+
+    const QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
+    const QString todayBackupName = "qlog_backup_" + QDateTime::currentDateTime().toString("yyyyMMdd") + ".adx";
+    const QString todayBackupPath = dir.filePath(todayBackupName);
+
+    // old backup file had a timestamp YYYYMMDDHHmmSS
+    // new backup file has only YYYYMMDD
+    // to be able to clean new and old backup files, following regexp is needed
+    const QRegularExpression regex("^qlog_backup_\\d{8}(\\d{6})?\\.adx$");
+
+    const QFileInfoList &fileList = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
+    QFileInfoList filteredList;
+
+    for ( const QFileInfo &fileInfo : fileList )
+    {
+        if ( regex.match(fileInfo.fileName()).hasMatch() ) // clazy:exclude=use-static-qregularexpression
+        {
+            filteredList.append(fileInfo);
+        }
+    }
+
+    qCDebug(runtime) << filteredList;
+
+    // does today backup exists ?
+    if ( !force )
+    {
+        for ( const QFileInfo &fileInfo : filteredList )
+        {
+            if ( fileInfo.fileName() == todayBackupName )
+            {
+                qCDebug(runtime) << "Backup for today already exists: " << todayBackupName;
+                return true;
+            }
+        }
+    }
+
+    /* Keep the minimum number of backups */
+    /* If a number of backups is greater than backupCount, remove oldest files */
+    if ( filteredList.size() >= backupCount )
+    {
+        std::sort(filteredList.begin(), filteredList.end(), [](const QFileInfo &a, const QFileInfo &b) {
+            return a.fileName() < b.fileName();
+        });
+
+        // remove old files
+        while ( filteredList.size() > backupCount )
+        {
+            QFileInfo oldestFile = filteredList.takeFirst();
+            const QString &filepath = oldestFile.absoluteFilePath();
+            if ( QFile::remove(filepath) )
+                qCDebug(runtime) << "Removing old backup file: " << filepath;
+            else
+                qWarning() << "Failed to remove old backup file: " << filepath;
+        }
+    }
+
+    /* Make a backup file */
+    QFile backupFile(todayBackupPath);
+
+    if ( !backupFile.open(QFile::ReadWrite | QIODevice::Text) )
+    {
+        qWarning() << "Cannot open backup file " << todayBackupPath << " for writing";
+        return false;
+    }
+
+    qCDebug(runtime) << "Exporting a Database backup to " << todayBackupPath;
+
+    QTextStream stream(&backupFile);
+    AdxFormat adx(stream);
+
+    adx.runExport();
+    stream.flush();
+    backupFile.close();
+
+    LogParam::setParam(lastBackupParamName, now);
+
+    qCDebug(runtime) << "Database backup finished";
     return true;
 }
 
