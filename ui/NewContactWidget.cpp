@@ -2611,7 +2611,8 @@ void NewContactWidget::showDx(const QString &callsign, const QString &grid)
     uiDynamic->gridEdit->setText(grid);
 }
 
-void NewContactWidget::setDefaultReport() {
+void NewContactWidget::setDefaultReport()
+{
     FCT_IDENTIFICATION;
 
     if (defaultReport.isEmpty()) {
@@ -2619,7 +2620,9 @@ void NewContactWidget::setDefaultReport() {
     }
 
     ui->rstRcvdEdit->setText(defaultReport);
+    ui->rstRcvdEdit->setSelectionBackwardOffset(defaultReport.size() >= 3 ? 2 : 1 );
     ui->rstSentEdit->setText(defaultReport);
+    ui->rstSentEdit->setSelectionBackwardOffset(defaultReport.size() >= 3 ? 2 : 1 );
 }
 
 void NewContactWidget::webLookup()
