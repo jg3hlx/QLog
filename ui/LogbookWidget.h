@@ -84,6 +84,7 @@ private:
     bool eventFilter(QObject *obj, QEvent *event);
 
     void colorsFilterWidget(QComboBox *widget);
+    void filterTable();
 };
 
 /* https://forum.qt.io/topic/90403/show-tooltip-immediatly/7/ */
