@@ -72,6 +72,7 @@ public slots:
     void focusSearchCallsign();
     void reloadSetting();
     void sendDXCSpot();
+    void scrollToIndex(const QModelIndex& index, bool select = true);
 
 private:
     ClubLog* clublog;

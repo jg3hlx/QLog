@@ -522,6 +522,13 @@ void LogbookWidget::deleteContact()
 
     QModelIndexList deletedRowIndexes = ui->contactTable->selectionModel()->selectedRows();
 
+    // Since deletedRowIndexes contains indexes for columns that might be invisible,
+    // and scrollToIndex needs an index with a visible column,
+    // we obtain the column index from the first record in the table."
+
+    int firstVisibleColumnIndex = ui->contactTable->indexAt(QPoint(0, 0)).column();
+    QModelIndex previousIndex = model->index(deletedRowIndexes.first().row()-1, firstVisibleColumnIndex);
+
     // Clublog does not accept batch DELETE operation
     // ask if an operator wants to continue
     if ( ClubLog::isUploadImmediatelyEnabled()
@@ -592,6 +599,7 @@ void LogbookWidget::deleteContact()
     ui->contactTable->setUpdatesEnabled(true);
     ui->contactTable->horizontalHeader()->restoreState(state);
     updateTable();
+    scrollToIndex(previousIndex);
     blockClublogSignals = false;
 }
 
@@ -646,21 +654,34 @@ void LogbookWidget::updateTable()
     FCT_IDENTIFICATION;
 
     model->select();
+
+    // under normal conditions, only 256 records are loaded.
+    // This will increase the value of the loaded records.
+    while ( model->canFetchMore() && model->rowCount() < 5000 )
+        model->fetchMore();
+
     ui->contactTable->resizeColumnsToContents();
 
     // it is not possible to use mode->rowCount here because model contains only
-    // the first 256 records and rowCount has a value 256 here. Therefore, it is needed
-    // to run a QSL stateme with Count
-    QString countRecordsStmt(QLatin1String("SELECT COUNT(1) FROM contacts"));
+    // the first 5000 records (or more) and rowCount has a value 5000 here. Therefore, it is needed
+    // to run a QSL stateme with Count. Run it only in case when QTableview does not contain all
+    // records from model
+    int qsoCount = 0;
+    if ( model->canFetchMore() )
+    {
+        QString countRecordsStmt(QLatin1String("SELECT COUNT(1) FROM contacts"));
 
-    if ( !model->filter().isEmpty() )
-        countRecordsStmt.append(QString(" WHERE %1").arg(model->filter()));
+        if ( !model->filter().isEmpty() )
+            countRecordsStmt.append(QString(" WHERE %1").arg(model->filter()));
 
-    QSqlQuery query(countRecordsStmt);
+        QSqlQuery query(countRecordsStmt);
 
-    ui->filteredQSOsLabel->setText(tr("Count: %n", "", query.first() ? query.value(0).toInt()
-                                                                     : 0));
-    ui->contactTable->scrollToTop();
+        qsoCount = query.first() ? query.value(0).toInt() : 0;
+    }
+    else
+        qsoCount = model->rowCount();
+
+    ui->filteredQSOsLabel->setText(tr("Count: %n", "", qsoCount));
     emit logbookUpdated();
 }
 
@@ -761,6 +782,7 @@ void LogbookWidget::doubleClickColumn(QModelIndex modelIndex)
         });
         dialog.exec();
         updateTable();
+        scrollToIndex(modelIndex);
     }
 }
 
@@ -806,6 +828,30 @@ void LogbookWidget::sendDXCSpot()
         return;
 
     emit sendDXSpotContactReq(model->record(selectedIndexes.at(0).row()));
+}
+
+void LogbookWidget::scrollToIndex(const QModelIndex &index, bool selectItem)
+{
+    FCT_IDENTIFICATION;
+
+    if ( index == QModelIndex() )
+        return;
+
+    // is index visible ?
+    if ( ui->contactTable->visualRect(index).isEmpty() )
+    {
+        while ( model->canFetchMore() && ui->contactTable->visualRect(index).isEmpty() )
+        {
+            model->fetchMore();
+        }
+
+        if ( model->canFetchMore() )
+            model->fetchMore(); // one more fetch
+    }
+
+    ui->contactTable->scrollTo(index, QAbstractItemView::PositionAtCenter);
+    if ( selectItem )
+        ui->contactTable->selectRow(index.row());
 }
 
 bool LogbookWidget::eventFilter(QObject *obj, QEvent *event)
