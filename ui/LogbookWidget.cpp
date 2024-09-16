@@ -660,8 +660,6 @@ void LogbookWidget::updateTable()
     while ( model->canFetchMore() && model->rowCount() < 5000 )
         model->fetchMore();
 
-    ui->contactTable->resizeColumnsToContents();
-
     // it is not possible to use mode->rowCount here because model contains only
     // the first 5000 records (or more) and rowCount has a value 5000 here. Therefore, it is needed
     // to run a QSL stateme with Count. Run it only in case when QTableview does not contain all
