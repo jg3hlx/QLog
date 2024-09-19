@@ -403,18 +403,24 @@ DxWidget::DxWidget(QWidget *parent) :
 
     ui->setupUi(this);
 
+    setSearchClosed();
+
     ui->serverSelect->setStyleSheet(QStringLiteral("QComboBox {color: red}"));
 
-    dxTableModel = new DxTableModel(this);
     wcyTableModel = new WCYTableModel(this);
     wwvTableModel = new WWVTableModel(this);
     toAllTableModel = new ToAllTableModel(this);
 
+    dxTableProxyModel = new SearchFilterProxyModel(ui->dxTable);
+    dxTableModel = new DxTableModel(dxTableProxyModel);
+    dxTableProxyModel->setSourceModel(dxTableModel);
+
     QAction *separator = new QAction(this);
     separator->setSeparator(true);
 
-    ui->dxTable->setModel(dxTableModel);
+    ui->dxTable->setModel(dxTableProxyModel);
     ui->dxTable->addAction(ui->actionFilter);
+    ui->dxTable->addAction(ui->actionSearch);
     ui->dxTable->addAction(ui->actionDisplayedColumns);
     ui->dxTable->addAction(ui->actionClear);
     ui->dxTable->addAction(separator);
@@ -1198,9 +1204,11 @@ void DxWidget::entryDoubleClicked(QModelIndex index)
 {
     FCT_IDENTIFICATION;
 
-    emit tuneDx(dxTableModel->getCallsign(index),
-                dxTableModel->getFrequency(index),
-                dxTableModel->getBandPlanode(index));
+    const QModelIndex &source_index = dxTableProxyModel->mapToSource(index);
+
+    emit tuneDx(dxTableModel->getCallsign(source_index),
+                dxTableModel->getFrequency(source_index),
+                dxTableModel->getBandPlanode(source_index));
 }
 
 void DxWidget::actionFilter()
@@ -1298,6 +1306,37 @@ void DxWidget::prepareQSOSpot(QSqlRecord qso)
             ui->commandEdit->setFocus();
         }
     }
+}
+
+void DxWidget::setSearch(const QString &text)
+{
+    FCT_IDENTIFICATION;
+
+    dxTableProxyModel->setSearchString(text);
+}
+
+void DxWidget::setSearchStatus(bool visible)
+{
+    FCT_IDENTIFICATION;
+
+    ui->searchEdit->setVisible(visible);
+    ui->searchEdit->setFocus();
+    ui->searchCloseButton->setVisible(visible);
+
+    if (!visible)
+        ui->searchEdit->clear();
+}
+
+void DxWidget::setSearchVisible()
+{
+    FCT_IDENTIFICATION;
+    setSearchStatus(!ui->searchEdit->isVisible());
+}
+
+void DxWidget::setSearchClosed()
+{
+    FCT_IDENTIFICATION;
+    setSearchStatus(false);
 }
 
 void DxWidget::actionCommandSpotQSO()

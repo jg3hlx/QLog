@@ -106,6 +106,7 @@ SOURCES += \
         models/LogbookModel.cpp \
         models/RigTypeModel.cpp \
         models/RotTypeModel.cpp \
+        models/SearchFilterProxyModel.cpp \
         models/ShortcutEditorModel.cpp \
         models/SqlListModel.cpp \
         models/WsjtxTableModel.cpp \
@@ -241,6 +242,7 @@ HEADERS += \
         models/LogbookModel.h \
         models/RigTypeModel.h \
         models/RotTypeModel.h \
+        models/SearchFilterProxyModel.h \
         models/ShortcutEditorModel.h \
         models/SqlListModel.h \
         models/WsjtxTableModel.h \

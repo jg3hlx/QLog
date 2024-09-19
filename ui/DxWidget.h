@@ -13,6 +13,7 @@
 #include "data/ToAllSpot.h"
 #include "core/LogLocale.h"
 #include "core/DxServerString.h"
+#include "models/SearchFilterProxyModel.h"
 
 // in sec
 #define DEDUPLICATION_TIME 3
@@ -112,7 +113,6 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event);
 };
 
-
 class DxWidget : public QWidget {
     Q_OBJECT
 
@@ -134,6 +134,10 @@ public slots:
     void setLastQSO(QSqlRecord);
     void reloadSetting();
     void prepareQSOSpot(QSqlRecord);
+    void setSearch(const QString &);
+    void setSearchStatus(bool);
+    void setSearchVisible();
+    void setSearchClosed();
 
 private slots:
     void actionCommandSpotQSO();
@@ -172,6 +176,7 @@ private:
     WCYTableModel* wcyTableModel;
     WWVTableModel* wwvTableModel;
     ToAllTableModel* toAllTableModel;
+    SearchFilterProxyModel* dxTableProxyModel;
     QTcpSocket* socket;
     Ui::DxWidget *ui;
     QRegularExpression moderegexp;
