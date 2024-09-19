@@ -62,7 +62,7 @@ void AwardsDialog::refreshTable(int)
 {
     FCT_IDENTIFICATION;
 
-    const QList<Band>& dxccBands = BandPlan::bandsList(true, true);
+    const QList<Band>& dxccBands = BandPlan::bandsList(false, true);
 
     if ( dxccBands.size() == 0 )
         return;
