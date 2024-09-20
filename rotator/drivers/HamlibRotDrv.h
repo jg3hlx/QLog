@@ -1,5 +1,5 @@
-#ifndef ROTATOR_DRIVERS_HAMLIBROTDRV_H
-#define ROTATOR_DRIVERS_HAMLIBROTDRV_H
+#ifndef QLOG_ROTATOR_DRIVERS_HAMLIBROTDRV_H
+#define QLOG_ROTATOR_DRIVERS_HAMLIBROTDRV_H
 
 #include <QTimer>
 #include <hamlib/rotator.h>
@@ -43,4 +43,4 @@ private:
     bool forceSendState;
 };
 
-#endif // ROTATOR_DRIVERS_HAMLIBROTDRV_H
+#endif // QLOG_ROTATOR_DRIVERS_HAMLIBROTDRV_H
