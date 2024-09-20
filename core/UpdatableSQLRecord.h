@@ -42,4 +42,4 @@ private:
     int interval;
 };
 
-#endif // UPDATABLESQLRECORD_H
+#endif // QLOG_CORE_UPDATABLESQLRECORD_H
