@@ -258,6 +258,9 @@
             <iconset theme="edit-clear">
              <normaloff>.</normaloff>.</iconset>
            </property>
+           <property name="flat">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
         </layout>
