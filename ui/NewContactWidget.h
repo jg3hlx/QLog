@@ -193,7 +193,7 @@ public slots:
                 double frequency,
                 const BandPlan::BandPlanMode mode);
     void fillCallsignGrid(const QString &callsign, const QString& grid);
-    void showDx(const QString &callsign, const QString &grid);
+    void prepareWSJTXQSO(const QString &callsign, const QString &grid);
     void resetContact();
     void saveContact();
 
@@ -216,7 +216,7 @@ public slots:
     void setupCustomUi();
 
 private slots:
-    void callsignChanged();
+    void handleCallsignFromUser();
     void frequencyTXChanged();
     void frequencyRXChanged();
     void changeMode();
@@ -226,9 +226,9 @@ private slots:
     void updateTimeOff();
     void startContactTimer();
     void stopContactTimer();
-    void editCallsignFinished();
-    void callsignResult(const QMap<QString, QString>& data);
-    void clubQueryResult(const QString&, QMap<QString, ClubStatusQuery::ClubStatus>);
+    void finalizeCallsignEdit();
+    void setCallbookFields(const QMap<QString, QString>& data);
+    void setMembershipList(const QString&, QMap<QString, ClubStatusQuery::ClubStatus>);
     void propModeChanged(const QString&);
     void sotaChanged(const QString&);
     void sotaEditFinished();
@@ -248,9 +248,9 @@ private slots:
     void refreshSIGCompleter();
 
 private:
-    void fillFieldsFromLastQSO(const QString &callsign);
-    void setCurrentDxcc(const DxccEntity &curr);
-    void queryDxcc(const QString &callsign);
+    void useFieldsFromPrevQSO(const QString &callsign);
+    void setDxccInfo(const DxccEntity &curr);
+    void setDxccInfo(const QString &callsign);
     void clearCallbookQueryFields();
     void clearMemberQueryFields();
     void readWidgetSettings();
@@ -260,6 +260,7 @@ private:
     void updateTXBand(double freq);
     void updateRXBand(double freq);
     void updateCoordinates(double lat, double lon, CoordPrecision prec);
+    void clearCoordinates();
     void updateDxccStatus();
     void updatePartnerLocTime();
     void setDefaultReport();

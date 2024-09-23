@@ -176,7 +176,7 @@ void WsjtxWidget::statusReceived(WsjtxStatus newStatus)
     if ( this->status.dx_call != newStatus.dx_call
          || this->status.dx_grid != newStatus.dx_grid )
     {
-        emit showDxDetails(newStatus.dx_call, newStatus.dx_grid);
+        emit callsignSelected(newStatus.dx_call, newStatus.dx_grid);
     }
 
     if ( this->status.mode != newStatus.mode )
@@ -209,7 +209,7 @@ void WsjtxWidget::tableViewDoubleClicked(QModelIndex index)
     const QModelIndex &source_index = proxyModel->mapToSource(index);
 
     const WsjtxEntry &entry = wsjtxTableModel->getEntry(source_index);
-    emit showDxDetails(entry.callsign, entry.grid);
+    emit callsignSelected(entry.callsign, entry.grid);
     emit reply(entry.decode);
 }
 
@@ -221,7 +221,7 @@ void WsjtxWidget::callsignClicked(QString callsign)
     if ( entry.callsign.isEmpty() )
         return;
 
-    emit showDxDetails(callsign, entry.grid);
+    emit callsignSelected(callsign, entry.grid);
     emit reply(entry.decode);
 }
 

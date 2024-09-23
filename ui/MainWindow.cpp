@@ -241,7 +241,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->bandmapWidget, &BandmapWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
     connect(ui->bandmapWidget, &BandmapWidget::nearestSpotFound, ui->newContactWidget, &NewContactWidget::nearestSpot);
 
-    connect(ui->wsjtxWidget, &WsjtxWidget::showDxDetails, ui->newContactWidget, &NewContactWidget::showDx);
+    connect(ui->wsjtxWidget, &WsjtxWidget::callsignSelected, ui->newContactWidget, &NewContactWidget::prepareWSJTXQSO);
 
     connect(ui->rigWidget, &RigWidget::rigProfileChanged, ui->newContactWidget, &NewContactWidget::refreshRigProfileCombo);
 

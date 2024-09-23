@@ -185,7 +185,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     /* CONNECTs   */
     /**************/
     connect(&callbookManager, &CallbookManager::callsignResult,
-            this, &NewContactWidget::callsignResult);
+            this, &NewContactWidget::setCallbookFields);
 
     connect(&callbookManager, &CallbookManager::loginFailed, this, [this](const QString &callbookString)
     {
@@ -195,7 +195,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
 
     connect(contactTimer, &QTimer::timeout, this, &NewContactWidget::updateTimeOff);
 
-    connect(MembershipQE::instance(), &MembershipQE::clubStatusResult, this, &NewContactWidget::clubQueryResult);
+    connect(MembershipQE::instance(), &MembershipQE::clubStatusResult, this, &NewContactWidget::setMembershipList);
 
     /******************************/
     /* CONNECTs  DYNAMIC WIDGETS  */
@@ -391,14 +391,14 @@ void NewContactWidget::readGlobalSettings()
     refreshAntProfileCombo();
 
     // recalculate all stats
-    queryDxcc(ui->callsignEdit->text().toUpper());
+    setDxccInfo(ui->callsignEdit->text().toUpper());
 
     ui->freqRXEdit->loadBands();
     ui->freqTXEdit->loadBands();
 }
 
 /* function is called when an operator change Callsign Edit */
-void NewContactWidget::callsignChanged()
+void NewContactWidget::handleCallsignFromUser()
 {
     FCT_IDENTIFICATION;
 
@@ -439,16 +439,16 @@ void NewContactWidget::callsignChanged()
     }
     else
     {
-        queryDxcc(callsign);
+        setDxccInfo(callsign);
 
         if ( callsign.length() >= 3 )
-            fillFieldsFromLastQSO(callsign);
+            useFieldsFromPrevQSO(callsign);
     }
 }
 
 /* function is called when Callsign Edit is finished - example pressed enter */
 /* if callsign is entered then QLog call callbook query */
-void NewContactWidget::editCallsignFinished()
+void NewContactWidget::finalizeCallsignEdit()
 {
     FCT_IDENTIFICATION;
 
@@ -460,8 +460,7 @@ void NewContactWidget::editCallsignFinished()
     }
 }
 
-
-void NewContactWidget::setCurrentDxcc(const DxccEntity &curr)
+void NewContactWidget::setDxccInfo(const DxccEntity &curr)
 {
     FCT_IDENTIFICATION;
 
@@ -475,47 +474,35 @@ void NewContactWidget::setCurrentDxcc(const DxccEntity &curr)
         updateCoordinates(dxccEntity.latlon[0], dxccEntity.latlon[1], COORD_DXCC);
         ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
         uiDynamic->contEdit->setCurrentText(dxccEntity.cont);
-
+        ui->flagView->setPixmap((!dxccEntity.flag.isEmpty() ) ? QPixmap(QString(":/flags/64/%1.png").arg(dxccEntity.flag))
+                                                              : QPixmap() );
         updateDxccStatus();
-
-        if ( !dxccEntity.flag.isEmpty() )
-        {
-            QPixmap flag(QString(":/flags/64/%1.png").arg(dxccEntity.flag));
-            ui->flagView->setPixmap(flag);
-        }
-        else
-            ui->flagView->setPixmap(QPixmap());
     }
     else
     {
-        ui->flagView->setPixmap(QPixmap());
-        ui->dxccTableWidget->clear();
-        ui->dxccStatus->clear();
-        ui->distanceInfo->clear();
-        dxDistance = qQNaN();
-        ui->bearingInfo->clear();
-        partnerTimeZone = QTimeZone();
-        ui->partnerLocTimeInfo->clear();
         ui->dxccInfo->setText(" ");
         uiDynamic->cqzEdit->clear();
         uiDynamic->ituEdit->clear();
+        clearCoordinates();
+        ui->dxccTableWidget->clear();
         uiDynamic->contEdit->setCurrentText("");
+        ui->flagView->setPixmap(QPixmap());
+        ui->dxccStatus->clear();
 
         emit newTarget(qQNaN(), qQNaN());
     }
 }
 
-/* Obtain DXCC info from local database */
-void NewContactWidget::queryDxcc(const QString &callsign)
+void NewContactWidget::setDxccInfo(const QString &callsign)
 {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << callsign;
 
-    setCurrentDxcc(Data::instance()->lookupDxcc(callsign));
+    setDxccInfo(Data::instance()->lookupDxcc(callsign));
 }
 
-void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
+void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign)
 {
     FCT_IDENTIFICATION;
 
@@ -577,7 +564,7 @@ void NewContactWidget::fillFieldsFromLastQSO(const QString &callsign)
 }
 
 /* function handles a response from Callbook classes */
-void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
+void NewContactWidget::setCallbookFields(const QMap<QString, QString>& data)
 {
     FCT_IDENTIFICATION;
 
@@ -665,7 +652,7 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
         {
             qCDebug(runtime) << "Received different DXCC Info" << data.value("dxcc")
                              << dxccEntity.dxcc;
-            setCurrentDxcc(Data::instance()->lookupDxccID(callbookDXCC));
+            setDxccInfo(Data::instance()->lookupDxccID(callbookDXCC));
         }
     }
 
@@ -681,27 +668,23 @@ void NewContactWidget::callsignResult(const QMap<QString, QString>& data)
     lastCallbookQueryData = QMap<QString, QString>(data);
 }
 
-void NewContactWidget::clubQueryResult(const QString &in_callsign, QMap<QString, ClubStatusQuery::ClubStatus> data)
+void NewContactWidget::setMembershipList(const QString &in_callsign,
+                                         QMap<QString, ClubStatusQuery::ClubStatus> data)
 {
     FCT_IDENTIFICATION;
 
     if ( in_callsign != callsign )
-    {
-        // do not need this result
         return;
-    }
 
     QString memberText;
-
     QMapIterator<QString, ClubStatusQuery::ClubStatus> clubs(data);
-
     QPalette palette;
 
-    //"<font color='red'>Hello</font> <font color='green'>World</font>"
     while ( clubs.hasNext() )
     {
         clubs.next();
-        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), palette.color(QPalette::Text));
+        const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), palette.color(QPalette::Text));
+        //"<font color='red'>Hello</font> <font color='green'>World</font>"
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
     ui->memberListLabel->setText(memberText);
@@ -815,13 +798,15 @@ void NewContactWidget::__modeChanged()
     QStringListModel* model = dynamic_cast<QStringListModel*>(ui->submodeEdit->model());
     model->setStringList(submodeList);
 
-    if (!submodeList.isEmpty()) {
+    if (!submodeList.isEmpty())
+    {
         submodeList.prepend("");
         model->setStringList(submodeList);
         ui->submodeEdit->setVisible(true);
         ui->submodeEdit->setCurrentIndex(1);
     }
-    else {
+    else
+    {
         QStringList list;
         model->setStringList(list);
         ui->submodeEdit->setVisible(false);
@@ -947,7 +932,7 @@ void NewContactWidget::gridChanged()
     if (!newGrid.isValid())
     {
         coordPrec = COORD_NONE;
-        queryDxcc(ui->callsignEdit->text().toUpper());
+        setDxccInfo(ui->callsignEdit->text().toUpper());
         return;
     }
 
@@ -1950,7 +1935,17 @@ void NewContactWidget::updateCoordinates(double lat, double lon, CoordPrecision 
 
         emit newTarget(lat, lon);
     }
+}
 
+void NewContactWidget::clearCoordinates()
+{
+    FCT_IDENTIFICATION;
+
+    ui->distanceInfo->clear();
+    dxDistance = qQNaN();
+    ui->bearingInfo->clear();
+    partnerTimeZone = QTimeZone();
+    ui->partnerLocTimeInfo->clear();
 }
 
 void NewContactWidget::updateDxccStatus()
@@ -2594,11 +2589,11 @@ void NewContactWidget::fillCallsignGrid(const QString &callsign, const QString &
     uiDynamic->gridEdit->setText(grid);
 }
 
-void NewContactWidget::showDx(const QString &callsign, const QString &grid)
+void NewContactWidget::prepareWSJTXQSO(const QString &callsign, const QString &grid)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters)<<callsign<< " " << grid;
+    qCDebug(function_parameters) << callsign << grid;
 
     if ( isManualEnterMode )
     {
@@ -2615,9 +2610,8 @@ void NewContactWidget::setDefaultReport()
 {
     FCT_IDENTIFICATION;
 
-    if (defaultReport.isEmpty()) {
+    if (defaultReport.isEmpty())
         defaultReport = "";
-    }
 
     ui->rstRcvdEdit->setText(defaultReport);
     ui->rstRcvdEdit->setSelectionBackwardOffset(defaultReport.size() >= 3 ? 2 : 1 );
@@ -2860,7 +2854,7 @@ void NewContactWidget::stationProfileComboChanged(const QString &profileName)
     emit stationProfileChanged();
 
     // recalculate all stats
-    queryDxcc(ui->callsignEdit->text().toUpper());
+    setDxccInfo(ui->callsignEdit->text().toUpper());
 }
 
 void NewContactWidget::rigProfileComboChanged(const QString &profileName)
@@ -3206,8 +3200,8 @@ void NewContactWidget::changeCallsignManually(const QString &callsign, double fr
     QSOFreq = freq; // Important !!! - to prevent QSY Contact Reset when the frequency is set
     ui->callsignEdit->setText(callsign);
     ui->callsignEdit->end(false);
-    callsignChanged();
-    editCallsignFinished();
+    handleCallsignFromUser();
+    finalizeCallsignEdit();
     stopContactTimer();
 }
 
