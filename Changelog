@@ -12,6 +12,7 @@ TBC - 0.39.0
 - Fixed ADIF import does not import records with old DXCC Entities (issue #459)
 - Fixed ADIF import incorrectly uses Station Profile parameters (issue #461)
 - Fixed Logbook - QSO Table Column Width Does Not Stick (issue #464)
+- Fixed Field values from past QSOs are used incorrectly in case of WSJTX QSOs (#issue 470)
 
 2024/08/29 - 0.38.0
 - [NEW] - Logbook - Added Send DX Spot to the QSO Context Menu
