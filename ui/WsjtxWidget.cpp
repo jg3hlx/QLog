@@ -209,7 +209,7 @@ void WsjtxWidget::tableViewDoubleClicked(QModelIndex index)
     const QModelIndex &source_index = proxyModel->mapToSource(index);
 
     const WsjtxEntry &entry = wsjtxTableModel->getEntry(source_index);
-    emit callsignSelected(entry.callsign, entry.grid);
+    //emit callsignSelected(entry.callsign, entry.grid); // it is not needed to send this - Qlog receives the change via WSJTX
     emit reply(entry.decode);
 }
 

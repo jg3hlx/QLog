@@ -248,7 +248,8 @@ private slots:
     void refreshSIGCompleter();
 
 private:
-    void useFieldsFromPrevQSO(const QString &callsign);
+    void useFieldsFromPrevQSO(const QString &callsign,
+                              const QString &grid = QString());
     void setDxccInfo(const DxccEntity &curr);
     void setDxccInfo(const QString &callsign);
     void clearCallbookQueryFields();

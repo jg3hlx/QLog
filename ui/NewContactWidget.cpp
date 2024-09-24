@@ -264,6 +264,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
                                                                             "    darc_dok "
                                                                             "FROM contacts "
                                                                             "WHERE callsign = :exactCallsign "
+                                                                            "      AND gridsquare LIKE :grid "
                                                                             "ORDER BY start_time DESC "
                                                                             "LIMIT 1 "));
 
@@ -486,7 +487,7 @@ void NewContactWidget::setDxccInfo(const QString &callsign)
     setDxccInfo(Data::instance()->lookupDxcc(callsign));
 }
 
-void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign)
+void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign, const QString &grid)
 {
     FCT_IDENTIFICATION;
 
@@ -506,6 +507,7 @@ void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign)
     const QString &baseCallsign = enteredCallsign.getBase();
     // search the base_callsign
     prevQSOExactMatchQuery.bindValue(":exactCallsign", baseCallsign);
+    prevQSOExactMatchQuery.bindValue(":grid", grid + "%");
 
     if ( !prevQSOExactMatchQuery.exec() )
     {
@@ -2590,11 +2592,12 @@ void NewContactWidget::fillCallsignGrid(const QString &callsign, const QString &
     uiDynamic->gridEdit->setText(grid);
 }
 
-void NewContactWidget::prepareWSJTXQSO(const QString &callsign, const QString &grid)
+void NewContactWidget::prepareWSJTXQSO(const QString &receivedCallsign,
+                                       const QString &grid)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << callsign << grid;
+    qCDebug(function_parameters) << receivedCallsign << grid;
 
     if ( isManualEnterMode )
     {
@@ -2603,8 +2606,28 @@ void NewContactWidget::prepareWSJTXQSO(const QString &callsign, const QString &g
     }
 
     resetContact();
-    changeCallsignManually(callsign);
+    if ( receivedCallsign.isEmpty() )
+        return;
+
+    QSOFreq = ui->freqRXEdit->value(); // Important !!! - to prevent QSY Contact Reset when the frequency is set
+    callsign = receivedCallsign;
+    ui->callsignEdit->setText(receivedCallsign);
     uiDynamic->gridEdit->setText(grid);
+    setDxccInfo(receivedCallsign);
+    stopContactTimer();
+
+    // at the moment WSJTX sends several statuses about changing one callsign.
+    // In order to avoid multiple searches, we will search only when we have a grid - it was usually the last
+    // status message
+    // the current status message sequence is
+    // 1) prev Callsign empty grid
+    // 2) new Callsign empty grid
+    // 3) new Calllsign, new gris
+    if ( !grid.isEmpty() )
+    {
+        useFieldsFromPrevQSO(callsign, grid);
+        finalizeCallsignEdit();
+    }
 }
 
 void NewContactWidget::setDefaultReport()
