@@ -321,8 +321,10 @@ private:
     QSettings settings;
     Band bandTX;
     Band bandRX;
-    QSqlQuery prevQSOQuery;
-    bool isprevQSOQueryPrepared;
+    QSqlQuery prevQSOExactMatchQuery;
+    QSqlQuery prevQSOBaseCallMatchQuery;
+    bool isPrevQSOExactMatchQuery;
+    bool isPrevQSOBaseCallMatchQuery;
 };
 
 #endif // QLOG_UI_NEWCONTACTWIDGET_H

@@ -253,57 +253,41 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
 
     // SQL query returns two QSOs. The first one is the last QSO with Base Callsign
     // and the second one is the last QSO for the Callsign from a portable QTH.
-    isprevQSOQueryPrepared = prevQSOQuery.prepare(QLatin1String("SELECT callsign, "
-                                                                "       name_intl, "
-                                                                "       qth_intl, "
-                                                                "       gridsquare, "
-                                                                "       notes_intl, "
-                                                                "       email, "
-                                                                "       web , "
-                                                                "       darc_dok "
-                                                                "FROM ( "
-                                                                "  SELECT "
-                                                                "    callsign, "
-                                                                "    name_intl, "
-                                                                "    qth_intl, "
-                                                                "    gridsquare, "
-                                                                "    notes_intl, "
-                                                                "    email, "
-                                                                "    web , "
-                                                                "    darc_dok "
-                                                                "  FROM contacts "
-                                                                "  WHERE callsign = :exactCallsign "
-                                                                "  ORDER BY start_time DESC "
-                                                                "  LIMIT 1 "
-                                                                "  ) "
-                                                                "UNION ALL "
-                                                                "SELECT callsign, "
-                                                                "       name_intl, "
-                                                                "       qth_intl, "
-                                                                "       gridsquare, "
-                                                                "       notes_intl, "
-                                                                "       email, "
-                                                                "       web , "
-                                                                "       darc_dok "
-                                                                "FROM ( "
-                                                                "  SELECT "
-                                                                "     callsign, "
-                                                                "     name_intl, "
-                                                                "     qth_intl, "
-                                                                "     gridsquare, "
-                                                                "     notes_intl, "
-                                                                "     email, "
-                                                                "     web , "
-                                                                "     darc_dok "
-                                                                "  FROM contacts c, contacts_autovalue a "
-                                                                "  WHERE c.id = a.contactid "
-                                                                "        AND a.base_callsign = :partialCallsign "
-                                                                "  ORDER BY start_time DESC "
-                                                                "  LIMIT 1 "
-                                                                "  )"));
+    isPrevQSOExactMatchQuery = prevQSOExactMatchQuery.prepare(QLatin1String("SELECT "
+                                                                            "    callsign, "
+                                                                            "    name_intl, "
+                                                                            "    qth_intl, "
+                                                                            "    gridsquare, "
+                                                                            "    notes_intl, "
+                                                                            "    email, "
+                                                                            "    web , "
+                                                                            "    darc_dok "
+                                                                            "FROM contacts "
+                                                                            "WHERE callsign = :exactCallsign "
+                                                                            "ORDER BY start_time DESC "
+                                                                            "LIMIT 1 "));
 
-    if ( !isprevQSOQueryPrepared)
-        qWarning() << "Cannot prepare prevQSOquery statement";
+    if ( !isPrevQSOExactMatchQuery)
+        qWarning() << "Cannot prepare prevQSOExactMatchQuery statement";
+
+    isPrevQSOBaseCallMatchQuery = prevQSOBaseCallMatchQuery.prepare(QLatin1String("SELECT "
+                                                                                  "     callsign, "
+                                                                                  "     name_intl, "
+                                                                                  "     qth_intl, "
+                                                                                  "     gridsquare, "
+                                                                                  "     notes_intl, "
+                                                                                  "     email, "
+                                                                                  "     web , "
+                                                                                  "     darc_dok "
+                                                                                  "FROM contacts c "
+                                                                                  "  INNER JOIN contacts_autovalue a ON c.id = a.contactid "
+                                                                                  "WHERE a.base_callsign = :partialCallsign "
+                                                                                  "ORDER BY start_time DESC "
+                                                                                  "LIMIT 1"));
+
+    if ( !isPrevQSOBaseCallMatchQuery)
+        qWarning() << "Cannot prepare prevQSOBaseCallMatchQuery statement";
+
 }
 
 void NewContactWidget::setComboBaseData(QComboBox *combo, const QString &data)
@@ -508,7 +492,7 @@ void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign)
 
     qCDebug(function_parameters) << callsign;
 
-    if ( !isprevQSOQueryPrepared )
+    if ( !isPrevQSOExactMatchQuery || !isPrevQSOBaseCallMatchQuery)
         return;
 
     const Callsign enteredCallsign(callsign);
@@ -521,45 +505,62 @@ void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign)
 
     const QString &baseCallsign = enteredCallsign.getBase();
     // search the base_callsign
-    prevQSOQuery.bindValue(":exactCallsign",baseCallsign );
-    prevQSOQuery.bindValue(":partialCallsign", baseCallsign);
+    prevQSOExactMatchQuery.bindValue(":exactCallsign", baseCallsign);
 
-    if ( !prevQSOQuery.exec() )
+    if ( !prevQSOExactMatchQuery.exec() )
     {
-        qWarning() << "Cannot execute statement" << prevQSOQuery.lastError();
+        qWarning() << "Cannot execute statement" << prevQSOExactMatchQuery.lastError();
         emit filterCallsign(QString());
         return;
     }
 
-    if ( prevQSOQuery.next() )
+    if ( prevQSOExactMatchQuery.next() )
     {
-        // SQL query returns two QSOs. The first one is the last QSO with Base Callsign
-        // and the second one is the last QSO for callsign, which was made from a portable QTH.
-        // The recognition is possible because the record where Callsign == Based Callsign
-        // is a QSO with the given Callsign from the base QTH.
-        // Otherwise, it's a QSO with a given Callsign from a portable QTH.
-        if ( prevQSOQuery.value("callsign").toString() == baseCallsign
-             && enteredCallsign.getHostPrefix().isEmpty()
+        // callsign match the base callsign - full info available
+        if ( enteredCallsign.getHostPrefix().isEmpty()
              && enteredCallsign.getSuffix().isEmpty() )
         {
             // entered callsign is base callsign - no portable QTH. Get all fields from
             // previous QSO
-            uiDynamic->qthEdit->setText(prevQSOQuery.value("qth_intl").toString());
-            uiDynamic->gridEdit->setText(prevQSOQuery.value("gridsquare").toString());
-            uiDynamic->dokEdit->setText(prevQSOQuery.value("darc_dok").toString());
+            uiDynamic->qthEdit->setText(prevQSOExactMatchQuery.value("qth_intl").toString());
+            uiDynamic->gridEdit->setText(prevQSOExactMatchQuery.value("gridsquare").toString());
+            uiDynamic->dokEdit->setText(prevQSOExactMatchQuery.value("darc_dok").toString());
         }
-        uiDynamic->nameEdit->setText(prevQSOQuery.value("name_intl").toString());
-        ui->noteEdit->insertPlainText(prevQSOQuery.value("notes_intl").toString());
-        uiDynamic->emailEdit->setText(prevQSOQuery.value("email").toString());
-        uiDynamic->urlEdit->setText(prevQSOQuery.value("web").toString());
+        uiDynamic->nameEdit->setText(prevQSOExactMatchQuery.value("name_intl").toString());
+        ui->noteEdit->insertPlainText(prevQSOExactMatchQuery.value("notes_intl").toString());
+        uiDynamic->emailEdit->setText(prevQSOExactMatchQuery.value("email").toString());
+        uiDynamic->urlEdit->setText(prevQSOExactMatchQuery.value("web").toString());
 
         emit filterCallsign(baseCallsign);
     }
     else
     {
-        //callsign not found
-        qCDebug(runtime) << "Callsign not match in the Logbook";
-        emit filterCallsign(QString());
+        //exact match not found
+        prevQSOBaseCallMatchQuery.bindValue(":partialCallsign", baseCallsign);
+
+        if ( !prevQSOBaseCallMatchQuery.exec() )
+        {
+            qWarning() << "Cannot execute statement2" << prevQSOBaseCallMatchQuery.lastError();
+            emit filterCallsign(QString());
+            return;
+        }
+
+        if ( prevQSOBaseCallMatchQuery.next() )
+        {
+            // partial informaion available
+            uiDynamic->nameEdit->setText(prevQSOBaseCallMatchQuery.value("name_intl").toString());
+            ui->noteEdit->insertPlainText(prevQSOBaseCallMatchQuery.value("notes_intl").toString());
+            uiDynamic->emailEdit->setText(prevQSOBaseCallMatchQuery.value("email").toString());
+            uiDynamic->urlEdit->setText(prevQSOBaseCallMatchQuery.value("web").toString());
+
+            emit filterCallsign(baseCallsign);
+        }
+        else
+        {
+            //callsign not found
+            qCDebug(runtime) << "Callsign not match in the Logbook";
+            emit filterCallsign(QString());
+        }
     }
 }
 
