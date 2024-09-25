@@ -1755,6 +1755,26 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
                  && !uiDynamic->stateEdit->text().isEmpty() )
                 record.setValue("state", uiDynamic->stateEdit->text());
 
+            if ( record.value("pota_ref").toString().isEmpty()
+                 && !uiDynamic->potaEdit->text().isEmpty())
+                record.setValue("pota_ref", uiDynamic->potaEdit->text());
+
+            if ( record.value("sota_ref").toString().isEmpty()
+                && !uiDynamic->sotaEdit->text().isEmpty())
+                record.setValue("sota_ref", uiDynamic->sotaEdit->text());
+
+            if ( record.value("sig_intl").toString().isEmpty()
+                && !uiDynamic->sigEdit->text().isEmpty())
+                record.setValue("sig_intl", uiDynamic->sigEdit->text());
+
+            if ( record.value("sig_info_intl").toString().isEmpty()
+                && !uiDynamic->sigInfoEdit->text().isEmpty())
+                record.setValue("sig_info_intl", uiDynamic->sigInfoEdit->text());
+
+            if ( record.value("wwff_ref").toString().isEmpty()
+                && !uiDynamic->wwffEdit->text().isEmpty())
+                record.setValue("wwff_ref", uiDynamic->wwffEdit->text());
+
             // fix ITUz and CQz from callbook, if necessary
             if ( record.value("ituz").toString() != uiDynamic->ituEdit->text() )
                 record.setValue("ituz", uiDynamic->ituEdit->text());
