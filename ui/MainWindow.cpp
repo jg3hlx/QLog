@@ -198,7 +198,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::altBackslash, Rig::instance(), &Rig::setPTT);
     connect(this, &MainWindow::manualMode, ui->newContactWidget, &NewContactWidget::setManualMode);
 
-    connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshGraph);
+    connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshWidget);
     connect(ui->logbookWidget, &LogbookWidget::contactUpdated, &networknotification, &NetworkNotification::QSOUpdated);
     connect(ui->logbookWidget, &LogbookWidget::clublogContactUpdated, clublogRT, &ClubLog::updateQSOImmediately);
     connect(ui->logbookWidget, &LogbookWidget::contactDeleted, &networknotification, &NetworkNotification::QSODeleted);
@@ -1214,7 +1214,7 @@ void MainWindow::QSOFilterSetting()
 
     QSOFilterDialog dialog(this);
     dialog.exec();
-    ui->logbookWidget->updateTable();
+    ui->logbookWidget->refreshUserFilter();
 }
 
 void MainWindow::alertRuleSetting()
