@@ -575,12 +575,15 @@ void StatisticsWidget::drawPointsOnMap(QSqlQuery &query)
 
     QList<QString> stations;
 
+    qulonglong count = 0;
+
     while ( query.next() )
     {
         const Gridsquare stationGrid(query.value(1).toString());
 
         if ( stationGrid.isValid() )
         {
+            count++;
             double lat = stationGrid.getLatitude();
             double lon = stationGrid.getLongitude();
             stations.append(QString("[\"%1\", %2, %3, %4]").arg(query.value(0).toString())
@@ -588,6 +591,16 @@ void StatisticsWidget::drawPointsOnMap(QSqlQuery &query)
                                                            .arg(lon)
                                                            .arg((query.value(2).toInt()) > 0 ? "greenIcon" : "yellowIcon"));
         }
+    }
+
+    if ( count > 50000 )
+    {
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, tr("Statistics"), tr("Over 50000 QSOs. Display them?"),
+                                      QMessageBox::Yes|QMessageBox::No);
+
+        if ( reply != QMessageBox::Yes )
+            stations.clear();
     }
 
     QString javaScript = QString("grids_confirmed = [];"
