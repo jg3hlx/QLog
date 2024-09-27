@@ -9,6 +9,7 @@ TBC - 0.39.0
 - [CHANGED] - WSJTX - More reliable detection of CQ stations (PR #471 @aa5sh)
 - [CHANGED] - WSJTX - SOTA/POTA/WWFF/SIG are being added to the logged QSO (PR #463 @aa5sh)
 - [CHANGED] - Stats - Add a confirmation dialog for displaying over 50k QSOs on the map
+- [CHANGED] - New Contact - Starting QSO Timer when Rig online and WSJTX Update Callsign Status is received
 - Fixed WSJT-X does not emit band change if rig is disconnected (issue #447)
 - Fixed Wrong import of ADIF file of another log program (issue #455)
 - Fixed WSJTX log record is stored incorrectly if it contains non-ASCII chars(issue #458)

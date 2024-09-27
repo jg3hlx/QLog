@@ -1708,6 +1708,8 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
     // based on the poll #420, QLog adds more information from callbook
     if ( savedCallsign == ui->callsignEdit->text() )
     {
+        stopContactTimer();
+        updateTime();
         // information independent of QTH
         if ( record.value("name_intl").toString().isEmpty()
              && record.value("name").toString().isEmpty()
@@ -2630,11 +2632,15 @@ void NewContactWidget::prepareWSJTXQSO(const QString &receivedCallsign,
         return;
 
     QSOFreq = ui->freqRXEdit->value(); // Important !!! - to prevent QSY Contact Reset when the frequency is set
+    // QSY Wipe disabling - It is possible to have a RIG connected and run WSJTX.
+    // To prevent the QSY Wipe when WSJTX's Fake Split Mode is enabled, QLog starts the QSO Timer.
+    if ( rigOnline )
+        startContactTimer();
+
     callsign = receivedCallsign;
     ui->callsignEdit->setText(receivedCallsign);
     uiDynamic->gridEdit->setText(grid);
     setDxccInfo(receivedCallsign);
-    stopContactTimer();
 
     // at the moment WSJTX sends several statuses about changing one callsign.
     // In order to avoid multiple searches, we will search only when we have a grid - it was usually the last
