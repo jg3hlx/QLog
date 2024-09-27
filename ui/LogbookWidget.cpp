@@ -431,6 +431,7 @@ void LogbookWidget::refreshClubFilter()
     ui->clubFilter->addItems(QStringList(tr("Club")) << MembershipQE::instance()->getEnabledClubLists());
     ui->clubFilter->setCurrentText(member);
     ui->clubFilter->blockSignals(false);
+    colorsFilterWidget(ui->clubFilter);
 }
 
 void LogbookWidget::refreshUserFilter()
@@ -444,6 +445,7 @@ void LogbookWidget::refreshUserFilter()
     userFilterModel->refresh();
     ui->userFilter->setCurrentText(userFilterString);
     ui->userFilter->blockSignals(false);
+    colorsFilterWidget(ui->userFilter);
 
     filterTable();
 }
@@ -684,7 +686,7 @@ void LogbookWidget::updateTable()
     countryModel->refresh();
     ui->countryFilter->setCurrentText(country);
     ui->countryFilter->blockSignals(false);
-
+    colorsFilterWidget(ui->countryFilter);
     emit logbookUpdated();
 }
 
