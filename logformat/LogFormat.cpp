@@ -1031,7 +1031,7 @@ long LogFormat::runExport(const QList<QSqlRecord> &selectedQSOs)
 
         if ( exportedFields.first() != "*" )
         {
-            for ( const QString& fieldName : qAsConst(exportedFields) )
+            for ( const QString& fieldName : static_cast<const QStringList&>(exportedFields) )
             {
                 contactRecord.append(qso.field(fieldName));
             }

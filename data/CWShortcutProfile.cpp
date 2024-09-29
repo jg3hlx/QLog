@@ -106,10 +106,10 @@ void CWShortcutProfilesManager::save()
 
     if ( deleteQuery.exec() )
     {
-        auto keys = profileNameList();
-        for ( auto &key: qAsConst(keys) )
+        const QStringList &keys = profileNameList();
+        for ( auto &key: keys )
         {
-            CWShortcutProfile cwShortcutProfile = getProfile(key);
+            const CWShortcutProfile &cwShortcutProfile = getProfile(key);
 
             insertQuery.bindValue(":profile_name", key);
             for ( int i = 0; i < cwShortcutProfile.shortDescs.size(); i++ )

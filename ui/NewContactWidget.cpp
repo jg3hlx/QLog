@@ -2364,8 +2364,8 @@ void NewContactWidget::setupCustomUi()
     FCT_IDENTIFICATION;
 
     // Clear Custom Lines
-    QList<QHBoxLayout *> customUiRows = ui->customLayout->findChildren<QHBoxLayout *>();
-    for ( auto &rowLayout : qAsConst(customUiRows) )
+    const QList<QHBoxLayout *> &customUiRows = ui->customLayout->findChildren<QHBoxLayout *>();
+    for ( auto &rowLayout : customUiRows )
     {        
         qCDebug(runtime) << "Removing objects from " << rowLayout->objectName();
 
@@ -2385,7 +2385,7 @@ void NewContactWidget::setupCustomUi()
     QList<QFormLayout *> detailColumns;
     detailColumns << ui->detailColA << ui->detailColB << ui->detailColC;
 
-    for ( QFormLayout * layout : qAsConst(detailColumns) )
+    for ( QFormLayout * layout : static_cast<const QList<QFormLayout*>&>(detailColumns) )
     {
         qCDebug(runtime) << "Removing" << layout->rowCount() <<"object(s) from" << layout->objectName();
 
@@ -3442,7 +3442,7 @@ QStringList NewContactDynamicWidgets::getAllFieldLabelNames() const
     QStringList ret;
     const QList<DynamicWidget> &dynWidget = widgetMapping.values();
 
-    for (const DynamicWidget &widget : qAsConst(dynWidget))
+    for (const DynamicWidget &widget : dynWidget)
     {
         ret << widget.fieldLabelName;
     }

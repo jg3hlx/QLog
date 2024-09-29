@@ -34,7 +34,7 @@ void AlertEvaluator::dxSpot(const DxSpot & spot)
 
     QStringList matchedRules;
 
-    for ( const AlertRule *rule : qAsConst(ruleList) )
+    for ( const AlertRule *rule : static_cast<const QList<AlertRule *>&>(ruleList) )
     {
         qCDebug(runtime) << "Processing " << *rule;
 
@@ -75,7 +75,7 @@ void AlertEvaluator::WSJTXCQSpot(const WsjtxEntry &wsjtx)
 
     QStringList matchedRules;
 
-    for ( const AlertRule *rule : qAsConst(ruleList) )
+    for ( const AlertRule *rule : static_cast<const QList<AlertRule *>&>(ruleList) )
     {
         qCDebug(runtime) << "Processing " << *rule;
         if ( rule->match(wsjtx) )

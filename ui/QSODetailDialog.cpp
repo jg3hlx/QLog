@@ -845,9 +845,9 @@ bool QSODetailDialog::doValidation()
 
     bool allValid = true;
 
-    QList<QLabel *> list = findChildren<QLabel *>();
+    const QList<QLabel *> &list = findChildren<QLabel *>();
 
-    for ( QLabel *label : qAsConst(list) )
+    for ( QLabel *label : list )
     {
         if ( label ) label->setToolTip(QString());
     }

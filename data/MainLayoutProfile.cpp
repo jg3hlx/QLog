@@ -96,10 +96,10 @@ void MainLayoutProfilesManager::save()
 
     if ( deleteQuery.exec() )
     {
-        auto keys = profileNameList();
-        for ( auto &key: qAsConst(keys) )
+        const QStringList &keys = profileNameList();
+        for ( auto &key: keys )
         {
-            MainLayoutProfile layoutProfile = getProfile(key);
+            const MainLayoutProfile &layoutProfile = getProfile(key);
 
             insertQuery.bindValue(":profile_name", key);
             insertQuery.bindValue(":row_A", toDBStringList(layoutProfile.rowA));

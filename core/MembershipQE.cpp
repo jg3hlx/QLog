@@ -116,7 +116,7 @@ void MembershipQE::removeClubsFromEnabledClubLists(const QList<QPair<QString, QS
     qCDebug(runtime) << toRemove;
     QStringList current = getEnabledClubLists();
 
-    for (const QPair<QString, QString>& toRemoveClub: qAsConst(toRemove))
+    for ( const QPair<QString, QString>& toRemoveClub : toRemove )
     {
         current.removeAll(toRemoveClub.first);
     }

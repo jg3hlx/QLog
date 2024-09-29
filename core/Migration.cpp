@@ -633,7 +633,7 @@ bool Migration::importQSLCards2DB()
 
     QString qslFolder = settings.value("paperqsl/qslfolder", QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)).toString();
     QDir dir(qslFolder);
-    QFileInfoList file_list = dir.entryInfoList(QStringList("????????_*_*_qsl_*.*"),
+    const QFileInfoList &file_list = dir.entryInfoList(QStringList("????????_*_*_qsl_*.*"),
                                                 QDir::Files,
                                                 QDir::Name);
     if ( !insert.prepare("INSERT INTO contacts_qsl_cards (contactid, source, name, data) "
@@ -643,7 +643,7 @@ bool Migration::importQSLCards2DB()
         return false;
     }
 
-    for ( auto &file : qAsConst(file_list) )
+    for ( auto &file : file_list )
     {
         qCDebug(runtime) << "Processing file" << file.fileName();
         QRegularExpressionMatch match = re.match(file.fileName());
@@ -879,7 +879,7 @@ bool Migration::refreshUploadStatusTrigger()
 
     QStringList clublogSupportedColumns;
 
-    for ( const QString &clublogColumn : qAsConst(ClubLog::supportedDBFields) )
+    for ( const QString &clublogColumn : static_cast<const QStringList&>(ClubLog::supportedDBFields) )
         clublogSupportedColumns << QString("old.%1 != new.%2").arg(clublogColumn, clublogColumn);
 
     if ( !stmt.exec(QString("CREATE TRIGGER update_contacts_upload_status "

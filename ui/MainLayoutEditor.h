@@ -32,13 +32,13 @@ public:
 
     void deleteItem(const QString &value)
     {
-        QModelIndexList itemIndexList = match(index(0,0),
+        const QModelIndexList &itemIndexList = match(index(0,0),
               Qt::DisplayRole,
               value,
               1,
               Qt::MatchExactly);
 
-        for (const QModelIndex & itemIndex: qAsConst(itemIndexList))
+        for ( const QModelIndex & itemIndex: itemIndexList )
         {
             deleteItem(itemIndex);
         }

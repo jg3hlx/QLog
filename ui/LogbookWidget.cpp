@@ -567,7 +567,7 @@ void LogbookWidget::deleteContact()
 
     int cnt = 0;
 
-    for ( const QModelIndex &index : qAsConst(deletedRowIndexes) )
+    for ( const QModelIndex &index : static_cast<const QModelIndexList&>(deletedRowIndexes) )
     {
         cnt++;
         model->removeRow(index.row());

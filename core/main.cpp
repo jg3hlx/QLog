@@ -103,7 +103,7 @@ static void setupTranslator(QApplication* app,
     translationFolders  << qApp->applicationDirPath()
                         << QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation);
 
-    for ( const QString& folder : qAsConst(translationFolders) )
+    for ( const QString& folder : static_cast<const QStringList&>(translationFolders) )
     {
         qCDebug(runtime) << "Looking for a translation in" << folder << QString("i18n%1qlog_%2").arg(QDir::separator(), localeLang);
         QTranslator* translator = new QTranslator(app);
