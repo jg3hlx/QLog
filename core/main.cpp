@@ -219,8 +219,8 @@ static bool createSQLFunctions()
                                      SQLITE_UTF16,
                                      nullptr,
                                      [](void *, int ll, const void * l, int rl, const void * r) {
-                                        const QString &left = QString::fromUtf16((const ushort *)l, ll/2);
-                                        const QString &right = QString::fromUtf16((const ushort *)r, rl/2);
+                                        const QString &left = QString::fromUtf16(reinterpret_cast<const char16_t *>(l), ll/2);
+                                        const QString &right = QString::fromUtf16(reinterpret_cast<const char16_t *>(r), rl/2);
                                         return QString::localeAwareCompare(left, right); // controlled by LC_COLLATE
                                      });
         }
