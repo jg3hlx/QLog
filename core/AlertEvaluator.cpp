@@ -344,7 +344,7 @@ bool AlertRule::match(const DxSpot &spot) const
          && (dxCountry == 0 || dxCountry == spot.dxcc.dxcc)
          && (spot.status & dxLogStatusMap)
          && (mode == "*" || mode.contains("|" + spot.modeGroupString))
-         && (band == "*" || band.contains("|" + spot.band))
+         && (band == "*" || (!spot.band.isEmpty() && band.contains("|" + spot.band)))
          && (spotterCountry == 0 || spotterCountry == spot.dxcc_spotter.dxcc )
          && (dxContinent == "*" || dxContinent.contains("|" + spot.dxcc.cont))
          && (spotterContinent == "*" || spotterContinent.contains("|" + spot.dxcc_spotter.cont))
