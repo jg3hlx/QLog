@@ -139,9 +139,9 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
     ui->contactTable->setItemDelegateForColumn(LogbookModel::COLUMN_UKSMG, new UnitFormatDelegate("", 0, 1, ui->contactTable));
 
     QSettings settings;
-    QVariant logbookState = settings.value("logbook/state");
-    if (!logbookState.isNull()) {
-        ui->contactTable->horizontalHeader()->restoreState(logbookState.toByteArray());
+    const QByteArray &logbookState = settings.value("logbook/state").toByteArray();
+    if (!logbookState.isEmpty()) {
+        ui->contactTable->horizontalHeader()->restoreState(logbookState);
     }
     else {
         /* Hide all */

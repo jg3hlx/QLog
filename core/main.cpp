@@ -408,7 +408,7 @@ int main(int argc, char* argv[])
     QString lang = parser.value(forceLanguage);
 
     app.setOrganizationName("hamradio");
-    app.setApplicationName("QLog" + ((environment.isNull()) ? "" : environment.prepend("-")));
+    app.setApplicationName("QLog" + ((environment.isEmpty()) ? "" : environment.prepend("-")));
 
     /* If the Style parameter is not present then use a default - Fusion style */
     if ( !stylePresent )

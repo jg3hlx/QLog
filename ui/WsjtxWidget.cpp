@@ -335,11 +335,11 @@ void WsjtxWidget::restoreTableHeaderState()
     FCT_IDENTIFICATION;
 
     QSettings settings;
-    QVariant state = settings.value("wsjtx/state");
+    const QByteArray &state = settings.value("wsjtx/state").toByteArray();
 
-    if (!state.isNull())
+    if (!state.isEmpty())
     {
-        ui->tableView->horizontalHeader()->restoreState(state.toByteArray());
+        ui->tableView->horizontalHeader()->restoreState(state);
     }
 }
 

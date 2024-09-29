@@ -793,31 +793,32 @@ void DxWidget::restoreWidgetSetting()
     FCT_IDENTIFICATION;
 
     QSettings settings;
-    QVariant state = settings.value("dxc/dxtablestate");
+    QByteArray state = settings.value("dxc/dxtablestate").toByteArray();
 
-    if (!state.isNull())
+    if (!state.isEmpty())
     {
-        ui->dxTable->horizontalHeader()->restoreState(state.toByteArray());
+        ui->dxTable->horizontalHeader()->restoreState(state);
     }
 
-    state = settings.value("dxc/wcytablestate");
+    state = settings.value("dxc/wcytablestate").toByteArray();
 
-    if (!state.isNull())
+    if (!state.isEmpty())
     {
-        ui->wcyTable->horizontalHeader()->restoreState(state.toByteArray());
+        ui->wcyTable->horizontalHeader()->restoreState(state);
     }
 
-    state = settings.value("dxc/wwvtablestate");
+    state = settings.value("dxc/wwvtablestate").toByteArray();
 
-    if (!state.isNull())
+    if (!state.isEmpty())
     {
-        ui->wwvTable->horizontalHeader()->restoreState(state.toByteArray());
+        ui->wwvTable->horizontalHeader()->restoreState(state);
     }
-    state = settings.value("dxc/toalltablestate");
 
-    if (!state.isNull())
+    state = settings.value("dxc/toalltablestate").toByteArray();
+
+    if (!state.isEmpty())
     {
-        ui->toAllTable->horizontalHeader()->restoreState(state.toByteArray());
+        ui->toAllTable->horizontalHeader()->restoreState(state);
     }
 
     int fontsize = settings.value("dxc/consolefontsize", -1).toInt();

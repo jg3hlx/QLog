@@ -197,7 +197,7 @@ void RigWidget::bandComboChanged(const QString &newBand)
 
     double newFreq = record.value("start_freq").toDouble();
 
-    if ( ! record.value("last_seen_freq").isNull() )
+    if ( ! record.value("last_seen_freq").toString().isEmpty() )
     {
         newFreq = record.value("last_seen_freq").toDouble();
     }
