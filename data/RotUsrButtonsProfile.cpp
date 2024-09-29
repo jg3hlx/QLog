@@ -2,6 +2,7 @@
 #include <QSqlError>
 
 #include "RotUsrButtonsProfile.h"
+#include "core/debug.h"
 
 MODULE_IDENTIFICATION("qlog.data.rotusrbuttonsprofile");
 
