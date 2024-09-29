@@ -1542,7 +1542,7 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     DxSpot spot;
 
-    spot.time = (dateTime.isNull()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
+    spot.time = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
                                     : dateTime;
     spot.callsign = call;
     spot.freq = freq.toDouble() / 1000;
