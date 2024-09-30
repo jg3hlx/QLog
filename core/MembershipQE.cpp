@@ -484,11 +484,6 @@ ClubStatusQuery::ClubStatusQuery(QObject *parent) :
 ClubStatusQuery::~ClubStatusQuery()
 {
     FCT_IDENTIFICATION;
-    {
-        qCDebug(runtime) << "Closing connection to DB";
-        QSqlDatabase db1 = QSqlDatabase::database(dbConnectionName);
-        db1.close();
-    }
 
     QSqlDatabase::removeDatabase(dbConnectionName);
 }
