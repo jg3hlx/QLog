@@ -1189,7 +1189,7 @@ void DxWidget::connected()
     ui->commandEdit->setEnabled(true);
     ui->connectButton->setEnabled(true);
     ui->connectButton->setText(tr("Disconnect"));
-    ui->commandEdit->setPlaceholderText("");
+    ui->commandEdit->setPlaceholderText(tr("DX Cluster Command"));
     ui->serverSelect->setStyleSheet("QComboBox {color: green}");
     connectionState = CONNECTED;
     saveDXCServers();
