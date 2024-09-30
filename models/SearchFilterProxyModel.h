@@ -10,12 +10,14 @@ class SearchFilterProxyModel : public QSortFilterProxyModel
 public:
     SearchFilterProxyModel(QObject* parent = nullptr);
     void setSearchString(const QString& searchString);
+    void setSearchSkippedCols(const QVector<int> &columns);
 
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex& source_parent) const override;
 
 private:
     QString searchString;
+    QVector<int> searchSkippedCols;
 };
 
 #endif // QLOG_MODELS_SEARCHFILTERPROXYMODEL_H

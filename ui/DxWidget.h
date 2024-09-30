@@ -227,6 +227,7 @@ private:
                        const QString &comment,
                        const QDateTime &dateTime = QDateTime());
 
+    QVector<int> dxcListHiddenCols() const;
     BandPlan::BandPlanMode modeGroupFromComment(const QString &comment) const;
 };
 

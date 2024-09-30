@@ -481,6 +481,7 @@ DxWidget::DxWidget(QWidget *parent) :
 
     ui->actionConnectOnStartup->setChecked(getAutoconnectServer());
     ui->actionKeepSpots->setChecked(getKeepQSOs());
+    dxTableProxyModel->setSearchSkippedCols(dxcListHiddenCols());
 }
 
 void DxWidget::toggleConnect()
@@ -1473,6 +1474,8 @@ void DxWidget::displayedColumns()
         ColumnSettingSimpleDialog dialog(view);
         dialog.exec();
         saveWidgetSetting();
+        if ( view == ui->dxTable )
+            dxTableProxyModel->setSearchSkippedCols(dxcListHiddenCols());
     }
 }
 
@@ -1579,6 +1582,20 @@ void DxWidget::processDxSpot(const QString &spotter,
         if ( dxTableModel->addEntry(spot, deduplicateSpots, deduplicatetime, deduplicatefreq) )
             emit newFilteredSpot(spot);
     }
+}
+
+QVector<int> DxWidget::dxcListHiddenCols() const
+{
+    QVector<int> ret;
+    ret.reserve(dxTableModel->columnCount());
+
+    for ( int i = 0; i < dxTableModel->columnCount(); ++i )
+    {
+        if (ui->dxTable->isColumnHidden(i))
+            ret.append(i);
+    }
+
+    return ret;
 }
 
 BandPlan::BandPlanMode DxWidget::modeGroupFromComment(const QString &comment) const
