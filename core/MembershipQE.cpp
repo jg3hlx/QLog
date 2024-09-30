@@ -484,8 +484,6 @@ ClubStatusQuery::ClubStatusQuery(QObject *parent) :
 ClubStatusQuery::~ClubStatusQuery()
 {
     FCT_IDENTIFICATION;
-
-    QSqlDatabase::removeDatabase(dbConnectionName);
 }
 
 void ClubStatusQuery::getClubStatus(const QString &in_callsign,
