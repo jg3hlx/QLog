@@ -61,6 +61,9 @@ private:
     void __setKeySpeed(qint16 wpm);
     void __setMode(rmode_t newModeID);
     void commandSleep();
+    void errorHandler(int errorStatus,
+                      const QString &errorName,
+                      bool emitError = true);
 
     const QString getModeNormalizedText(const rmode_t mode,
                                         QString &submode) const;
@@ -68,7 +71,7 @@ private:
     const QString hamlibVFO2String(const vfo_t vfo) const;
     serial_handshake_e stringToHamlibFlowControl(const QString &in_flowcontrol);
     serial_parity_e stringToHamlibParity(const QString &in_parity);
-    QString hamlibErrorString(int);
+    QString hamlibErrorString(int, QStringList &);
 
     RIG* rig;
     QTimer timer;
