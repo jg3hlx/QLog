@@ -36,8 +36,10 @@ public:
 
 private slots:
     void checkRigStateChange();
+    void checkErrorCounter();
 
 private:
+
 #if ( HAMLIBVERSION_MAJOR >= 4 && HAMLIBVERSION_MINOR >= 6 )
     static int addRig(rig_caps *caps, void* data);
 #else
@@ -61,9 +63,9 @@ private:
     void __setKeySpeed(qint16 wpm);
     void __setMode(rmode_t newModeID);
     void commandSleep();
-    void errorHandler(int errorStatus,
-                      const QString &errorName,
-                      bool emitError = true);
+    bool isRigRespOK(int errorStatus,
+                     const QString errorName,
+                     bool emitError = true);
 
     const QString getModeNormalizedText(const rmode_t mode,
                                         QString &submode) const;
@@ -71,10 +73,11 @@ private:
     const QString hamlibVFO2String(const vfo_t vfo) const;
     serial_handshake_e stringToHamlibFlowControl(const QString &in_flowcontrol);
     serial_parity_e stringToHamlibParity(const QString &in_parity);
-    QString hamlibErrorString(int, QStringList &);
+    QString hamlibErrorString(int);
 
     RIG* rig;
     QTimer timer;
+    QTimer errorTimer;
 
     bool forceSendState;
     bool currPTT;
@@ -88,7 +91,7 @@ private:
     unsigned int keySpeed;
     bool morseOverCatSupported;
     QMutex drvLock;
-
+    QHash<QString, QString>postponedErrors;
 };
 
 #endif // RIG_DRIVERS_HAMLIBRIGDRV_H

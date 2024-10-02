@@ -128,6 +128,9 @@ HamlibRigDrv::HamlibRigDrv(const RigProfile &profile,
     }
 
     rig_set_debug(RIG_DEBUG_BUG);
+
+    connect(&errorTimer, &QTimer::timeout,
+            this, &HamlibRigDrv::checkErrorCounter);
 }
 
 HamlibRigDrv::~HamlibRigDrv()
@@ -213,15 +216,10 @@ bool HamlibRigDrv::open()
 
     int status = rig_open(rig);
 
-    if ( status != RIG_OK )
-    {
-        errorHandler(status, tr("Rig Open Error"), false);
+    if ( !isRigRespOK(status, tr("Rig Open Error"), false) )
         return false;
-    }
-    else
-    {
-        qCDebug(runtime) << "Rig Open - OK";
-    }
+
+    qCDebug(runtime) << "Rig Open - OK";
 
     opened = true;
     currRIT = MHz(rigProfile.ritOffset);
@@ -307,9 +305,7 @@ void HamlibRigDrv::setFrequency(double newFreq)
     }
 
     int status = rig_set_freq(rig, RIG_VFO_CURR, newFreq);
-
-    if ( status != RIG_OK )
-        errorHandler(status, tr("Set Frequency Error"));
+    isRigRespOK(status, tr("Set Frequency Error"), false);
 
     commandSleep();
 }
@@ -351,9 +347,7 @@ void HamlibRigDrv::__setMode(rmode_t newModeID)
          && newModeID != currModeId )
     {
         int status = rig_set_mode(rig, RIG_VFO_CURR, newModeID, RIG_PASSBAND_NOCHANGE);
-
-        if ( status != RIG_OK )
-            errorHandler(status, tr("Set Mode Error"), false);
+        isRigRespOK(status, tr("Set Mode Error"), false);
         commandSleep();
     }
 }
@@ -376,9 +370,7 @@ void HamlibRigDrv::setPTT(bool newPTTState)
     }
 
     int status = rig_set_ptt(rig, RIG_VFO_CURR, (newPTTState ? RIG_PTT_ON : RIG_PTT_OFF));
-
-    if ( status != RIG_OK )
-        errorHandler(status, tr("Set PTT Error"));
+    isRigRespOK(status, tr("Set PTT Error"), false);
 
     // wait a moment because Rigs are slow and they are not possible to set and get
     // mode so quickly
@@ -443,9 +435,7 @@ void HamlibRigDrv::sendMorse(const QString &text)
     }
 
     int status = rig_send_morse(rig, RIG_VFO_CURR, text.toLocal8Bit().constData());
-
-    if ( status != RIG_OK )
-        errorHandler(status, tr("Cannot sent Morse"), false);
+    isRigRespOK(status, tr("Cannot sent Morse"), false);
 
     commandSleep();
 }
@@ -464,9 +454,7 @@ void HamlibRigDrv::stopMorse()
 
 #if (HAMLIBVERSION_MAJOR >= 4)
     int status = rig_stop_morse(rig, RIG_VFO_CURR);
-
-    if ( status != RIG_OK )
-        errorHandler(status, tr("Cannot stop Morse"), false);
+    isRigRespOK(status, tr("Cannot stop Morse"), false);
 #endif
     commandSleep();
 }
@@ -485,6 +473,7 @@ void HamlibRigDrv::stopTimers()
     FCT_IDENTIFICATION;
 
     timer.stop();
+    errorTimer.stop();
 }
 
 void HamlibRigDrv::sendDXSpot(const DxSpot &)
@@ -534,6 +523,21 @@ void HamlibRigDrv::checkRigStateChange()
     drvLock.unlock();
 }
 
+void HamlibRigDrv::checkErrorCounter()
+{
+    FCT_IDENTIFICATION;
+
+    if ( postponedErrors.isEmpty() )
+        return;
+
+    qCDebug(runtime) << postponedErrors;
+
+    // emit only one error
+    auto it = postponedErrors.constBegin();
+    emit errorOccured(it.key(), it.value());
+    postponedErrors.clear();
+}
+
 void HamlibRigDrv::checkPTTChange()
 {
     FCT_IDENTIFICATION;
@@ -553,7 +557,7 @@ void HamlibRigDrv::checkPTTChange()
         ptt_t pttHamlib;
         int status = rig_get_ptt(rig, RIG_VFO_CURR, &pttHamlib);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get PTT Error"), false) )
         {
             bool ptt = ( pttHamlib == RIG_PTT_OFF ) ? false : true;
 
@@ -567,13 +571,9 @@ void HamlibRigDrv::checkPTTChange()
                 emit pttChanged(currPTT);
             }
         }
-        else
-            errorHandler(status, tr("Get PTT Error"), false);
     }
     else
-    {
         qCDebug(runtime) << "Get PTT is disabled";
-    }
 }
 
 bool HamlibRigDrv::checkFreqChange()
@@ -592,7 +592,7 @@ bool HamlibRigDrv::checkFreqChange()
         freq_t vfo_freq;
         int status = rig_get_freq(rig, RIG_VFO_CURR, &vfo_freq);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get Frequency Error")) )
         {
             qCDebug(runtime) << "Rig Freq: "<< QSTRING_FREQ(Hz2MHz(vfo_freq));
             qCDebug(runtime) << "Object Freq: "<< QSTRING_FREQ(Hz2MHz(currFreq));
@@ -607,15 +607,11 @@ bool HamlibRigDrv::checkFreqChange()
             }
         }
         else
-        {
-            errorHandler(status, tr("Get Frequency Error"));
             return false;
-        }
     }
     else
-    {
         qCDebug(runtime) << "Get Freq is disabled";
-    }
+
     return true;
 }
 
@@ -637,7 +633,7 @@ bool HamlibRigDrv::checkModeChange()
 
         int status = rig_get_mode(rig, RIG_VFO_CURR, &curr_modeId, &pbwidth);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get Mode Error")) )
         {
             qCDebug(runtime) << "Rig Mode: "<< curr_modeId << "Rig Filter: "<< pbwidth;
             qCDebug(runtime) << "Object Mode: "<< currModeId << "Object Filter:" << currPBWidth;
@@ -661,15 +657,11 @@ bool HamlibRigDrv::checkModeChange()
             }
         }
         else
-        {
-            errorHandler(status, tr("Get Mode Error"));
             return false;
-        }
     }
     else
-    {
         qCDebug(runtime) << "Get Mode is disabled";
-    }
+
     return true;
 }
 
@@ -690,7 +682,7 @@ void HamlibRigDrv::checkVFOChange()
 
         int status = rig_get_vfo(rig, &curr_vfo);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get VFO Error"), false) )
         {
             qCDebug(runtime) << "Rig VFO: "<< curr_vfo;
             qCDebug(runtime) << "Object VFO: "<< currVFO;
@@ -704,13 +696,9 @@ void HamlibRigDrv::checkVFOChange()
                 emit vfoChanged(rawVFOText);
             }
         }
-        else
-            errorHandler(status, tr("Get VFO Error"), false);
     }
     else
-    {
         qCDebug(runtime) << "Get VFO is disabled";
-    }
 }
 
 void HamlibRigDrv::checkPWRChange()
@@ -732,11 +720,11 @@ void HamlibRigDrv::checkPWRChange()
 
         int status = rig_get_level(rig, RIG_VFO_CURR, RIG_LEVEL_RFPOWER, &rigPowerLevel);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get PWR Error"), false) )
         {
             status = rig_power2mW(rig, &rigPower, rigPowerLevel.f, currFreq, currModeId);
 
-            if (  status == RIG_OK )
+            if (  isRigRespOK(status, tr("Get PWR (power2mw) Error"), false) )
             {
                 qCDebug(runtime) << "Rig PWR: "<< rigPower;
                 qCDebug(runtime) << "Object PWR: "<< currPWR;
@@ -749,16 +737,10 @@ void HamlibRigDrv::checkPWRChange()
                     emit powerChanged(mW2W(currPWR));
                 }
             }
-            else
-                errorHandler(status, tr("Get PWR (power2mw) Error"), false);
-        }
-        else
-            errorHandler(status, tr("Get PWR Error"), false);
+        }   
     }
     else
-    {
         qCDebug(runtime) << "Get PWR is disabled";
-    }
 }
 
 void HamlibRigDrv::checkRITChange()
@@ -780,17 +762,14 @@ void HamlibRigDrv::checkRITChange()
 
         int status = rig_get_func(rig, RIG_VFO_CURR, RIG_FUNC_RIT, &ritStatus);
 
-        if (  status == RIG_OK )
+        if (  isRigRespOK(status, tr("Get RIT Function Error"), false) )
         {
             if ( ritStatus )
             {
                 /* RIT is on */
                 status = rig_get_rit(rig, RIG_VFO_CURR, &rit);
-                if ( status != RIG_OK )
-                {
+                if ( !isRigRespOK(status, tr("Get RIT Error"), false) )
                     rit = s_Hz(0);
-                    errorHandler(status, tr("Get RIT Error"), false);
-                }
             }
             else
             {
@@ -816,13 +795,9 @@ void HamlibRigDrv::checkRITChange()
                                       Hz2MHz(getXITFreq()));
             }
         }
-        else
-            errorHandler(status, tr("Get RIT Function Error"), false);
     }
     else
-    {
         qCDebug(runtime) << "Get RIT is disabled";
-    }
 }
 
 void HamlibRigDrv::checkXITChange()
@@ -844,17 +819,14 @@ void HamlibRigDrv::checkXITChange()
 
         int status = rig_get_func(rig, RIG_VFO_CURR, RIG_FUNC_XIT, &xitStatus);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get XIT Function Error"), false) )
         {
             if ( xitStatus )
             {
                 /* XIT is on */
                 status = rig_get_xit(rig, RIG_VFO_CURR, &xit);
-                if ( status != RIG_OK )
-                {
+                if ( !isRigRespOK(status, tr("Get XIT Error"), false) )
                     xit = s_Hz(0);
-                    errorHandler(status, tr("Get XIT Error"), false);
-                }
             }
             else
             {
@@ -880,13 +852,9 @@ void HamlibRigDrv::checkXITChange()
                                       Hz2MHz(getXITFreq()));
             }
         }
-        else
-            errorHandler(status, tr("Get XIT Function Error"), false);
     }
     else
-    {
         qCDebug(runtime) << "Get XIT is disabled";
-    }
 }
 
 void HamlibRigDrv::checkKeySpeedChange()
@@ -906,7 +874,7 @@ void HamlibRigDrv::checkKeySpeedChange()
 
         int status = rig_get_level(rig, RIG_VFO_CURR, RIG_LEVEL_KEYSPD, &rigKeySpeed);
 
-        if ( status == RIG_OK )
+        if ( isRigRespOK(status, tr("Get KeySpeed Error"), false) )
         {
             qCDebug(runtime) << "RIG Key Speed: "<< rigKeySpeed.i;
             qCDebug(runtime) << "Object Key Speed: "<< keySpeed;
@@ -917,13 +885,9 @@ void HamlibRigDrv::checkKeySpeedChange()
                 emit keySpeedChanged(keySpeed);
             }
         }
-        else
-            errorHandler(status, tr("Get KeySpeed Error"), false);
     }
     else
-    {
         qCDebug(runtime) << "Get KeySpeed is disabled";
-    }
 }
 
 double HamlibRigDrv::getRITFreq()
@@ -962,9 +926,7 @@ void HamlibRigDrv::__setKeySpeed(qint16 wpm)
     value_t hamlibWPM;
     hamlibWPM.i = wpm;
     int status = rig_set_level(rig, RIG_VFO_CURR, RIG_LEVEL_KEYSPD, hamlibWPM);
-
-    if ( status != RIG_OK )
-        errorHandler(status, tr("et KeySpeed Error"), false);
+    isRigRespOK(status, tr("Set KeySpeed Error"), false);
 
     commandSleep();
 }
@@ -976,20 +938,46 @@ void HamlibRigDrv::commandSleep()
     QThread::msleep(200);
 }
 
-void HamlibRigDrv::errorHandler(int errorStatus,
-                                const QString &errorName,
+bool HamlibRigDrv::isRigRespOK(int errorStatus,
+                                const QString errorName,
                                 bool emitError)
 {
     FCT_IDENTIFICATION;
 
-    QStringList detailLines;
-    lastErrorText = hamlibErrorString(errorStatus, detailLines);
-    qCWarning(runtime) << "Rig Error:"
-                       << errorName
-                       << detailLines;
+    qCDebug(function_parameters) << errorStatus << errorName << emitError;
+
+    if ( errorStatus == RIG_OK )
+    {
+        if ( emitError )
+            postponedErrors.remove(errorName);
+        return true;
+    }
+
+    lastErrorText = hamlibErrorString(errorStatus);
 
     if ( emitError )
-        emit errorOccured(errorName, lastErrorText);
+    {
+        qCDebug(runtime) << "Emit Error detected";
+
+        if ( !RIG_IS_SOFT_ERRCODE(-errorStatus) )
+        {
+            // hard error, emit error now
+            qCDebug(runtime) << "Hard Error";
+            emit errorOccured(errorName, lastErrorText);
+        }
+        else
+        {
+            // soft error
+            postponedErrors[errorName] = lastErrorText;
+
+            if ( !errorTimer.isActive() )
+            {
+                qCDebug(runtime) << "Starting Error Timer";
+                errorTimer.start(15 * 1000); //15s
+            }
+        }
+    }
+    return false;
 }
 
 const QString HamlibRigDrv::getModeNormalizedText(const rmode_t mode,
@@ -1075,23 +1063,28 @@ serial_parity_e HamlibRigDrv::stringToHamlibParity(const QString &in_parity)
     return RIG_PARITY_NONE;
 }
 
-QString HamlibRigDrv::hamlibErrorString(int errorCode, QStringList &errorList)
+QString HamlibRigDrv::hamlibErrorString(int errorCode)
 {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << errorCode;
 
-    static QRegularExpression re("[\r\n]");
-    errorList = QString(rigerror(errorCode)).split(re);
-
     QString ret;
+    QString detail(rigerror(errorCode));
+
+#if ( HAMLIBVERSION_MAJOR >= 4 && HAMLIBVERSION_MINOR >= 5 )
+    // The rigerror has different behavior since 4.5. It contains the stack trace in the first part
+    // Need to use rigerror2
+    ret = QString(rigerror2(errorCode));
+#else
+    static QRegularExpression re("[\r\n]");
+    QStringList errorList = detail.split(re);
 
     if ( errorList.size() >= 1 )
-    {
         ret = errorList.at(0);
-    }
-
-    qCDebug(runtime) << ret;
+#endif
+    qWarning() << "Detail" << detail;
+    qCWarning(runtime) << ret;
 
     return ret;
 }
