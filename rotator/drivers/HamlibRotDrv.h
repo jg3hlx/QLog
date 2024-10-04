@@ -24,12 +24,16 @@ public:
 
 private slots:
     void checkRotStateChange();
+    void checkErrorCounter();
 
 private:
     static int addRig(const struct rot_caps* caps, void* data);
 
     void checkChanges();
     void checkAzEl();
+    bool isRotRespOK(int errorStatus,
+                     const QString errorName,
+                     bool emitError = true);
 
     serial_handshake_e stringToHamlibFlowControl(const QString &in_flowcontrol);
     serial_parity_e stringToHamlibParity(const QString &in_parity);
@@ -38,9 +42,11 @@ private:
 
     ROT* rot;
     QTimer timer;
+    QTimer errorTimer;
     QMutex drvLock;
 
     bool forceSendState;
+    QHash<QString, QString>postponedErrors;
 };
 
 #endif // QLOG_ROTATOR_DRIVERS_HAMLIBROTDRV_H
