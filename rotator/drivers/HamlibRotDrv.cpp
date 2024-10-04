@@ -401,11 +401,9 @@ QString HamlibRotDrv::hamlibErrorString(int errorCode)
 
 void HamlibRotDrv::commandSleep()
 {
-#ifdef Q_OS_WIN
-        Sleep(100);
-#else
-        usleep(100000);
-#endif
+    FCT_IDENTIFICATION;
+
+    QThread::msleep(100);
 }
 
 #undef MUTEXLOCKER
