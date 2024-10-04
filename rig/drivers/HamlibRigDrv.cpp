@@ -10,6 +10,13 @@
 #define HAMLIB_FILPATHLEN FILPATHLEN
 #endif
 
+#ifndef RIG_IS_SOFT_ERRCODE
+#define RIG_IS_SOFT_ERRCODE(errcode) (errcode == RIG_EINVAL || errcode == RIG_ENIMPL || errcode == RIG_ERJCTED \
+    || errcode == RIG_ETRUNC || errcode == RIG_ENAVAIL || errcode == RIG_ENTARGET \
+    || errcode == RIG_EVFO || errcode == RIG_EDOM)
+
+#endif
+
 // macro introduced hamlib 4.6
 #ifndef PTTPORT
 #define PTTPORT(r) (&r->state.pttport)

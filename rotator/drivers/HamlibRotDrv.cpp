@@ -19,6 +19,13 @@
 #define HAMLIB_FILPATHLEN FILPATHLEN
 #endif
 
+#ifndef RIG_IS_SOFT_ERRCODE
+#define RIG_IS_SOFT_ERRCODE(errcode) (errcode == RIG_EINVAL || errcode == RIG_ENIMPL || errcode == RIG_ERJCTED \
+    || errcode == RIG_ETRUNC || errcode == RIG_ENAVAIL || errcode == RIG_ENTARGET \
+    || errcode == RIG_EVFO || errcode == RIG_EDOM)
+
+#endif
+
 #define POOL_INTERVAL 500
 
 MODULE_IDENTIFICATION("qlog.rotator.driver.hamlibdrv");
