@@ -255,8 +255,8 @@
             <string/>
            </property>
            <property name="icon">
-            <iconset theme="edit-clear">
-             <normaloff>.</normaloff>.</iconset>
+            <iconset resource="../res/icons/icons.qrc">
+             <normaloff>:/icons/cancel-24px.svg</normaloff>:/icons/cancel-24px.svg</iconset>
            </property>
            <property name="flat">
             <bool>true</bool>
