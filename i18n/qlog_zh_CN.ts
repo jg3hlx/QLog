@@ -108,44 +108,44 @@
         <translation>大洲</translation>
     </message>
     <message>
-        <location filename="../ui/AlertRuleDetail.ui" line="323"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="430"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="337"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="470"/>
         <source>North America</source>
         <translation>北美洲</translation>
     </message>
     <message>
-        <location filename="../ui/AlertRuleDetail.ui" line="330"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="440"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="365"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="460"/>
         <source>Africa</source>
         <translation>非洲</translation>
     </message>
     <message>
-        <location filename="../ui/AlertRuleDetail.ui" line="337"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="450"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="330"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="430"/>
         <source>Antarctica</source>
         <translation>南极洲</translation>
     </message>
     <message>
-        <location filename="../ui/AlertRuleDetail.ui" line="344"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="460"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="323"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="490"/>
         <source>South America</source>
         <translation>南美洲</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="351"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="470"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="440"/>
         <source>Asia</source>
         <translation>亚洲</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="358"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="480"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="450"/>
         <source>Europe</source>
         <translation>欧洲</translation>
     </message>
     <message>
-        <location filename="../ui/AlertRuleDetail.ui" line="365"/>
-        <location filename="../ui/AlertRuleDetail.ui" line="490"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="344"/>
+        <location filename="../ui/AlertRuleDetail.ui" line="480"/>
         <source>Oceania</source>
         <translation>大洋洲</translation>
     </message>
@@ -217,39 +217,44 @@
 <context>
     <name>AlertTableModel</name>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="61"/>
+        <location filename="../models/AlertTableModel.cpp" line="62"/>
         <source>Rule Name</source>
         <translation>规则名</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="62"/>
+        <location filename="../models/AlertTableModel.cpp" line="63"/>
         <source>Callsign</source>
         <translation>呼号</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="63"/>
+        <location filename="../models/AlertTableModel.cpp" line="64"/>
         <source>Frequency</source>
         <translation>频率</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="64"/>
+        <location filename="../models/AlertTableModel.cpp" line="65"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="65"/>
+        <location filename="../models/AlertTableModel.cpp" line="66"/>
         <source>Updated</source>
         <translation>已更新</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="66"/>
+        <location filename="../models/AlertTableModel.cpp" line="67"/>
         <source>Last Update</source>
         <translation>最后更新</translation>
     </message>
     <message>
-        <location filename="../models/AlertTableModel.cpp" line="67"/>
+        <location filename="../models/AlertTableModel.cpp" line="68"/>
         <source>Last Comment</source>
         <translation>最后备注</translation>
+    </message>
+    <message>
+        <location filename="../models/AlertTableModel.cpp" line="69"/>
+        <source>Member</source>
+        <translation type="unfinished">成员</translation>
     </message>
 </context>
 <context>
@@ -3338,7 +3343,7 @@
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="94"/>
-        <location filename="../ui/DxWidget.cpp" line="595"/>
+        <location filename="../ui/DxWidget.cpp" line="596"/>
         <source>Connect</source>
         <translation>连接</translation>
     </message>
@@ -3493,54 +3498,59 @@
         <translation>应该显示哪些列</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="544"/>
+        <location filename="../ui/DxWidget.cpp" line="545"/>
         <source>Connecting...</source>
         <translation>正在连接...</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="589"/>
+        <location filename="../ui/DxWidget.cpp" line="590"/>
         <source>DX Cluster is temporarily unavailable</source>
         <translation>DX 集群暂时不可用</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="902"/>
+        <location filename="../ui/DxWidget.cpp" line="904"/>
         <source>DXC Server Error</source>
         <translation>DXC 服务器出错</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="903"/>
+        <location filename="../ui/DxWidget.cpp" line="905"/>
         <source>An invalid callsign</source>
         <translation>无效的呼号</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="916"/>
+        <location filename="../ui/DxWidget.cpp" line="918"/>
         <source>DX Cluster Password</source>
         <translation>DX 集群密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="917"/>
+        <location filename="../ui/DxWidget.cpp" line="919"/>
         <source>Security Notice</source>
         <translation>安全注意</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="917"/>
+        <location filename="../ui/DxWidget.cpp" line="919"/>
         <source>The password can be sent via an unsecured channel</source>
         <translation>密码可能通过不安全的通道发送</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="919"/>
+        <location filename="../ui/DxWidget.cpp" line="921"/>
         <source>Server</source>
         <translation>服务器</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="921"/>
+        <location filename="../ui/DxWidget.cpp" line="923"/>
         <source>Username</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1189"/>
+        <location filename="../ui/DxWidget.cpp" line="1191"/>
         <source>Disconnect</source>
         <translation>断开连接</translation>
+    </message>
+    <message>
+        <location filename="../ui/DxWidget.cpp" line="1192"/>
+        <source>DX Cluster Command</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4106,87 +4116,162 @@
 <context>
     <name>HamlibRigDrv</name>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="41"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="48"/>
         <source>None</source>
         <translation type="unfinished">无</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="42"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="49"/>
         <source>CAT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="43"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="50"/>
         <source>DTR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="44"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="51"/>
         <source>RTS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="127"/>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="162"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="134"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="172"/>
         <source>Initialization Error</source>
         <translation>初始化出错</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="195"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="205"/>
         <source>Cannot set PTT Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="202"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="212"/>
         <source>Cannot set PTT Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="209"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="219"/>
         <source>Unsupported Rig Driver</source>
         <translation>不支持的设备驱动</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="316"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="226"/>
+        <source>Rig Open Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="315"/>
         <source>Set Frequency Error</source>
         <translation>设置频率出错</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="393"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="357"/>
+        <source>Set Mode Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="380"/>
         <source>Set PTT Error</source>
         <translation>设置 PTT 出错</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="636"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="445"/>
+        <source>Cannot sent Morse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="464"/>
+        <source>Cannot stop Morse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="567"/>
+        <source>Get PTT Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="602"/>
         <source>Get Frequency Error</source>
         <translation>获取频率出错</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="693"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="643"/>
         <source>Get Mode Error</source>
         <translation>获取模式出错</translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="692"/>
+        <source>Get VFO Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="730"/>
+        <source>Get PWR Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="734"/>
+        <source>Get PWR (power2mw) Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="772"/>
+        <source>Get RIT Function Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="778"/>
+        <source>Get RIT Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="829"/>
+        <source>Get XIT Function Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="835"/>
+        <source>Get XIT Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="884"/>
+        <source>Get KeySpeed Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="936"/>
+        <source>Set KeySpeed Error</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>HamlibRotDrv</name>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="83"/>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="118"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="90"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="129"/>
         <source>Initialization Error</source>
         <translation>初始化出错</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="143"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="154"/>
         <source>Unsupported Rotator Driver</source>
         <translation>不支持的云台驱动</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="250"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="161"/>
+        <source>Rot Open Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="251"/>
         <source>Set Possition Error</source>
         <translation>设置方位出错</translation>
     </message>
     <message>
-        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="335"/>
+        <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="325"/>
         <source>Get Possition Error</source>
         <translation>获取方位出错</translation>
     </message>
@@ -5560,38 +5645,38 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="79"/>
         <location filename="../ui/LogbookWidget.ui" line="86"/>
-        <location filename="../ui/LogbookWidget.cpp" line="168"/>
+        <location filename="../ui/LogbookWidget.cpp" line="169"/>
         <source>Band</source>
         <translation>波段</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="107"/>
-        <location filename="../ui/LogbookWidget.cpp" line="172"/>
+        <location filename="../ui/LogbookWidget.cpp" line="173"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="128"/>
-        <location filename="../ui/LogbookWidget.cpp" line="178"/>
+        <location filename="../ui/LogbookWidget.cpp" line="179"/>
         <source>Country</source>
         <translation>国家/地区</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="140"/>
-        <location filename="../ui/LogbookWidget.cpp" line="453"/>
+        <location filename="../ui/LogbookWidget.cpp" line="431"/>
         <source>Club</source>
         <translation>俱乐部</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="161"/>
-        <location filename="../ui/LogbookWidget.cpp" line="190"/>
+        <location filename="../ui/LogbookWidget.cpp" line="192"/>
         <source>User Filter</source>
         <translation>用户过滤器</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="237"/>
-        <location filename="../ui/LogbookWidget.cpp" line="518"/>
-        <location filename="../ui/LogbookWidget.cpp" line="538"/>
+        <location filename="../ui/LogbookWidget.cpp" line="510"/>
+        <location filename="../ui/LogbookWidget.cpp" line="530"/>
         <source>Delete</source>
         <translation>删除</translation>
     </message>
@@ -5657,55 +5742,55 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="518"/>
+        <location filename="../ui/LogbookWidget.cpp" line="510"/>
         <source>Delete the selected contacts?</source>
         <translation>删除选中的联系人?</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="539"/>
+        <location filename="../ui/LogbookWidget.cpp" line="531"/>
         <source>Clublog&apos;s &lt;b&gt;Immediately Send&lt;/b&gt; supports only one-by-one deletion&lt;br&gt;&lt;br&gt;Do you want to continue despite the fact&lt;br&gt;that the DELETE operation will not be sent to Clublog?</source>
         <translation>Clublog&apos;s &lt;b&gt;Immediately Send&lt;/b&gt; supports only one-by-one deletion&lt;br&gt;&lt;br&gt;Do you want to continue despite the fact&lt;br&gt;that the DELETE operation will not be sent to Clublog?</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="560"/>
+        <location filename="../ui/LogbookWidget.cpp" line="548"/>
         <source>Deleting QSOs</source>
         <translation>删除 QSO</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="631"/>
+        <location filename="../ui/LogbookWidget.cpp" line="619"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="632"/>
+        <location filename="../ui/LogbookWidget.cpp" line="620"/>
         <source>By updating, all selected rows will be affected.&lt;br&gt;The value currently edited in the column will be applied to all selected rows.&lt;br&gt;&lt;br&gt;Do you want to edit them?</source>
         <translation>通过更新，所有选定的行都将受到影响。&lt;br&gt;当前在列中编辑的值将应用于所有选定的行。&lt;br&gt;&lt;br&gt;您想要编辑他们吗？</translation>
     </message>
     <message numerus="yes">
-        <location filename="../ui/LogbookWidget.cpp" line="682"/>
+        <location filename="../ui/LogbookWidget.cpp" line="670"/>
         <source>Count: %n</source>
         <translation>
             <numerusform>计数：%n</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="730"/>
+        <location filename="../ui/LogbookWidget.cpp" line="737"/>
         <source>Downloading eQSL Image</source>
         <translation>正在下载 eQSL 图片</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="561"/>
-        <location filename="../ui/LogbookWidget.cpp" line="730"/>
+        <location filename="../ui/LogbookWidget.cpp" line="549"/>
+        <location filename="../ui/LogbookWidget.cpp" line="737"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="748"/>
+        <location filename="../ui/LogbookWidget.cpp" line="755"/>
         <source>QLog Error</source>
         <translation>QLog 错误</translation>
     </message>
     <message>
-        <location filename="../ui/LogbookWidget.cpp" line="748"/>
+        <location filename="../ui/LogbookWidget.cpp" line="755"/>
         <source>eQSL Download Image failed: </source>
         <translation>eQSL 图片下载失败: </translation>
     </message>
@@ -6860,97 +6945,97 @@
         <translation>电台黄页登陆失败</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1933"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1943"/>
         <source>LP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1974"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1994"/>
         <source>New Entity!</source>
         <translation>新实体！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1977"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1997"/>
         <source>New Band!</source>
         <translation>新波段！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1980"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2000"/>
         <source>New Mode!</source>
         <translation>新模式！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1983"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2003"/>
         <source>New Band &amp; Mode!</source>
         <translation>新波段与模式！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1986"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2006"/>
         <source>New Slot!</source>
         <translation>新组合！</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1989"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2009"/>
         <source>Worked</source>
         <translation>已通联</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1992"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2012"/>
         <source>Confirmed</source>
         <translation>已确认</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2674"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2718"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2684"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2728"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2690"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2734"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2958"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3002"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3160"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3204"/>
         <source>Callbook search is active</source>
         <translation>电台黄页搜索可用</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3155"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3199"/>
         <source>Callbook search is inactive</source>
         <translation>电台黄页搜索不可用</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3291"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3335"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>两个或四个相邻的梅登黑德网格定位器，每个四个字符长，(例如 EN98, FM08, EM97, FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3294"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3338"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>联络电台的DARC DOK (地区位置代码) (例如 A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3314"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3358"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>世界动植物 (可选参数)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3318"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3362"/>
         <source>Special Activity Group</source>
         <translation>特别活动或兴趣团体名称</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3322"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3366"/>
         <source>Special Activity Group Information</source>
         <translation>特别活动或兴趣团体信息</translation>
     </message>
@@ -7223,7 +7308,7 @@
         <location filename="../ui/AlertRuleDetail.cpp" line="373"/>
         <location filename="../ui/ExportDialog.cpp" line="125"/>
         <location filename="../ui/KSTChatWidget.cpp" line="268"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1465"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1453"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="593"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="604"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="613"/>
@@ -7288,27 +7373,27 @@
         <translation>无法更新告警规则</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="499"/>
+        <location filename="../ui/DxWidget.cpp" line="500"/>
         <source>DXC Server Name Error</source>
         <translation>DXC 服务器名称错误</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="500"/>
+        <location filename="../ui/DxWidget.cpp" line="501"/>
         <source>DXC Server address must be in format&lt;p&gt;&lt;b&gt;[username@]hostname:port&lt;/b&gt; (ex. hamqth.com:7300)&lt;/p&gt;</source>
         <translation>DXC 服务器地址格式必须为&lt;p&gt;&lt;b&gt;[用户名@]主机名:端口&lt;/b&gt; (例. hamqth.com:7300)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="952"/>
+        <location filename="../ui/DxWidget.cpp" line="954"/>
         <source>DX Cluster Password</source>
         <translation>DX 集群密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="953"/>
+        <location filename="../ui/DxWidget.cpp" line="955"/>
         <source>Invalid Password</source>
         <translation>无效的密码</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1121"/>
+        <location filename="../ui/DxWidget.cpp" line="1123"/>
         <source>DXC Server Connection Error</source>
         <translation>DXC 服务器连接出错</translation>
     </message>
@@ -7367,7 +7452,7 @@
         <translation>&lt;b&gt;CW 键控器出错:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1466"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1454"/>
         <source>Your callsign is empty. Please, set your Station Profile</source>
         <translation>你的呼号为空。请先设置台站配置文件</translation>
     </message>
@@ -7482,43 +7567,43 @@
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="430"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="319"/>
-        <location filename="../ui/DxWidget.cpp" line="1091"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="320"/>
+        <location filename="../ui/DxWidget.cpp" line="1093"/>
         <source>Connection Refused</source>
         <translation>连接被拒绝</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="433"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="323"/>
-        <location filename="../ui/DxWidget.cpp" line="1094"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="324"/>
+        <location filename="../ui/DxWidget.cpp" line="1096"/>
         <source>Host closed the connection</source>
         <translation>主机关闭连接</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="438"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="328"/>
-        <location filename="../ui/DxWidget.cpp" line="1099"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="329"/>
+        <location filename="../ui/DxWidget.cpp" line="1101"/>
         <source>Host not found</source>
         <translation>找不到主机</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="441"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="331"/>
-        <location filename="../ui/DxWidget.cpp" line="1102"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="332"/>
+        <location filename="../ui/DxWidget.cpp" line="1104"/>
         <source>Timeout</source>
         <translation>超时</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="446"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="335"/>
-        <location filename="../ui/DxWidget.cpp" line="1106"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="336"/>
+        <location filename="../ui/DxWidget.cpp" line="1108"/>
         <source>Network Error</source>
         <translation>网络错误</translation>
     </message>
     <message>
         <location filename="../core/KSTChat.cpp" line="450"/>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="338"/>
-        <location filename="../ui/DxWidget.cpp" line="1109"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="339"/>
+        <location filename="../ui/DxWidget.cpp" line="1111"/>
         <source>Internal Error</source>
         <translation>内部错误</translation>
     </message>
@@ -7618,7 +7703,7 @@
         <translation>我的 DXCC</translation>
     </message>
     <message>
-        <location filename="../ui/DxWidget.cpp" line="1084"/>
+        <location filename="../ui/DxWidget.cpp" line="1086"/>
         <source>Cannot connect to DXC Server &lt;p&gt;Reason &lt;b&gt;: </source>
         <translation>无法连接至 DXC 服务器 &lt;p&gt;原因 &lt;b&gt;: </translation>
     </message>
@@ -10102,6 +10187,7 @@
     <name>StatisticsWidget</name>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="14"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="600"/>
         <source>Statistics</source>
         <translation>统计分析</translation>
     </message>
@@ -10167,7 +10253,7 @@
     </message>
     <message>
         <location filename="../ui/StatisticsWidget.ui" line="320"/>
-        <location filename="../ui/StatisticsWidget.cpp" line="44"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="685"/>
         <source>Band</source>
         <translation>波段</translation>
     </message>
@@ -10202,127 +10288,132 @@
         <translation>about:blank</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="39"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="680"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="40"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="681"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="41"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="682"/>
         <source>Day in Week</source>
         <translation>星期几</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="42"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="683"/>
         <source>Hour</source>
         <translation>小时</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="43"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="684"/>
         <source>Mode</source>
         <translation>模式</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="45"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="686"/>
         <source>Continent</source>
         <translation>大洲</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="46"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="687"/>
         <source>Propagation Mode</source>
         <translation>传播模式</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="53"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="694"/>
         <source>Confirmed / Not Confirmed</source>
         <translation>已确认/未确认</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="60"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="701"/>
         <source>Countries</source>
         <translation>国家/地区</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="61"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="702"/>
         <source>Big Gridsquares</source>
         <translation>大网格坐标</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="70"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="711"/>
         <source>Distance</source>
         <translation>距离</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="77"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="718"/>
         <source>QSOs</source>
         <translation>QSO</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="78"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="719"/>
         <source>Confirmed/Worked Grids</source>
         <translation>确认/已通联 网格</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="79"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="720"/>
         <source>ODX</source>
         <translation>ODX</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="216"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="137"/>
         <source>Sun</source>
         <translation>星期日</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="217"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="138"/>
         <source>Mon</source>
         <translation>星期一</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="218"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="139"/>
         <source>Tue</source>
         <translation>星期二</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="219"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="140"/>
         <source>Wed</source>
         <translation>星期三</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="220"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="141"/>
         <source>Thu</source>
         <translation>星期四</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="221"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="142"/>
         <source>Fri</source>
         <translation>星期五</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="222"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="143"/>
         <source>Sat</source>
         <translation>星期六</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="268"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="189"/>
         <source>Not specified</source>
         <translation>未指定</translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="307"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="228"/>
         <source>Confirmed </source>
         <translation>已确认 </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="308"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="229"/>
         <source>Not Confirmed </source>
         <translation>未确认 </translation>
     </message>
     <message>
-        <location filename="../ui/StatisticsWidget.cpp" line="787"/>
+        <location filename="../ui/StatisticsWidget.cpp" line="600"/>
+        <source>Over 50000 QSOs. Display them?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/StatisticsWidget.cpp" line="739"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
@@ -10330,37 +10421,37 @@
 <context>
     <name>TCIRigDrv</name>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="19"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="20"/>
         <source>Rig 0</source>
         <translation>设备 0</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="20"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="21"/>
         <source>Rig 1</source>
         <translation>设备 1</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="21"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="22"/>
         <source>Rig 2</source>
         <translation>设备 2</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="22"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="23"/>
         <source>Rig 3</source>
         <translation>设备 3</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="341"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="342"/>
         <source>Error Occured</source>
         <translation>发生错误</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="545"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="546"/>
         <source>Rig status changed</source>
         <translation>设备状态已更改</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/TCIRigDrv.cpp" line="546"/>
+        <location filename="../rig/drivers/TCIRigDrv.cpp" line="547"/>
         <source>Rig is not connected</source>
         <translation>设备未连接</translation>
     </message>
