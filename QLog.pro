@@ -72,6 +72,7 @@ SOURCES += \
         core/PropConditions.cpp \
         core/QRZ.cpp \
         core/QSLStorage.cpp \
+        core/QSOFilterManager.cpp \
         core/SerialPort.cpp \
         core/UpdatableSQLRecord.cpp \
         core/Wsjtx.cpp \
@@ -197,6 +198,7 @@ HEADERS += \
         core/PropConditions.h \
         core/QRZ.h \
         core/QSLStorage.h \
+        core/QSOFilterManager.h \
         core/SerialPort.h \
         core/UpdatableSQLRecord.h \
         core/Wsjtx.h \

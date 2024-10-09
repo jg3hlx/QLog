@@ -27,6 +27,7 @@
 #include "core/MembershipQE.h"
 #include "core/GenericCallbook.h"
 #include "core/ClubLog.h"
+#include "core/QSOFilterManager.h"
 
 MODULE_IDENTIFICATION("qlog.ui.logbookwidget");
 
@@ -912,42 +913,7 @@ void LogbookWidget::filterTable()
         filterString.append(QString("id in (SELECT contactid FROM contact_clubs_view WHERE clubid = '%1')").arg(ui->clubFilter->currentText()));
 
     if ( ui->userFilter->currentIndex() != 0 )
-    {
-        QSqlQuery userFilterQuery;
-        if ( ! userFilterQuery.prepare("SELECT "
-                                     "'(' || GROUP_CONCAT( ' ' || c.name || ' ' || CASE WHEN r.value IS NULL AND o.sql_operator IN ('=', 'like') THEN 'IS' "
-                                     "                                                  WHEN r.value IS NULL and r.operator_id NOT IN ('=', 'like') THEN 'IS NOT' "
-                                     "                                                  WHEN o.sql_operator = ('starts with') THEN 'like' "
-                                     "                                                  ELSE o.sql_operator END || "
-                                     "' (' || quote(CASE o.sql_operator WHEN 'like' THEN '%' || r.value || '%' "
-                                     "                                  WHEN 'not like' THEN '%' || r.value || '%' "
-                                     "                                  WHEN 'starts with' THEN r.value || '%' "
-                                     "                                  ELSE r.value END)  || ') ', m.sql_operator) || ')' "
-                                     "FROM qso_filters f, qso_filter_rules r, "
-                                     "qso_filter_operators o, qso_filter_matching_types m, "
-                                     "PRAGMA_TABLE_INFO('contacts') c "
-                                     "WHERE f.filter_name = :filterName "
-                                     "      AND f.filter_name = r.filter_name "
-                                     "      AND o.operator_id = r.operator_id "
-                                     "      AND m.matching_id = f.matching_type "
-                                     "      AND c.cid = r.table_field_index") )
-        {
-            qWarning() << "Cannot prepare select statement";
-            return;
-        }
-
-        userFilterQuery.bindValue(":filterName", ui->userFilter->currentText());
-
-        qCDebug(runtime) << "User filter SQL: " << userFilterQuery.lastQuery();
-
-        if ( userFilterQuery.exec() )
-        {
-            userFilterQuery.next();
-            filterString.append(QString("( ") + userFilterQuery.value(0).toString() + ")");
-        }
-        else
-            qCDebug(runtime) << "User filter error - " << userFilterQuery.lastError().text();
-    }
+        filterString.append(QSOFilterManager::instance()->getWhereClause(ui->userFilter->currentText()));
 
     if ( !externalFilter.isEmpty() )
         filterString.append(QString("( ") + externalFilter + ")");
