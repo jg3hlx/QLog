@@ -23,9 +23,7 @@ QSOFilterDetail::QSOFilterDetail(const QString &filterName, QWidget *parent) :
     logbookmodel = new LogbookModel(this);
 
     if ( ! filterName.isEmpty() )
-    {
         loadFilter(filterName);
-    }
     else
     {
         /* get Filters name from DB to checking whether a new filter name
@@ -89,9 +87,7 @@ void QSOFilterDetail::addCondition(int fieldIdx, int operatorId, QString value)
     conditionCombo->setObjectName(QString::fromUtf8("conditionCombo%1").arg(condCount));
 
     if ( operatorId >= 0 )
-    {
         conditionCombo->setCurrentIndex(operatorId);
-    }
 
     conditionLayout->addWidget(conditionCombo);
 
@@ -131,52 +127,30 @@ void QSOFilterDetail::addCondition(int fieldIdx, int operatorId, QString value)
            Therefore, we can use Column aliases here
          */
         if ( this->isDateField(index) )
-        {
             stacked->setCurrentIndex(1); //Date Edit
-        }
         else if ( this->isDateTimeField(index) )
-        {
             stacked->setCurrentIndex(2); //DateTime edit
-        }
         else if ( this->isQSLSentField(index) )
-        {
             stacked->setCurrentIndex(3);
-        }
         else if ( this->isQSLSentViaField(index) )
-        {
             stacked->setCurrentIndex(4);
-        }
         else if ( this->isQSLRcvdField(index) )
-        {
             stacked->setCurrentIndex(5);
-        }
         else if ( this->isUploadStatusField(index) )
-        {
             stacked->setCurrentIndex(6);
-        }
         else if ( this->isAntPathField(index) )
-        {
             stacked->setCurrentIndex(7);
-        }
         else if ( this->isBoolField(index) )
-        {
             stacked->setCurrentIndex(8);
-        }
         else if ( this->isQSOCompleteField(index) )
-        {
             stacked->setCurrentIndex(9);
-        }
         else
-        {
             stacked->setCurrentIndex(0);
-        }
     });
 
     /* Set FieldNameCombo here to update Stacked Widget */
     if ( fieldIdx >= 0 )
-    {
         fieldNameCombo->setCurrentIndex(fieldIdx);
-    }
 
     /*****************/
     /* Remove Button */
@@ -362,9 +336,7 @@ QComboBox* QSOFilterDetail::createComboBox(const QMap<QString, QString> &mapping
         iter.next();
         combo->addItem(iter.value(), iter.key());
         if ( ! value.isEmpty() && iter.key() == value )
-        {
             value_index = iter_index;
-        }
         iter_index++;
     }
     combo->setCurrentIndex(value_index);
@@ -387,9 +359,7 @@ QDateEdit *QSOFilterDetail::createDateEdit(const QString &value, const int ident
     valueDate->setDisplayFormat(locale.formatDateShortWithYYYY());
     valueDate->setSizePolicy(sizepolicy);
     if ( !value.isEmpty() )
-    {
         valueDate->setDate(QDate::fromString(value, "yyyy-MM-dd"));
-    }
     return valueDate;
 }
 
