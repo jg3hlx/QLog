@@ -371,7 +371,6 @@ QDateTimeEdit *QSOFilterDetail::createDateTimeEdit(const QString &value, const i
     QDateTimeEdit* valueDateTime = new QDateTimeEdit();
     valueDateTime->setObjectName(QString::fromUtf8("valueDateTimeEdit%1").arg(identified));
     valueDateTime->setFocusPolicy(Qt::ClickFocus);
-    valueDateTime->setCalendarPopup(true);
     valueDateTime->setTimeSpec(Qt::UTC);
     valueDateTime->setDisplayFormat(locale.formatDateShortWithYYYY()
                                     + " " + locale.formatTimeLongWithoutTZ());
