@@ -1324,7 +1324,7 @@ void QSODetailDialog::clubQueryResult(const QString &in_callsign,
     while ( clubs.hasNext() )
     {
         clubs.next();
-        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), palette.color(QPalette::Text));
+        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), false, palette.color(QPalette::Text));
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
     ui->memberListLabel->setText(memberText);

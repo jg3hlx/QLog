@@ -121,6 +121,31 @@ bool QSOFilterManager::save(const QSOFilter &filter)
     return true;
 }
 
+bool QSOFilterManager::remove(const QString &filterName)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << filterName;
+
+    QSqlQuery filterStmt;
+    if ( ! filterStmt.prepare(QLatin1String("DELETE FROM qso_filters "
+                                            "WHERE filter_name = :filterName;")) )
+    {
+        qWarning() << "Cannot prepare delete statement";
+        return false;
+    }
+
+    filterStmt.bindValue(":filterName", filterName);
+
+    if ( ! filterStmt.exec() )
+    {
+        qInfo()<< "Cannot get filters names from DB" << filterStmt.lastError();
+        return false;
+    }
+
+    return true;
+}
+
 QStringList QSOFilterManager::getFilterList() const
 {
     FCT_IDENTIFICATION;

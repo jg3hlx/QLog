@@ -6,13 +6,17 @@
 
 MODULE_IDENTIFICATION("qlog.core.logparam");
 
+#define PARAMMUTEXLOCKER     qCDebug(runtime) << "Waiting for mutex"; \
+                             QMutexLocker locker(&cacheMutex); \
+                             qCDebug(runtime) << "Using logparam"
+
 LogParam::LogParam(QObject *parent) :
     QObject(parent)
 {
     FCT_IDENTIFICATION;
 }
 
-bool LogParam::setParam(const QString &name, const QString &value)
+bool LogParam::setParam(const QString &name, const QVariant &value)
 {
     FCT_IDENTIFICATION;
 
@@ -30,31 +34,28 @@ bool LogParam::setParam(const QString &name, const QString &value)
     query.bindValue(":nam", name);
     query.bindValue(":val", value);
 
+    PARAMMUTEXLOCKER;
+
     if ( !query.exec() )
     {
         qWarning() << "Cannot exec an insert parameter statement";
         return false;
     }
 
-    localCache.remove(name);
+    localCache.insert(name, new QVariant(value));
 
     return true;
 }
 
-bool LogParam::setParam(const QString &name, const QDate &value)
-{
-    FCT_IDENTIFICATION;
-
-    return setParam(name, value.toString(Qt::ISODate));
-}
-
-QVariant LogParam::getParam(const QString &name)
+QVariant LogParam::getParam(const QString &name, const QVariant &defaultValue)
 {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << name;
 
-    QVariant ret;
+    PARAMMUTEXLOCKER;
+
+    QVariant ret = defaultValue;
     QVariant *valueCached = localCache.object(name);
 
     if ( valueCached )
@@ -91,4 +92,40 @@ QVariant LogParam::getParam(const QString &name)
     return ret;
 }
 
-QCache<QString, QVariant> LogParam::localCache(10);
+void LogParam::removeParamGroup(const QString &paramGroup)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << paramGroup;
+
+    PARAMMUTEXLOCKER;
+
+    const QStringList &keys = localCache.keys();
+
+    for ( const QString& key : keys )
+    {
+        if (key.startsWith(paramGroup))
+            localCache.remove(key);
+    }
+
+    QSqlQuery query;
+
+    if ( ! query.prepare("DELETE FROM log_param WHERE name LIKE :group ") )
+    {
+        qWarning()<< "Cannot prepare delete parameter statement";
+        return;
+    }
+
+    query.bindValue(":group", paramGroup + "%");
+
+    if ( ! query.exec() )
+        qWarning() << "Cannot execute removeParamGroup statement";
+
+    return;
+}
+
+QCache<QString, QVariant> LogParam::localCache(30);
+
+QMutex LogParam::cacheMutex;
+
+#undef PARAMMUTEXLOCKER

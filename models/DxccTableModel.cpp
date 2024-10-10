@@ -22,7 +22,7 @@ QVariant DxccTableModel::data(const QModelIndex &index, int role) const
         if ( currData.contains("L")
              || currData.contains("P"))
         {
-            return Data::statusToColor(DxccStatus::NewMode, Qt::green);
+            return Data::statusToColor(DxccStatus::NewMode, false, Qt::green);
         }
 
         if ( currData == QString("e")

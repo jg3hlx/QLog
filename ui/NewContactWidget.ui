@@ -164,6 +164,19 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="dupeLabel">
+             <property name="styleSheet">
+              <string notr="true">QLabel { color : red; }</string>
+             </property>
+             <property name="text">
+              <string>&lt;b&gt;DUPE !!!&lt;/b&gt;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item row="1" column="5">
@@ -1997,5 +2010,6 @@
   <slot>potaEditFinished()</slot>
   <slot>potaChanged(QString)</slot>
   <slot>changeCallbookSearchStatus()</slot>
+  <slot>resetSTXCounters()</slot>
  </slots>
 </ui>

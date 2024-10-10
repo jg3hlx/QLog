@@ -29,6 +29,9 @@
 #include "core/HRDLog.h"
 #include "ui/HRDLogDialog.h"
 #include "ui/ProfileImageWidget.h"
+#include "core/LogParam.h"
+#include "core/QSOFilterManager.h"
+#include "data/Data.h"
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -40,8 +43,29 @@ MainWindow::MainWindow(QWidget* parent) :
 {
     FCT_IDENTIFICATION;
 
-
     ui->setupUi(this);
+
+    ui->actionSeqSingle->setData(Data::SeqType::SINGLE);
+    ui->actionSeqPerBand->setData(Data::SeqType::PER_BAND);
+    seqGroup = new QActionGroup(this);
+    seqGroup->addAction(ui->actionSeqSingle);
+    seqGroup->addAction(ui->actionSeqPerBand);
+    restoreContestMenuSeqnoType();
+    connect(seqGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuSeqnoType);
+
+    dupeGroup = new QActionGroup(this);
+    ui->actionDupeAllBands->setData(Data::DupeType::ALL_BANDS);
+    ui->actionDupeEachBand->setData(Data::DupeType::EACH_BAND);
+    ui->actionDupeEachBandMode->setData(Data::DupeType::EACH_BAND_MODE);
+    ui->actionDupeNoCheck->setData(Data::DupeType::NO_CHECK);
+    dupeGroup->addAction(ui->actionDupeAllBands);
+    dupeGroup->addAction(ui->actionDupeEachBand);
+    dupeGroup->addAction(ui->actionDupeEachBandMode);
+    dupeGroup->addAction(ui->actionDupeNoCheck);
+    restoreContestMenuDupeType();
+    connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
+
+    enableContestSettings(LogParam::getParam("contest/contestid", QString()).toString().isEmpty());
 
     darkLightModeSwith = new SwitchButton("", ui->statusBar);
     darkIconLabel = new QLabel("<html><img src=':/icons/light-dark-24px.svg'></html>",ui->statusBar);
@@ -197,20 +221,36 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::layoutChanged, ui->newContactWidget, &NewContactWidget::setupCustomUi);
     connect(this, &MainWindow::altBackslash, Rig::instance(), &Rig::setPTT);
     connect(this, &MainWindow::manualMode, ui->newContactWidget, &NewContactWidget::setManualMode);
+    connect(this, &MainWindow::contestStopped, ui->newContactWidget, &NewContactWidget::stopContest);
+    connect(this, &MainWindow::contestStopped, ui->bandmapWidget, &BandmapWidget::resetDupe);
+    connect(this, &MainWindow::contestStopped, ui->alertsWidget, &AlertWidget::resetDupe);
+    connect(this, &MainWindow::contestStopped, ui->chatWidget, &ChatWidget::resetDupe);
 
     connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshWidget);
     connect(ui->logbookWidget, &LogbookWidget::contactUpdated, &networknotification, &NetworkNotification::QSOUpdated);
+    //connect(ui->logbookWidget, &LogbookWidget::contactUpdated, ui->bandmapWidget, &BandmapWidget::updateSpotsStatusWhenQSOUpdated);
+    //connect(ui->logbookWidget, &LogbookWidget::contactUpdated, ui->alertsWidget, &AlertWidget::updateSpotsStatusWhenQSOUpdated);
+
     connect(ui->logbookWidget, &LogbookWidget::clublogContactUpdated, clublogRT, &ClubLog::updateQSOImmediately);
     connect(ui->logbookWidget, &LogbookWidget::contactDeleted, &networknotification, &NetworkNotification::QSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::contactDeleted, ui->bandmapWidget, &BandmapWidget::updateSpotsDupeWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::deletedEntities, ui->bandmapWidget, &BandmapWidget::updateSpotsDxccStatusWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::contactDeleted, ui->alertsWidget, &AlertWidget::updateSpotsDupeWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::deletedEntities, ui->alertsWidget, &AlertWidget::updateSpotsDxccStatusWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::contactDeleted, ui->chatWidget, &ChatWidget::updateSpotsDupeWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::deletedEntities, ui->chatWidget, &ChatWidget::updateSpotsDxccStatusWhenQSODeleted);
+    connect(ui->logbookWidget, &LogbookWidget::deletedEntities, ui->newContactWidget, &NewContactWidget::refreshCallsignsColors);
     connect(ui->logbookWidget, &LogbookWidget::clublogContactDeleted, clublogRT, &ClubLog::deleteQSOImmediately);
     connect(ui->logbookWidget, &LogbookWidget::sendDXSpotContactReq, ui->dxWidget, &DxWidget::prepareQSOSpot);
 
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->logbookWidget, &LogbookWidget::updateTable);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, &networknotification, &NetworkNotification::QSOInserted);
-    connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->bandmapWidget, &BandmapWidget::spotsDxccStatusRecal);
+    connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->bandmapWidget, &BandmapWidget::updateSpotsStatusWhenQSOAdded);
+    connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->alertsWidget, &AlertWidget::updateSpotsStatusWhenQSOAdded);
+    connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->chatWidget, &ChatWidget::updateSpotsStatusWhenQSOAdded);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->dxWidget, &DxWidget::setLastQSO);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, clublogRT, &ClubLog::insertQSOImmediately);
-
+    connect(ui->newContactWidget, &NewContactWidget::contestStarted, this, &MainWindow::startContest);
     connect(ui->newContactWidget, &NewContactWidget::newTarget, ui->mapWidget, &MapWidget::setTarget);
     connect(ui->newContactWidget, &NewContactWidget::newTarget, ui->onlineMapWidget, &OnlineMapWidget::setTarget);
     connect(ui->newContactWidget, &NewContactWidget::filterCallsign, ui->logbookWidget, &LogbookWidget::filterCallsign);
@@ -239,7 +279,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(&alertEvaluator, &AlertEvaluator::spotAlert, &networknotification, &NetworkNotification::spotAlert);
 
     connect(ui->bandmapWidget, &BandmapWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
-    connect(ui->bandmapWidget, &BandmapWidget::nearestSpotFound, ui->newContactWidget, &NewContactWidget::nearestSpot);
+    connect(ui->bandmapWidget, &BandmapWidget::nearestSpotFound, ui->newContactWidget, &NewContactWidget::setNearestSpot);
 
     connect(ui->wsjtxWidget, &WsjtxWidget::callsignSelected, ui->newContactWidget, &NewContactWidget::prepareWSJTXQSO);
 
@@ -639,6 +679,8 @@ void MainWindow::setEquipmentKeepOptions(bool)
     saveEquipmentConnOptions();
 }
 
+
+
 void MainWindow::setDarkMode()
 {
     FCT_IDENTIFICATION;
@@ -742,8 +784,6 @@ void MainWindow::saveEquipmentConnOptions()
 {
     FCT_IDENTIFICATION;
 
-    QSettings settings;
-
     settings.setValue("equipment/keepoptions", ui->actionEquipmentKeepOptions->isChecked());
 
     if ( ui->actionEquipmentKeepOptions->isChecked() )
@@ -757,8 +797,6 @@ void MainWindow::saveEquipmentConnOptions()
 void MainWindow::restoreConnectionStates()
 {
     FCT_IDENTIFICATION;
-
-    QSettings settings;
 
     if ( ui->actionEquipmentKeepOptions->isChecked() )
     {
@@ -794,8 +832,6 @@ void MainWindow::restoreConnectionStates()
 void MainWindow::restoreEquipmentConnOptions()
 {
     FCT_IDENTIFICATION;
-
-    QSettings settings;
 
     ui->actionEquipmentKeepOptions->blockSignals(true);
     ui->actionEquipmentKeepOptions->setChecked(settings.value("equipment/keepoptions", false).toBool());
@@ -843,6 +879,117 @@ void MainWindow::saveUserDefinedShortcuts()
         state[action->objectName()] = newShortcut;
     }
     settings.setValue("shortcuts", state);
+}
+
+void MainWindow::saveContestMenuSeqnoType(QAction *action)
+{
+    FCT_IDENTIFICATION;
+
+    LogParam::setParam("contest/seqnotype", action->data());
+    // this function is called only if contest is not active
+    // therefore it is not needed to somehow recalculate seq
+}
+
+void MainWindow::restoreContestMenuSeqnoType()
+{
+    FCT_IDENTIFICATION;
+
+    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
+
+    const QList<QAction *> seqActions = seqGroup->actions();
+    for ( QAction *action : seqActions)
+    {
+        if ( action->data().toInt() == seqnoType )
+        {
+            action->setChecked(true);
+            break;
+        }
+    }
+}
+
+void MainWindow::saveContestMenuDupeType(QAction *action)
+{
+    FCT_IDENTIFICATION;
+
+    LogParam::setParam("contest/dupetype", action->data());
+    // this function is called only if contest is not active
+    // therefore it is not needed to refresh dupeStatus
+    // otherwise, it would mean recalculating all colors of all callsigns,
+    // where DUPE Check is used.
+}
+
+void MainWindow::restoreContestMenuDupeType()
+{
+    FCT_IDENTIFICATION;
+
+    int dupeType = LogParam::getParam("contest/dupetype", Data::DupeType::ALL_BANDS).toInt();
+
+    const QList<QAction *> seqActions = dupeGroup->actions();
+    for ( QAction *action : seqActions)
+    {
+        if ( action->data().toInt() == dupeType )
+        {
+            action->setChecked(true);
+            break;
+        }
+    }
+}
+
+void MainWindow::startContest(const QString contestID, const QDateTime)
+{
+    FCT_IDENTIFICATION;
+
+    // Contest's start signal is sent from NewContact
+    const QSOFilter &contestFilter = QSOFilter::createFromNowContestFilter(contestID);
+    QSOFilterManager::instance()->save(contestFilter);
+    ui->logbookWidget->refreshUserFilter();
+    ui->logbookWidget->setUserFilter(contestFilter.filterName);
+    LogParam::setParam("contest/filter", contestFilter.filterName);
+    enableContestSettings(false);
+}
+
+void MainWindow::stopContest()
+{
+    FCT_IDENTIFICATION;
+
+    const QString &contestFilterName = LogParam::getParam("contest/filter").toString();
+
+    if ( !contestFilterName.isEmpty() )
+    {
+        QMessageBox::StandardButton reply;
+
+        reply = QMessageBox::question(this, tr("Contest"),
+                                      tr("Do you want to remove the Contest filter %1?").arg(contestFilterName),
+                                      QMessageBox::Yes|QMessageBox::No);
+
+        if ( reply == QMessageBox::Yes )
+        {
+            QSOFilterManager::instance()->remove(contestFilterName);
+            ui->logbookWidget->refreshUserFilter();
+        }
+        else
+        {
+            QSOFilter contestFilter = QSOFilterManager::instance()->getFilter(contestFilterName);
+            contestFilter.addRule(QSOFilter::createToDateRule(QDateTime::currentDateTimeUtc()));
+            QSOFilterManager::instance()->save(contestFilter);
+        }
+    }
+    LogParam::setParam("contest/filter", QString());
+    enableContestSettings(true);
+
+    emit contestStopped();
+}
+
+void MainWindow::enableContestSettings(bool state)
+{
+    FCT_IDENTIFICATION;
+
+    ui->actionContestStop->setEnabled(!state);
+    if ( seqGroup && dupeGroup)
+    {
+        seqGroup->setEnabled(state);
+        dupeGroup->setEnabled(state);
+    }
 }
 
 void MainWindow::rotConnect()
@@ -1246,5 +1393,7 @@ MainWindow::~MainWindow()
     if ( wsjtx )
         wsjtx->deleteLater();
 
+    seqGroup->deleteLater();
+    dupeGroup->deleteLater();
     delete ui;
 }

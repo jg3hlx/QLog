@@ -3,9 +3,17 @@
 
 #include <QObject>
 #include <QSqlQuery>
+#include <QDateTime>
+
+#include "models/LogbookModel.h"
 
 struct QSOFilterRule
 {
+    QSOFilterRule() {};
+    QSOFilterRule(int in_idx, int in_operatorID, const QString &in_value)
+        : tableFieldIndex(in_idx),
+        operatorID(in_operatorID),
+        value(in_value){ };
     int tableFieldIndex;
     int operatorID;
     QString value;
@@ -22,6 +30,34 @@ public:
     {
         rules.append(rule);
     }
+
+    static QSOFilterRule createFromDateRule(const QDateTime &date)
+    {
+        return QSOFilterRule(LogbookModel::COLUMN_TIME_ON, 4, date.toString("yyyy-MM-ddTHH:mm:ss"));  // 4 - should be enum - later '4' >
+    }
+
+    static QSOFilterRule createNonEmptyContestRule()
+    {
+        return QSOFilterRule(LogbookModel::COLUMN_CONTEST_ID, 2, "%");// '2' is like
+    }
+
+    static QSOFilterRule createToDateRule(const QDateTime &date)
+    {
+        return QSOFilterRule(LogbookModel::COLUMN_TIME_ON, 5, date.toString("yyyy-MM-ddTHH:mm:ss"));  // 5 - should be enum - later '5' <
+                                                  // ON of OFF???
+    }
+
+    static QSOFilter createFromNowContestFilter(const QString &filterNamePrefix)
+    {
+        QSOFilter ret;
+
+        const QDateTime &date = QDateTime::currentDateTimeUtc();
+        ret.filterName = QString("%1-%2").arg(filterNamePrefix, date.toString("yyyy/MM/dd hh:mm"));
+        ret.machingType = 0; // should be enum - later
+        ret.addRule(createFromDateRule(date));
+        ret.addRule(createNonEmptyContestRule());
+        return ret;
+    }
 };
 
 class QSOFilterManager : public QObject
@@ -36,6 +72,7 @@ public:
     }
 
     bool save(const QSOFilter &filter);
+    bool remove(const QString &filterName);
     QStringList getFilterList() const;
     QSOFilter getFilter(const QString &filterName) const;
     QString getWhereClause(const QString &filterName) const;

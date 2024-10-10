@@ -62,6 +62,7 @@ void AlertEvaluator::dxSpot(const DxSpot & spot)
         alert.comment = spot.comment;
         alert.spotter = spot.spotter;
         alert.dxcc_spotter = spot.dxcc_spotter;
+        alert.dupeCount = spot.dupeCount;
 
         emit spotAlert(alert);
     }
@@ -104,6 +105,7 @@ void AlertEvaluator::WSJTXCQSpot(const WsjtxEntry &wsjtx)
         alert.spotter = wsjtx.spotter;
         alert.dxcc_spotter = wsjtx.dxcc_spotter;
         alert.wsjtxDecode = wsjtx.decode;
+        alert.dupeCount = wsjtx.dupeCount;
 
         emit spotAlert(alert);
         return;

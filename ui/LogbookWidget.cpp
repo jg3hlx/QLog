@@ -389,6 +389,15 @@ void LogbookWidget::userFilterChanged()
     filterTable();
 }
 
+void LogbookWidget::setUserFilter(const QString &filterName)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << filterName;
+
+    ui->userFilter->setCurrentText(filterName);
+}
+
 void LogbookWidget::saveUserFilter()
 {
     FCT_IDENTIFICATION;
@@ -539,6 +548,7 @@ void LogbookWidget::deleteContact()
             blockClublogSignals = true;
     }
 
+    //It must be sorted in descending order to delete the correct rows.
     std::sort(deletedRowIndexes.begin(),
               deletedRowIndexes.end(),
               [](const QModelIndex &a, const QModelIndex &b)
@@ -566,11 +576,15 @@ void LogbookWidget::deleteContact()
     ui->contactTable->setModel(nullptr);
     QCoreApplication::processEvents();
 
-    int cnt = 0;
+    quint32 cnt = 0;
+
+    QSet<uint> removedEntities;
+    removedEntities.reserve(deletedRowIndexes.size());
 
     for ( const QModelIndex &index : static_cast<const QModelIndexList&>(deletedRowIndexes) )
     {
         cnt++;
+        removedEntities << model->data(model->index(index.row(), LogbookModel::COLUMN_DXCC), Qt::DisplayRole).toUInt();
         model->removeRow(index.row());
 
         if ( progress->wasCanceled() )
@@ -590,6 +604,7 @@ void LogbookWidget::deleteContact()
     updateTable();
     scrollToIndex(previousIndex);
     blockClublogSignals = false;
+    emit deletedEntities(removedEntities);
 }
 
 void LogbookWidget::exportContact()

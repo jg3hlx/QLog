@@ -33,6 +33,7 @@ signals:
     void altBackslash(bool active);
     void manualMode(bool);
     void layoutChanged();
+    void contestStopped();
 
 public slots:
     void rigErrorHandler(const QString &error, const QString &errorDetail);
@@ -77,6 +78,12 @@ private slots:
     void saveProfileLayoutGeometry();
     void setEquipmentKeepOptions(bool);
 
+    void saveContestMenuSeqnoType(QAction *action);
+    void saveContestMenuDupeType(QAction *action);
+    void startContest(const QString contestID, const QDateTime);
+    void stopContest();
+    void enableContestSettings(bool state);
+
 private:
     Ui::MainWindow* ui;
     QLabel* conditionsLabel;
@@ -95,6 +102,8 @@ private:
     bool isFusionStyle;
     ClubLog* clublogRT;
     Wsjtx* wsjtx;
+    QActionGroup *seqGroup;
+    QActionGroup *dupeGroup;
 
     void setDarkMode();
     void setLightMode();
@@ -106,6 +115,9 @@ private:
 
     void restoreUserDefinedShortcuts();
     void saveUserDefinedShortcuts();
+
+    void restoreContestMenuSeqnoType();
+    void restoreContestMenuDupeType();
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

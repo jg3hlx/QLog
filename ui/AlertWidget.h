@@ -25,6 +25,11 @@ public slots:
     void entryDoubleClicked(QModelIndex index);
     void alertAgingChanged(int);
     void showEditRules();
+    void resetDupe();
+    void updateSpotsStatusWhenQSOAdded(const QSqlRecord &record);
+    void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &record);
+    void updateSpotsDupeWhenQSODeleted(const QSqlRecord &record);
+    void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);
 
 private slots:
     void showColumnVisibility();

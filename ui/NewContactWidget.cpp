@@ -27,6 +27,7 @@
 #include "data/MainLayoutProfile.h"
 #include "models/LogbookModel.h"
 #include "data/BandPlan.h"
+#include "core/LogParam.h"
 
 MODULE_IDENTIFICATION("qlog.ui.newcontactwidget");
 
@@ -49,8 +50,10 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     ui->setupUi(this);
     ui->rstRcvdEdit->spaceForbidden(true);
     ui->rstSentEdit->spaceForbidden(true);
+    ui->dupeLabel->setVisible(false);
 
     setupCustomUi();
+    uiDynamic->contestIDEdit->setText(LogParam::getParam("contest/contestid").toString());
 
     CWKeyProfilesManager::instance(); //TODO remove, make it better - workaround
 
@@ -424,8 +427,8 @@ void NewContactWidget::handleCallsignFromUser()
     }
     else
     {
+        checkDupe();
         setDxccInfo(callsign);
-
         if ( callsign.length() >= 3 )
             useFieldsFromPrevQSO(callsign);
     }
@@ -686,7 +689,7 @@ void NewContactWidget::setMembershipList(const QString &in_callsign,
     while ( clubs.hasNext() )
     {
         clubs.next();
-        const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), palette.color(QPalette::Text));
+        const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), false, palette.color(QPalette::Text));
         //"<font color='red'>Hello</font> <font color='green'>World</font>"
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
@@ -825,8 +828,8 @@ void NewContactWidget::__modeChanged()
     defaultReport = record.value("rprt").toString();
 
     setDefaultReport();
-    updateDxccStatus();
     queryMemberList();
+    refreshCallsignsColors();
 }
 
 /* Mode is changed from GUI */
@@ -902,7 +905,7 @@ void NewContactWidget::updateTXBand(double freq)
     }
 
     updateSatMode();
-    updateDxccStatus();
+    updateDxccStatus();   
     ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
 }
 
@@ -923,7 +926,8 @@ void NewContactWidget::updateRXBand(double freq)
         setBandLabel(bandRX.name);
     }
     updateSatMode();
-    updateDxccStatus();
+    setSTXSeq();
+    refreshCallsignsColors();
 }
 
 void NewContactWidget::gridChanged()
@@ -997,7 +1001,7 @@ void NewContactWidget::resetContact()
     uiDynamic->srxStringEdit->clear();
     uiDynamic->srxEdit->clear();
     uiDynamic->rxPWREdit->clear();
-
+    ui->dupeLabel->setVisible(false);
     clearCallbookQueryFields();
     clearMemberQueryFields();
 
@@ -1251,37 +1255,46 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
        record.setValue("my_wwff_ref", profile.wwff.toUpper());
     }
 
-    if ( record.value("contest_id").toString().isEmpty()
-         && uiDynamic->contestIDEdit->isVisible() )
+    // all contest fields are used only in case when
+    // contestID field is visible - with this, the operator shows
+    // that he/she wants to run a contest
+    if ( uiDynamic->contestIDEdit->isVisible()
+         && !uiDynamic->contestIDEdit->text().isEmpty() )
     {
-        record.setValue("contest_id", uiDynamic->contestIDEdit->text());
-    }
+        if ( shouldStartContest() )
+            startContest(record.value("start_time").toDateTime());
 
-    if ( record.value("srx_string").toString().isEmpty()
-         && uiDynamic->srxStringEdit->isVisible() )
-    {
-        record.setValue("srx_string", uiDynamic->srxStringEdit->text());
-    }
+        if ( record.value("contest_id").toString().isEmpty() )
+        {
+            record.setValue("contest_id", uiDynamic->contestIDEdit->text());
+        }
 
-    if ( record.value("stx_string").toString().isEmpty()
-         && uiDynamic->stxStringEdit->isVisible() )
-    {
-        record.setValue("stx_string", uiDynamic->stxStringEdit->text());
-    }
+        if ( record.value("srx_string").toString().isEmpty()
+            && uiDynamic->srxStringEdit->isVisible() )
+        {
+            record.setValue("srx_string", uiDynamic->srxStringEdit->text());
+        }
 
-    if ( record.value("srx").toString().isEmpty()
-         && uiDynamic->srxEdit->isVisible() )
-    {
-        record.setValue("srx", uiDynamic->srxEdit->text());
-    }
+        if ( record.value("stx_string").toString().isEmpty()
+            && uiDynamic->stxStringEdit->isVisible() )
+        {
+            record.setValue("stx_string", uiDynamic->stxStringEdit->text());
+        }
 
-    if ( record.value("stx").toString().isEmpty()
-         && uiDynamic->stxEdit->isVisible() )
-    {
-        record.setValue("stx", uiDynamic->stxEdit->text());
-        // the field always contains a number - validator is enable for it
-        // therefore it is possible to do this
-        uiDynamic->stxEdit->setText(QString::number(uiDynamic->stxEdit->text().toInt() + 1).rightJustified(3,'0'));
+        if ( record.value("srx").toString().isEmpty()
+            && uiDynamic->srxEdit->isVisible() )
+        {
+            record.setValue("srx", uiDynamic->srxEdit->text());
+        }
+
+        if ( record.value("stx").toString().isEmpty()
+            && uiDynamic->stxEdit->isVisible() )
+        {
+            record.setValue("stx", uiDynamic->stxEdit->text());
+            // the field always contains a number - validator is enable for it
+            // therefore it is possible to do this
+            setSTXSeq(uiDynamic->stxEdit->text().toInt() + 1);
+        }
     }
 
     if ( record.value("rx_pwr").toString().isEmpty()
@@ -1513,6 +1526,9 @@ void NewContactWidget::saveContact()
         return;
     }
 
+    if ( callsign.isEmpty() )
+        return;
+
     // if operator wants to save a QSO and QSO's Timer is not running,
     // then it is needed to update the QSO start time before saving
     if ( !isQSOTimeStarted() )
@@ -1531,11 +1547,7 @@ void NewContactWidget::saveContact()
 
     record.setValue("start_time", start);
     record.setValue("end_time", end);
-
-    if ( ! callsign.isEmpty() )
-    {
-        record.setValue("callsign", callsign);
-    }
+    record.setValue("callsign", callsign);
 
     if ( ! ui->rstSentEdit->text().isEmpty() )
     {
@@ -1719,10 +1731,9 @@ void NewContactWidget::saveContact()
         qDebug(runtime)<<"Last Inserted ID: " << tmpQuery.value(0);
     }
 
+    updateNearestSpotDupe();
+    setNearestSpotColor();
     resetContact();
-
-    setNearestSpotColor(ui->nearStationLabel->text());
-
     emit contactAdded(record);
 }
 
@@ -1879,7 +1890,8 @@ void NewContactWidget::saveExternalContact(QSqlRecord record)
         qDebug(runtime)<<"Last Inserted ID: " << tmpQuery.value(0);
     }
 
-    setNearestSpotColor(ui->nearStationLabel->text());
+    updateNearestSpotDupe();
+    setNearestSpotColor();
 
     emit contactAdded(record);
 }
@@ -2035,7 +2047,7 @@ void NewContactWidget::updateDxccStatus()
 {
     FCT_IDENTIFICATION;
 
-    setNearestSpotColor(ui->nearStationLabel->text());
+    setNearestSpotColor();
 
     if ( callsign.isEmpty() )
     {
@@ -2074,7 +2086,9 @@ void NewContactWidget::updateDxccStatus()
     }
 
     QPalette palette;
-    palette.setColor(QPalette::Text, Data::statusToColor(status, palette.color(QPalette::Text)));
+    palette.setColor(QPalette::Text, Data::statusToColor(status,
+                                                         ui->dupeLabel->isVisible(),
+                                                         palette.color(QPalette::Text)));
     ui->callsignEdit->setPalette(palette);
 
 }
@@ -2303,34 +2317,36 @@ void NewContactWidget::rigDisconnected()
     rigOnline = false;
 }
 
-void NewContactWidget::nearestSpot(const DxSpot &spot)
+void NewContactWidget::setNearestSpot(const DxSpot &spot)
 {
     FCT_IDENTIFICATION;
 
-    setNearestSpotColor(spot.callsign);
+    nearestSpot = spot;
+    setNearestSpotColor();
 }
 
-void NewContactWidget::setNearestSpotColor(const QString &call)
+void NewContactWidget::setNearestSpotColor()
 {
     FCT_IDENTIFICATION;
 
-    if ( call.isEmpty() )
+    if ( nearestSpot.callsign.isEmpty() )
     {
-        ui->nearStationLabel->setText(call);
+        ui->nearStationLabel->clear();
         return;
     }
 
     QPalette palette;
 
-    const DxccEntity &spotEntity = Data::instance()->lookupDxcc(call);
+    const DxccEntity &spotEntity = Data::instance()->lookupDxcc(nearestSpot.callsign);
     const DxccStatus &status = Data::dxccStatus(spotEntity.dxcc,
                                                 ui->bandRXLabel->text(),
                                                 ui->modeEdit->currentText());
     palette.setColor(QPalette::WindowText,
                      Data::statusToColor(status,
+                                         nearestSpot.dupeCount,
                                          palette.color(QPalette::Text)));
     ui->nearStationLabel->setPalette(palette);
-    ui->nearStationLabel->setText(call);
+    ui->nearStationLabel->setText(nearestSpot.callsign);
 }
 
 void NewContactWidget::setManualMode(bool isEnabled)
@@ -2698,8 +2714,8 @@ void NewContactWidget::prepareWSJTXQSO(const QString &receivedCallsign,
     callsign = receivedCallsign;
     ui->callsignEdit->setText(receivedCallsign);
     uiDynamic->gridEdit->setText(grid);
+    checkDupe();
     setDxccInfo(receivedCallsign);
-
     // at the moment WSJTX sends several statuses about changing one callsign.
     // In order to avoid multiple searches, we will search only when we have a grid - it was usually the last
     // status message
@@ -3179,6 +3195,106 @@ bool NewContactWidget::isWWFFValid(WWFFEntity *entity)
 
     return (wwffInfo.reference.toUpper() == uiDynamic->wwffEdit->text().toUpper()
             && !wwffInfo.name.isEmpty());
+}
+
+bool NewContactWidget::shouldStartContest()
+{
+    FCT_IDENTIFICATION;
+
+    const QString &prevContestID = LogParam::getParam("contest/contestid").toString();
+
+    qCDebug(runtime) << "Prev Contest" << prevContestID
+                     << "Current" << uiDynamic->contestIDEdit->text();
+    return (uiDynamic->contestIDEdit->text() != prevContestID);
+}
+
+void NewContactWidget::startContest(const QDateTime &date)
+{
+    FCT_IDENTIFICATION;
+
+    resetSTXSeq();
+    LogParam::setParam("contest/contestid", uiDynamic->contestIDEdit->text());
+    LogParam::setParam("contest/dupeDate", date);
+    emit contestStarted(uiDynamic->contestIDEdit->text(), date);
+}
+
+void NewContactWidget::setSTXSeq()
+{
+    FCT_IDENTIFICATION;
+
+    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
+    QString key = ( seqnoType == Data::SeqType::SINGLE ) ? "contest/seqnos/single"
+                                     : QString("contest/seqnos/%1").arg(ui->bandRXLabel->text());
+
+    uiDynamic->stxEdit->setText(LogParam::getParam(key, 1).toString().rightJustified(3, '0'));
+}
+
+void NewContactWidget::setSTXSeq(int newValue)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << newValue;
+
+    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
+    QString key = ( seqnoType == Data::SeqType::SINGLE ) ? "contest/seqnos/single"
+                                                         : QString("contest/seqnos/%1").arg(ui->bandTXLabel->text());
+
+    QString newValueString = QString::number(newValue);
+    LogParam::setParam(key, newValueString);
+    uiDynamic->stxEdit->setText(newValueString.rightJustified(3, '0'));
+}
+
+void NewContactWidget::updateNearestSpotDupe()
+{
+    FCT_IDENTIFICATION;
+
+    if ( !nearestSpot.dupeCount )
+    {
+        nearestSpot.dupeCount = Data::countDupe(callsign,
+                                          bandRX.name,
+                                          ui->modeEdit->currentText());
+    }
+}
+
+void NewContactWidget::resetSTXSeq()
+{
+    FCT_IDENTIFICATION;
+
+    LogParam::removeParamGroup("contest/seqnos/");
+    setSTXSeq();
+}
+
+void NewContactWidget::stopContest()
+{
+    FCT_IDENTIFICATION;
+
+    LogParam::setParam("contest/contestid", QString());
+    LogParam::setParam("contest/dupeDate", QString());
+    resetSTXSeq();
+    resetContact();
+    nearestSpot.dupeCount = false;
+    setNearestSpotColor();
+}
+
+void NewContactWidget::refreshCallsignsColors()
+{
+    FCT_IDENTIFICATION;
+
+    checkDupe();
+    updateNearestSpotDupe();
+    updateDxccStatus();
+}
+
+void NewContactWidget::checkDupe()
+{
+    FCT_IDENTIFICATION;
+
+    if ( callsign.isEmpty() )
+        return;
+
+    ui->dupeLabel->setVisible(Data::countDupe(callsign,
+                                           bandRX.name,
+                                           ui->modeEdit->currentText()));
 }
 
 void NewContactWidget::wwffEditFinished()

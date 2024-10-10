@@ -29,7 +29,6 @@ public:
     bool callsignExists(const WsjtxEntry &);
     const WsjtxEntry getEntry(const QString &callsign) const;
     const WsjtxEntry getEntry(QModelIndex idx) const;
-
     void setCurrentSpotPeriod(float);
     void clear();
 

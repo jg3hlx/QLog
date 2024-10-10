@@ -1,7 +1,6 @@
 #include <QDebug>
 #include <QSortFilterProxyModel>
 #include <QScrollBar>
-#include <QMutableListIterator>
 
 #include "WsjtxWidget.h"
 #include "ui_WsjtxWidget.h"
@@ -81,6 +80,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
             entry.dxcc.dxcc = profile.dxcc;
             entry.distance = 0.0;
             entry.callsign_member = MembershipQE::instance()->query(entry.callsign);
+            entry.dupeCount = Data::countDupe(entry.callsign, entry.band, BandPlan::MODE_GROUP_STRING_DIGITAL);
 
             if ( !profile.locator.isEmpty() )
             {
@@ -147,6 +147,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
                 entry.dxcc_spotter.ituz = profile.ituz;
                 entry.dxcc.dxcc = profile.dxcc;
                 entry.distance = 0.0;
+                entry.dupeCount = Data::countDupe(entry.callsign, entry.band, BandPlan::MODE_GROUP_STRING_DIGITAL);
                 // it is not needed to update entry.callsign_clubs because addOrReplaceEntry does not
                 // update it. Only CQ provides the club membeship info
 

@@ -261,6 +261,35 @@ void KSTChatWidget::setBeamActionVisible(bool flag)
     ui->actionBeam->setVisible(flag);
 }
 
+void KSTChatWidget::resetDupe()
+{
+    FCT_IDENTIFICATION;
+
+    chat->resetDupe();
+}
+
+void KSTChatWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
+{
+    FCT_IDENTIFICATION;
+
+    chat->updateSpotsStatusWhenQSOAdded(record);
+}
+
+void KSTChatWidget::updateSpotsStatusWhenQSODeleted(const QSqlRecord &record)
+{
+    FCT_IDENTIFICATION;
+
+    chat->updateSpotsStatusWhenQSODeleted(record);
+
+}
+
+void KSTChatWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities)
+{
+    FCT_IDENTIFICATION;
+
+    chat->updateSpotsDxccStatusWhenQSODeleted(entities);
+}
+
 void KSTChatWidget::showChatError(const QString &error)
 {
     FCT_IDENTIFICATION;
@@ -662,7 +691,7 @@ QVariant UserListModel::data(const QModelIndex &index, int role) const
     }
     else if ( index.column() == 0 && role == Qt::BackgroundRole)
     {
-        return Data::statusToColor(userInfo.status, QColor(Qt::transparent));
+        return Data::statusToColor(userInfo.status, userInfo.dupeCount, QColor(Qt::transparent));
     }
     else if (index.column() == 0 && role == Qt::ToolTipRole)
     {

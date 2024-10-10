@@ -205,6 +205,9 @@ signals:
     void antProfileChanged();
     void callboolImageUrl(const QString&);
 
+    void contestStarted(const QString contestID,
+                        const QDateTime date);
+
 public slots:
     void refreshRigProfileCombo();
     void saveExternalContact(QSqlRecord record);
@@ -225,8 +228,8 @@ public slots:
     void changePower(VFOID, double power);
     void rigConnected();
     void rigDisconnected();
-    void nearestSpot(const DxSpot &);
-    void setNearestSpotColor(const QString &call);
+    void setNearestSpot(const DxSpot &);
+    void setNearestSpotColor();
     void setManualMode(bool);
     void exitManualMode();
 
@@ -234,6 +237,10 @@ public slots:
     void useNearestCallsign();
 
     void setupCustomUi();
+
+    void resetSTXSeq();
+    void stopContest();
+    void refreshCallsignsColors();
 
 private slots:
     void handleCallsignFromUser();
@@ -308,6 +315,13 @@ private:
     bool isSOTAValid(SOTAEntity *entity);
     bool isWWFFValid(WWFFEntity *entity);
 
+    bool shouldStartContest();
+    void startContest(const QDateTime &date);
+    void setSTXSeq();
+    void setSTXSeq(int number);
+    void updateNearestSpotDupe();
+    void checkDupe();
+
 private:
     Rig* rig;
     double realRigFreq;
@@ -346,6 +360,7 @@ private:
     QSqlQuery prevQSOBaseCallMatchQuery;
     bool isPrevQSOExactMatchQuery;
     bool isPrevQSOBaseCallMatchQuery;
+    DxSpot nearestSpot;
 };
 
 #endif // QLOG_UI_NEWCONTACTWIDGET_H
