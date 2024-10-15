@@ -31,6 +31,7 @@ public:
     const WsjtxEntry getEntry(QModelIndex idx) const;
     void setCurrentSpotPeriod(float);
     void clear();
+    void removeSpot(const QString &callsign);
 
 private:
     QList<WsjtxEntry> wsjtxData;

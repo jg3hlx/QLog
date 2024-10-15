@@ -169,3 +169,18 @@ void WsjtxTableModel::clear()
     endResetModel();
 }
 
+void WsjtxTableModel::removeSpot(const QString &callsign)
+{
+    beginResetModel();
+
+    QMutableListIterator<WsjtxEntry> entry(wsjtxData);
+
+    while ( entry.hasNext() )
+    {
+        if ( entry.next().callsign == callsign )
+            entry.remove();
+    }
+
+    endResetModel();
+}
+

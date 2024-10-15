@@ -114,6 +114,7 @@ void WsjtxWidget::decodeReceived(WsjtxDecode decode)
                  && entry.decode.snr >= snrFilter
                  && ( dxMemberFilter.size() == 0
                       || (dxMemberFilter.size() && entry.memberList2Set().intersects(dxMemberFilter)))
+                  && entry.dupeCount == 0
                )
             {
                 wsjtxTableModel->addOrReplaceEntry(entry);
@@ -233,6 +234,13 @@ void WsjtxWidget::tableViewClicked(QModelIndex)
     //const QModelIndex &source_index = proxyModel->mapToSource(index);
 
     //lastSelectedCallsign = wsjtxTableModel->getEntry(source_index).callsign;
+}
+
+void WsjtxWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
+{
+    FCT_IDENTIFICATION;
+
+    wsjtxTableModel->removeSpot(record.value("callsign").toString());
 }
 
 void WsjtxWidget::displayedColumns()

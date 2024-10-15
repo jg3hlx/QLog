@@ -1575,7 +1575,8 @@ void DxWidget::processDxSpot(const QString &spotter,
          && spot.band.contains(bandregexp)
          && ( spot.status & dxccStatusFilter)
          && ( dxMemberFilter.size() == 0
-              || (dxMemberFilter.size() && spot.memberList2Set().intersects(dxMemberFilter)))
+            || (dxMemberFilter.size() && spot.memberList2Set().intersects(dxMemberFilter)) )
+         && spot.dupeCount == 0
         )
     {
         if ( dxTableModel->addEntry(spot, deduplicateSpots, deduplicatetime, deduplicatefreq) )

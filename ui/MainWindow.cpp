@@ -228,8 +228,6 @@ MainWindow::MainWindow(QWidget* parent) :
 
     connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshWidget);
     connect(ui->logbookWidget, &LogbookWidget::contactUpdated, &networknotification, &NetworkNotification::QSOUpdated);
-    //connect(ui->logbookWidget, &LogbookWidget::contactUpdated, ui->bandmapWidget, &BandmapWidget::updateSpotsStatusWhenQSOUpdated);
-    //connect(ui->logbookWidget, &LogbookWidget::contactUpdated, ui->alertsWidget, &AlertWidget::updateSpotsStatusWhenQSOUpdated);
 
     connect(ui->logbookWidget, &LogbookWidget::clublogContactUpdated, clublogRT, &ClubLog::updateQSOImmediately);
     connect(ui->logbookWidget, &LogbookWidget::contactDeleted, &networknotification, &NetworkNotification::QSODeleted);
@@ -248,6 +246,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->bandmapWidget, &BandmapWidget::updateSpotsStatusWhenQSOAdded);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->alertsWidget, &AlertWidget::updateSpotsStatusWhenQSOAdded);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->chatWidget, &ChatWidget::updateSpotsStatusWhenQSOAdded);
+    connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->wsjtxWidget, &WsjtxWidget::updateSpotsStatusWhenQSOAdded);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, ui->dxWidget, &DxWidget::setLastQSO);
     connect(ui->newContactWidget, &NewContactWidget::contactAdded, clublogRT, &ClubLog::insertQSOImmediately);
     connect(ui->newContactWidget, &NewContactWidget::contestStarted, this, &MainWindow::startContest);
