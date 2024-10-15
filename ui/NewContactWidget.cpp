@@ -2056,7 +2056,7 @@ void NewContactWidget::updateDxccStatus()
         return;
     }
 
-    DxccStatus status = Data::dxccStatus(dxccEntity.dxcc, ui->bandRXLabel->text(), ui->modeEdit->currentText());
+    DxccStatus status = Data::instance()->dxccStatus(dxccEntity.dxcc, ui->bandRXLabel->text(), ui->modeEdit->currentText());
 
     switch (status)
     {
@@ -2338,7 +2338,7 @@ void NewContactWidget::setNearestSpotColor()
     QPalette palette;
 
     const DxccEntity &spotEntity = Data::instance()->lookupDxcc(nearestSpot.callsign);
-    const DxccStatus &status = Data::dxccStatus(spotEntity.dxcc,
+    const DxccStatus &status = Data::instance()->dxccStatus(spotEntity.dxcc,
                                                 ui->bandRXLabel->text(),
                                                 ui->modeEdit->currentText());
     palette.setColor(QPalette::WindowText,

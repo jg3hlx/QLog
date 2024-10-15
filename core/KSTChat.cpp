@@ -251,14 +251,6 @@ void KSTChat::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities)
     if ( entities.isEmpty() )
         return;
 
-    QHash<QString, DxccStatus> cache;
-    cache.reserve(userList.size());
-
-    auto generateKey = [] (uint dxcc, const QString &band, const QString &modeGroup)
-    {
-        return QString::number(dxcc) + QLatin1Char('|') + band + QLatin1Char('|') + modeGroup;
-    };
-
     const QString &currBand = contact->getBand();
     const QString &modeGroupString = BandPlan::modeToDXCCModeGroup(contact->getMode());
 
@@ -267,17 +259,7 @@ void KSTChat::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities)
         if ( !entities.contains(user.dxcc.dxcc) )
             continue;
 
-        const QString &cacheKey = generateKey(user.dxcc.dxcc, currBand, modeGroupString);
-
-        auto cachedStatus = cache.find(cacheKey);
-        if ( cachedStatus != cache.end() )
-            user.status = *cachedStatus;
-        else
-        {
-            user.status = Data::dxccStatus(user.dxcc.dxcc, currBand, modeGroupString);
-            cache.insert(cacheKey, user.status);
-        }
-
+        user.status = Data::instance()->dxccStatus(user.dxcc.dxcc, currBand, modeGroupString);
     }
     emit usersListUpdated();
 }
@@ -578,7 +560,7 @@ void KSTChat::finalizeShowUsersCommand(const QStringList &buffer)
             user.dxcc = Data::instance()->lookupDxcc(user.callsign);
             if ( contact )
             {
-                user.status = Data::dxccStatus(user.dxcc.dxcc, contact->getBand(), contact->getMode());
+                user.status = Data::instance()->dxccStatus(user.dxcc.dxcc, contact->getBand(), contact->getMode());
                 user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), contact->getMode());
             }
             userList << user;

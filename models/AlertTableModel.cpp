@@ -232,14 +232,6 @@ void AlertTableModel::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &enti
     if ( entities.isEmpty() )
         return;
 
-    QHash<QString, DxccStatus> cache;
-    cache.reserve(alertList.size());
-
-    auto generateKey = [] (uint dxcc, const QString &band, const QString &modeGroup)
-    {
-        return QString::number(dxcc) + QLatin1Char('|') + band + QLatin1Char('|') + modeGroup;
-    };
-
     QMutexLocker locker(&alertListMutex);
 
     beginResetModel();
@@ -250,17 +242,7 @@ void AlertTableModel::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &enti
         if ( !entities.contains(spot.dxcc.dxcc) )
             continue;
 
-        const QString &cacheKey = generateKey(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
-
-        auto cachedStatus = cache.find(cacheKey);
-        if ( cachedStatus != cache.end() )
-            spot.status = *cachedStatus;
-        else
-        {
-            spot.status = Data::dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
-            cache.insert(cacheKey, spot.status);
-        }
-
+        spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
     }
     endResetModel();
 }

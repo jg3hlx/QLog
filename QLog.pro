@@ -199,6 +199,7 @@ HEADERS += \
         core/QRZ.h \
         core/QSLStorage.h \
         core/QSOFilterManager.h \
+        core/QuadKeyCache.h \
         core/SerialPort.h \
         core/UpdatableSQLRecord.h \
         core/Wsjtx.h \

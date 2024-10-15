@@ -8,6 +8,7 @@
 #include "WWFFEntity.h"
 #include "POTAEntity.h"
 #include "core/zonedetect.h"
+#include "core/QuadKeyCache.h"
 
 class Data : public QObject
 {
@@ -81,7 +82,6 @@ public:
         return &instance;
     };
 
-    static DxccStatus dxccStatus(int dxcc, const QString &band, const QString &mode);
     static DxccStatus dxccNewStatusWhenQSOAdded(const DxccStatus &oldStatus,
                                        const qint32 oldDxcc,
                                        const QString &oldBand,
@@ -117,6 +117,7 @@ public:
                                 const QString &band,
                                 const QString &mode);
 
+    DxccStatus dxccStatus(int dxcc, const QString &band, const QString &mode);
     QStringList contestList() { return contests.values(); }
     QStringList propagationModesList() { return propagationModes.values(); }
     QStringList propagationModesIDList() { return propagationModes.keys(); }
@@ -145,6 +146,9 @@ public:
 signals:
 
 public slots:
+    void invalidateDXCCStatusCache(const QSqlRecord &record);
+    void invalidateSetOfDXCCStatusCache(const QSet<uint> &entities);
+    void clearDXCCStatusCache();
 
 private:
     void loadContests();
@@ -178,6 +182,7 @@ private:
     bool isWWFFQueryValid;
     bool isPOTAQueryValid;
     bool isDXCCIDQueryValid;
+    QuadKeyCache<DxccStatus> dxccStatusCache;
 
     static const char translitTab[];
     static const int tranlitIndexMap[];

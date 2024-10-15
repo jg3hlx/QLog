@@ -703,14 +703,6 @@ void BandmapWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entiti
     if ( entities.isEmpty() )
         return;
 
-    QHash<QString, DxccStatus> cache;
-    cache.reserve(spots.size());
-
-    auto generateKey = [] (uint dxcc, const QString &band, const QString &modeGroup)
-    {
-        return QString::number(dxcc) + QLatin1Char('|') + band + QLatin1Char('|') + modeGroup;
-    };
-
     for ( auto it = spots.begin(); it != spots.end(); ++it )
     {
         DxSpot &spot =  it.value();
@@ -718,17 +710,7 @@ void BandmapWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entiti
         if ( !entities.contains(spot.dxcc.dxcc) )
             continue;
 
-        const QString &cacheKey = generateKey(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
-
-        auto cachedStatus = cache.find(cacheKey);
-        if ( cachedStatus != cache.end() )
-            spot.status = *cachedStatus;
-        else
-        {
-            spot.status = Data::dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
-            cache.insert(cacheKey, spot.status);
-        }
-
+        spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
     }
     updateStations();
     updateNearestSpot(true);

@@ -1563,7 +1563,7 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.modeGroupString = BandPlan::bandMode2BandModeGroupString(spot.bandPlanMode);
     spot.dxcc = Data::instance()->lookupDxcc(call);
     spot.dxcc_spotter = Data::instance()->lookupDxcc(spotter);
-    spot.status = Data::dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
+    spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
     spot.callsign_member = MembershipQE::instance()->query(spot.callsign);
     spot.dupeCount = Data::countDupe(spot.callsign, spot.band, spot.modeGroupString);
 

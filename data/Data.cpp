@@ -130,13 +130,22 @@ Data::~Data()
     }
 }
 
+#define RETCODE(a)  \
+    dxccStatusCache.insert(dxcc, myDXCC, band, mode, new DxccStatus(a)); \
+    return ((a));
+
 DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
 {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << dxcc << " " << band << " " << mode;
 
-    const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
+    const int myDXCC = StationProfilesManager::instance()->getCurProfile1().dxcc;
+
+    DxccStatus *statusFromCache = dxccStatusCache.value(dxcc, myDXCC, band, mode);
+
+    if ( statusFromCache )
+        return *statusFromCache;
 
     QString sql_mode(":mode");
 
@@ -161,7 +170,7 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
                                          "         (SELECT 1 FROM all_dxcc_qsos INNER JOIN modes ON (modes.name = all_dxcc_qsos.mode) "
                                          "          WHERE modes.dxcc = %4 AND all_dxcc_qsos.band = :band "
                                          "                AND (all_dxcc_qsos.qsl_rcvd = 'Y' OR all_dxcc_qsos.lotw_qsl_rcvd = 'Y') LIMIT 1) as confirmed")
-                                         .arg(( profile.dxcc != 0 ) ? QString(" AND my_dxcc = %1").arg(profile.dxcc)
+                                         .arg(( myDXCC != 0 ) ? QString(" AND my_dxcc = %1").arg(myDXCC)
                                                                     : "",
                                               sql_mode,
                                               sql_mode,
@@ -186,30 +195,45 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
     if ( query.next() )
     {
         if ( query.value(0).toString().isEmpty() )
-            return DxccStatus::NewEntity;
+        {
+            RETCODE(DxccStatus::NewEntity);
+        }
 
         if ( query.value(1).toString().isEmpty() )
         {
             if ( query.value(2).toString().isEmpty() )
-                return DxccStatus::NewBandMode;
+            {
+                RETCODE(DxccStatus::NewBandMode);
+            }
             else
-                return DxccStatus::NewBand;
+            {
+                RETCODE(DxccStatus::NewBand);
+            }
         }
 
         if ( query.value(2).toString().isEmpty() )
-            return DxccStatus::NewMode;
+        {
+            RETCODE(DxccStatus::NewMode);
+        }
 
         if ( query.value(3).toString().isEmpty() )
-            return DxccStatus::NewSlot;
+        {
+            RETCODE(DxccStatus::NewSlot);
+        }
 
         if ( query.value(4).toString().isEmpty() )
-            return DxccStatus::Worked;
+        {
+            RETCODE(DxccStatus::Worked);
+        }
         else
-            return DxccStatus::Confirmed;
+        {
+            RETCODE(DxccStatus::Confirmed);
+        }
     }
 
-    return DxccStatus::UnknownStatus;
+    RETCODE(DxccStatus::UnknownStatus);
 }
+#undef RETCODE
 
 #define RETURNCODE(a) \
     qCDebug(runtime) << "new DXCC Status: " << (a); \
@@ -649,6 +673,30 @@ QStringList Data::sigIDList()
         sigLOV << query.value(0).toString();
 
     return sigLOV;
+}
+
+void Data::invalidateDXCCStatusCache(const QSqlRecord &record)
+{
+    FCT_IDENTIFICATION;
+
+    dxccStatusCache.invalidate(record.value("dxcc").toInt(), StationProfilesManager::instance()->getCurProfile1().dxcc);
+}
+
+void Data::invalidateSetOfDXCCStatusCache(const QSet<uint> &entities)
+{
+    FCT_IDENTIFICATION;
+
+    int myDXCC = StationProfilesManager::instance()->getCurProfile1().dxcc;
+
+    for ( uint entity : entities )
+       dxccStatusCache.invalidate(entity, myDXCC);
+}
+
+void Data::clearDXCCStatusCache()
+{
+    FCT_IDENTIFICATION;
+
+    dxccStatusCache.clear();
 }
 
 qulonglong Data::countDupe(const QString &callsign,
