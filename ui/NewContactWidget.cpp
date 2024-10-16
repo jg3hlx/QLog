@@ -184,6 +184,11 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     uiDynamic->sigEdit->setCompleter(sigCompleter);
 
+    contestCompleter = new QCompleter(uiDynamic->contestIDEdit);
+    contestCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    contestCompleter->setFilterMode(Qt::MatchStartsWith);
+    uiDynamic->contestIDEdit->setCompleter(contestCompleter);
+
     /**************/
     /* CONNECTs   */
     /**************/
@@ -212,6 +217,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     connect(uiDynamic->wwffEdit, &QLineEdit::textChanged, this, &NewContactWidget::wwffChanged);
     connect(uiDynamic->satNameEdit, &QLineEdit::textChanged, this, &NewContactWidget::satNameChanged);
     connect(uiDynamic->sigEdit, &NewContactEditLine::focusIn, this, &NewContactWidget::refreshSIGCompleter);
+    connect(uiDynamic->contestIDEdit, &NewContactEditLine::focusIn, this, &NewContactWidget::refreshContestCompleter);
 
     ui->rstSentEdit->installEventFilter(this);
     ui->rstRcvdEdit->installEventFilter(this);
@@ -1261,6 +1267,8 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     if ( uiDynamic->contestIDEdit->isVisible()
          && !uiDynamic->contestIDEdit->text().isEmpty() )
     {
+        uiDynamic->contestIDEdit->setText(Data::removeAccents(uiDynamic->contestIDEdit->text()));
+
         if ( shouldStartContest() )
             startContest(record.value("start_time").toDateTime());
 
@@ -2762,6 +2770,19 @@ void NewContactWidget::refreshSIGCompleter()
 
     model->setStringList(Data::instance()->sigIDList());
     sigCompleter->setModel(model);
+}
+
+void NewContactWidget::refreshContestCompleter()
+{
+    FCT_IDENTIFICATION;
+
+    QStringListModel *model = static_cast<QStringListModel*>(contestCompleter->model());
+
+    if( !model )
+        model = new QStringListModel();
+
+    model->setStringList(Data::instance()->contestList());
+    contestCompleter->setModel(model);
 }
 
 QString NewContactWidget::getCallsign() const

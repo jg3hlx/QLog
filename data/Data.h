@@ -118,7 +118,7 @@ public:
                                 const QString &mode);
 
     DxccStatus dxccStatus(int dxcc, const QString &band, const QString &mode);
-    QStringList contestList() { return contests.values(); }
+    QStringList contestList();
     QStringList propagationModesList() { return propagationModes.values(); }
     QStringList propagationModesIDList() { return propagationModes.keys(); }
     QString propagationModeTextToID(const QString &propagationText) { return propagationModes.key(propagationText);}

@@ -235,6 +235,20 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
 }
 #undef RETCODE
 
+QStringList Data::contestList()
+{
+    FCT_IDENTIFICATION;
+
+    QStringList contestLOV;
+
+    QSqlQuery query(QLatin1String("SELECT DISTINCT contest_id FROM contacts ORDER BY 1 COLLATE LOCALEAWARE ASC"));
+
+    while ( query.next() )
+        contestLOV << query.value(0).toString();
+
+    return contestLOV + contests.keys();
+}
+
 #define RETURNCODE(a) \
     qCDebug(runtime) << "new DXCC Status: " << (a); \
     return ((a))

@@ -273,6 +273,7 @@ private slots:
     void antProfileComboChanged(const QString&);
     void webLookup();
     void refreshSIGCompleter();
+    void refreshContestCompleter();
 
 private:
     void useFieldsFromPrevQSO(const QString &callsign,
@@ -341,6 +342,7 @@ private:
     MultiselectCompleter *potaCompleter;
     QCompleter *wwffCompleter;
     QCompleter *sigCompleter;
+    QCompleter *contestCompleter;
     QTimeZone partnerTimeZone;
     double QSOFreq;
     qint32 bandwidthFilter;
