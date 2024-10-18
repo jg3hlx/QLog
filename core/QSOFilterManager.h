@@ -36,9 +36,9 @@ public:
         return QSOFilterRule(LogbookModel::COLUMN_TIME_ON, 4, date.toString("yyyy-MM-ddTHH:mm:ss"));  // 4 - should be enum - later '4' >
     }
 
-    static QSOFilterRule createNonEmptyContestRule()
+    static QSOFilterRule createNonEmptyContestRule(const QString &contestID)
     {
-        return QSOFilterRule(LogbookModel::COLUMN_CONTEST_ID, 2, "%");// '2' is like
+        return QSOFilterRule(LogbookModel::COLUMN_CONTEST_ID, 2, contestID);// '2' is like
     }
 
     static QSOFilterRule createToDateRule(const QDateTime &date)
@@ -47,15 +47,15 @@ public:
                                                   // ON of OFF???
     }
 
-    static QSOFilter createFromNowContestFilter(const QString &filterNamePrefix)
+    static QSOFilter createFromNowContestFilter(const QString &contestID)
     {
         QSOFilter ret;
 
         const QDateTime &date = QDateTime::currentDateTimeUtc();
-        ret.filterName = QString("%1-%2").arg(filterNamePrefix, date.toString("yyyy/MM/dd hh:mm"));
+        ret.filterName = QString("%1-%2").arg(contestID, date.toString("yyyy/MM/dd hh:mm"));
         ret.machingType = 0; // should be enum - later
         ret.addRule(createFromDateRule(date));
-        ret.addRule(createNonEmptyContestRule());
+        ret.addRule(createNonEmptyContestRule(contestID));
         return ret;
     }
 };
