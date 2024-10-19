@@ -82,7 +82,7 @@ private slots:
     void saveContestMenuDupeType(QAction *action);
     void startContest(const QString contestID, const QDateTime);
     void stopContest();
-    void enableContestSettings(bool state);
+    void setContestMode(const QString &contestID);
 
 private:
     Ui::MainWindow* ui;
@@ -90,6 +90,7 @@ private:
     QLabel* profileLabel;
     QLabel* callsignLabel;
     QLabel* locatorLabel;
+    QLabel* contestLabel;
     QPushButton* alertButton;
     QPushButton* alertTextButton;
     SwitchButton* darkLightModeSwith;

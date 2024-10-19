@@ -65,8 +65,6 @@ MainWindow::MainWindow(QWidget* parent) :
     restoreContestMenuDupeType();
     connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
 
-    enableContestSettings(LogParam::getParam("contest/contestid", QString()).toString().isEmpty());
-
     darkLightModeSwith = new SwitchButton("", ui->statusBar);
     darkIconLabel = new QLabel("<html><img src=':/icons/light-dark-24px.svg'></html>",ui->statusBar);
 
@@ -118,6 +116,8 @@ MainWindow::MainWindow(QWidget* parent) :
     profileLabel->setIndent(10);
     callsignLabel = new QLabel(profile.callsign.toLower() , ui->statusBar);
     locatorLabel = new QLabel(profile.locator.toLower(), ui->statusBar);
+    contestLabel = new QLabel(ui->statusBar);
+    contestLabel->setIndent(20);
     alertButton = new QPushButton("0", ui->statusBar);
     alertButton->setIcon(QIcon(":/icons/alert.svg"));
     alertButton->setFlat(true);
@@ -140,12 +140,15 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->statusBar->addWidget(profileLabel);
     ui->statusBar->addWidget(callsignLabel);
     ui->statusBar->addWidget(locatorLabel);
+    ui->statusBar->addWidget(contestLabel);
     ui->statusBar->addWidget(conditionsLabel);
 
     ui->statusBar->addPermanentWidget(alertTextButton);
     ui->statusBar->addPermanentWidget(alertButton);
     ui->statusBar->addPermanentWidget(darkLightModeSwith);
     ui->statusBar->addPermanentWidget(darkIconLabel);
+
+    setContestMode(LogParam::getParam("contest/contestid", QString()).toString());
 
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
@@ -945,7 +948,7 @@ void MainWindow::startContest(const QString contestID, const QDateTime)
     ui->logbookWidget->refreshUserFilter();
     ui->logbookWidget->setUserFilter(contestFilter.filterName);
     LogParam::setParam("contest/filter", contestFilter.filterName);
-    enableContestSettings(false);
+    setContestMode(contestID);
 }
 
 void MainWindow::stopContest()
@@ -975,21 +978,25 @@ void MainWindow::stopContest()
         }
     }
     LogParam::setParam("contest/filter", QString());
-    enableContestSettings(true);
+    setContestMode(QString());
 
     emit contestStopped();
 }
 
-void MainWindow::enableContestSettings(bool state)
+void MainWindow::setContestMode(const QString &contestID)
 {
     FCT_IDENTIFICATION;
 
-    ui->actionContestStop->setEnabled(!state);
+    bool isActive = !contestID.isEmpty();
+    ui->actionContestStop->setEnabled(isActive);
     if ( seqGroup && dupeGroup)
     {
-        seqGroup->setEnabled(state);
-        dupeGroup->setEnabled(state);
+        seqGroup->setEnabled(!isActive);
+        dupeGroup->setEnabled(!isActive);
     }
+
+    contestLabel->setVisible(isActive);
+    contestLabel->setText((isActive) ? "<b>" + tr("Contest: ") + "</b>" + contestID : QString());
 }
 
 void MainWindow::rotConnect()
