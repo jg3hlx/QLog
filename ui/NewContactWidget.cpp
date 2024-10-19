@@ -2925,7 +2925,8 @@ QString NewContactWidget::getMyPWR() const
 {
     FCT_IDENTIFICATION;
 
-    return QString::number(ui->powerEdit->value(), 'f');
+    return QString::number(ui->powerEdit->value(), 'f', ( ui->powerEdit->value() != 0.0
+                                                          && ui->powerEdit->value() < 1 ) ? 1 : 0);
 }
 
 QString NewContactWidget::getBand() const
