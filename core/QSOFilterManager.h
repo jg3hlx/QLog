@@ -71,11 +71,11 @@ public:
         return &instance;
     }
 
+    static QString getWhereClause(const QString &filterName);
     bool save(const QSOFilter &filter);
     bool remove(const QString &filterName);
     QStringList getFilterList() const;
     QSOFilter getFilter(const QString &filterName) const;
-    QString getWhereClause(const QString &filterName) const;
 
 private:
     QSOFilterManager(QObject *parent = nullptr);

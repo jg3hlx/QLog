@@ -11,6 +11,7 @@
 #include "core/Callsign.h"
 #include "data/BandPlan.h"
 #include "models/LogbookModel.h"
+#include "core/QSOFilterManager.h"
 
 MODULE_IDENTIFICATION("qlog.logformat.logformat");
 
@@ -142,6 +143,12 @@ void LogFormat::setFilterSendVia(const QString &value)
     this->filterSendVia = value;
 }
 
+void LogFormat::setUserFilter(const QString &value)
+{
+    FCT_IDENTIFICATION;
+    userFilter = value;
+}
+
 QString LogFormat::getWhereClause()
 {
     FCT_IDENTIFICATION;
@@ -151,30 +158,23 @@ QString LogFormat::getWhereClause()
     whereClause << "1 = 1"; //generic filter
 
     if ( isDateRange() )
-    {
         whereClause << "(start_time BETWEEN :start_date AND :end_date)";
-    }
 
     if ( !filterMyCallsign.isEmpty() )
-    {
         whereClause << "upper(station_callsign) = upper(:stationCallsign)";
-    }
 
     if ( !filterMyGridsquare.isEmpty() )
-    {
         whereClause << "upper(my_gridsquare) = upper(:myGridsquare)";
-    }
 
     if ( !filterSentPaperQSL.isEmpty() )
-    {
         whereClause << QString("upper(qsl_sent) in  (%1)").arg(filterSentPaperQSL.join(", "));
-    }
 
     if ( !filterSendVia.isEmpty() )
-    {
         whereClause << ( ( filterSendVia == " " ) ? "qsl_sent_via is NULL"
                                                   : "upper(qsl_sent_via) = upper(:qsl_sent_via)");
-    }
+
+    if ( !userFilter.isEmpty() )
+        whereClause << QSOFilterManager::getWhereClause(userFilter);
 
     return whereClause.join(" AND ");
 }

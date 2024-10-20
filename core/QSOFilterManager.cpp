@@ -212,7 +212,7 @@ QSOFilter QSOFilterManager::getFilter(const QString &filterName) const
     return ret;
 }
 
-QString QSOFilterManager::getWhereClause(const QString &filterName) const
+QString QSOFilterManager::getWhereClause(const QString &filterName)
 {
     FCT_IDENTIFICATION;
 
