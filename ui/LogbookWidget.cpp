@@ -190,7 +190,7 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
     ui->userFilter->blockSignals(true);
     userFilterModel = new SqlListModel("SELECT filter_name "
                                        "FROM qso_filters "
-                                       "ORDER BY filter_name", tr("User Filter"), this);
+                                       "ORDER BY filter_name COLLATE LOCALEAWARE ASC", tr("User Filter"), this);
     while (userFilterModel->canFetchMore())
         userFilterModel->fetchMore();
     ui->userFilter->setModel(userFilterModel);
