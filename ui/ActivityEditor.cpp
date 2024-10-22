@@ -158,173 +158,74 @@ void ActivityEditor::connectQSORowButtons()
 {
     FCT_IDENTIFICATION;
 
-    /*********************/
-    /* QSO Row A Buttons */
-    /*********************/
-    connect(ui->qsoRowADownButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->qsoRowAFieldsListView->selectionModel()->selectedRows();
+    // Connect buttons for QSO Row A
+    connectMoveButtons(ui->qsoRowADownButton, ui->qsoRowAUpButton,
+                       ui->qsoRowAFieldsListView, qsoRowAFieldsModel);
+    connectFieldButtons(ui->moveToQSORowAButton, ui->removeFromQSORowAButton,
+                        qsoRowAFieldsModel, ui->qsoRowAFieldsListView);
 
-        if ( !modelList.isEmpty() )
-            qsoRowAFieldsModel->moveDown(modelList.at(0));
-    });
-
-    connect(ui->qsoRowAUpButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->qsoRowAFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            qsoRowAFieldsModel->moveUp(modelList.at(0));
-    });
-
-    connect(ui->moveToQSORowAButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(availableFieldsModel,
-                  qsoRowAFieldsModel,
-                  ui->availableFieldsListView->selectionModel()->selectedIndexes());
-    });
-
-    connect(ui->removeFromQSORowAButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(qsoRowAFieldsModel,
-                  availableFieldsModel,
-                  ui->qsoRowAFieldsListView->selectionModel()->selectedRows());
-    });
-    /*********************/
-    /* QSO Row B Buttons */
-    /*********************/
-    connect(ui->qsoRowBDownButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->qsoRowBFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            qsoRowBFieldsModel->moveDown(modelList.at(0));
-    });
-
-    connect(ui->qsoRowBUpButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->qsoRowBFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            qsoRowBFieldsModel->moveUp(modelList.at(0));
-    });
-
-    connect(ui->moveToQSORowBButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(availableFieldsModel,
-                  qsoRowBFieldsModel,
-                  ui->availableFieldsListView->selectionModel()->selectedIndexes());
-    });
-
-    connect(ui->removeFromQSORowBButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(qsoRowBFieldsModel,
-                  availableFieldsModel,
-                  ui->qsoRowBFieldsListView->selectionModel()->selectedRows());
-    });
+    // Connect buttons for QSO Row B
+    connectMoveButtons(ui->qsoRowBDownButton, ui->qsoRowBUpButton,
+                       ui->qsoRowBFieldsListView, qsoRowBFieldsModel);
+    connectFieldButtons(ui->moveToQSORowBButton, ui->removeFromQSORowBButton,
+                        qsoRowBFieldsModel, ui->qsoRowBFieldsListView);
 }
 
 void ActivityEditor::connectDetailColsButtons()
 {
     FCT_IDENTIFICATION;
 
-    /****************************/
-    /* QSO Detail Col A Buttons */
-    /****************************/
-    connect(ui->detailColADownButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->detailColAFieldsListView->selectionModel()->selectedRows();
+    connectMoveButtons(ui->detailColADownButton, ui->detailColAUpButton,
+                       ui->detailColAFieldsListView, detailColAFieldsModel);
+    connectFieldButtons(ui->moveToDetailColAButton, ui->removeFromDetailColAButton,
+                        detailColAFieldsModel, ui->detailColAFieldsListView);
 
+    connectMoveButtons(ui->detailColBDownButton, ui->detailColBUpButton,
+                       ui->detailColBFieldsListView, detailColBFieldsModel);
+    connectFieldButtons(ui->moveToDetailColBButton, ui->removeFromDetailColBButton,
+                        detailColBFieldsModel, ui->detailColBFieldsListView);
+
+    connectMoveButtons(ui->detailColCDownButton, ui->detailColCUpButton,
+                       ui->detailColCFieldsListView, detailColCFieldsModel);
+    connectFieldButtons(ui->moveToDetailColCButton, ui->removeFromDetailColCButton,
+                        detailColCFieldsModel, ui->detailColCFieldsListView);
+}
+
+void ActivityEditor::connectMoveButtons(QPushButton *downButton, QPushButton *upButton,
+                                        QListView *listView, StringListModel *model)
+{
+    FCT_IDENTIFICATION;
+
+    connect(downButton, &QPushButton::clicked, this, [listView, model]()
+    {
+        const QModelIndexList &modelList = listView->selectionModel()->selectedRows();
         if ( !modelList.isEmpty() )
-            detailColAFieldsModel->moveDown(modelList.at(0));
+            model->moveDown(modelList.at(0));
     });
 
-    connect(ui->detailColAUpButton, &QPushButton::clicked, this, [this]()
+    connect(upButton, &QPushButton::clicked, this, [listView, model]()
     {
-        QModelIndexList modelList = ui->detailColAFieldsListView->selectionModel()->selectedRows();
-
+        const QModelIndexList &modelList = listView->selectionModel()->selectedRows();
         if ( !modelList.isEmpty() )
-            detailColAFieldsModel->moveUp(modelList.at(0));
+            model->moveUp(modelList.at(0));
+    });
+}
+
+void ActivityEditor::connectFieldButtons(QPushButton *moveToButton, QPushButton *removeButton,
+                                         StringListModel *targetModel, QListView *targetListView)
+{
+    FCT_IDENTIFICATION;
+
+    connect(moveToButton, &QPushButton::clicked, this, [this, targetModel]()
+    {
+         moveField(availableFieldsModel, targetModel,
+         ui->availableFieldsListView->selectionModel()->selectedIndexes());
     });
 
-    connect(ui->moveToDetailColAButton, &QPushButton::clicked, this, [this]()
+    connect(removeButton, &QPushButton::clicked, this, [this, targetModel, targetListView]()
     {
-        moveField(availableFieldsModel,
-                  detailColAFieldsModel,
-                  ui->availableFieldsListView->selectionModel()->selectedIndexes());
-    });
-
-    connect(ui->removeFromDetailColAButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(detailColAFieldsModel,
-                  availableFieldsModel,
-                  ui->detailColAFieldsListView->selectionModel()->selectedRows());
-    });
-
-    /****************************/
-    /* QSO Detail Col B Buttons */
-    /****************************/
-    connect(ui->detailColBDownButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->detailColBFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            detailColBFieldsModel->moveDown(modelList.at(0));
-    });
-
-    connect(ui->detailColBUpButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->detailColBFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            detailColBFieldsModel->moveUp(modelList.at(0));
-    });
-
-    connect(ui->moveToDetailColBButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(availableFieldsModel,
-                  detailColBFieldsModel,
-                  ui->availableFieldsListView->selectionModel()->selectedIndexes());
-    });
-
-    connect(ui->removeFromDetailColBButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(detailColBFieldsModel,
-                  availableFieldsModel,
-                  ui->detailColBFieldsListView->selectionModel()->selectedRows());
-    });
-
-    /****************************/
-    /* QSO Detail Col C Buttons */
-    /****************************/
-    connect(ui->detailColCDownButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->detailColCFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            detailColCFieldsModel->moveDown(modelList.at(0));
-    });
-
-    connect(ui->detailColCUpButton, &QPushButton::clicked, this, [this]()
-    {
-        QModelIndexList modelList = ui->detailColCFieldsListView->selectionModel()->selectedRows();
-
-        if ( !modelList.isEmpty() )
-            detailColCFieldsModel->moveUp(modelList.at(0));
-    });
-
-    connect(ui->moveToDetailColCButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(availableFieldsModel,
-                  detailColCFieldsModel,
-                  ui->availableFieldsListView->selectionModel()->selectedIndexes());
-    });
-
-    connect(ui->removeFromDetailColCButton, &QPushButton::clicked, this, [this]()
-    {
-        moveField(detailColCFieldsModel,
-                  availableFieldsModel,
-                  ui->detailColCFieldsListView->selectionModel()->selectedRows());
+         moveField(targetModel, availableFieldsModel,
+         targetListView->selectionModel()->selectedRows());
     });
 }
 
@@ -349,40 +250,22 @@ void ActivityEditor::fillWidgets(const MainLayoutProfile &profile)
 {
     FCT_IDENTIFICATION;
 
-    for ( int fieldIndex : static_cast<const QList<int>&>(profile.rowA) )
+    auto processFields = [this](const QList<int>& fieldIndices, StringListModel* targetModel)
     {
-        QString fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
-        qsoRowAFieldsModel->append(fieldName);
-        availableFieldsModel->deleteItem(fieldName);
-    }
+        for (int fieldIndex : fieldIndices)
+        {
+            const QString &fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
+            targetModel->append(fieldName);
+            availableFieldsModel->deleteItem(fieldName);
+        }
+    };
 
-    for ( int fieldIndex : static_cast<const QList<int>&>(profile.rowB) )
-    {
-        QString fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
-        qsoRowBFieldsModel->append(fieldName);
-        availableFieldsModel->deleteItem(fieldName);
-    }
-
-    for ( int fieldIndex : static_cast<const QList<int>&>(profile.detailColA) )
-    {
-        QString fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
-        detailColAFieldsModel->append(fieldName);
-        availableFieldsModel->deleteItem(fieldName);
-    }
-
-    for ( int fieldIndex : static_cast<const QList<int>&>(profile.detailColB) )
-    {
-        QString fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
-        detailColBFieldsModel->append(fieldName);
-        availableFieldsModel->deleteItem(fieldName);
-    }
-
-    for ( int fieldIndex : static_cast<const QList<int>&>(profile.detailColC) )
-    {
-        QString fieldName = dynamicWidgets->getFieldLabelName4Index(fieldIndex);
-        detailColCFieldsModel->append(fieldName);
-        availableFieldsModel->deleteItem(fieldName);
-    }
+    // Process each row and detail column using the helper
+    processFields(static_cast<const QList<int>&>(profile.rowA), qsoRowAFieldsModel);
+    processFields(static_cast<const QList<int>&>(profile.rowB), qsoRowBFieldsModel);
+    processFields(static_cast<const QList<int>&>(profile.detailColA), detailColAFieldsModel);
+    processFields(static_cast<const QList<int>&>(profile.detailColB), detailColBFieldsModel);
+    processFields(static_cast<const QList<int>&>(profile.detailColC), detailColCFieldsModel);
 
     mainGeometry = profile.mainGeometry;
     mainState = profile.mainState;

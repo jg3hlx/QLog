@@ -103,6 +103,11 @@ private:
                    const QModelIndexList &sourceIndexList);
     void connectQSORowButtons();
     void connectDetailColsButtons();
+    void connectMoveButtons(QPushButton* downButton, QPushButton* upButton,
+                            QListView* listView, StringListModel* model);
+    void connectFieldButtons(QPushButton* moveToButton, QPushButton* removeButton,
+                             StringListModel* targetModel, QListView* targetListView);
+
     QList<int> getFieldIndexes(StringListModel *model);
 
     const QString statusUnSavedText = tr("Unsaved");
