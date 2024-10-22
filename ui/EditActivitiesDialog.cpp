@@ -2,7 +2,7 @@
 #include "ui_EditActivitiesDialog.h"
 #include "core/debug.h"
 #include "ui/EditActivitiesDialog.h"
-#include "ui/MainLayoutEditor.h"
+#include "ui/ActivityEditor.h"
 #include "data/MainLayoutProfile.h"
 
 MODULE_IDENTIFICATION("qlog.ui.EditLayoutDialog");
@@ -34,7 +34,7 @@ void EditActivitiesDialog::addButton()
 {
     FCT_IDENTIFICATION;
 
-    MainLayoutEditor dialog(QString(), this);
+    ActivityEditor dialog(QString(), this);
     dialog.exec();
     loadProfiles();
 }
@@ -52,7 +52,7 @@ void EditActivitiesDialog::editEvent(const QModelIndex &idx)
 {
     FCT_IDENTIFICATION;
 
-    MainLayoutEditor dialog(ui->listView->model()->data(idx).toString(), this);
+    ActivityEditor dialog(ui->listView->model()->data(idx).toString(), this);
     dialog.exec();
 }
 

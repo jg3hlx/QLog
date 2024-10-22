@@ -121,6 +121,7 @@ SOURCES += \
         rotator/drivers/GenericRotDrv.cpp \
         rotator/drivers/HamlibRotDrv.cpp \
         rotator/drivers/PSTRotDrv.cpp \
+        ui/ActivityEditor.cpp \
         ui/AlertRuleDetail.cpp \
         ui/AlertSettingDialog.cpp \
         ui/AlertWidget.cpp \
@@ -147,7 +148,6 @@ SOURCES += \
         ui/KSTHighlighterSettingDialog.cpp \
         ui/LogbookWidget.cpp \
         ui/LotwDialog.cpp \
-        ui/MainLayoutEditor.cpp \
         ui/MainWindow.cpp \
         ui/MapWebChannelHandler.cpp \
         ui/MapWidget.cpp \
@@ -260,6 +260,7 @@ HEADERS += \
         rotator/drivers/GenericRotDrv.h \
         rotator/drivers/HamlibRotDrv.h \
         rotator/drivers/PSTRotDrv.h \
+        ui/ActivityEditor.h \
         ui/AlertRuleDetail.h \
         ui/AlertSettingDialog.h \
         ui/AlertWidget.h \
@@ -287,7 +288,6 @@ HEADERS += \
         ui/KSTHighlighterSettingDialog.h \
         ui/LogbookWidget.h \
         ui/LotwDialog.h \
-        ui/MainLayoutEditor.h \
         ui/MainWindow.h \
         ui/MapWebChannelHandler.h \
         ui/MapWidget.h \
@@ -316,6 +316,7 @@ HEADERS += \
         i18n/datastrings.tri
 
 FORMS += \
+        ui/ActivityEditor.ui \
         ui/AlertRuleDetail.ui \
         ui/AlertSettingDialog.ui \
         ui/AlertWidget.ui \
@@ -340,7 +341,6 @@ FORMS += \
         ui/KSTHighlighterSettingDialog.ui \
         ui/LogbookWidget.ui \
         ui/LotwDialog.ui \
-        ui/MainLayoutEditor.ui \
         ui/MainWindow.ui \
         ui/NewContactWidget.ui \
         ui/PaperQSLDialog.ui \

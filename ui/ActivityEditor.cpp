@@ -1,17 +1,17 @@
 #include <QMessageBox>
 
-#include "MainLayoutEditor.h"
-#include "ui_MainLayoutEditor.h"
+#include "ActivityEditor.h"
+#include "ui_ActivityEditor.h"
 #include "core/debug.h"
 #include "ui/NewContactWidget.h"
 #include "ui/MainWindow.h"
 
 MODULE_IDENTIFICATION("qlog.ui.mainlayouteditor");
 
-MainLayoutEditor::MainLayoutEditor(const QString &layoutName,
+ActivityEditor::ActivityEditor(const QString &activityName,
                                    QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::MainLayoutEditor),
+    ui(new Ui::ActivityEditor),
     availableFieldsModel(new StringListModel(this)),
     qsoRowAFieldsModel(new StringListModel(this)),
     qsoRowBFieldsModel(new StringListModel(this)),
@@ -52,47 +52,45 @@ MainLayoutEditor::MainLayoutEditor(const QString &layoutName,
     connectQSORowButtons();
     connectDetailColsButtons();
 
-    if ( ! layoutName.isEmpty() )
+    if ( ! activityName.isEmpty() )
     {
-        MainLayoutProfile profile = MainLayoutProfilesManager::instance()->getProfile(layoutName);
+        MainLayoutProfile profile = MainLayoutProfilesManager::instance()->getProfile(activityName);
 
-        ui->profileNameEdit->setEnabled(false);
-        ui->profileNameEdit->setText(profile.profileName);
+        ui->activityNameEdit->setEnabled(false);
+        ui->activityNameEdit->setText(profile.profileName);
 
         fillWidgets(profile);
     }
     else
-    {
         fillWidgets(MainLayoutProfile::getClassicLayout());
-    }
 }
 
-MainLayoutEditor::~MainLayoutEditor()
+ActivityEditor::~ActivityEditor()
 {
     delete ui;
     delete dynamicWidgets;
 }
 
-void MainLayoutEditor::save()
+void ActivityEditor::save()
 {
     FCT_IDENTIFICATION;
 
-    if ( ui->profileNameEdit->text().isEmpty() )
+    if ( ui->activityNameEdit->text().isEmpty() )
     {
-        ui->profileNameEdit->setPlaceholderText(tr("Must not be empty"));
+        ui->activityNameEdit->setPlaceholderText(tr("Must not be empty"));
         return;
     }
 
-    if ( layoutNameExists(ui->profileNameEdit->text()) )
+    if ( activityNameExists(ui->activityNameEdit->text()) )
     {
         QMessageBox::warning(nullptr, QMessageBox::tr("QLog Info"),
-                              QMessageBox::tr("Layout name is already exists."));
+                              QMessageBox::tr("Activity name is already exists."));
         return;
     }
 
     MainLayoutProfile profile;
 
-    profile.profileName = ui->profileNameEdit->text();
+    profile.profileName = ui->activityNameEdit->text();
     profile.rowA = getFieldIndexes(qsoRowAFieldsModel);
     profile.rowB = getFieldIndexes(qsoRowBFieldsModel);
     profile.detailColA = getFieldIndexes(detailColAFieldsModel);
@@ -107,25 +105,17 @@ void MainLayoutEditor::save()
     accept();
 }
 
-void MainLayoutEditor::profileNameChanged(const QString &profileName)
+void ActivityEditor::profileNameChanged(const QString &profileName)
 {
     FCT_IDENTIFICATION;
 
     QPalette p;
-
-    if ( layoutNameExists(profileName) )
-    {
-        p.setColor(QPalette::Text,Qt::red);
-    }
-    else
-    {
-        p.setColor(QPalette::Text,qApp->palette().text().color());
-    }
-
-    ui->profileNameEdit->setPalette(p);
+    p.setColor(QPalette::Text, ( activityNameExists(profileName) ) ? Qt::red
+                                                                   : qApp->palette().text().color());
+    ui->activityNameEdit->setPalette(p);
 }
 
-void MainLayoutEditor::clearMainLayoutClick()
+void ActivityEditor::clearMainLayoutClick()
 {
     FCT_IDENTIFICATION;
 
@@ -136,9 +126,9 @@ void MainLayoutEditor::clearMainLayoutClick()
     ui->mainLayoutClearButton->setEnabled(false);
 }
 
-void MainLayoutEditor::moveField(StringListModel *source,
-                                       StringListModel *destination,
-                                       const QModelIndexList &sourceIndexList)
+void ActivityEditor::moveField(StringListModel *source,
+                               StringListModel *destination,
+                               const QModelIndexList &sourceIndexList)
 {
     FCT_IDENTIFICATION;
 
@@ -155,20 +145,16 @@ void MainLayoutEditor::moveField(StringListModel *source,
     });
 
     for ( const QModelIndex &index : sourceIndexList )
-    {
         destination->append(source->data(index).toString());
-    }
 
     /* Delete the sorted index list becuase without sorting
      * it deletes wrong records
      */
-    for (const QModelIndex &index : selectedIndexes)
-    {
+    for ( const QModelIndex &index : selectedIndexes )
         source->deleteItem(index);
-    }
 }
 
-void MainLayoutEditor::connectQSORowButtons()
+void ActivityEditor::connectQSORowButtons()
 {
     FCT_IDENTIFICATION;
 
@@ -179,20 +165,16 @@ void MainLayoutEditor::connectQSORowButtons()
     {
         QModelIndexList modelList = ui->qsoRowAFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             qsoRowAFieldsModel->moveDown(modelList.at(0));
-        }
     });
 
     connect(ui->qsoRowAUpButton, &QPushButton::clicked, this, [this]()
     {
         QModelIndexList modelList = ui->qsoRowAFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             qsoRowAFieldsModel->moveUp(modelList.at(0));
-        }
     });
 
     connect(ui->moveToQSORowAButton, &QPushButton::clicked, this, [this]()
@@ -215,20 +197,16 @@ void MainLayoutEditor::connectQSORowButtons()
     {
         QModelIndexList modelList = ui->qsoRowBFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             qsoRowBFieldsModel->moveDown(modelList.at(0));
-        }
     });
 
     connect(ui->qsoRowBUpButton, &QPushButton::clicked, this, [this]()
     {
         QModelIndexList modelList = ui->qsoRowBFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             qsoRowBFieldsModel->moveUp(modelList.at(0));
-        }
     });
 
     connect(ui->moveToQSORowBButton, &QPushButton::clicked, this, [this]()
@@ -246,7 +224,7 @@ void MainLayoutEditor::connectQSORowButtons()
     });
 }
 
-void MainLayoutEditor::connectDetailColsButtons()
+void ActivityEditor::connectDetailColsButtons()
 {
     FCT_IDENTIFICATION;
 
@@ -257,20 +235,16 @@ void MainLayoutEditor::connectDetailColsButtons()
     {
         QModelIndexList modelList = ui->detailColAFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColAFieldsModel->moveDown(modelList.at(0));
-        }
     });
 
     connect(ui->detailColAUpButton, &QPushButton::clicked, this, [this]()
     {
         QModelIndexList modelList = ui->detailColAFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColAFieldsModel->moveUp(modelList.at(0));
-        }
     });
 
     connect(ui->moveToDetailColAButton, &QPushButton::clicked, this, [this]()
@@ -294,20 +268,16 @@ void MainLayoutEditor::connectDetailColsButtons()
     {
         QModelIndexList modelList = ui->detailColBFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColBFieldsModel->moveDown(modelList.at(0));
-        }
     });
 
     connect(ui->detailColBUpButton, &QPushButton::clicked, this, [this]()
     {
         QModelIndexList modelList = ui->detailColBFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColBFieldsModel->moveUp(modelList.at(0));
-        }
     });
 
     connect(ui->moveToDetailColBButton, &QPushButton::clicked, this, [this]()
@@ -331,20 +301,16 @@ void MainLayoutEditor::connectDetailColsButtons()
     {
         QModelIndexList modelList = ui->detailColCFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColCFieldsModel->moveDown(modelList.at(0));
-        }
     });
 
     connect(ui->detailColCUpButton, &QPushButton::clicked, this, [this]()
     {
         QModelIndexList modelList = ui->detailColCFieldsListView->selectionModel()->selectedRows();
 
-        if ( modelList.size() > 0 )
-        {
+        if ( !modelList.isEmpty() )
             detailColCFieldsModel->moveUp(modelList.at(0));
-        }
     });
 
     connect(ui->moveToDetailColCButton, &QPushButton::clicked, this, [this]()
@@ -362,7 +328,7 @@ void MainLayoutEditor::connectDetailColsButtons()
     });
 }
 
-QList<int> MainLayoutEditor::getFieldIndexes(StringListModel *model)
+QList<int> ActivityEditor::getFieldIndexes(StringListModel *model)
 {
     FCT_IDENTIFICATION;
 
@@ -379,7 +345,7 @@ QList<int> MainLayoutEditor::getFieldIndexes(StringListModel *model)
     return ret;
 }
 
-void MainLayoutEditor::fillWidgets(const MainLayoutProfile &profile)
+void ActivityEditor::fillWidgets(const MainLayoutProfile &profile)
 {
     FCT_IDENTIFICATION;
 
@@ -430,12 +396,12 @@ void MainLayoutEditor::fillWidgets(const MainLayoutProfile &profile)
     }
 }
 
-bool MainLayoutEditor::layoutNameExists(const QString &layoutName)
+bool ActivityEditor::activityNameExists(const QString &activityName)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << layoutName;
+    qCDebug(function_parameters) << activityName;
 
-    return  ui->profileNameEdit->isEnabled()
-            && MainLayoutProfilesManager::instance()->profileNameList().contains(layoutName);
+    return  ui->activityNameEdit->isEnabled()
+            && MainLayoutProfilesManager::instance()->profileNameList().contains(activityName);
 }

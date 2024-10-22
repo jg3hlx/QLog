@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainLayoutEditor</class>
- <widget class="QDialog" name="MainLayoutEditor">
+ <class>ActivityEditor</class>
+ <widget class="QDialog" name="ActivityEditor">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Layout Editor</string>
+   <string>Activity Editor</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -19,14 +19,14 @@
      <item>
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
-        <widget class="QLabel" name="profileNameLabel">
+        <widget class="QLabel" name="activityNameLabel">
          <property name="text">
-          <string>Layout Name</string>
+          <string>Activity Name</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="profileNameEdit"/>
+        <widget class="QLineEdit" name="activityNameEdit"/>
        </item>
       </layout>
      </item>
@@ -1278,7 +1278,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>MainLayoutEditor</receiver>
+   <receiver>ActivityEditor</receiver>
    <slot>save()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1294,7 +1294,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>MainLayoutEditor</receiver>
+   <receiver>ActivityEditor</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1308,9 +1308,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>profileNameEdit</sender>
+   <sender>activityNameEdit</sender>
    <signal>textChanged(QString)</signal>
-   <receiver>MainLayoutEditor</receiver>
+   <receiver>ActivityEditor</receiver>
    <slot>profileNameChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1342,7 +1342,7 @@
   <connection>
    <sender>mainLayoutClearButton</sender>
    <signal>clicked()</signal>
-   <receiver>MainLayoutEditor</receiver>
+   <receiver>ActivityEditor</receiver>
    <slot>clearMainLayoutClick()</slot>
    <hints>
     <hint type="sourcelabel">
