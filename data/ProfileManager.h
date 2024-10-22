@@ -87,16 +87,26 @@
  *  for or planned for ("I know this works for cola<float> and cola<string>, if you want
  *  to use something else, tell me first and will can verify it works before enabling it.").
 */
-template<class T>
-class ProfileManagerSQL
+
+class ProfileSignalSlot : public QObject
 {
+    Q_OBJECT
+
+signals:
+    void profileChanged(QString &profileName);
+};
+
+template<class T>
+class ProfileManagerSQL : public ProfileSignalSlot
+{
+
 public:
     explicit ProfileManagerSQL(const QString &tableName)
         : tableName(tableName)
     {
         QSqlQuery query(QString("SELECT profile_name FROM %1 WHERE IFNULL(selected, 0) = 1").arg(tableName));
         currentProfile1 = query.first() ? query.value(0).toString() : QString();
-
+        emit profileChanged(currentProfile1);
         if ( currentProfile1.isEmpty() )
             qDebug() << "Empty profile name for " << tableName
                      << "SQL Error" << query.lastError().text();
@@ -130,7 +140,10 @@ public:
             query.bindValue(":profileName2", profileName);
 
             if ( query.exec() )
+            {
                 currentProfile1 = profileName;
+                emit profileChanged(currentProfile1);
+            }
             else
                 qWarning() << "Cannot set the selected profile for " << tableName
                            << query.lastError().text();

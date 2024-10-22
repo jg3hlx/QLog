@@ -38,8 +38,7 @@ QDataStream& operator>>(QDataStream& in, MainLayoutProfile& v)
     return in;
 }
 
-MainLayoutProfilesManager::MainLayoutProfilesManager(QObject *parent) :
-    QObject(parent),
+MainLayoutProfilesManager::MainLayoutProfilesManager() :
     ProfileManagerSQL<MainLayoutProfile>("main_layout_profiles")
 {
     FCT_IDENTIFICATION;
