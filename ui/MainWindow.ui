@@ -123,9 +123,9 @@
     <addaction name="actionLotw"/>
     <addaction name="actionQRZ_com"/>
    </widget>
-   <widget class="QMenu" name="menuLayout">
+   <widget class="QMenu" name="menuActivities">
     <property name="title">
-     <string>La&amp;yout</string>
+     <string>Activities</string>
     </property>
     <widget class="QMenu" name="menuMainLayout">
      <property name="title">
@@ -135,7 +135,7 @@
     <addaction name="menuMainLayout"/>
     <addaction name="actionSaveGeometry"/>
     <addaction name="separator"/>
-    <addaction name="actionLayoutEdit"/>
+    <addaction name="actionActivitiesEdit"/>
    </widget>
    <widget class="QMenu" name="menuContest">
     <property name="title">
@@ -178,7 +178,7 @@
    <addaction name="menuServices"/>
    <addaction name="menuEquipment"/>
    <addaction name="menuWindow"/>
-   <addaction name="menuLayout"/>
+   <addaction name="menuActivities"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -594,7 +594,7 @@
     <string>Mailing List...</string>
    </property>
   </action>
-  <action name="actionLayoutEdit">
+  <action name="actionActivitiesEdit">
    <property name="text">
     <string>Edit</string>
    </property>
@@ -1532,7 +1532,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionLayoutEdit</sender>
+   <sender>actionActivitiesEdit</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>showEditLayout()</slot>
