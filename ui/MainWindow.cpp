@@ -25,7 +25,7 @@
 #include "core/QRZ.h"
 #include "core/PropConditions.h"
 #include "data/MainLayoutProfile.h"
-#include "ui/EditLayoutDialog.h"
+#include "ui/EditActivitiesDialog.h"
 #include "core/HRDLog.h"
 #include "ui/HRDLogDialog.h"
 #include "ui/ProfileImageWidget.h"
@@ -610,7 +610,7 @@ void MainWindow::showEditLayout()
 {
     FCT_IDENTIFICATION;
 
-    EditLayoutDialog dialog(this);
+    EditActivitiesDialog dialog(this);
     dialog.exec();
     setupLayoutMenu();
 }

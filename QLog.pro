@@ -134,7 +134,7 @@ SOURCES += \
         ui/DxFilterDialog.cpp \
         ui/DxWidget.cpp \
         ui/DxccTableWidget.cpp \
-        ui/EditLayoutDialog.cpp \
+        ui/EditActivitiesDialog.cpp \
         ui/EditLine.cpp \
         ui/Eqsldialog.cpp \
         ui/ExportDialog.cpp \
@@ -274,7 +274,7 @@ HEADERS += \
         ui/DxFilterDialog.h \
         ui/DxWidget.h \
         ui/DxccTableWidget.h \
-        ui/EditLayoutDialog.h \
+        ui/EditActivitiesDialog.h \
         ui/EditLine.h \
         ui/Eqsldialog.h \
         ui/ExportDialog.h \
@@ -329,7 +329,7 @@ FORMS += \
         ui/ColumnSettingSimpleDialog.ui \
         ui/DxFilterDialog.ui \
         ui/DxWidget.ui \
-        ui/EditLayoutDialog.ui \
+        ui/EditActivitiesDialog.ui \
         ui/Eqsldialog.ui \
         ui/ExportDialog.ui \
         ui/HRDLogDialog.ui \
