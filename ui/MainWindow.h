@@ -32,7 +32,6 @@ signals:
     void themeChanged(int);
     void altBackslash(bool active);
     void manualMode(bool);
-    void layoutChanged();
     void contestStopped();
     void dupeTypeChanged();
 

@@ -137,6 +137,9 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(seqGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuSeqnoType);
     connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
     connect(linkExchangeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuLinkExchangeType);
+    
+    connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
+            ui->newContactWidget, &NewContactWidget::setupCustomUi);
 
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
@@ -209,7 +212,6 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::settingsChanged, ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
     connect(this, &MainWindow::settingsChanged, ui->logbookWidget, &LogbookWidget::reloadSetting);
     connect(this, &MainWindow::settingsChanged, ui->dxWidget, &DxWidget::reloadSetting);
-    connect(this, &MainWindow::layoutChanged, ui->newContactWidget, &NewContactWidget::setupCustomUi);
     connect(this, &MainWindow::altBackslash, Rig::instance(), &Rig::setPTT);
     connect(this, &MainWindow::manualMode, ui->newContactWidget, &NewContactWidget::setManualMode);
     connect(this, &MainWindow::contestStopped, ui->newContactWidget, &NewContactWidget::stopContest);
@@ -611,7 +613,6 @@ void MainWindow::showEditLayout()
     EditLayoutDialog dialog(this);
     dialog.exec();
     setupLayoutMenu();
-    emit layoutChanged();
 }
 
 void MainWindow::setLayoutGeometry()
@@ -735,7 +736,6 @@ void MainWindow::setupLayoutMenu()
         //save empty profile
         MainLayoutProfilesManager::instance()->setCurProfile1("");
         ui->actionSaveGeometry->setEnabled(false);
-        emit layoutChanged();
     } );
 
     ui->menuMainLayout->addAction(classicLayoutAction);
@@ -769,7 +769,6 @@ void MainWindow::setupLayoutMenu()
                 restoreState(layoutProfile.mainState);
                 darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
             }
-            emit layoutChanged();
         } );
         ui->menuMainLayout->addAction(layoutAction);
         newContactMenuGroup->addAction(layoutAction);
