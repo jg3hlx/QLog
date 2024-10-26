@@ -475,7 +475,7 @@ QColor Data::statusToColor(const DxccStatus &status, bool isDupe, const QColor &
     qCDebug(function_parameters) << status << isDupe;
 
     if ( isDupe )
-        return QColorConstants::DarkGray;
+        return QColor(109, 109, 109, 100);
 
     switch (status) {
         case DxccStatus::NewEntity:
