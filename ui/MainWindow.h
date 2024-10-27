@@ -80,6 +80,7 @@ private slots:
 
     void saveContestMenuSeqnoType(QAction *action);
     void saveContestMenuDupeType(QAction *action);
+    void saveContestMenuLinkExchangeType(QAction *action);
     void startContest(const QString contestID, const QDateTime);
     void stopContest();
     void setContestMode(const QString &contestID);
@@ -105,6 +106,7 @@ private:
     Wsjtx* wsjtx;
     QActionGroup *seqGroup;
     QActionGroup *dupeGroup;
+    QActionGroup *linkExchangeGroup;
 
     void setDarkMode();
     void setLightMode();
@@ -119,6 +121,7 @@ private:
 
     void restoreContestMenuSeqnoType();
     void restoreContestMenuDupeType();
+    void restoreContestMenuLinkExchange();
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

@@ -255,7 +255,7 @@ void ExportDialog::showColumnsSetting()
     FCT_IDENTIFICATION;
 
     // don't want to export QSO ID because it is not a ADIF field
-    QList<LogbookModel::column_id> excludeFilter({LogbookModel::COLUMN_ID});
+    QList<LogbookModel::ColumnID> excludeFilter({LogbookModel::COLUMN_ID});
 
     ColumnSettingDialog dialog(&logbookmodel,
                                exportedColumns,

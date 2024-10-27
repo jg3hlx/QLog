@@ -45,25 +45,9 @@ MainWindow::MainWindow(QWidget* parent) :
 
     ui->setupUi(this);
 
-    ui->actionSeqSingle->setData(Data::SeqType::SINGLE);
-    ui->actionSeqPerBand->setData(Data::SeqType::PER_BAND);
-    seqGroup = new QActionGroup(this);
-    seqGroup->addAction(ui->actionSeqSingle);
-    seqGroup->addAction(ui->actionSeqPerBand);
     restoreContestMenuSeqnoType();
-    connect(seqGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuSeqnoType);
-
-    dupeGroup = new QActionGroup(this);
-    ui->actionDupeAllBands->setData(Data::DupeType::ALL_BANDS);
-    ui->actionDupeEachBand->setData(Data::DupeType::EACH_BAND);
-    ui->actionDupeEachBandMode->setData(Data::DupeType::EACH_BAND_MODE);
-    ui->actionDupeNoCheck->setData(Data::DupeType::NO_CHECK);
-    dupeGroup->addAction(ui->actionDupeAllBands);
-    dupeGroup->addAction(ui->actionDupeEachBand);
-    dupeGroup->addAction(ui->actionDupeEachBandMode);
-    dupeGroup->addAction(ui->actionDupeNoCheck);
     restoreContestMenuDupeType();
-    connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
+    restoreContestMenuLinkExchange();
 
     darkLightModeSwith = new SwitchButton("", ui->statusBar);
     darkIconLabel = new QLabel("<html><img src=':/icons/light-dark-24px.svg'></html>",ui->statusBar);
@@ -149,6 +133,10 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->statusBar->addPermanentWidget(darkIconLabel);
 
     setContestMode(LogParam::getParam("contest/contestid", QString()).toString());
+
+    connect(seqGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuSeqnoType);
+    connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
+    connect(linkExchangeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuLinkExchangeType);
 
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
@@ -897,6 +885,12 @@ void MainWindow::restoreContestMenuSeqnoType()
 {
     FCT_IDENTIFICATION;
 
+    ui->actionSeqSingle->setData(Data::SeqType::SINGLE);
+    ui->actionSeqPerBand->setData(Data::SeqType::PER_BAND);
+    seqGroup = new QActionGroup(ui->menuSequence);
+    seqGroup->addAction(ui->actionSeqSingle);
+    seqGroup->addAction(ui->actionSeqPerBand);
+
     int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
 
     const QList<QAction *> seqActions = seqGroup->actions();
@@ -921,9 +915,27 @@ void MainWindow::saveContestMenuDupeType(QAction *action)
     // where DUPE Check is used.
 }
 
+void MainWindow::saveContestMenuLinkExchangeType(QAction *action)
+{
+    FCT_IDENTIFICATION;
+
+    LogParam::setParam("contest/linkexchangetype", action->data());
+    ui->newContactWidget->changeSRXStringLink(action->data().toInt());
+}
+
 void MainWindow::restoreContestMenuDupeType()
 {
     FCT_IDENTIFICATION;
+
+    dupeGroup = new QActionGroup(ui->menuDupeCheck);
+    ui->actionDupeAllBands->setData(Data::DupeType::ALL_BANDS);
+    ui->actionDupeEachBand->setData(Data::DupeType::EACH_BAND);
+    ui->actionDupeEachBandMode->setData(Data::DupeType::EACH_BAND_MODE);
+    ui->actionDupeNoCheck->setData(Data::DupeType::NO_CHECK);
+    dupeGroup->addAction(ui->actionDupeAllBands);
+    dupeGroup->addAction(ui->actionDupeEachBand);
+    dupeGroup->addAction(ui->actionDupeEachBandMode);
+    dupeGroup->addAction(ui->actionDupeNoCheck);
 
     int dupeType = LogParam::getParam("contest/dupetype", Data::DupeType::ALL_BANDS).toInt();
 
@@ -936,6 +948,55 @@ void MainWindow::restoreContestMenuDupeType()
             break;
         }
     }
+}
+
+void MainWindow::restoreContestMenuLinkExchange()
+{
+    FCT_IDENTIFICATION;
+
+    linkExchangeGroup = new QActionGroup(ui->menuLinkExchange);
+
+    int linkExchangeType = LogParam::getParam("contest/linkexchangetype", LogbookModel::COLUMN_INVALID).toInt();
+
+    ui->actionLinkExchangeNone->setData(LogbookModel::COLUMN_INVALID);
+    linkExchangeGroup->addAction(ui->actionLinkExchangeNone);
+    ui->actionLinkExchangeNone->setChecked(linkExchangeType == LogbookModel::COLUMN_INVALID);
+
+    QList<QAction*> actions;
+
+    auto addActionToMenu = [&] (const LogbookModel::ColumnID columnID)
+    {
+        QAction *newAction = new QAction(ui->menuLinkExchange);
+        newAction->setCheckable(true);
+        newAction->setText(LogbookModel::getFieldNameTranslation(columnID));
+        newAction->setData(columnID);
+        actions.append(newAction);
+    };
+
+    addActionToMenu(LogbookModel::COLUMN_AGE);
+    addActionToMenu(LogbookModel::COLUMN_CQZ);
+    addActionToMenu(LogbookModel::COLUMN_ITUZ);
+    addActionToMenu(LogbookModel::COLUMN_GRID);
+    addActionToMenu(LogbookModel::COLUMN_NAME_INTL);
+    addActionToMenu(LogbookModel::COLUMN_QTH_INTL);
+    addActionToMenu(LogbookModel::COLUMN_RX_PWR);
+    addActionToMenu(LogbookModel::COLUMN_STATE);
+
+    std::sort(actions.begin(), actions.end(), [](QAction *a, QAction *b)
+    {
+        return a->text().localeAwareCompare(b->text()) < 0;
+    });
+
+    for (QAction *action : actions)
+    {
+        ui->menuLinkExchange->addAction(action);
+        linkExchangeGroup->addAction(action);
+
+        if ( action->data().toInt() == linkExchangeType )
+            action->setChecked(true);
+    }
+
+    ui->newContactWidget->changeSRXStringLink(linkExchangeType);
 }
 
 void MainWindow::startContest(const QString contestID, const QDateTime)

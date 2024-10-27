@@ -1280,7 +1280,9 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         if ( record.value("srx_string").toString().isEmpty()
             && uiDynamic->srxStringEdit->isVisible() )
         {
-            record.setValue("srx_string", uiDynamic->srxStringEdit->text());
+            record.setValue("srx_string",
+                            uiDynamic->srxStringEdit->styleSheet().contains(QLatin1String("uppercase")) ? uiDynamic->srxStringEdit->text().toUpper()
+                                                                                                        :uiDynamic->srxStringEdit->text());
         }
 
         if ( record.value("stx_string").toString().isEmpty()
@@ -3307,6 +3309,88 @@ void NewContactWidget::refreshCallsignsColors()
     updateDxccStatus();
 }
 
+void NewContactWidget::changeSRXStringLink(int linkType)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << linkType;
+
+    static QMetaObject::Connection linkWidget2SRX;
+    static QMetaObject::Connection linkSRX2Widget;
+
+    if ( linkWidget2SRX )
+        disconnect(linkWidget2SRX);
+
+    if ( linkSRX2Widget)
+        disconnect(linkSRX2Widget);
+
+    LogbookModel::ColumnID type = static_cast<LogbookModel::ColumnID>(linkType);
+
+    const QValidator *newValidator = nullptr;
+    NewContactEditLine *sourceWidget = nullptr;
+    QString style;
+
+    switch (type)
+    {
+    case LogbookModel::COLUMN_AGE:
+        newValidator = uiDynamic->ageEdit->validator();
+        sourceWidget = uiDynamic->ageEdit;
+        break;
+    case LogbookModel::COLUMN_CQZ:
+        newValidator = uiDynamic->cqzEdit->validator();
+        sourceWidget = uiDynamic->cqzEdit;
+        break;
+    case LogbookModel::COLUMN_ITUZ:
+        newValidator = uiDynamic->ituEdit->validator();
+        sourceWidget = uiDynamic->ituEdit;
+        break;
+    case LogbookModel::COLUMN_GRID:
+        newValidator = uiDynamic->gridEdit->validator();
+        sourceWidget = uiDynamic->gridEdit;
+        style = "QLineEdit {text-transform: uppercase;}";
+        break;
+    case LogbookModel::COLUMN_RX_PWR:
+        newValidator = uiDynamic->rxPWREdit->validator();
+        sourceWidget = uiDynamic->rxPWREdit;
+        break;
+    case LogbookModel::COLUMN_NAME_INTL:
+        sourceWidget = uiDynamic->nameEdit;
+        break;
+    case LogbookModel::COLUMN_QTH_INTL:
+        sourceWidget = uiDynamic->qthEdit;
+        break;
+    case LogbookModel::COLUMN_STATE:
+        sourceWidget = uiDynamic->stateEdit;
+        break;
+    default:
+        newValidator = nullptr;
+        sourceWidget = nullptr;
+    }
+
+    uiDynamic->srxStringEdit->setValidator(newValidator);
+    uiDynamic->srxStringEdit->setStyleSheet(style);
+    uiDynamic->srxStringEdit->setText((sourceWidget) ? sourceWidget->text() : QString());
+
+    if ( sourceWidget )
+    {
+        linkWidget2SRX = connect(sourceWidget, &QLineEdit::textChanged,
+                                 this, [this](const QString &text)
+        {
+            uiDynamic->srxStringEdit->blockSignals(true);
+            uiDynamic->srxStringEdit->setText(text);
+            uiDynamic->srxStringEdit->blockSignals(false);
+        });
+
+        linkSRX2Widget = connect(uiDynamic->srxStringEdit, &QLineEdit::textChanged,
+                                 this, [sourceWidget](const QString &text)
+        {
+            sourceWidget->blockSignals(true);
+            sourceWidget->setText(text);
+            sourceWidget->blockSignals(false);
+        });
+    }
+}
+
 void NewContactWidget::checkDupe()
 {
     FCT_IDENTIFICATION;
@@ -3470,7 +3554,6 @@ void NewContactWidget::changeCallsignManually(const QString &callsign, double fr
 NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
                                                    QWidget *parent) :
     parent(parent),
-    logbookmodel(new LogbookModel()),
     widgetsAllocated(allocateWidgets)
 {
 
@@ -3700,14 +3783,14 @@ QString NewContactDynamicWidgets::getFieldLabelName4Index(int i) const
     return widgetMapping.value(i).fieldLabelName;
 }
 
-void NewContactDynamicWidgets::initializeWidgets(int DBIndexMapping,
+void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
                                                  const QString &objectName,
                                                  QLabel *&retLabel,
                                                  NewContactEditLine *&retWidget)
 {
     DynamicWidget widget;
 
-    widget.fieldLabelName = logbookmodel->headerData(DBIndexMapping, Qt::Horizontal).toString();
+    widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
     widget.baseObjectName = objectName;
     widget.label = retLabel = nullptr;
     widget.editor = retLabel = nullptr;
@@ -3739,14 +3822,14 @@ void NewContactDynamicWidgets::initializeWidgets(int DBIndexMapping,
     widgetMapping[DBIndexMapping] = widget;
 }
 
-void NewContactDynamicWidgets::initializeWidgets(int DBIndexMapping,
+void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
                                                  const QString &objectName,
                                                  QLabel *&retLabel,
                                                  QComboBox *&retWidget)
 {
     DynamicWidget widget;
 
-    widget.fieldLabelName = logbookmodel->headerData(DBIndexMapping, Qt::Horizontal).toString();
+    widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
     widget.baseObjectName = objectName;
     widget.label = retLabel = nullptr;
     widget.editor = retLabel = nullptr;

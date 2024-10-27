@@ -20,8 +20,6 @@ QSOFilterDetail::QSOFilterDetail(const QString &filterName, QWidget *parent) :
 
     ui->setupUi(this);
 
-    logbookmodel = new LogbookModel(this);
-
     if ( ! filterName.isEmpty() )
         loadFilter(filterName);
     else
@@ -58,16 +56,8 @@ void QSOFilterDetail::addCondition(int fieldIdx, int operatorId, QString value)
     sizePolicy1.setHeightForWidth(fieldNameCombo->sizePolicy().hasHeightForWidth());
     fieldNameCombo->setSizePolicy(sizePolicy1);
 
-    int columnIndex = 0;
-
-    QStringList columnsNames;
-    while ( columnIndex < logbookmodel->columnCount() )
-    {
-        columnsNames << logbookmodel->headerData(columnIndex, Qt::Horizontal).toString();
-        columnIndex++;
-    }
-
-    QStringListModel* columnsNameModel = new QStringListModel(columnsNames,this);
+    QStringListModel* columnsNameModel = new QStringListModel(LogbookModel::getAllFieldNamesTranslation(),
+                                                              this);
     fieldNameCombo->setModel(columnsNameModel);
 
     /* Do not set combo value here because we will connect signal Change later */

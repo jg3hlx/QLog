@@ -142,12 +142,12 @@ private:
        QString fieldLabelName;
     };
 
-    void initializeWidgets(int DBIndexMapping,
+    void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
                            const QString &,
                            QLabel *&retLabel,
                            NewContactEditLine *&retWidget);
 
-    void initializeWidgets(int DBIndexMapping,
+    void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
                            const QString &,
                            QLabel *&retLabel,
                            QComboBox *&retWidget);
@@ -155,7 +155,6 @@ private:
     // Mapping from DB Index to <Label, Editor>
     QHash<int, DynamicWidget> widgetMapping;
     QWidget *parent;
-    QPointer<LogbookModel> logbookmodel;
     bool widgetsAllocated;
 };
 
@@ -241,6 +240,8 @@ public slots:
     void resetSTXSeq();
     void stopContest();
     void refreshCallsignsColors();
+
+    void changeSRXStringLink(int);
 
 private slots:
     void handleCallsignFromUser();

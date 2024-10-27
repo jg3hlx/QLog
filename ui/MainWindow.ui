@@ -159,8 +159,16 @@
      <addaction name="separator"/>
      <addaction name="actionSeqReset"/>
     </widget>
+    <widget class="QMenu" name="menuLinkExchange">
+     <property name="title">
+      <string>Linking Exchange With</string>
+     </property>
+     <addaction name="actionLinkExchangeNone"/>
+     <addaction name="separator"/>
+    </widget>
     <addaction name="menuDupeCheck"/>
     <addaction name="menuSequence"/>
+    <addaction name="menuLinkExchange"/>
     <addaction name="separator"/>
     <addaction name="actionContestStop"/>
    </widget>
@@ -878,6 +886,14 @@
   <action name="actionSeqReset">
    <property name="text">
     <string>Reset</string>
+   </property>
+  </action>
+  <action name="actionLinkExchangeNone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>None</string>
    </property>
   </action>
  </widget>
