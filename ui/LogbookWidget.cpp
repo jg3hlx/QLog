@@ -168,10 +168,12 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     ui->bandFilter->blockSignals(true);
     ui->bandFilter->setModel(new SqlListModel("SELECT name FROM bands ORDER BY start_freq", tr("Band"), this));
+    adjusteComboMinSize(ui->bandFilter);
     ui->bandFilter->blockSignals(false);
 
     ui->modeFilter->blockSignals(true);
     ui->modeFilter->setModel(new SqlListModel("SELECT name FROM modes", tr("Mode"), this));
+    adjusteComboMinSize(ui->modeFilter);
     ui->modeFilter->blockSignals(false);
 
     ui->countryFilter->blockSignals(true);
@@ -183,6 +185,7 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     ui->countryFilter->setModel(countryModel);
     ui->countryFilter->setModelColumn(1);
+    adjusteComboMinSize(ui->countryFilter);
     ui->countryFilter->blockSignals(false);
 
     refreshClubFilter();
@@ -194,6 +197,7 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
     while (userFilterModel->canFetchMore())
         userFilterModel->fetchMore();
     ui->userFilter->setModel(userFilterModel);
+    adjusteComboMinSize(ui->userFilter);
     ui->userFilter->blockSignals(false);
 
     clublog = new ClubLog(this);
@@ -439,6 +443,7 @@ void LogbookWidget::refreshClubFilter()
     const QString &member = ui->clubFilter->currentText();
     ui->clubFilter->clear();
     ui->clubFilter->addItems(QStringList(tr("Club")) << MembershipQE::instance()->getEnabledClubLists());
+    adjusteComboMinSize(ui->clubFilter);
     ui->clubFilter->setCurrentText(member);
     ui->clubFilter->blockSignals(false);
     colorsFilterWidget(ui->clubFilter);
@@ -871,6 +876,17 @@ void LogbookWidget::scrollToIndex(const QModelIndex &index, bool selectItem)
     ui->contactTable->scrollTo(index, QAbstractItemView::PositionAtCenter);
     if ( selectItem )
         ui->contactTable->selectRow(index.row());
+}
+
+void LogbookWidget::adjusteComboMinSize(QComboBox *combo)
+{
+    FCT_IDENTIFICATION;
+
+    if (combo->count() <= 0 )
+        return;
+
+    QFontMetrics fontMetrics(combo->font());
+    combo->setMinimumWidth(fontMetrics.horizontalAdvance(combo->itemText(0)) + 35);
 }
 
 bool LogbookWidget::eventFilter(QObject *obj, QEvent *event)

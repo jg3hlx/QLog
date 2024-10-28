@@ -90,6 +90,7 @@ private:
     void restoreClubFilter();
     void reselectModel();
     void scrollToIndex(const QModelIndex& index, bool select = true);
+    void adjusteComboMinSize(QComboBox * combo);
 };
 
 /* https://forum.qt.io/topic/90403/show-tooltip-immediatly/7/ */
