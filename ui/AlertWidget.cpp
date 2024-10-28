@@ -135,6 +135,13 @@ void AlertWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities
     alertTableModel->updateSpotsDxccStatusWhenQSODeleted(entities);
 }
 
+void AlertWidget::recalculateDupe()
+{
+    FCT_IDENTIFICATION;
+
+    alertTableModel->recalculateDupe();
+}
+
 void AlertWidget::showColumnVisibility()
 {
     FCT_IDENTIFICATION;

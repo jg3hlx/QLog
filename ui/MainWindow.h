@@ -34,6 +34,7 @@ signals:
     void manualMode(bool);
     void layoutChanged();
     void contestStopped();
+    void dupeTypeChanged();
 
 public slots:
     void rigErrorHandler(const QString &error, const QString &errorDetail);

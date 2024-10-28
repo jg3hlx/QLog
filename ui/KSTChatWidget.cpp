@@ -268,6 +268,13 @@ void KSTChatWidget::resetDupe()
     chat->resetDupe();
 }
 
+void KSTChatWidget::recalculateDupe()
+{
+    FCT_IDENTIFICATION;
+
+    chat->recalculateDupe();
+}
+
 void KSTChatWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;

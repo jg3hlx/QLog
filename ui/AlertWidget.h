@@ -30,6 +30,7 @@ public slots:
     void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &record);
     void updateSpotsDupeWhenQSODeleted(const QSqlRecord &record);
     void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);
+    void recalculateDupe();
 
 private slots:
     void showColumnVisibility();

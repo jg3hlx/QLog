@@ -3272,12 +3272,9 @@ void NewContactWidget::updateNearestSpotDupe()
 {
     FCT_IDENTIFICATION;
 
-    if ( !nearestSpot.dupeCount )
-    {
-        nearestSpot.dupeCount = Data::countDupe(callsign,
-                                          bandRX.name,
-                                          ui->modeEdit->currentText());
-    }
+    nearestSpot.dupeCount = Data::countDupe(nearestSpot.callsign,
+                                            bandRX.name,
+                                            ui->modeEdit->currentText());
 }
 
 void NewContactWidget::resetSTXSeq()

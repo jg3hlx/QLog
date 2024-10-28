@@ -45,6 +45,7 @@ public:
     const AlertTableRecord getTableRecord(const QModelIndex& index);
     void aging(const int clear_interval_sec);
     void resetDupe();
+    void recalculateDupe();
     void updateSpotsStatusWhenQSOAdded(const QSqlRecord &record);
     void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &);
     void updateSpotsStatusWhenQSODeleted(const QSqlRecord &record);

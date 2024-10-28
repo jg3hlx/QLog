@@ -156,6 +156,21 @@ void AlertTableModel::resetDupe()
     endResetModel();
 }
 
+void AlertTableModel::recalculateDupe()
+{
+    QMutexLocker locker(&alertListMutex);
+
+    beginResetModel();
+    for ( AlertTableRecord &alert : alertList )
+    {
+        SpotAlert &spotAlert = alert.alert;
+        spotAlert.dupeCount = Data::countDupe(spotAlert.callsign,
+                                              spotAlert.band,
+                                              spotAlert.modeGroupString);
+    }
+    endResetModel();
+}
+
 void AlertTableModel::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
 {
     qint32 dxcc = record.value("dxcc").toInt();

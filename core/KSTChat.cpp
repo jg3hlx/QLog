@@ -187,6 +187,19 @@ void KSTChat::resetDupe()
     emit usersListUpdated();
 }
 
+void KSTChat::recalculateDupe()
+{
+    FCT_IDENTIFICATION;
+
+    if ( !contact )
+        return;
+
+    for ( KSTUsersInfo &user: userList )
+        user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), contact->getMode());
+
+    emit usersListUpdated();
+}
+
 void KSTChat::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;
@@ -224,6 +237,9 @@ void KSTChat::updateSpotsStatusWhenQSODeleted(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;
 
+    if ( !contact )
+        return;
+
     const QString &band = record.value("band").toString();
     const QString &dxccModeGroup = BandPlan::modeToDXCCModeGroup(record.value("mode").toString());
     const QString &callsign = record.value("callsign").toString();
@@ -248,7 +264,7 @@ void KSTChat::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities)
 
     // this method is called at the end of QSO Delete (after commit).
 
-    if ( entities.isEmpty() )
+    if ( entities.isEmpty() || !contact)
         return;
 
     const QString &currBand = contact->getBand();

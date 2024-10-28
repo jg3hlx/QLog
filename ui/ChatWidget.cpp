@@ -86,6 +86,20 @@ void ChatWidget::resetDupe()
     }
 }
 
+void ChatWidget::recalculateDupe()
+{
+    FCT_IDENTIFICATION;
+
+    for (int i = 0; i < ui->chatTabWidget->count(); i++ )
+    {
+        KSTChatWidget *kstWidget = qobject_cast<KSTChatWidget*>(ui->chatTabWidget->widget(i));
+
+        if ( kstWidget )
+            kstWidget->recalculateDupe();
+    }
+
+}
+
 void ChatWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;

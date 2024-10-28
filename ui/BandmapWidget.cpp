@@ -726,6 +726,20 @@ void BandmapWidget::resetDupe()
     updateStations();
 }
 
+void BandmapWidget::recalculateDupe()
+{
+    FCT_IDENTIFICATION;
+
+    for ( auto it = spots.begin(); it != spots.end(); ++it )
+    {
+        DxSpot &spot = it.value();
+        spot.dupeCount = Data::countDupe(spot.callsign,
+                                         spot.band,
+                                         spot.modeGroupString);
+    }
+    updateStations();
+}
+
 void BandmapWidget::focusZoomFreq(int, int)
 {
     FCT_IDENTIFICATION;

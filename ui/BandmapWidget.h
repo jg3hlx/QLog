@@ -69,6 +69,7 @@ public slots:
     void updateSpotsDupeWhenQSODeleted(const QSqlRecord &record);
     void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);
     void resetDupe();
+    void recalculateDupe();
 
 signals:
     void tuneDx(QString, double,  BandPlan::BandPlanMode);

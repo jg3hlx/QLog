@@ -131,6 +131,7 @@ public slots:
     void sendMessage(const QString&);
     void reloadStationProfile();
     void resetDupe();
+    void recalculateDupe();
     void updateSpotsStatusWhenQSOAdded(const QSqlRecord &record);
     void updateSpotsStatusWhenQSODeleted(const QSqlRecord &record);
     void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);

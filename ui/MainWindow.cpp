@@ -217,6 +217,11 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::contestStopped, ui->alertsWidget, &AlertWidget::resetDupe);
     connect(this, &MainWindow::contestStopped, ui->chatWidget, &ChatWidget::resetDupe);
 
+    connect(this, &MainWindow::dupeTypeChanged, ui->bandmapWidget, &BandmapWidget::recalculateDupe);
+    connect(this, &MainWindow::dupeTypeChanged, ui->alertsWidget, &AlertWidget::recalculateDupe);
+    connect(this, &MainWindow::dupeTypeChanged, ui->chatWidget, &ChatWidget::recalculateDupe);
+    connect(this, &MainWindow::dupeTypeChanged, ui->newContactWidget, &NewContactWidget::refreshCallsignsColors);
+
     connect(ui->logbookWidget, &LogbookWidget::deletedEntities, Data::instance(), &Data::invalidateSetOfDXCCStatusCache); // must be the first delete signal
     connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshWidget);
     connect(ui->logbookWidget, &LogbookWidget::contactUpdated, &networknotification, &NetworkNotification::QSOUpdated);
@@ -909,10 +914,7 @@ void MainWindow::saveContestMenuDupeType(QAction *action)
     FCT_IDENTIFICATION;
 
     LogParam::setParam("contest/dupetype", action->data());
-    // this function is called only if contest is not active
-    // therefore it is not needed to refresh dupeStatus
-    // otherwise, it would mean recalculating all colors of all callsigns,
-    // where DUPE Check is used.
+    emit dupeTypeChanged();
 }
 
 void MainWindow::saveContestMenuLinkExchangeType(QAction *action)
@@ -1050,11 +1052,8 @@ void MainWindow::setContestMode(const QString &contestID)
 
     bool isActive = !contestID.isEmpty();
     ui->actionContestStop->setEnabled(isActive);
-    if ( seqGroup && dupeGroup)
-    {
+    if ( seqGroup )
         seqGroup->setEnabled(!isActive);
-        dupeGroup->setEnabled(!isActive);
-    }
 
     contestLabel->setVisible(isActive);
     contestLabel->setText((isActive) ? "<b>" + tr("Contest: ") + "</b>" + contestID : QString());
