@@ -328,7 +328,7 @@ void NewContactWidget::readWidgetSettings()
     realRigFreq = settings.value("newcontact/frequency", 3.5).toDouble();
     ui->modeEdit->setCurrentText(settings.value("newcontact/mode", "CW").toString());
     ui->submodeEdit->setCurrentText(settings.value("newcontact/submode").toString());
-    ui->powerEdit->setValue(settings.value("newcontact/power", 100).toDouble());
+    uiDynamic->powerEdit->setValue(settings.value("newcontact/power", 100).toDouble());
     ui->qsoTabs->setCurrentIndex(settings.value("newcontact/tabindex", 0).toInt());
     setComboBaseData(ui->qslSentBox, settings.value("newcontact/qslsent", "Q").toString());
     setComboBaseData(ui->lotwQslSentBox, settings.value("newcontact/lotwqslsent", "Q").toString());
@@ -344,7 +344,7 @@ void NewContactWidget::writeWidgetSetting()
     settings.setValue("newcontact/mode", ui->modeEdit->currentText());
     settings.setValue("newcontact/submode", ui->submodeEdit->currentText());
     settings.setValue("newcontact/frequency", realRigFreq);
-    settings.setValue("newcontact/power", ui->powerEdit->value());
+    settings.setValue("newcontact/power", uiDynamic->powerEdit->value());
     settings.setValue("newcontact/tabindex", ui->qsoTabs->currentIndex());
     settings.setValue("newcontact/qslsent", ui->qslSentBox->itemData(ui->qslSentBox->currentIndex()));
     settings.setValue("newcontact/eqslqslsent", ui->eQSLSentBox->itemData(ui->eQSLSentBox->currentIndex()));
@@ -767,7 +767,7 @@ void NewContactWidget::refreshRigProfileCombo()
 
     ui->freqRXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).ritOffset);
     ui->freqTXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).xitOffset);
-    ui->powerEdit->setValue(RigProfilesManager::instance()->getProfile(currentText).defaultPWR);
+    uiDynamic->powerEdit->setValue(RigProfilesManager::instance()->getProfile(currentText).defaultPWR);
 
 }
 
@@ -1124,9 +1124,9 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     }
 
     if ( (record.value("tx_pwr").toString().isEmpty() || record.value("tx_pwr") == 0.0 )
-         && ui->powerEdit->value() != 0.0)
+         && uiDynamic->powerEdit->value() != 0.0)
     {
-        record.setValue("tx_pwr", ui->powerEdit->value());
+        record.setValue("tx_pwr", uiDynamic->powerEdit->value());
     }
 
     if ( record.value("band").toString().isEmpty()
@@ -2274,9 +2274,9 @@ void NewContactWidget::changePower(VFOID, double power)
         return;
     }
 
-    ui->powerEdit->blockSignals(true);
-    ui->powerEdit->setValue(power);
-    ui->powerEdit->blockSignals(false);
+    uiDynamic->powerEdit->blockSignals(true);
+    uiDynamic->powerEdit->setValue(power);
+    uiDynamic->powerEdit->blockSignals(false);
 }
 
 /* connection slot */
@@ -2297,13 +2297,13 @@ void NewContactWidget::rigConnected()
      * does not want to get PWR from RIG */
     if ( currProfile.getPWRInfo )
     {
-        ui->powerEdit->setEnabled(false);
-        ui->powerEdit->setValue(0.0);
+        uiDynamic->powerEdit->setEnabled(false);
+        uiDynamic->powerEdit->setValue(0.0);
     }
     else
     {
-        ui->powerEdit->setEnabled(true);
-        ui->powerEdit->setValue(currProfile.defaultPWR);
+        uiDynamic->powerEdit->setEnabled(true);
+        uiDynamic->powerEdit->setValue(currProfile.defaultPWR);
     }
 
     rigOnline = true;
@@ -2321,8 +2321,8 @@ void NewContactWidget::rigDisconnected()
         return;
     }
 
-    ui->powerEdit->setEnabled(true);
-    ui->powerEdit->setValue(RigProfilesManager::instance()->getCurProfile1().defaultPWR);
+    uiDynamic->powerEdit->setEnabled(true);
+    uiDynamic->powerEdit->setValue(RigProfilesManager::instance()->getCurProfile1().defaultPWR);
 
     rigOnline = false;
 }
@@ -2406,7 +2406,7 @@ void NewContactWidget::setManualMode(bool isEnabled)
     ui->stationProfileLabel->setStyleSheet(styleString);
     ui->rigLabel->setStyleSheet(styleString);
     ui->antennaLabel->setStyleSheet(styleString);
-    ui->powerLabel->setStyleSheet(styleString);
+    uiDynamic->powerLabel->setStyleSheet(styleString);
 }
 
 void NewContactWidget::exitManualMode()
@@ -2927,8 +2927,8 @@ QString NewContactWidget::getMyPWR() const
 {
     FCT_IDENTIFICATION;
 
-    return QString::number(ui->powerEdit->value(), 'f', ( ui->powerEdit->value() != 0.0
-                                                          && ui->powerEdit->value() < 1 ) ? 1 : 0);
+    return QString::number(uiDynamic->powerEdit->value(), 'f', ( uiDynamic->powerEdit->value() != 0.0
+                                                          && uiDynamic->powerEdit->value() < 1 ) ? 1 : 0);
 }
 
 QString NewContactWidget::getBand() const
@@ -3027,7 +3027,7 @@ void NewContactWidget::rigProfileComboChanged(const QString &profileName)
     qCDebug(function_parameters) << profileName;
 
     // set just power from the new profile
-    ui->powerEdit->setValue(RigProfilesManager::instance()->getProfile(profileName).defaultPWR);
+    uiDynamic->powerEdit->setValue(RigProfilesManager::instance()->getProfile(profileName).defaultPWR);
 
     if ( isManualEnterMode )
     {
@@ -3582,6 +3582,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_SRX, "srx", srxLabel, srxEdit);
     initializeWidgets(LogbookModel::COLUMN_STX, "stx", stxLabel, stxEdit);
     initializeWidgets(LogbookModel::COLUMN_RX_PWR, "rx_pwr", rxPWRLabel, rxPWREdit);
+    initializeWidgets(LogbookModel::COLUMN_TX_POWER, "power", powerLabel, powerEdit);
 
     if ( allocateWidgets )
     {
@@ -3697,6 +3698,12 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         stxEdit->setText("001");
 
         rxPWREdit->setValidator(new QDoubleValidator(0, 100000.0, 9));
+
+        powerEdit->setMaximum(1000000.0);
+        powerEdit->setValue(0.0);
+        powerEdit->setDecimals(3);
+        powerEdit->setSpecialValueText(QCoreApplication::translate("NewContactWidget", "Blank"));
+        powerEdit->setSuffix(QCoreApplication::translate("NewContactWidget", " W"));
     }
 }
 
@@ -3846,6 +3853,45 @@ void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexM
         retLabel->setObjectName(objectName + "Label");
 
         widget.editor = retWidget = new QComboBox(rowWidget);
+        retWidget->setObjectName(objectName + "Edit");
+
+        rowWidgetLayout->addWidget(retLabel);
+        rowWidgetLayout->addWidget(retWidget);
+
+        rowWidget->hide();
+        widget.rowWidget = rowWidget;
+    }
+
+    widgetMapping[DBIndexMapping] = widget;
+}
+
+void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
+                                                 const QString &objectName,
+                                                 QLabel *&retLabel,
+                                                 QDoubleSpinBox *&retWidget)
+{
+    DynamicWidget widget;
+
+    widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
+    widget.baseObjectName = objectName;
+    widget.label = retLabel = nullptr;
+    widget.editor = retLabel = nullptr;
+    widget.rowWidget = retLabel = nullptr;
+
+    if ( widgetsAllocated )
+    {
+        QWidget *rowWidget = new QWidget(parent);
+        rowWidget->setObjectName(objectName + "Widget");
+
+        QVBoxLayout *rowWidgetLayout = new QVBoxLayout(rowWidget);
+        rowWidgetLayout->setSpacing(0);
+        rowWidgetLayout->setObjectName(objectName + "Layout");
+        rowWidgetLayout->setContentsMargins(0,0,0,0);
+
+        widget.label = retLabel = new QLabel(widget.fieldLabelName, rowWidget);
+        retLabel->setObjectName(objectName + "Label");
+
+        widget.editor = retWidget = new QDoubleSpinBox(rowWidget);
         retWidget->setObjectName(objectName + "Edit");
 
         rowWidgetLayout->addWidget(retLabel);

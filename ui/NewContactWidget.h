@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QHash>
 #include <QFormLayout>
+#include <QDoubleSpinBox>
 
 #include "data/DxSpot.h"
 #include "rig/Rig.h"
@@ -123,6 +124,9 @@ public:
     QLabel *rxPWRLabel;
     NewContactEditLine *rxPWREdit;
 
+    QLabel *powerLabel;
+    QDoubleSpinBox *powerEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);
@@ -143,14 +147,19 @@ private:
     };
 
     void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                           const QString &,
+                           const QString &objectName,
                            QLabel *&retLabel,
                            NewContactEditLine *&retWidget);
 
     void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                           const QString &,
+                           const QString &objectName,
                            QLabel *&retLabel,
                            QComboBox *&retWidget);
+
+    void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
+                           const QString &objectName,
+                           QLabel *&retLabel,
+                           QDoubleSpinBox *&retWidget);
 
     // Mapping from DB Index to <Label, Editor>
     QHash<int, DynamicWidget> widgetMapping;

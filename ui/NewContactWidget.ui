@@ -1523,41 +1523,6 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="powerLabel">
-           <property name="text">
-            <string>Power</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QDoubleSpinBox" name="powerEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="focusPolicy">
-            <enum>Qt::ClickFocus</enum>
-           </property>
-           <property name="specialValueText">
-            <string>Blank</string>
-           </property>
-           <property name="suffix">
-            <string> W</string>
-           </property>
-           <property name="decimals">
-            <number>3</number>
-           </property>
-           <property name="maximum">
-            <double>1000000.000000000000000</double>
-           </property>
-           <property name="value">
-            <double>0.000000000000000</double>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -1865,22 +1830,6 @@
     <hint type="destinationlabel">
      <x>736</x>
      <y>398</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>powerEdit</sender>
-   <signal>editingFinished()</signal>
-   <receiver>NewContactWidget</receiver>
-   <slot>potaEditFinished()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>212</x>
-     <y>325</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>489</x>
-     <y>237</y>
     </hint>
    </hints>
   </connection>
