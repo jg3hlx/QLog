@@ -146,20 +146,11 @@ private:
        QString fieldLabelName;
     };
 
+    template<typename WidgetType>
     void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                           const QString &objectName,
-                           QLabel *&retLabel,
-                           NewContactEditLine *&retWidget);
-
-    void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                           const QString &objectName,
-                           QLabel *&retLabel,
-                           QComboBox *&retWidget);
-
-    void initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                           const QString &objectName,
-                           QLabel *&retLabel,
-                           QDoubleSpinBox *&retWidget);
+                               const QString &objectName,
+                               QLabel *&retLabel,
+                               WidgetType *&retWidget);
 
     // Mapping from DB Index to <Label, Editor>
     QHash<int, DynamicWidget> widgetMapping;

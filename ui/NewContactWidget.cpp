@@ -3787,11 +3787,14 @@ QString NewContactDynamicWidgets::getFieldLabelName4Index(int i) const
     return widgetMapping.value(i).fieldLabelName;
 }
 
+template<typename WidgetType>
 void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
                                                  const QString &objectName,
                                                  QLabel *&retLabel,
-                                                 NewContactEditLine *&retWidget)
+                                                 WidgetType *&retWidget)
 {
+    FCT_IDENTIFICATION;
+
     DynamicWidget widget;
 
     widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
@@ -3813,7 +3816,7 @@ void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexM
         widget.label = retLabel = new QLabel(widget.fieldLabelName, rowWidget);
         retLabel->setObjectName(objectName + "Label");
 
-        widget.editor = retWidget = new NewContactEditLine(rowWidget);
+        widget.editor = retWidget = new WidgetType(rowWidget);
         retWidget->setObjectName(objectName + "Edit");
 
         rowWidgetLayout->addWidget(retLabel);
@@ -3822,84 +3825,5 @@ void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexM
         rowWidget->hide();
         widget.rowWidget = rowWidget;
     }
-
-    widgetMapping[DBIndexMapping] = widget;
-}
-
-void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                                                 const QString &objectName,
-                                                 QLabel *&retLabel,
-                                                 QComboBox *&retWidget)
-{
-    DynamicWidget widget;
-
-    widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
-    widget.baseObjectName = objectName;
-    widget.label = retLabel = nullptr;
-    widget.editor = retLabel = nullptr;
-    widget.rowWidget = retLabel = nullptr;
-
-    if ( widgetsAllocated )
-    {
-        QWidget *rowWidget = new QWidget(parent);
-        rowWidget->setObjectName(objectName + "Widget");
-
-        QVBoxLayout *rowWidgetLayout = new QVBoxLayout(rowWidget);
-        rowWidgetLayout->setSpacing(0);
-        rowWidgetLayout->setObjectName(objectName + "Layout");
-        rowWidgetLayout->setContentsMargins(0,0,0,0);
-
-        widget.label = retLabel = new QLabel(widget.fieldLabelName, rowWidget);
-        retLabel->setObjectName(objectName + "Label");
-
-        widget.editor = retWidget = new QComboBox(rowWidget);
-        retWidget->setObjectName(objectName + "Edit");
-
-        rowWidgetLayout->addWidget(retLabel);
-        rowWidgetLayout->addWidget(retWidget);
-
-        rowWidget->hide();
-        widget.rowWidget = rowWidget;
-    }
-
-    widgetMapping[DBIndexMapping] = widget;
-}
-
-void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexMapping,
-                                                 const QString &objectName,
-                                                 QLabel *&retLabel,
-                                                 QDoubleSpinBox *&retWidget)
-{
-    DynamicWidget widget;
-
-    widget.fieldLabelName = LogbookModel::getFieldNameTranslation(DBIndexMapping);
-    widget.baseObjectName = objectName;
-    widget.label = retLabel = nullptr;
-    widget.editor = retLabel = nullptr;
-    widget.rowWidget = retLabel = nullptr;
-
-    if ( widgetsAllocated )
-    {
-        QWidget *rowWidget = new QWidget(parent);
-        rowWidget->setObjectName(objectName + "Widget");
-
-        QVBoxLayout *rowWidgetLayout = new QVBoxLayout(rowWidget);
-        rowWidgetLayout->setSpacing(0);
-        rowWidgetLayout->setObjectName(objectName + "Layout");
-        rowWidgetLayout->setContentsMargins(0,0,0,0);
-
-        widget.label = retLabel = new QLabel(widget.fieldLabelName, rowWidget);
-        retLabel->setObjectName(objectName + "Label");
-
-        widget.editor = retWidget = new QDoubleSpinBox(rowWidget);
-        retWidget->setObjectName(objectName + "Edit");
-
-        rowWidgetLayout->addWidget(retLabel);
-        rowWidgetLayout->addWidget(retWidget);
-
-        rowWidget->hide();
-        widget.rowWidget = rowWidget;
-    }
-
     widgetMapping[DBIndexMapping] = widget;
 }
