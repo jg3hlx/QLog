@@ -94,6 +94,7 @@ private slots:
     void save();
     void profileNameChanged(const QString&);
     void clearMainLayoutClick();
+    void setValueState();
 
 private:
     void fillWidgets(const MainLayoutProfile &profile);
@@ -109,6 +110,7 @@ private:
                              StringListModel* targetModel, QListView* targetListView);
 
     QList<int> getFieldIndexes(StringListModel *model);
+    void setupValuesTab(const QString &activityName);
 
     const QString statusUnSavedText = tr("Unsaved");
 };

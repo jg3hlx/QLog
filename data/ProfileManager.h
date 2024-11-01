@@ -93,7 +93,7 @@ class ProfileSignalSlot : public QObject
     Q_OBJECT
 
 signals:
-    void profileChanged(QString &profileName);
+    void profileChanged(const QString &profileName);
 };
 
 template<class T>
@@ -106,7 +106,6 @@ public:
     {
         QSqlQuery query(QString("SELECT profile_name FROM %1 WHERE IFNULL(selected, 0) = 1").arg(tableName));
         currentProfile1 = query.first() ? query.value(0).toString() : QString();
-        emit profileChanged(currentProfile1);
         if ( currentProfile1.isEmpty() )
             qDebug() << "Empty profile name for " << tableName
                      << "SQL Error" << query.lastError().text();
@@ -118,8 +117,9 @@ public:
                                                : T();
     };
 
-    void __setCurProfile1(const QString &profileName)
+    bool __setCurProfile1(const QString &profileName)
     {
+        bool ret = false;
         if ( profiles.contains(profileName) || profileName.isEmpty() )
         {
             QSqlQuery query;
@@ -133,7 +133,7 @@ public:
                                               "WHERE selected = 1 OR profile_name = :profileName2").arg(tableName)) )
             {
                 qWarning() << "Cannot prepare Update statement for" << tableName;
-                return;
+                return ret;
             }
 
             query.bindValue(":profileName", profileName);
@@ -142,7 +142,7 @@ public:
             if ( query.exec() )
             {
                 currentProfile1 = profileName;
-                emit profileChanged(currentProfile1);
+                ret = true;
             }
             else
                 qWarning() << "Cannot set the selected profile for " << tableName
@@ -152,20 +152,25 @@ public:
             qWarning() << "Cannot set Current Profile to "
                        << profileName
                        << "because is not not a valid profile name" << tableName;
+        return ret;
     };
 
     void setCurProfile1(const QString &profileName)
     {
         currProfMutex.lock();
-        __setCurProfile1(profileName);
+        bool changed = __setCurProfile1(profileName);
         currProfMutex.unlock();
+        if ( changed )
+            emit profileChanged(currentProfile1);
     };
 
     void saveCurProfile1()
     {
         currProfMutex.lock();
-        __setCurProfile1(currentProfile1);
+        bool changed = __setCurProfile1(currentProfile1);
         currProfMutex.unlock();
+        if ( changed )
+            emit profileChanged(currentProfile1);
     };
 
     const T getProfile(const QString &profileName)

@@ -86,6 +86,7 @@ SOURCES += \
         cwkey/drivers/CWFldigiKey.cpp \
         cwkey/drivers/CWKey.cpp \
         cwkey/drivers/CWWinKey.cpp \
+        data/ActivityProfile.cpp \
         data/AntProfile.cpp \
         data/BandPlan.cpp \
         data/CWKeyProfile.cpp \
@@ -212,6 +213,7 @@ HEADERS += \
         cwkey/drivers/CWFldigiKey.h \
         cwkey/drivers/CWKey.h \
         cwkey/drivers/CWWinKey.h \
+        data/ActivityProfile.h \
         data/AntProfile.h \
         data/Band.h \
         data/BandPlan.h \

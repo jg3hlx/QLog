@@ -32,6 +32,10 @@
 #include "core/LogParam.h"
 #include "core/QSOFilterManager.h"
 #include "data/Data.h"
+#include "data/ActivityProfile.h"
+#include "data/AntProfile.h"
+#include "data/RigProfile.h"
+#include "data/RotProfile.h"
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -81,8 +85,6 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->chatDockWidget->hide();
     ui->profileImageDockWidget->hide();
     ui->alertDockWidget->hide();
-
-    setupLayoutMenu();
 
     ui->cwconsoleWidget->registerContactWidget(ui->newContactWidget);
     ui->rotatorWidget->registerContactWidget(ui->newContactWidget);
@@ -138,8 +140,43 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
     connect(linkExchangeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuLinkExchangeType);
     
+    connect(ActivityProfilesManager::instance(), &ActivityProfilesManager::changeFinished,
+            this, &MainWindow::handleActivityChange);
+    connect(ActivityProfilesManager::instance(), &ActivityProfilesManager::changeFinished,
+            ui->newContactWidget, &NewContactWidget::setValuesFromActivity);
+
+    connect(AntProfilesManager::instance(), &AntProfilesManager::profileChanged,
+            ui->newContactWidget, &NewContactWidget::refreshAntProfileCombo);
+    connect(AntProfilesManager::instance(), &AntProfilesManager::profileChanged,
+            ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
+
+    connect(RotProfilesManager::instance(), &RotProfilesManager::profileChanged,
+            ui->rotatorWidget, &RotatorWidget::refreshRotProfileCombo);
+
+    connect(RigProfilesManager::instance(), &RigProfilesManager::profileChanged,
+            ui->newContactWidget, &NewContactWidget::refreshRigProfileCombo);
+    connect(RigProfilesManager::instance(), &RigProfilesManager::profileChanged,
+            ui->rigWidget, &RigWidget::refreshRigProfileCombo);
+
+    connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
+            this, &MainWindow::setSimplyLayoutGeometry);
     connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
             ui->newContactWidget, &NewContactWidget::setupCustomUi);
+
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            this, &MainWindow::stationProfileChanged);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->newContactWidget, &NewContactWidget::refreshStationProfileCombo);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->rotatorWidget, &RotatorWidget::redrawMap);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->chatWidget, &ChatWidget::reloadStationProfile);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->clockWidget, &ClockWidget::updateSun);
+
+    setupActivitiesMenu();
 
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
@@ -255,13 +292,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, ui->bandmapWidget, &BandmapWidget::updateTunedFrequency);
     connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, ui->onlineMapWidget, &OnlineMapWidget::setIBPBand);
     connect(ui->newContactWidget, &NewContactWidget::userModeChanged, ui->bandmapWidget, &BandmapWidget::updateMode);
-    connect(ui->newContactWidget, &NewContactWidget::stationProfileChanged, this, &MainWindow::stationProfileChanged);
-    connect(ui->newContactWidget, &NewContactWidget::stationProfileChanged, ui->rotatorWidget, &RotatorWidget::redrawMap);
-    connect(ui->newContactWidget, &NewContactWidget::stationProfileChanged, ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
-    connect(ui->newContactWidget, &NewContactWidget::stationProfileChanged, ui->chatWidget, &ChatWidget::reloadStationProfile);
-    connect(ui->newContactWidget, &NewContactWidget::antProfileChanged, ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
     connect(ui->newContactWidget, &NewContactWidget::markQSO, ui->bandmapWidget, &BandmapWidget::addSpot);
-    connect(ui->newContactWidget, &NewContactWidget::rigProfileChanged, ui->rigWidget, &RigWidget::refreshRigProfileCombo);
     connect(ui->newContactWidget, &NewContactWidget::callboolImageUrl, ui->profileImageWidget, &ProfileImageWidget::loadImageFromUrl);
 
     connect(ui->dxWidget, &DxWidget::newFilteredSpot, ui->bandmapWidget, &BandmapWidget::addSpot);
@@ -280,8 +311,6 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->bandmapWidget, &BandmapWidget::nearestSpotFound, ui->newContactWidget, &NewContactWidget::setNearestSpot);
 
     connect(ui->wsjtxWidget, &WsjtxWidget::callsignSelected, ui->newContactWidget, &NewContactWidget::prepareWSJTXQSO);
-
-    connect(ui->rigWidget, &RigWidget::rigProfileChanged, ui->newContactWidget, &NewContactWidget::refreshRigProfileCombo);
 
     connect(ui->chatWidget, &ChatWidget::prepareQSOInfo, ui->newContactWidget, &NewContactWidget::fillCallsignGrid);
     connect(ui->chatWidget, &ChatWidget::userListUpdated, ui->onlineMapWidget, &OnlineMapWidget::drawChatUsers);
@@ -509,8 +538,6 @@ void MainWindow::stationProfileChanged()
     profileLabel->setText("<b>" + profile.profileName + ":</b>");
     callsignLabel->setText(profile.callsign.toLower());
     locatorLabel->setText(profile.locator.toLower());
-
-    emit settingsChanged();
 }
 
 void MainWindow::darkModeToggle(int mode)
@@ -612,7 +639,7 @@ void MainWindow::showEditLayout()
 
     EditActivitiesDialog dialog(this);
     dialog.exec();
-    setupLayoutMenu();
+    setupActivitiesMenu();
 }
 
 void MainWindow::setLayoutGeometry()
@@ -650,6 +677,23 @@ void MainWindow::setLayoutGeometry()
 #endif
         restoreState(settings.value("windowState").toByteArray());
         // leave dark mode as is
+    }
+}
+
+void MainWindow::setSimplyLayoutGeometry()
+{
+    //this method is a nextstep of the workaround for QTBUG-46620.
+    // In the repeated setLayout, it is necessary to call only this.
+
+    FCT_IDENTIFICATION;
+
+    const MainLayoutProfile &layoutProfile = MainLayoutProfilesManager::instance()->getCurProfile1();
+    if ( layoutProfile.mainGeometry != QByteArray()
+        || layoutProfile.mainState != QByteArray() )
+    {
+        restoreGeometry(layoutProfile.mainGeometry);
+        restoreState(layoutProfile.mainState);
+        darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
     }
 }
 
@@ -710,68 +754,64 @@ void MainWindow::setLightMode()
     qApp->setPalette(this->style()->standardPalette());
 }
 
-void MainWindow::setupLayoutMenu()
+void MainWindow::setupActivitiesMenu()
 {
     FCT_IDENTIFICATION;
 
-    const QList<QAction*> layoutActions = ui->menuMainLayout->actions();
+    const QList<QAction*> activitiesActions = ui->menuActivityProfiles->actions();
 
-    for ( auto action : layoutActions )
-    {
+    for ( auto action : activitiesActions )
         action->deleteLater();
-    }
 
-    const QString &currMainProfile = MainLayoutProfilesManager::instance()->getCurProfile1().profileName;
+    const QString &currActivityProfile = ActivityProfilesManager::instance()->getCurProfile1().profileName;
 
-    // The first position will be always the Classic Layout Profile
+    // The first position will be always the Classic Profile
     QAction *classicLayoutAction = new QAction(tr("Classic"), this);
     classicLayoutAction->setCheckable(true);
-    if ( currMainProfile == QString() )
+    if ( currActivityProfile == QString() )
     {
         classicLayoutAction->setChecked(true);
         ui->actionSaveGeometry->setEnabled(false);
+        setSimplyLayoutGeometry();
     }
     connect(classicLayoutAction, &QAction::triggered, this, [this]()
     {
         //save empty profile
+        // Classic Action is only about Layout
         MainLayoutProfilesManager::instance()->setCurProfile1("");
+        ActivityProfilesManager::instance()->setCurProfile1("");
         ui->actionSaveGeometry->setEnabled(false);
     } );
 
-    ui->menuMainLayout->addAction(classicLayoutAction);
-    QActionGroup *newContactMenuGroup = new QActionGroup(classicLayoutAction);
-    newContactMenuGroup->addAction(classicLayoutAction);
+    ui->menuActivityProfiles->addAction(classicLayoutAction);
 
-    ui->menuMainLayout->addSeparator();
+    QActionGroup *activitiMenuGroup = new QActionGroup(classicLayoutAction);
+    activitiMenuGroup->addAction(classicLayoutAction);
 
-    // The rest of positions will be the Custom Layout Profiles
-    const QStringList &layoutProfileNames = MainLayoutProfilesManager::instance()->profileNameList();
+    ui->menuActivityProfiles->addSeparator();
 
-    for ( const QString &profileName : layoutProfileNames )
+    // The rest of positions will be the Custom Activity Profiles
+    const QStringList &activityProfileNames = ActivityProfilesManager::instance()->profileNameList();
+
+    for ( const QString &profileName : activityProfileNames )
     {
-        QAction *layoutAction = new QAction(profileName, this);
-        layoutAction->setCheckable(true);
-        if ( currMainProfile == profileName )
-        {
-            layoutAction->setChecked(true);
-            ui->actionSaveGeometry->setEnabled(true);
-        }
-        connect(layoutAction, &QAction::triggered, this, [this, profileName]()
-        {
-            MainLayoutProfilesManager::instance()->setCurProfile1(profileName);
-            ui->actionSaveGeometry->setEnabled(true);
+        QAction *activityAction = new QAction(profileName, ui->menuActivityProfiles);
+        activityAction->setCheckable(true);
 
-            const MainLayoutProfile &layoutProfile = MainLayoutProfilesManager::instance()->getCurProfile1();
-            if ( layoutProfile.mainGeometry != QByteArray()
-                 || layoutProfile.mainState != QByteArray() )
-            {
-                restoreGeometry(layoutProfile.mainGeometry);
-                restoreState(layoutProfile.mainState);
-                darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
-            }
+        if ( currActivityProfile == profileName )
+        {
+            activityAction->setChecked(true);
+            ui->actionSaveGeometry->setEnabled(true);
+            ActivityProfilesManager::instance()->setAllProfiles();
+        }
+
+        connect(activityAction, &QAction::triggered, this, [this, profileName]()
+        {
+            ActivityProfilesManager::instance()->setCurProfile1(profileName);
+            ui->actionSaveGeometry->setEnabled(true);
         } );
-        ui->menuMainLayout->addAction(layoutAction);
-        newContactMenuGroup->addAction(layoutAction);
+        ui->menuActivityProfiles->addAction(activityAction);
+        activitiMenuGroup->addAction(activityAction);
     }
 }
 
@@ -1058,6 +1098,29 @@ void MainWindow::setContestMode(const QString &contestID)
     contestLabel->setText((isActive) ? "<b>" + tr("Contest: ") + "</b>" + contestID : QString());
 }
 
+void MainWindow::handleActivityChange(const QString name)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << name;
+
+    const ActivityProfile &profile = ActivityProfilesManager::instance()->getProfile(name);
+
+    const QVariant &valueRig = profile.getProfileParam(ActivityProfile::ProfileType::RIG_PROFILE,
+                                                       ActivityProfile::ProfileParamType::CONNECT);
+
+    if ( !valueRig.isNull()
+        && RigProfilesManager::instance()->getCurProfile1().profileName == profile.profiles[ActivityProfile::ProfileType::RIG_PROFILE].name )
+        ui->actionConnectRig->setChecked(valueRig.toBool());
+
+    const QVariant &valueRot = profile.getProfileParam(ActivityProfile::ProfileType::ROT_PROFILE,
+                                                       ActivityProfile::ProfileParamType::CONNECT);
+
+    if ( !valueRig.isNull()
+          && RotProfilesManager::instance()->getCurProfile1().profileName == profile.profiles[ActivityProfile::ProfileType::ROT_PROFILE].name )
+        ui->actionConnectRotator->setChecked(valueRot.toBool());
+}
+
 void MainWindow::rotConnect()
 {
     FCT_IDENTIFICATION;
@@ -1155,8 +1218,7 @@ void MainWindow::showSettings()
 
         MembershipQE::instance()->updateLists();
         saveUserDefinedShortcuts();
-        //Do not call settingsChange because stationProfileChanged does it
-        //emit settingsChanged();
+        emit settingsChanged();
     }
     else
         restoreUserDefinedShortcuts();

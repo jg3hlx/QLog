@@ -123,16 +123,16 @@
     <addaction name="actionLotw"/>
     <addaction name="actionQRZ_com"/>
    </widget>
-   <widget class="QMenu" name="menuActivities">
+   <widget class="QMenu" name="menuMainActivities">
     <property name="title">
      <string>Activities</string>
     </property>
-    <widget class="QMenu" name="menuMainLayout">
+    <widget class="QMenu" name="menuActivityProfiles">
      <property name="title">
       <string>Profiles</string>
      </property>
     </widget>
-    <addaction name="menuMainLayout"/>
+    <addaction name="menuActivityProfiles"/>
     <addaction name="actionSaveGeometry"/>
     <addaction name="separator"/>
     <addaction name="actionActivitiesEdit"/>
@@ -178,7 +178,7 @@
    <addaction name="menuServices"/>
    <addaction name="menuEquipment"/>
    <addaction name="menuWindow"/>
-   <addaction name="menuActivities"/>
+   <addaction name="menuMainActivities"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

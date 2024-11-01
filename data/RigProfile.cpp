@@ -67,8 +67,6 @@ RigProfilesManager::RigProfilesManager() :
 {
     FCT_IDENTIFICATION;
 
-    QSettings settings;
-
     QSqlQuery profileQuery;
 
     if ( ! profileQuery.prepare("SELECT profile_name, model, port_pathname, hostname, "

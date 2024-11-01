@@ -3,7 +3,7 @@
 #include "core/debug.h"
 #include "ui/EditActivitiesDialog.h"
 #include "ui/ActivityEditor.h"
-#include "data/MainLayoutProfile.h"
+#include "data/ActivityProfile.h"
 
 MODULE_IDENTIFICATION("qlog.ui.EditLayoutDialog");
 
@@ -27,7 +27,7 @@ void EditActivitiesDialog::loadProfiles()
 {
     FCT_IDENTIFICATION;
 
-    ui->listView->setModel(new QStringListModel(MainLayoutProfilesManager::instance()->profileNameList(), this));
+    ui->listView->setModel(new QStringListModel(ActivityProfilesManager::instance()->profileNameList(), this));
 }
 
 void EditActivitiesDialog::addButton()
@@ -43,7 +43,10 @@ void EditActivitiesDialog::removeButton()
 {
     FCT_IDENTIFICATION;
 
-    MainLayoutProfilesManager::instance()->removeProfile(ui->listView->currentIndex().data().toString());
+    const QString &removeProfileName = ui->listView->currentIndex().data().toString();
+    ActivityProfilesManager::instance()->removeProfile(removeProfileName);
+    ActivityProfilesManager::instance()->save();
+    MainLayoutProfilesManager::instance()->removeProfile(removeProfileName);
     MainLayoutProfilesManager::instance()->save();
     loadProfiles();
 }

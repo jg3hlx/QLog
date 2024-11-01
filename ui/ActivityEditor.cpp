@@ -5,6 +5,13 @@
 #include "core/debug.h"
 #include "ui/NewContactWidget.h"
 #include "ui/MainWindow.h"
+#include "data/StationProfile.h"
+#include "data/AntProfile.h"
+#include "data/RigProfile.h"
+#include "data/RotProfile.h"
+#include "models/LogbookModel.h"
+#include "data/Data.h"
+#include "data/ActivityProfile.h"
 
 MODULE_IDENTIFICATION("qlog.ui.mainlayouteditor");
 
@@ -63,6 +70,8 @@ ActivityEditor::ActivityEditor(const QString &activityName,
     }
     else
         fillWidgets(MainLayoutProfile::getClassicLayout());
+
+    setupValuesTab(activityName);
 }
 
 ActivityEditor::~ActivityEditor()
@@ -88,6 +97,10 @@ void ActivityEditor::save()
         return;
     }
 
+
+    /**********************
+     * Save Layout profile
+     **********************/
     MainLayoutProfile profile;
 
     profile.profileName = ui->activityNameEdit->text();
@@ -102,6 +115,52 @@ void ActivityEditor::save()
     MainLayoutProfilesManager::instance()->addProfile(profile.profileName, profile);
     MainLayoutProfilesManager::instance()->save();
 
+    /***********************
+     * Save Activity profile
+     ***********************/
+
+    ActivityProfile activity;
+
+    activity.profileName = ui->activityNameEdit->text();
+
+    auto insertProfile = [&](ActivityProfile::ProfileType profileType,
+                             bool save,
+                             const QString profileName,
+                             QCheckBox* connectCheckbox = nullptr)
+    {
+        if ( save )
+        {
+            ActivityProfile::ProfileRecord rec;
+            rec.name = profileName;
+
+            if ( connectCheckbox )
+                rec.params[ActivityProfile::ProfileParamType::CONNECT] = connectCheckbox->isChecked();
+
+            activity.profiles.insert(profileType, rec);
+        }
+    };
+
+    auto insertParam = [&] (LogbookModel::ColumnID fieldID,
+                            QCheckBox* profileCheckbox,
+                            QVariant value)
+    {
+        if ( profileCheckbox->isChecked() )
+            activity.fieldValues.insert(fieldID, value);
+    };
+
+    insertProfile(ActivityProfile::ProfileType::MAIN_LAYOUT_PROFILE, true, ui->activityNameEdit->text());
+    insertProfile(ActivityProfile::ProfileType::ANTENNA_PROFILE, ui->antennaProfileCheckbox->isChecked(), ui->antennaProfileCombo->currentText());
+    insertProfile(ActivityProfile::ProfileType::STATION_PROFILE, ui->stationProfileCheckbox->isChecked(), ui->stationProfileCombo->currentText());
+    insertProfile(ActivityProfile::ProfileType::RIG_PROFILE, ui->rigProfileCheckbox->isChecked(), ui->rigProfileCombo->currentText(), ui->rigAutoconnectCheckbox);
+    insertProfile(ActivityProfile::ProfileType::ROT_PROFILE, ui->rotatorProfileCheckbox->isChecked(), ui->rotatorProfileCombo->currentText(), ui->rotatorAutoconnectCheckbox);
+
+    insertParam(LogbookModel::COLUMN_CONTEST_ID, ui->contestIDCheckbox, ui->contestIDEdit->text());
+    insertParam(LogbookModel::COLUMN_PROP_MODE, ui->propagationModeCheckbox, ui->propagationModeCombo->currentText());
+    insertParam(LogbookModel::COLUMN_SAT_MODE, ui->satModeCheckbox, ui->satModeCombo->currentText());
+    insertParam(LogbookModel::COLUMN_SAT_NAME, ui->satNameCheckbox, ui->satNameEdit->text());
+
+    ActivityProfilesManager::instance()->addProfile(ui->activityNameEdit->text(), activity);
+    ActivityProfilesManager::instance()->save();
     accept();
 }
 
@@ -124,6 +183,44 @@ void ActivityEditor::clearMainLayoutClick()
     darkMode = false;
     ui->mainLayoutStateLabel->setText(statusUnSavedText);
     ui->mainLayoutClearButton->setEnabled(false);
+}
+
+void ActivityEditor::setValueState()
+{
+    FCT_IDENTIFICATION;
+
+    ui->antennaProfileCombo->setEnabled(ui->antennaProfileCheckbox->isChecked());
+    ui->stationProfileCombo->setEnabled(ui->stationProfileCheckbox->isChecked());
+    ui->rigProfileCombo->setEnabled(ui->rigProfileCheckbox->isChecked());
+    ui->rigAutoconnectCheckbox->setEnabled(ui->rigProfileCheckbox->isChecked());
+    ui->rotatorProfileCombo->setEnabled(ui->rotatorProfileCheckbox->isChecked());
+    ui->rotatorAutoconnectCheckbox->setEnabled(ui->rotatorProfileCheckbox->isChecked());
+
+    bool isContestActive = !availableFieldsModel->stringList().contains(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_CONTEST_ID));
+
+    if ( !isContestActive )
+        ui->contestIDCheckbox->setChecked(false);
+    ui->contestIDCheckbox->setVisible(isContestActive);
+    ui->contestIDEdit->setVisible(isContestActive);
+    ui->contestIDEdit->setEnabled(ui->contestIDCheckbox->isChecked());
+
+    ui->propagationModeCombo->setEnabled(ui->propagationModeCheckbox->isChecked());
+
+    bool isSatActive = ui->propagationModeCombo->currentText() == Data::instance()->propagationModeIDToText("SAT")
+                       && ui->propagationModeCheckbox->isChecked();
+    if ( !isSatActive )
+    {
+        ui->satModeCheckbox->setChecked(false);
+        ui->satNameCheckbox->setChecked(false);
+    }
+
+    ui->satModeCheckbox->setVisible(isSatActive);
+    ui->satModeCombo->setVisible(isSatActive);
+    ui->satModeCombo->setEnabled(ui->satModeCheckbox->isChecked());
+
+    ui->satNameCheckbox->setVisible(isSatActive);
+    ui->satNameEdit->setVisible(isSatActive);
+    ui->satNameEdit->setEnabled(ui->satNameCheckbox->isChecked());
 }
 
 void ActivityEditor::moveField(StringListModel *source,
@@ -152,6 +249,8 @@ void ActivityEditor::moveField(StringListModel *source,
      */
     for ( const QModelIndex &index : selectedIndexes )
         source->deleteItem(index);
+
+    setValueState();
 }
 
 void ActivityEditor::connectQSORowButtons()
@@ -244,6 +343,135 @@ QList<int> ActivityEditor::getFieldIndexes(StringListModel *model)
     }
 
     return ret;
+}
+
+void ActivityEditor::setupValuesTab(const QString &activityName)
+{
+    FCT_IDENTIFICATION;
+
+    auto assignCompleter = [&] (QLineEdit *field, const QStringList &list)
+    {
+        QStringListModel *model = new QStringListModel(list);
+        QCompleter *completer = new QCompleter(model, field);
+        completer->setCaseSensitivity(Qt::CaseInsensitive);
+        completer->setFilterMode(Qt::MatchStartsWith);
+        field->setCompleter(completer);
+    };
+
+    auto assignTableCompleter = [&] (QLineEdit *field, const QString tableName)
+    {
+         QSqlTableModel* model = new QSqlTableModel();
+         model->setTable(tableName);
+         QCompleter *completer = new QCompleter(model, field);
+         completer->setCaseSensitivity(Qt::CaseInsensitive);
+         completer->setFilterMode(Qt::MatchStartsWith);
+         field->setCompleter(completer);
+         model->select();
+    };
+
+
+    auto assignModel = [&] (QComboBox *field, const QStringList &list)
+    {
+        QStringListModel *model = new QStringListModel(list);
+        field->setModel(model);
+    };
+
+    auto setProfileVisible = [&] (QCheckBox *checkbox, QComboBox *field, QCheckBox *connectCheckbox = nullptr)
+    {
+        if ( field->count() == 0)
+        {
+            checkbox->setChecked(false);
+            checkbox->setVisible(false);
+            field->setVisible(false);
+            if ( connectCheckbox )
+                connectCheckbox->setVisible(false);
+        }
+        else
+        {
+            checkbox->setVisible(true);
+            field->setVisible(true);
+            if ( connectCheckbox )
+                connectCheckbox->setVisible(true);
+        }
+    };
+
+    auto loadProfileValue = [&] (const ActivityProfile &activityProfile,
+                                 ActivityProfile::ProfileType profileType,
+                                 QCheckBox *profileCheckbox,
+                                 QComboBox *profileCombo,
+                                 QCheckBox *connectCheckbox = nullptr)
+    {
+        auto currProfile = activityProfile.profiles.value(profileType);
+        int index = profileCombo->findText(currProfile.name);
+        profileCheckbox->setChecked(index != -1);
+        if ( index != -1 )
+        {
+            profileCombo->setCurrentIndex(index);
+            if ( connectCheckbox )
+                connectCheckbox->setChecked(activityProfile.getProfileParam(profileType, ActivityProfile::ProfileParamType::CONNECT).toBool());
+        }
+    };
+
+    ui->stationProfileCombo->addItems(StationProfilesManager::instance()->profileNameList());
+    ui->antennaProfileCombo->addItems(AntProfilesManager::instance()->profileNameList());
+    ui->rigProfileCombo->addItems(RigProfilesManager::instance()->profileNameList());
+    ui->rotatorProfileCombo->addItems(RotProfilesManager::instance()->profileNameList());
+
+    setProfileVisible(ui->antennaProfileCheckbox, ui->antennaProfileCombo);
+    setProfileVisible(ui->stationProfileCheckbox, ui->stationProfileCombo);
+    setProfileVisible(ui->rigProfileCheckbox, ui->rigProfileCombo, ui->rigAutoconnectCheckbox);
+    setProfileVisible(ui->rotatorProfileCheckbox, ui->rotatorProfileCombo, ui->rotatorAutoconnectCheckbox);
+
+    ui->contestIDCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_CONTEST_ID));
+    ui->propagationModeCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_PROP_MODE));
+    ui->satModeCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SAT_MODE));
+    ui->satNameCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SAT_NAME));
+
+    assignCompleter(ui->contestIDEdit, Data::instance()->contestList());
+    assignTableCompleter(ui->satNameEdit, "sat_info");
+
+    assignModel(ui->propagationModeCombo, Data::instance()->propagationModesList());
+    assignModel(ui->satModeCombo, Data::instance()->satModeList());
+
+    if ( !activityName.isEmpty() )
+    {
+        const ActivityProfile &activity = ActivityProfilesManager::instance()->getProfile(activityName);
+        loadProfileValue(activity, ActivityProfile::ProfileType::ANTENNA_PROFILE, ui->antennaProfileCheckbox, ui->antennaProfileCombo);
+        loadProfileValue(activity, ActivityProfile::ProfileType::STATION_PROFILE, ui->stationProfileCheckbox, ui->stationProfileCombo);
+        loadProfileValue(activity, ActivityProfile::ProfileType::RIG_PROFILE, ui->rigProfileCheckbox, ui->rigProfileCombo, ui->rigAutoconnectCheckbox);
+        loadProfileValue(activity, ActivityProfile::ProfileType::ROT_PROFILE, ui->rotatorProfileCheckbox, ui->rotatorProfileCombo, ui->rotatorAutoconnectCheckbox);
+
+        for ( auto i = activity.fieldValues.begin(); i != activity.fieldValues.end(); i++ )
+        {
+            switch (i.key())
+            {
+            case LogbookModel::COLUMN_CONTEST_ID:
+                ui->contestIDCheckbox->setChecked(true);
+                ui->contestIDEdit->setText(i.value().toString());
+                break;
+
+            case LogbookModel::COLUMN_PROP_MODE:
+                ui->propagationModeCheckbox->setChecked(true);
+                ui->propagationModeCombo->setCurrentText(i.value().toString());
+                break;
+
+            case LogbookModel::COLUMN_SAT_MODE:
+                ui->satModeCheckbox->setChecked(true);
+                ui->satModeCombo->setCurrentText(i.value().toString());
+                break;
+
+            case LogbookModel::COLUMN_SAT_NAME:
+                ui->satNameCheckbox->setChecked(true);
+                ui->satNameEdit->setText(i.value().toString());
+                break;
+
+            default:
+                qWarning() << "Unsupported Parameter" << i.key();
+            }
+        }
+    }
+
+    setValueState();
 }
 
 void ActivityEditor::fillWidgets(const MainLayoutProfile &profile)

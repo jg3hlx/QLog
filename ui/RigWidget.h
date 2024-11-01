@@ -17,9 +17,6 @@ public:
     explicit RigWidget(QWidget *parent = nullptr);
     ~RigWidget();
 
-signals:
-    void rigProfileChanged();
-
 public slots:
     void updateFrequency(VFOID, double, double, double);
     void updateMode(VFOID, const QString&, const QString&,

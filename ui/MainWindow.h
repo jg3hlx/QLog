@@ -41,6 +41,7 @@ public slots:
     void cwKeyerErrorHandler(const QString &error, const QString &errorDetail);
     void stationProfileChanged();
     void setLayoutGeometry();
+    void setSimplyLayoutGeometry();
 
 private slots:
     void rigConnect();
@@ -85,6 +86,8 @@ private slots:
     void stopContest();
     void setContestMode(const QString &contestID);
 
+    void handleActivityChange(const QString name);
+
 private:
     Ui::MainWindow* ui;
     QLabel* conditionsLabel;
@@ -111,7 +114,7 @@ private:
     void setDarkMode();
     void setLightMode();
 
-    void setupLayoutMenu();
+    void setupActivitiesMenu();
     void saveEquipmentConnOptions();
     void restoreConnectionStates();
     void restoreEquipmentConnOptions();

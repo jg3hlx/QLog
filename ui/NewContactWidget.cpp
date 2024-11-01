@@ -28,6 +28,7 @@
 #include "models/LogbookModel.h"
 #include "data/BandPlan.h"
 #include "core/LogParam.h"
+#include "data/ActivityProfile.h"
 
 MODULE_IDENTIFICATION("qlog.ui.newcontactwidget");
 
@@ -727,6 +728,8 @@ void NewContactWidget::refreshStationProfileCombo()
         /* no profile change, just refresh the combo and preserve current profile */
         ui->stationProfileCombo->setCurrentText(StationProfilesManager::instance()->getCurProfile1().profileName);
     }
+
+    setDxccInfo(ui->callsignEdit->text().toUpper());
 
     ui->stationProfileCombo->blockSignals(false);
 }
@@ -3015,10 +3018,39 @@ void NewContactWidget::stationProfileComboChanged(const QString &profileName)
 
     StationProfilesManager::instance()->setCurProfile1(profileName);
 
-    emit stationProfileChanged();
-
     // recalculate all stats
     setDxccInfo(ui->callsignEdit->text().toUpper());
+}
+
+void NewContactWidget::setValuesFromActivity(const QString &name)
+{
+    FCT_IDENTIFICATION;
+
+    auto &variableHash = ActivityProfilesManager::instance()->getProfile(name).fieldValues;
+
+    auto setFieldValue = [&](LogbookModel::ColumnID columnID, QLineEdit *edit)
+    {
+        const QVariant &value = variableHash.value(columnID);
+
+        if ( !value.isNull() )
+            edit->setText(value.toString());
+    };
+
+    auto setFieldValueCombo = [&](LogbookModel::ColumnID columnID, QComboBox *combo)
+    {
+        const QVariant &value = variableHash.value(columnID);
+
+        if ( !value.isNull() )
+            combo->setCurrentText(value.toString());
+    };
+
+    setFieldValue(LogbookModel::COLUMN_CONTEST_ID, uiDynamic->contestIDEdit);
+
+    // propagation mode has to be changed before SAT MODE because SAT MODE combo is disabled
+    // and it is not possible to set a value.
+    setFieldValueCombo(LogbookModel::LogbookModel::COLUMN_PROP_MODE, ui->propagationModeEdit);
+    setFieldValueCombo(LogbookModel::LogbookModel::COLUMN_SAT_MODE, uiDynamic->satModeEdit);
+    setFieldValue(LogbookModel::COLUMN_SAT_NAME, uiDynamic->satNameEdit);
 }
 
 void NewContactWidget::rigProfileComboChanged(const QString &profileName)
@@ -3039,8 +3071,6 @@ void NewContactWidget::rigProfileComboChanged(const QString &profileName)
 
     ui->freqRXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getCurProfile1().ritOffset);
     ui->freqTXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getCurProfile1().xitOffset);
-
-    emit rigProfileChanged();
 }
 
 void NewContactWidget::antProfileComboChanged(const QString &profileName)
@@ -3055,8 +3085,6 @@ void NewContactWidget::antProfileComboChanged(const QString &profileName)
     }
 
     AntProfilesManager::instance()->setCurProfile1(profileName);
-
-    emit antProfileChanged();
 }
 
 void NewContactWidget::sotaChanged(const QString &newSOTA)

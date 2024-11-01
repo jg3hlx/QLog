@@ -199,9 +199,6 @@ signals:
                          const QString &subMode, qint32 width);
     void markQSO(DxSpot spot);
 
-    void stationProfileChanged();
-    void rigProfileChanged();
-    void antProfileChanged();
     void callboolImageUrl(const QString&);
 
     void contestStarted(const QString contestID,
@@ -231,6 +228,10 @@ public slots:
     void setNearestSpotColor();
     void setManualMode(bool);
     void exitManualMode();
+    void refreshStationProfileCombo();
+    void refreshAntProfileCombo();
+    void stationProfileComboChanged(const QString&);
+    void setValuesFromActivity(const QString &);
 
     void markContact();
     void useNearestCallsign();
@@ -269,7 +270,6 @@ private slots:
     void setCallbookStatusEnabled(bool);
     void changeCallbookSearchStatus();
     void satNameChanged();
-    void stationProfileComboChanged(const QString&);
     void rigProfileComboChanged(const QString&);
     void antProfileComboChanged(const QString&);
     void webLookup();
@@ -286,7 +286,6 @@ private:
     void readWidgetSettings();
     void writeWidgetSetting();
     void __modeChanged();
-    void refreshStationProfileCombo();
     void updateTXBand(double freq);
     void updateRXBand(double freq);
     void updateCoordinates(double lat, double lon, CoordPrecision prec);
@@ -294,7 +293,6 @@ private:
     void updateDxccStatus();
     void updatePartnerLocTime();
     void setDefaultReport();
-    void refreshAntProfileCombo();
     void addAddlFields(QSqlRecord &record, const StationProfile &profile);
     bool eventFilter(QObject *object, QEvent *event);
     bool isQSOTimeStarted();
