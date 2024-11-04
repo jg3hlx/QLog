@@ -11,6 +11,7 @@
 #include <QHash>
 #include <QFormLayout>
 #include <QDoubleSpinBox>
+#include <QToolButton>
 
 #include "data/DxSpot.h"
 #include "rig/Rig.h"
@@ -275,6 +276,7 @@ private slots:
     void webLookup();
     void refreshSIGCompleter();
     void refreshContestCompleter();
+    void tabsExpandCollapse();
 
 private:
     void useFieldsFromPrevQSO(const QString &callsign,
@@ -362,6 +364,7 @@ private:
     bool isPrevQSOExactMatchQuery;
     bool isPrevQSOBaseCallMatchQuery;
     DxSpot nearestSpot;
+    QToolButton *tabCollapseBtn;
 };
 
 #endif // QLOG_UI_NEWCONTACTWIDGET_H

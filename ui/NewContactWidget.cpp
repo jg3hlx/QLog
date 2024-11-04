@@ -7,6 +7,8 @@
 #include <QSqlField>
 #include <QTimeZone>
 #include <QKeyEvent>
+#include <QToolButton>
+#include <QStackedWidget>
 
 #include "rig/Rig.h"
 #include "rig/macros.h"
@@ -190,6 +192,22 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     contestCompleter->setFilterMode(Qt::MatchStartsWith);
     uiDynamic->contestIDEdit->setCompleter(contestCompleter);
 
+    // tab pane with QSO fields - expand & collapse
+    tabCollapseBtn = new QToolButton();
+    QIcon *toggleIcon = new QIcon();
+    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_down-24px.svg"), QIcon::Normal, QIcon::On);
+    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_arrow-24px.svg"), QIcon::Normal, QIcon::Off);
+    tabCollapseBtn->setIcon(*toggleIcon);
+    tabCollapseBtn->setCheckable(true);
+    tabCollapseBtn->setToolTip(tr("Expand/Collapse"));
+    ui->qsoTabs->setCornerWidget(tabCollapseBtn, Qt::TopLeftCorner);
+    connect(tabCollapseBtn, &QAbstractButton::toggled, this, &NewContactWidget::tabsExpandCollapse);
+    connect(ui->qsoTabs, &QTabWidget::tabBarClicked, this, [this](const int index)
+    {
+        // force expand if a tab is activated
+        tabCollapseBtn->setChecked(true);
+    });
+
     /**************/
     /* CONNECTs   */
     /**************/
@@ -335,7 +353,9 @@ void NewContactWidget::readWidgetSettings()
     setComboBaseData(ui->lotwQslSentBox, settings.value("newcontact/lotwqslsent", "Q").toString());
     setComboBaseData(ui->eQSLSentBox, settings.value("newcontact/eqslqslsent", "Q").toString());
     setComboBaseData(ui->qslSentViaBox, settings.value("newcontact/qslsentvia", "").toString());
-    ui->propagationModeEdit->setCurrentText(Data::instance()->propagationModeIDToText(settings.value("newcontact/propmode", QString()).toString()));
+    ui->propagationModeEdit->setCurrentText(Data::instance()->propagationModeIDToText(settings.value("newcontact/propmode", QString()).toString()));    
+    tabCollapseBtn->setChecked(settings.value("newcontact/tabsexpanded", "1").toBool());
+    tabsExpandCollapse();
 }
 
 void NewContactWidget::writeWidgetSetting()
@@ -352,6 +372,8 @@ void NewContactWidget::writeWidgetSetting()
     settings.setValue("newcontact/eqslqslsent", ui->lotwQslSentBox->itemData(ui->lotwQslSentBox->currentIndex()));
     settings.setValue("newcontact/qslsentvia", ui->qslSentViaBox->itemData(ui->qslSentViaBox->currentIndex()));
     settings.setValue("newcontact/propmode", Data::instance()->propagationModeTextToID(ui->propagationModeEdit->currentText()));
+    settings.setValue("newcontact/tabsexpanded", tabCollapseBtn->isChecked());
+
 }
 
 /* function read global setting, called when starting or when Setting is reloaded */
@@ -3576,6 +3598,19 @@ void NewContactWidget::changeCallsignManually(const QString &callsign, double fr
     stopContactTimer();
 }
 
+void NewContactWidget::tabsExpandCollapse()
+{
+    FCT_IDENTIFICATION;
+
+    QStackedWidget* stackedWidget = ui->qsoTabs->findChild<QStackedWidget*>();
+    stackedWidget->setVisible(tabCollapseBtn->isChecked());
+    int maxSize = 16777215; // default expand fully
+    if(!tabCollapseBtn->isChecked()) {
+        maxSize = ui->qsoTabs->tabBar()->sizeHint().height();
+    }
+    ui->qsoTabs->setMaximumHeight(maxSize);
+}
+
 NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
                                                    QWidget *parent) :
     parent(parent),
@@ -3855,3 +3890,4 @@ void NewContactDynamicWidgets::initializeWidgets(LogbookModel::ColumnID DBIndexM
     }
     widgetMapping[DBIndexMapping] = widget;
 }
+
