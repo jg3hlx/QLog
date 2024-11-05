@@ -1,4 +1,11 @@
 TBC - 0.40.0
+- [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
+- [NEW] - Activity Manager - Added new dynamic fields - Contest fields, RX/TX Power
+- [NEW] - Added light support for contests (issue #345)
+- [NEW] - Added CW macros EXCHSTR, EXCHNR, EXCHNRN
+- [NEW] - Export Filter - Added user filter combo (original idea PR #476i @aa5sh)
+- [NEW] - New Contact -  Added expand/collapse button to QSO field tab widget (PR #496 @kyleboyle)
+- [NEW] - Alert - Added CQZ and ITUZ filters
 
 2024/10/05 - 0.39.0
 - [NEW] - DXC - Added Full-text search
