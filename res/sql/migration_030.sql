@@ -16,3 +16,7 @@ SELECT profile_name, json_object(
        ) AS config,
        selected
 FROM main_layout_profiles;
+
+
+ALTER TABLE alert_rules ADD COLUMN ituz INTEGER;
+ALTER TABLE alert_rules ADD COLUMN cqz INTEGER;
