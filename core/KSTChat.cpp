@@ -500,7 +500,8 @@ const QStringList KSTChat::chatRooms = {"50/70 MHz",
                                        "144/432 MHz IARU R 3",
                                        "kHz (2000-630m)",
                                        "Warc (30,17,12m)",
-                                       "28 MHz"};
+                                       "28 MHz",
+                                       "40 MHz"};
 
 const QString KSTChat::SECURE_STORAGE_KEY = "KST";
 const QString KSTChat::CONFIG_USERNAME_KEY = "kst/username";
