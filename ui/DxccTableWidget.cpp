@@ -44,19 +44,15 @@ void DxccTableWidget::setDxcc(int dxcc, Band highlightedBand)
         const QList<Band>& dxccBands = BandPlan::bandsList(true, true);
 
         if ( dxccBands.size() == 0 )
-        {
             return;
-        }
 
-        QString filter("1 = 1");
+        QString filter(QLatin1String("1 = 1"));
         StationProfile profile = StationProfilesManager::instance()->getCurProfile1();
         QStringList stmt_band_part1;
         QStringList stmt_band_part2;
 
         if ( profile != StationProfile() )
-        {
             filter.append(QString(" AND c.my_dxcc = %1").arg(profile.dxcc));
-        }
 
         for ( int i = 0; i < dxccBands.size(); i++ )
         {
@@ -93,29 +89,18 @@ void DxccTableWidget::setDxcc(int dxcc, Band highlightedBand)
         dxccTableModel->setQuery(stmt);
 
         // get default Brush from Mode column - Mode Column has always the default color
-        QVariant defaultBrush = dxccTableModel->headerData(0, Qt::Horizontal, Qt::BackgroundRole);
+        const QVariant &defaultBrush = dxccTableModel->headerData(0, Qt::Horizontal, Qt::BackgroundRole);
 
         dxccTableModel->setHeaderData(0, Qt::Horizontal, tr("Mode"));
 
         for ( int i = 0; i < dxccBands.size(); i++)
         {
-            QVariant headerBrush;
-            if ( highlightedBand == dxccBands[i] )
-            {
-                headerBrush = QBrush(Qt::darkGray);
-            }
-            else
-            {
-                headerBrush = defaultBrush;
-            }
-            dxccTableModel->setHeaderData(i+1, Qt::Horizontal, headerBrush, Qt::BackgroundRole);
+            dxccTableModel->setHeaderData(i+1, Qt::Horizontal, ( highlightedBand == dxccBands[i] ) ? QBrush(Qt::darkGray) : defaultBrush, Qt::BackgroundRole);
             dxccTableModel->setHeaderData(i+1, Qt::Horizontal, dxccBands[i].name);
         }
     }
     else
-    {
         dxccTableModel->clear();
-    }
 
     show();
 }

@@ -13,15 +13,12 @@ class DxccTableWidget : public QTableView
 public:
     explicit DxccTableWidget(QWidget *parent = nullptr);
 
-signals:
-
 public slots:
     void clear();
     void setDxcc(int dxcc, Band band);
 
 private:
     DxccTableModel* dxccTableModel;
-    QStringList headerStrings;
 };
 
 #endif // QLOG_UI_DXCCTABLEWIDGET_H
