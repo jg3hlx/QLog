@@ -110,6 +110,7 @@ private:
     QActionGroup *seqGroup;
     QActionGroup *dupeGroup;
     QActionGroup *linkExchangeGroup;
+    QPushButton *activityButton;
 
     void setDarkMode();
     void setLightMode();

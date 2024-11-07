@@ -95,6 +95,12 @@ MainWindow::MainWindow(QWidget* parent) :
 
     const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
 
+    activityButton = new QPushButton("", ui->statusBar);
+    activityButton->setFlat(true);
+    activityButton->setFocusPolicy(Qt::NoFocus);
+    QMenu *activityMenu = new QMenu(activityButton);
+    activityButton->setMenu(activityMenu);
+
     conditionsLabel = new QLabel("", ui->statusBar);
     conditionsLabel->setIndent(20);
     conditionsLabel->setToolTip(QString("<img src='%1'>").arg(PropConditions::solarSummaryFile()));
@@ -123,6 +129,7 @@ MainWindow::MainWindow(QWidget* parent) :
     alertTextButton->setToolTip(tr("Press to tune the alert"));
 
     ui->toolBar->hide();
+    ui->statusBar->addWidget(activityButton);
     ui->statusBar->addWidget(profileLabel);
     ui->statusBar->addWidget(callsignLabel);
     ui->statusBar->addWidget(locatorLabel);
@@ -758,44 +765,45 @@ void MainWindow::setupActivitiesMenu()
 {
     FCT_IDENTIFICATION;
 
-    const QList<QAction*> activitiesActions = ui->menuActivityProfiles->actions();
+    QMenu *actionMenu = activityButton->menu();
 
-    for ( auto action : activitiesActions )
-        action->deleteLater();
+    actionMenu->clear();
 
     const QString &currActivityProfile = ActivityProfilesManager::instance()->getCurProfile1().profileName;
 
     // The first position will be always the Classic Profile
-    QAction *classicLayoutAction = new QAction(tr("Classic"), this);
+    QAction *classicLayoutAction = new QAction(tr("Classic"), actionMenu);
     classicLayoutAction->setCheckable(true);
     if ( currActivityProfile == QString() )
     {
         classicLayoutAction->setChecked(true);
         ui->actionSaveGeometry->setEnabled(false);
         setSimplyLayoutGeometry();
+        activityButton->setText(classicLayoutAction->text());
     }
-    connect(classicLayoutAction, &QAction::triggered, this, [this]()
+    connect(classicLayoutAction, &QAction::triggered, this, [this, classicLayoutAction]()
     {
         //save empty profile
         // Classic Action is only about Layout
         MainLayoutProfilesManager::instance()->setCurProfile1("");
         ActivityProfilesManager::instance()->setCurProfile1("");
         ui->actionSaveGeometry->setEnabled(false);
+        activityButton->setText(classicLayoutAction->text());
     } );
 
-    ui->menuActivityProfiles->addAction(classicLayoutAction);
+    actionMenu->addAction(classicLayoutAction);
 
     QActionGroup *activitiMenuGroup = new QActionGroup(classicLayoutAction);
     activitiMenuGroup->addAction(classicLayoutAction);
 
-    ui->menuActivityProfiles->addSeparator();
+    actionMenu->addSeparator();
 
     // The rest of positions will be the Custom Activity Profiles
     const QStringList &activityProfileNames = ActivityProfilesManager::instance()->profileNameList();
 
     for ( const QString &profileName : activityProfileNames )
     {
-        QAction *activityAction = new QAction(profileName, ui->menuActivityProfiles);
+        QAction *activityAction = new QAction(profileName, actionMenu);
         activityAction->setCheckable(true);
 
         if ( currActivityProfile == profileName )
@@ -803,16 +811,23 @@ void MainWindow::setupActivitiesMenu()
             activityAction->setChecked(true);
             ui->actionSaveGeometry->setEnabled(true);
             ActivityProfilesManager::instance()->setAllProfiles();
+            activityButton->setText(activityAction->text());
         }
 
-        connect(activityAction, &QAction::triggered, this, [this, profileName]()
+        connect(activityAction, &QAction::triggered, this, [this, profileName, activityAction]()
         {
             ActivityProfilesManager::instance()->setCurProfile1(profileName);
             ui->actionSaveGeometry->setEnabled(true);
+            activityButton->setText(activityAction->text());
         } );
-        ui->menuActivityProfiles->addAction(activityAction);
+        actionMenu->addAction(activityAction);
         activitiMenuGroup->addAction(activityAction);
     }
+
+    actionMenu->addSeparator();
+    actionMenu->addAction(ui->actionSaveGeometry);
+    actionMenu->addSeparator();
+    actionMenu->addAction(ui->actionActivitiesEdit);
 }
 
 void MainWindow::saveEquipmentConnOptions()
