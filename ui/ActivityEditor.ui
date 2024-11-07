@@ -1509,6 +1509,56 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>activityNameEdit</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>mainLayoutClearButton</tabstop>
+  <tabstop>availableFieldsListView</tabstop>
+  <tabstop>qsoRowAFieldsListView</tabstop>
+  <tabstop>moveToQSORowAButton</tabstop>
+  <tabstop>removeFromQSORowAButton</tabstop>
+  <tabstop>qsoRowAUpButton</tabstop>
+  <tabstop>qsoRowADownButton</tabstop>
+  <tabstop>qsoRowBFieldsListView</tabstop>
+  <tabstop>moveToQSORowBButton</tabstop>
+  <tabstop>removeFromQSORowBButton</tabstop>
+  <tabstop>qsoRowBUpButton</tabstop>
+  <tabstop>qsoRowBDownButton</tabstop>
+  <tabstop>layoutTypeComboBox</tabstop>
+  <tabstop>detailColAFieldsListView</tabstop>
+  <tabstop>moveToDetailColAButton</tabstop>
+  <tabstop>removeFromDetailColAButton</tabstop>
+  <tabstop>detailColAUpButton</tabstop>
+  <tabstop>detailColADownButton</tabstop>
+  <tabstop>detailColBFieldsListView</tabstop>
+  <tabstop>moveToDetailColBButton</tabstop>
+  <tabstop>removeFromDetailColBButton</tabstop>
+  <tabstop>detailColBUpButton</tabstop>
+  <tabstop>detailColBDownButton</tabstop>
+  <tabstop>detailColCFieldsListView</tabstop>
+  <tabstop>moveToDetailColCButton</tabstop>
+  <tabstop>removeFromDetailColCButton</tabstop>
+  <tabstop>detailColCUpButton</tabstop>
+  <tabstop>detailColCDownButton</tabstop>
+  <tabstop>stationProfileCheckbox</tabstop>
+  <tabstop>stationProfileCombo</tabstop>
+  <tabstop>antennaProfileCheckbox</tabstop>
+  <tabstop>antennaProfileCombo</tabstop>
+  <tabstop>rigProfileCheckbox</tabstop>
+  <tabstop>rigProfileCombo</tabstop>
+  <tabstop>rigAutoconnectCheckbox</tabstop>
+  <tabstop>rotatorProfileCheckbox</tabstop>
+  <tabstop>rotatorProfileCombo</tabstop>
+  <tabstop>rotatorAutoconnectCheckbox</tabstop>
+  <tabstop>contestIDCheckbox</tabstop>
+  <tabstop>contestIDEdit</tabstop>
+  <tabstop>propagationModeCheckbox</tabstop>
+  <tabstop>propagationModeCombo</tabstop>
+  <tabstop>satModeCheckbox</tabstop>
+  <tabstop>satModeCombo</tabstop>
+  <tabstop>satNameCheckbox</tabstop>
+  <tabstop>satNameEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="../res/icons/icons.qrc"/>
  </resources>
@@ -1520,8 +1570,8 @@
    <slot>save()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>254</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -1536,8 +1586,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>322</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
@@ -1568,8 +1618,8 @@
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>405</x>
-     <y>58</y>
+     <x>512</x>
+     <y>475</y>
     </hint>
     <hint type="destinationlabel">
      <x>405</x>
@@ -1584,8 +1634,8 @@
    <slot>clearMainLayoutClick()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>449</x>
-     <y>57</y>
+     <x>513</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
      <x>249</x>
@@ -1600,8 +1650,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>58</x>
-     <y>122</y>
+     <x>64</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1632,8 +1682,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>154</y>
+     <x>45</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1648,8 +1698,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>55</x>
-     <y>186</y>
+     <x>61</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1664,8 +1714,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>262</x>
-     <y>337</y>
+     <x>114</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1680,8 +1730,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>33</x>
-     <y>332</y>
+     <x>39</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1696,8 +1746,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>399</y>
+     <x>114</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1712,8 +1762,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>431</y>
+     <x>114</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
@@ -1728,8 +1778,8 @@
    <slot>setValueState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>425</x>
-     <y>372</y>
+     <x>114</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
