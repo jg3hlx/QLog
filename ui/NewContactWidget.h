@@ -190,6 +190,7 @@ public:
     QString getSentExch() const;
     double getQSOBearing() const;
     double getQSODistance() const;
+    bool getTabCollapseState() const;
 
 signals:
     void contactAdded(QSqlRecord record);

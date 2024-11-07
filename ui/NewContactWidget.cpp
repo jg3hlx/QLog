@@ -51,6 +51,22 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     FCT_IDENTIFICATION;
 
     ui->setupUi(this);
+    // tab pane with QSO fields - expand & collapse
+    tabCollapseBtn = new QToolButton();
+    QIcon *toggleIcon = new QIcon();
+    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_down-24px.svg"), QIcon::Normal, QIcon::On);
+    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_arrow-24px.svg"), QIcon::Normal, QIcon::Off);
+    tabCollapseBtn->setIcon(*toggleIcon);
+    tabCollapseBtn->setCheckable(true);
+    tabCollapseBtn->setToolTip(tr("Expand/Collapse"));
+    ui->qsoTabs->setCornerWidget(tabCollapseBtn, Qt::TopLeftCorner);
+    connect(tabCollapseBtn, &QAbstractButton::toggled, this, &NewContactWidget::tabsExpandCollapse);
+    connect(ui->qsoTabs, &QTabWidget::tabBarClicked, this, [this](const int)
+            {
+                // force expand if a tab is activated
+                tabCollapseBtn->setChecked(true);
+            });
+
     ui->rstRcvdEdit->spaceForbidden(true);
     ui->rstSentEdit->spaceForbidden(true);
     ui->dupeLabel->setVisible(false);
@@ -191,22 +207,6 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     contestCompleter->setCaseSensitivity(Qt::CaseInsensitive);
     contestCompleter->setFilterMode(Qt::MatchStartsWith);
     uiDynamic->contestIDEdit->setCompleter(contestCompleter);
-
-    // tab pane with QSO fields - expand & collapse
-    tabCollapseBtn = new QToolButton();
-    QIcon *toggleIcon = new QIcon();
-    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_down-24px.svg"), QIcon::Normal, QIcon::On);
-    toggleIcon->addPixmap(QPixmap(":/icons/baseline-play_arrow-24px.svg"), QIcon::Normal, QIcon::Off);
-    tabCollapseBtn->setIcon(*toggleIcon);
-    tabCollapseBtn->setCheckable(true);
-    tabCollapseBtn->setToolTip(tr("Expand/Collapse"));
-    ui->qsoTabs->setCornerWidget(tabCollapseBtn, Qt::TopLeftCorner);
-    connect(tabCollapseBtn, &QAbstractButton::toggled, this, &NewContactWidget::tabsExpandCollapse);
-    connect(ui->qsoTabs, &QTabWidget::tabBarClicked, this, [this](const int index)
-    {
-        // force expand if a tab is activated
-        tabCollapseBtn->setChecked(true);
-    });
 
     /**************/
     /* CONNECTs   */
@@ -2541,6 +2541,8 @@ void NewContactWidget::setupCustomUi()
     setupCustomDetailColumn(ui->detailColB, layoutProfile.detailColB);
     setupCustomDetailColumn(ui->detailColC, layoutProfile.detailColC);
 
+    tabCollapseBtn->setChecked(layoutProfile.tabsexpanded);
+
     ui->qsoTabs->adjustSize();
     update();
 }
@@ -3001,6 +3003,13 @@ double NewContactWidget::getQSODistance() const
     FCT_IDENTIFICATION;
 
     return dxDistance;
+}
+
+bool NewContactWidget::getTabCollapseState() const
+{
+    FCT_IDENTIFICATION;
+
+    return tabCollapseBtn->isChecked();
 }
 
 void NewContactWidget::propModeChanged(const QString &propModeText)

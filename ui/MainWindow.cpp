@@ -715,6 +715,7 @@ void MainWindow::saveProfileLayoutGeometry()
         layoutProfile.mainGeometry = saveGeometry();
         layoutProfile.mainState = saveState();
         layoutProfile.darkMode = darkLightModeSwith->isChecked();
+        layoutProfile.tabsexpanded =  ui->newContactWidget->getTabCollapseState();
         MainLayoutProfilesManager::instance()->addProfile(layoutProfile.profileName, layoutProfile);
         MainLayoutProfilesManager::instance()->save();
     }

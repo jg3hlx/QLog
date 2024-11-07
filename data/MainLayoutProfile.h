@@ -22,6 +22,7 @@ public:
     QByteArray mainGeometry;
     QByteArray mainState;
     bool darkMode;
+    bool tabsexpanded;
 
     bool operator== (const MainLayoutProfile &profile);
     bool operator!= (const MainLayoutProfile &profile);
