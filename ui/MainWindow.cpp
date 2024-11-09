@@ -106,7 +106,7 @@ MainWindow::MainWindow(QWidget* parent) :
     conditionsLabel->setToolTip(QString("<img src='%1'>").arg(PropConditions::solarSummaryFile()));
     profileLabel = new QLabel("<b>" + profile.profileName + ":</b>", ui->statusBar);
     profileLabel->setIndent(10);
-    callsignLabel = new QLabel(profile.callsign.toLower() , ui->statusBar);
+    callsignLabel = new QLabel(stationCallsignStatus(profile), ui->statusBar);
     locatorLabel = new QLabel(profile.locator.toLower(), ui->statusBar);
     contestLabel = new QLabel(ui->statusBar);
     contestLabel->setIndent(20);
@@ -543,8 +543,15 @@ void MainWindow::stationProfileChanged()
     qCDebug(runtime) << profile.callsign << " " << profile.locator << " " << profile.operatorName;
 
     profileLabel->setText("<b>" + profile.profileName + ":</b>");
-    callsignLabel->setText(profile.callsign.toLower());
+    callsignLabel->setText(stationCallsignStatus(profile));
     locatorLabel->setText(profile.locator.toLower());
+}
+
+QString MainWindow::stationCallsignStatus(const StationProfile &profile) {
+    if (profile.operatorCallsign.isEmpty() || profile.callsign == profile.operatorCallsign) {
+        return profile.callsign.toLower();
+    }
+    return profile.callsign.toLower() + " [op:" + profile.operatorCallsign.toLower() + "]";
 }
 
 void MainWindow::darkModeToggle(int mode)
