@@ -127,7 +127,7 @@ private:
     void restoreContestMenuDupeType();
     void restoreContestMenuLinkExchange();
 
-    QString stationCallsignStatus(const StationProfile &profile);
+    QString stationCallsignStatus(const StationProfile &profile) const;
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

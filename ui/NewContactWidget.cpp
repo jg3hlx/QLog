@@ -1226,8 +1226,10 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         && !profile.operatorCallsign.isEmpty() )
     {
         record.setValue("operator", profile.operatorCallsign.toUpper());
-    } else if ( record.value("operator").toString().isEmpty()
-               && !profile.callsign.isEmpty() ) {
+    }
+    else if ( record.value("operator").toString().isEmpty()
+               && !profile.callsign.isEmpty() )
+    {
         record.setValue("operator", profile.callsign.toUpper());
     }
 

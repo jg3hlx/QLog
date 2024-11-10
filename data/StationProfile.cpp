@@ -169,7 +169,7 @@ bool StationProfile::operator==(const StationProfile &profile)
             && profile.cqz == this->cqz
             && profile.dxcc == this->dxcc
             && profile.country == this->country
-            && profile.country == this->county
+            && profile.county == this->county
             && profile.operatorCallsign == this->operatorCallsign
             );
 }

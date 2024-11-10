@@ -206,6 +206,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     bandTableModel->select();
 
     ui->stationCallsignEdit->setValidator(new QRegularExpressionValidator(Callsign::callsignRegEx(), this));
+    ui->stationOperatorCallsignEdit->setValidator(new QRegularExpressionValidator(Callsign::callsignRegEx(), this));
     ui->stationLocatorEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridRegEx(), this));
     ui->stationVUCCEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
 
@@ -1506,6 +1507,13 @@ void SettingsDialog::addStationProfile()
         return;
     }
 
+    if ( ! ui->stationOperatorCallsignEdit->hasAcceptableInput() )
+    {
+        QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
+                             QMessageBox::tr("Operator Callsign has an invalid format"));
+        return;
+    }
+
     if ( ! ui->stationLocatorEdit->hasAcceptableInput() )
     {
         QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
@@ -1555,7 +1563,7 @@ void SettingsDialog::addStationProfile()
     profile.callsign = ui->stationCallsignEdit->text().toUpper();
     profile.locator = ui->stationLocatorEdit->text().toUpper();
     profile.operatorName = ui->stationOperatorEdit->text();
-    profile.operatorCallsign = ui->stationOperatorCallsignEdit->text();
+    profile.operatorCallsign = ui->stationOperatorCallsignEdit->text().toUpper();
     profile.qthName = ui->stationQTHEdit->text();
     profile.iota = ui->stationIOTAEdit->text().toUpper();
     profile.sota = ui->stationSOTAEdit->text().toUpper();
@@ -1957,6 +1965,13 @@ void SettingsDialog::adjustCWKeyCOMPortTextColor()
     FCT_IDENTIFICATION;
 
     setValidationResultColor(ui->cwPortEdit);
+}
+
+void SettingsDialog::adjustOperatorTextColor()
+{
+    FCT_IDENTIFICATION;
+
+    setValidationResultColor(ui->stationOperatorCallsignEdit);
 }
 
 void SettingsDialog::cancelled()

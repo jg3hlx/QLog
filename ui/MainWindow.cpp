@@ -547,11 +547,14 @@ void MainWindow::stationProfileChanged()
     locatorLabel->setText(profile.locator.toLower());
 }
 
-QString MainWindow::stationCallsignStatus(const StationProfile &profile) {
-    if (profile.operatorCallsign.isEmpty() || profile.callsign == profile.operatorCallsign) {
+QString MainWindow::stationCallsignStatus(const StationProfile &profile) const
+{
+    FCT_IDENTIFICATION;
+
+    if ( profile.operatorCallsign.isEmpty() || profile.callsign == profile.operatorCallsign )
         return profile.callsign.toLower();
-    }
-    return profile.callsign.toLower() + " [op:" + profile.operatorCallsign.toLower() + "]";
+
+    return profile.callsign.toLower() + " [" + tr("op: ") + profile.operatorCallsign.toLower() + "]";
 }
 
 void MainWindow::darkModeToggle(int mode)

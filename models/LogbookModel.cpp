@@ -700,7 +700,7 @@ QHash<LogbookModel::ColumnID, const char *> LogbookModel::fieldNameTranslationMa
     {COLUMN_NOTES_INTL, QT_TR_NOOP("Notes")},
     {COLUMN_NR_BURSTS, QT_TR_NOOP("#MS Bursts")},
     {COLUMN_NR_PINGS, QT_TR_NOOP("#MS Pings")},
-    {COLUMN_OPERATOR, QT_TR_NOOP("Logging Operator")},
+    {COLUMN_OPERATOR, QT_TR_NOOP("Operator Callsign")},
     {COLUMN_OWNER_CALLSIGN, QT_TR_NOOP("Owner Callsign")},
     {COLUMN_POTA_REF, QT_TR_NOOP("POTA")},
     {COLUMN_PRECEDENCE, QT_TR_NOOP("Contest Precedence")},

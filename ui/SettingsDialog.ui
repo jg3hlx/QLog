@@ -81,9 +81,6 @@
             <property name="text">
              <string>SOTA</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="0" column="0" rowspan="15">
@@ -98,7 +95,7 @@
              <string>List of all available Station Profiles</string>
             </property>
             <property name="editTriggers">
-             <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+             <set>QAbstractItemView::NoEditTriggers</set>
             </property>
            </widget>
           </item>
@@ -106,9 +103,6 @@
            <widget class="QLabel" name="stationSIGInfoLabel">
             <property name="text">
              <string>SIG Info</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -186,9 +180,6 @@
             <property name="text">
              <string>IOTA</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="3" column="1">
@@ -196,18 +187,12 @@
             <property name="text">
              <string>Operator Callsign</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="2" column="1">
            <widget class="QLabel" name="stationOperatorLabel">
             <property name="text">
              <string>Operator Name</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -219,18 +204,12 @@
             <property name="text">
              <string>POTA</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="8" column="1">
            <widget class="QLabel" name="stationQTHLabel">
             <property name="text">
              <string>QTH</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -239,9 +218,6 @@
             <property name="text">
              <string>SIG</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="5" column="1">
@@ -249,18 +225,12 @@
             <property name="text">
              <string>Country</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="1" column="1">
            <widget class="QLabel" name="stationCallsignLabel">
             <property name="text">
              <string>Station Callsign</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -279,18 +249,12 @@
             <property name="text">
              <string>Profile Name</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="8" column="3">
            <widget class="QLabel" name="stationVUCCLabel">
             <property name="text">
              <string>VUCC</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -364,9 +328,6 @@
             <property name="text">
              <string>WWFF</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="13" column="1">
@@ -422,9 +383,6 @@
             <property name="text">
              <string>Gridsquare</string>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-            </property>
            </widget>
           </item>
           <item row="10" column="2">
@@ -452,9 +410,6 @@
            <widget class="QLabel" name="stationCountyLabel">
             <property name="text">
              <string>County</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -5278,6 +5233,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>stationOperatorCallsignEdit</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>adjustOperatorTextColor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>465</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>save()</slot>
@@ -5340,5 +5311,6 @@
   <slot>clublogSettingChanged()</slot>
   <slot>rotInterfaceChanged(int)</slot>
   <slot>rigPTTTypeChanged(int)</slot>
+  <slot>adjustOperatorTextColor()</slot>
  </slots>
 </ui>
