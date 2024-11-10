@@ -7,6 +7,8 @@ TBC - 0.40.0
 - [NEW] - New Contact -  Added expand/collapse button to QSO field tab widget (PR #495 @kyleboyle)
 - [NEW] - Alert - Added CQZ and ITUZ filters
 - [NEW] - KSTChat - Added a new 40MHz room (PR #496 @kyleboyle)
+- [NEW] - Station Profile contains Operator Callsign (issue #441 @kyleboyle)
+- [NEW] - Station Profile contains County (issue #493 @kyleboyle)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 
 2024/10/05 - 0.39.0
