@@ -11,6 +11,8 @@ TBC - 0.40.0
 - [NEW] - Station Profile contains County (issue #493 @kyleboyle)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 
+- Known Issue - Activity Manager - Rig&Rot Connect is unreliable
+
 2024/10/05 - 0.39.0
 - [NEW] - DXC - Added Full-text search
 - [NEW] - Select S in RST Edit when focused (issue #454)
