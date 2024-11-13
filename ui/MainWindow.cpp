@@ -183,8 +183,6 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
             ui->clockWidget, &ClockWidget::updateSun);
 
-    setupActivitiesMenu();
-
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
     connect(this, &MainWindow::themeChanged, ui->onlineMapWidget, &OnlineMapWidget::changeTheme);
@@ -268,6 +266,10 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::dupeTypeChanged, ui->chatWidget, &ChatWidget::recalculateDupe);
     connect(this, &MainWindow::dupeTypeChanged, ui->newContactWidget, &NewContactWidget::refreshCallsignsColors);
 
+    connect(ui->rigWidget, &RigWidget::rigProfileChanged, this, &MainWindow::rigConnect);
+
+    connect(ui->rotatorWidget, &RotatorWidget::rotProfileChanged, this, &MainWindow::rotConnect);
+
     connect(ui->logbookWidget, &LogbookWidget::deletedEntities, Data::instance(), &Data::invalidateSetOfDXCCStatusCache); // must be the first delete signal
     connect(ui->logbookWidget, &LogbookWidget::logbookUpdated, stats, &StatisticsWidget::refreshWidget);
     connect(ui->logbookWidget, &LogbookWidget::contactUpdated, &networknotification, &NetworkNotification::QSOUpdated);
@@ -301,6 +303,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->newContactWidget, &NewContactWidget::userModeChanged, ui->bandmapWidget, &BandmapWidget::updateMode);
     connect(ui->newContactWidget, &NewContactWidget::markQSO, ui->bandmapWidget, &BandmapWidget::addSpot);
     connect(ui->newContactWidget, &NewContactWidget::callboolImageUrl, ui->profileImageWidget, &ProfileImageWidget::loadImageFromUrl);
+    connect(ui->newContactWidget, &NewContactWidget::rigProfileChanged, this, &MainWindow::rigConnect);
 
     connect(ui->dxWidget, &DxWidget::newFilteredSpot, ui->bandmapWidget, &BandmapWidget::addSpot);
     connect(ui->dxWidget, &DxWidget::newFilteredSpot, Rig::instance(), &Rig::sendDXSpot);
@@ -349,13 +352,10 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(clublogRT, &ClubLog::QSOUploaded, ui->logbookWidget, &LogbookWidget::updateTable);
 
     if ( StationProfilesManager::instance()->profileNameList().isEmpty() )
-    {
         showSettings();
-    }
     else
-    {
         MembershipQE::instance()->updateLists();
-    }
+
     /********************/
     /* GLOBAL SHORTCUTs */
     /********************/
@@ -392,6 +392,8 @@ MainWindow::MainWindow(QWidget* parent) :
 
     restoreEquipmentConnOptions();
     restoreConnectionStates();
+
+    setupActivitiesMenu();
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
@@ -495,13 +497,9 @@ void MainWindow::rigConnect()
     saveEquipmentConnOptions();
 
     if ( ui->actionConnectRig->isChecked() )
-    {
         Rig::instance()->open();
-    }
     else
-    {
         Rig::instance()->close();
-    }
 }
 
 void MainWindow::rigErrorHandler(const QString &error, const QString &errorDetail)
@@ -1154,13 +1152,9 @@ void MainWindow::rotConnect()
     saveEquipmentConnOptions();
 
     if ( ui->actionConnectRotator->isChecked() )
-    {
         Rotator::instance()->open();
-    }
     else
-    {
         Rotator::instance()->close();
-    }
 }
 
 void MainWindow::cwKeyerConnect()

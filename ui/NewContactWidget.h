@@ -205,6 +205,7 @@ signals:
 
     void contestStarted(const QString contestID,
                         const QDateTime date);
+    void rigProfileChanged();
 
 public slots:
     void refreshRigProfileCombo();

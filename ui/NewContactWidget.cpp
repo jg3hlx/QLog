@@ -793,7 +793,6 @@ void NewContactWidget::refreshRigProfileCombo()
     ui->freqRXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).ritOffset);
     ui->freqTXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).xitOffset);
     uiDynamic->powerEdit->setValue(RigProfilesManager::instance()->getProfile(currentText).defaultPWR);
-
 }
 
 void NewContactWidget::refreshAntProfileCombo()
@@ -3119,6 +3118,9 @@ void NewContactWidget::rigProfileComboChanged(const QString &profileName)
 
     ui->freqRXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getCurProfile1().ritOffset);
     ui->freqTXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getCurProfile1().xitOffset);
+
+    emit rigProfileChanged();
+
 }
 
 void NewContactWidget::antProfileComboChanged(const QString &profileName)
