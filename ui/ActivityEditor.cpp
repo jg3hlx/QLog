@@ -158,6 +158,7 @@ void ActivityEditor::save()
     insertParam(LogbookModel::COLUMN_PROP_MODE, ui->propagationModeCheckbox, ui->propagationModeCombo->currentText());
     insertParam(LogbookModel::COLUMN_SAT_MODE, ui->satModeCheckbox, ui->satModeCombo->currentText());
     insertParam(LogbookModel::COLUMN_SAT_NAME, ui->satNameCheckbox, ui->satNameEdit->text());
+    insertParam(LogbookModel::COLUMN_STX_STRING, ui->stxStringCheckbox, ui->stxStringEdit->text());
 
     ActivityProfilesManager::instance()->addProfile(ui->activityNameEdit->text(), activity);
     ActivityProfilesManager::instance()->save();
@@ -197,12 +198,19 @@ void ActivityEditor::setValueState()
     ui->rotatorAutoconnectCheckbox->setEnabled(ui->rotatorProfileCheckbox->isChecked());
 
     bool isContestActive = !availableFieldsModel->stringList().contains(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_CONTEST_ID));
+    bool isSTXStringActive = !availableFieldsModel->stringList().contains(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_STX_STRING));
 
     if ( !isContestActive )
         ui->contestIDCheckbox->setChecked(false);
     ui->contestIDCheckbox->setVisible(isContestActive);
     ui->contestIDEdit->setVisible(isContestActive);
     ui->contestIDEdit->setEnabled(ui->contestIDCheckbox->isChecked());
+
+    if ( !isSTXStringActive )
+        ui->stxStringCheckbox->setChecked(false);
+    ui->stxStringCheckbox->setVisible(isSTXStringActive);
+    ui->stxStringEdit->setVisible(isSTXStringActive);
+    ui->stxStringEdit->setEnabled(ui->stxStringCheckbox->isChecked());
 
     ui->propagationModeCombo->setEnabled(ui->propagationModeCheckbox->isChecked());
 
@@ -426,6 +434,7 @@ void ActivityEditor::setupValuesTab(const QString &activityName)
     ui->propagationModeCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_PROP_MODE));
     ui->satModeCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SAT_MODE));
     ui->satNameCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SAT_NAME));
+    ui->stxStringCheckbox->setText(LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_STX_STRING));
 
     assignCompleter(ui->contestIDEdit, Data::instance()->contestList());
     assignTableCompleter(ui->satNameEdit, "sat_info");
@@ -463,6 +472,11 @@ void ActivityEditor::setupValuesTab(const QString &activityName)
             case LogbookModel::COLUMN_SAT_NAME:
                 ui->satNameCheckbox->setChecked(true);
                 ui->satNameEdit->setText(i.value().toString());
+                break;
+
+            case LogbookModel::COLUMN_STX_STRING:
+                ui->stxStringCheckbox->setChecked(true);
+                ui->stxStringEdit->setText(i.value().toString());
                 break;
 
             default:

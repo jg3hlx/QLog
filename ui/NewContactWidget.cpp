@@ -3092,6 +3092,7 @@ void NewContactWidget::setValuesFromActivity(const QString &name)
     };
 
     setFieldValue(LogbookModel::COLUMN_CONTEST_ID, uiDynamic->contestIDEdit);
+    setFieldValue(LogbookModel::COLUMN_STX_STRING, uiDynamic->stxStringEdit);
 
     // propagation mode has to be changed before SAT MODE because SAT MODE combo is disabled
     // and it is not possible to set a value.

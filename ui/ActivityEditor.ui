@@ -1435,43 +1435,57 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QCheckBox" name="propagationModeCheckbox">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="QComboBox" name="propagationModeCombo">
             <property name="enabled">
              <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QCheckBox" name="satModeCheckbox">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="3" column="1">
            <widget class="QComboBox" name="satModeCombo">
             <property name="enabled">
              <bool>false</bool>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="4" column="0">
            <widget class="QCheckBox" name="satNameCheckbox">
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
+          <item row="4" column="1">
            <widget class="QLineEdit" name="satNameEdit">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="stxStringCheckbox">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="stxStringEdit">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -1552,6 +1566,8 @@
   <tabstop>rotatorAutoconnectCheckbox</tabstop>
   <tabstop>contestIDCheckbox</tabstop>
   <tabstop>contestIDEdit</tabstop>
+  <tabstop>stxStringCheckbox</tabstop>
+  <tabstop>stxStringEdit</tabstop>
   <tabstop>propagationModeCheckbox</tabstop>
   <tabstop>propagationModeCombo</tabstop>
   <tabstop>satModeCheckbox</tabstop>
@@ -1780,6 +1796,22 @@
     <hint type="sourcelabel">
      <x>114</x>
      <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stxStringCheckbox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>ActivityEditor</receiver>
+   <slot>setValueState()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>332</y>
     </hint>
     <hint type="destinationlabel">
      <x>264</x>
