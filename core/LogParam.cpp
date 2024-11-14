@@ -27,7 +27,7 @@ bool LogParam::setParam(const QString &name, const QVariant &value)
     if ( ! query.prepare("INSERT OR REPLACE INTO log_param (name, value) "
                          "VALUES (:nam, :val)") )
     {
-        qWarning()<< "Cannot prepare insert parameter statement";
+        qWarning()<< "Cannot prepare insert parameter statement for parameter" << name;
         return false;
     }
 
@@ -38,7 +38,7 @@ bool LogParam::setParam(const QString &name, const QVariant &value)
 
     if ( !query.exec() )
     {
-        qWarning() << "Cannot exec an insert parameter statement";
+        qWarning() << "Cannot exec an insert parameter statement for" << name;
         return false;
     }
 
@@ -70,7 +70,7 @@ QVariant LogParam::getParam(const QString &name, const QVariant &defaultValue)
                              "FROM log_param "
                              "WHERE name = :nam") )
         {
-            qWarning()<< "Cannot prepare insert parameter statement";
+            qWarning()<< "Cannot prepare select parameter statement for" << name;
             return QString();
         }
 
@@ -78,7 +78,7 @@ QVariant LogParam::getParam(const QString &name, const QVariant &defaultValue)
 
         if ( ! query.exec() )
         {
-            qWarning() << "Cannot execute GetParam Select";
+            qWarning() << "Cannot execute GetParam Select for" << name;
             return QString();
         }
 
@@ -112,14 +112,14 @@ void LogParam::removeParamGroup(const QString &paramGroup)
 
     if ( ! query.prepare("DELETE FROM log_param WHERE name LIKE :group ") )
     {
-        qWarning()<< "Cannot prepare delete parameter statement";
+        qWarning()<< "Cannot prepare delete parameter statement for" << paramGroup;
         return;
     }
 
     query.bindValue(":group", paramGroup + "%");
 
     if ( ! query.exec() )
-        qWarning() << "Cannot execute removeParamGroup statement";
+        qWarning() << "Cannot execute removeParamGroup statement for" << paramGroup;
 
     return;
 }
