@@ -11,6 +11,7 @@ TBC - 0.40.0
 - [NEW] - Station Profile contains County (issue #493 @kyleboyle)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 - [CHANGED] - Removed Main Menu Layout; Activity Manager is in the bottom-left corner
+- Fixed issue when CW is always selected after exiting and connecting the Rig
 
 2024/10/05 - 0.39.0
 - [NEW] - DXC - Added Full-text search
