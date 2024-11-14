@@ -34,7 +34,7 @@ ExportDialog::ExportDialog(QWidget *parent) :
                                                       "FROM qso_filters "
                                                       "ORDER BY filter_name COLLATE LOCALEAWARE ASC",
                                                       "", this));
-
+    ui->userFilterCheckBox->setEnabled(ui->userFilterComboBox->count() > 0);
 }
 
 ExportDialog::ExportDialog(const QList<QSqlRecord>& qsos, QWidget *parent) :
