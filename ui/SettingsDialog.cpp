@@ -1507,7 +1507,8 @@ void SettingsDialog::addStationProfile()
         return;
     }
 
-    if ( ! ui->stationOperatorCallsignEdit->hasAcceptableInput() )
+    if ( !ui->stationOperatorCallsignEdit->text().isEmpty()
+         && ! ui->stationOperatorCallsignEdit->hasAcceptableInput() )
     {
         QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
                              QMessageBox::tr("Operator Callsign has an invalid format"));
