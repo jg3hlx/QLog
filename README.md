@@ -25,6 +25,7 @@ QLogs aims to be as simple as possible, but to provide everything the operator e
 - Station Location Profile support
 - Various station statistics
 - Basic Awards support
+- Basic Contest support
 - Custom QSO Filters
 - **NO** ads, **NO** user tracking, **NO** hidden telemetry - simply free and open-source
 - SQLite backend.
