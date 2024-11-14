@@ -11,7 +11,7 @@ class MainLayoutProfile
 {
 
 public:
-    MainLayoutProfile(){darkMode = false;};
+    MainLayoutProfile(){darkMode = false; tabsexpanded = true;};
 
     QString profileName;
     QList<int> rowA;
