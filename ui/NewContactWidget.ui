@@ -1370,7 +1370,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="dxccTab">
+     <widget class="QWidget" name="dxStatTab">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
         <horstretch>0</horstretch>
@@ -1378,7 +1378,7 @@
        </sizepolicy>
       </property>
       <attribute name="title">
-       <string>D&amp;XCC</string>
+       <string>D&amp;X Stats</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="spacing">
@@ -1396,6 +1396,13 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
+       <item>
+        <widget class="QLabel" name="dxccTableLabel">
+         <property name="text">
+          <string>&lt;b&gt;DXCC Statistics&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="DxccTableWidget" name="dxccTableWidget">
          <property name="sizePolicy">
@@ -1436,6 +1443,50 @@
          </attribute>
          <attribute name="horizontalHeaderStretchLastSection">
           <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderMinimumSectionSize">
+          <number>21</number>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>21</number>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="stationTableLabel">
+         <property name="text">
+          <string>&lt;b&gt;Station Statistics&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="DxccTableWidget" name="stationTableWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>20</number>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>65</number>
          </attribute>
          <attribute name="verticalHeaderMinimumSectionSize">
           <number>21</number>

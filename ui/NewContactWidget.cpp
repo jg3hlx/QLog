@@ -490,6 +490,7 @@ void NewContactWidget::setDxccInfo(const DxccEntity &curr)
         uiDynamic->ituEdit->setText(QString::number(dxccEntity.ituz));
         updateCoordinates(dxccEntity.latlon[0], dxccEntity.latlon[1], COORD_DXCC);
         ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
+        ui->stationTableWidget->setDxCallsign(ui->callsignEdit->text(), BandPlan::freq2Band(ui->freqTXEdit->value()));
         uiDynamic->contEdit->setCurrentText(dxccEntity.cont);
         ui->flagView->setPixmap((!dxccEntity.flag.isEmpty() ) ? QPixmap(QString(":/flags/64/%1.png").arg(dxccEntity.flag))
                                                               : QPixmap() );
@@ -502,6 +503,7 @@ void NewContactWidget::setDxccInfo(const DxccEntity &curr)
         uiDynamic->ituEdit->clear();
         clearCoordinates();
         ui->dxccTableWidget->clear();
+        ui->stationTableWidget->clear();
         uiDynamic->contEdit->setCurrentText("");
         ui->flagView->setPixmap(QPixmap());
         ui->dxccStatus->clear();
@@ -937,6 +939,7 @@ void NewContactWidget::updateTXBand(double freq)
     updateSatMode();
     updateDxccStatus();   
     ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
+    ui->stationTableWidget->setDxCallsign(ui->callsignEdit->text(), BandPlan::freq2Band(ui->freqTXEdit->value()));
 }
 
 void NewContactWidget::updateRXBand(double freq)
@@ -1025,6 +1028,7 @@ void NewContactWidget::resetContact()
     uiDynamic->vuccEdit->clear();
     uiDynamic->wwffEdit->clear();
     ui->dxccTableWidget->clear();
+    ui->stationTableWidget->clear();
     ui->dxccStatus->clear();
     ui->flagView->setPixmap(QPixmap());
     uiDynamic->ageEdit->clear();

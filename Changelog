@@ -10,6 +10,7 @@ TBC - 0.40.0
 - [NEW] - Station Profile contains Operator Callsign (issue #441 @kyleboyle)
 - [NEW] - Station Profile contains County (issue #493 @kyleboyle)
 - [NEW] - Statistics - Adds time of day and better qso mapping (PR #501 @kyleboyle)
+- [CHANGED] - New Contact - Renamed DXCC Tab to DX Stats contains DXCC and Station Statistics (issue #477)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 - [CHANGED] - Removed Main Menu Layout; Activity Manager is in the bottom-left corner
 - Fixed issue when CW is always selected after Settings exiting or connecting the Rig

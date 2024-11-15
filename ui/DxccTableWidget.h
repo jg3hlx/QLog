@@ -16,8 +16,13 @@ public:
 public slots:
     void clear();
     void setDxcc(int dxcc, Band band);
+    void setDxCallsign(const QString &dxCallsign, Band band);
 
 private:
+    void updateDxTable(const QString &condition,
+                       const QVariant &conditionValue,
+                       const Band &highlightedBand);
+
     DxccTableModel* dxccTableModel;
 };
 
