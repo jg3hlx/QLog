@@ -9,6 +9,7 @@ TBC - 0.40.0
 - [NEW] - KSTChat - Added a new 40MHz room (PR #496 @kyleboyle)
 - [NEW] - Station Profile contains Operator Callsign (issue #441 @kyleboyle)
 - [NEW] - Station Profile contains County (issue #493 @kyleboyle)
+- [NEW] - Statistics - Adds time of day and better qso mapping (PR #501 @kyleboyle)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 - [CHANGED] - Removed Main Menu Layout; Activity Manager is in the bottom-left corner
 - Fixed issue when CW is always selected after exiting and connecting the Rig
