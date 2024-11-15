@@ -150,6 +150,9 @@
           <property name="text">
            <string>Graph Type</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
          </widget>
         </item>
        </layout>
@@ -399,11 +402,6 @@
          <property name="contextMenuPolicy">
           <enum>Qt::NoContextMenu</enum>
          </property>
-         <property name="url">
-          <url>
-           <string>about:blank</string>
-          </url>
-         </property>
         </widget>
        </item>
       </layout>
@@ -572,7 +570,7 @@
   </connection>
   <connection>
    <sender>endDateEdit</sender>
-   <signal>userDateChanged(QDate)</signal>
+   <signal>dateTimeChanged(QDateTime)</signal>
    <receiver>StatisticsWidget</receiver>
    <slot>refreshGraph()</slot>
    <hints>
