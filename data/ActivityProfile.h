@@ -50,11 +50,11 @@ public:
     bool operator!= (const ActivityProfile &profile);
 
 private:
-    friend QDataStream& operator<<(QDataStream& out, const ActivityProfile& v);
-    friend QDataStream& operator<<(QDataStream& out, const ActivityProfile::ProfileRecord& v);
+    // friend QDataStream& operator<<(QDataStream& out, const ActivityProfile& v);
+    // friend QDataStream& operator<<(QDataStream& out, const ActivityProfile::ProfileRecord& v);
 
-    friend QDataStream& operator>>(QDataStream& in, ActivityProfile& v);
-    friend QDataStream& operator>>(QDataStream& in, ActivityProfile::ProfileRecord& v);
+    // friend QDataStream& operator>>(QDataStream& in, ActivityProfile& v);
+    // friend QDataStream& operator>>(QDataStream& in, ActivityProfile::ProfileRecord& v);
 
     QString getParamName(ProfileParamType id) const  { return profileParamsNameMapping.value(id);} ;
     ProfileParamType getParamID(const QString &paramName) const { return profileParamsNameMapping.key(paramName);};

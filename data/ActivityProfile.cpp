@@ -9,39 +9,42 @@
 
 MODULE_IDENTIFICATION("qlog.data.activityprofile");
 
-QDataStream& operator<<(QDataStream& out, const ActivityProfile& v)
-{
-    out << v.profileName
-        << v.profiles
-        << v.fieldValues;
+// a compilation issue under 20.04 Ubuntu because qt 5.12 does not
+// support >> for QHash but it is not used now.
 
-    return out;
-}
+// QDataStream& operator<<(QDataStream& out, const ActivityProfile& v)
+// {
+//     out << v.profileName
+//         << v.profiles
+//         << v.fieldValues;
 
-QDataStream& operator<<(QDataStream& out, const ActivityProfile::ProfileRecord& v)
-{
-    out << v.name
-        << v.params;
+//     return out;
+// }
 
-    return out;
-}
+// QDataStream& operator<<(QDataStream& out, const ActivityProfile::ProfileRecord& v)
+// {
+//     out << v.name
+//         << v.params;
 
-QDataStream& operator>>(QDataStream& in, ActivityProfile& v)
-{
-    in >> v.profileName;
-    in >> v.profiles;
-    in >> v.fieldValues;
+//     return out;
+// }
 
-    return in;
-}
+// QDataStream& operator>>(QDataStream& in, ActivityProfile& v)
+// {
+//     in >> v.profileName;
+//     in >> v.profiles;
+//     in >> v.fieldValues;
 
-QDataStream& operator>>(QDataStream& in, ActivityProfile::ProfileRecord& v)
-{
-    in >> v.name;
-    in >> v.params;
+//     return in;
+// }
 
-    return in;
-}
+// QDataStream& operator>>(QDataStream& in, ActivityProfile::ProfileRecord& v)
+// {
+//     in >> v.name;
+//     in >> v.params;
+
+//     return in;
+// }
 
 ActivityProfile::ActivityProfile(const QString &name, const QJsonDocument &config)
 {
