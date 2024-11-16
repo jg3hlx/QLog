@@ -1235,13 +1235,46 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabDxcc">
+     <widget class="QWidget" name="dxStatTab">
       <attribute name="title">
-       <string>D&amp;XCC</string>
+       <string>D&amp;X Stats</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <widget class="QLabel" name="dxccTableLabel">
+         <property name="text">
+          <string>&lt;b&gt;DXCC Statistics&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="DxccTableWidget" name="dxccTableWidget">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <attribute name="horizontalHeaderMinimumSectionSize">
+          <number>20</number>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>65</number>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>22</number>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="stationTableLabel">
+         <property name="text">
+          <string>&lt;b&gt;Station Statistics&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="DxccTableWidget" name="stationTableWidget">
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>

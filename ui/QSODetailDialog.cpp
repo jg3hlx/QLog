@@ -402,7 +402,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     drawDXOnMap(ui->callsignEdit->text(), Gridsquare(ui->gridEdit->text()));
     drawMyQTHOnMap(ui->myCallsignEdit->text(), Gridsquare(ui->myGridEdit->text()));
 
-    refreshDXCCTab();
+    refreshDXStatTabs();
 
     queryMemberList();
 
@@ -799,7 +799,7 @@ void QSODetailDialog::callsignChanged(const QString &)
 {
     FCT_IDENTIFICATION;
 
-    refreshDXCCTab();
+    refreshDXStatTabs();
 }
 
 void QSODetailDialog::callsignEditFinished()
@@ -1582,19 +1582,16 @@ void QSODetailDialog::callbookLookupStart()
     lookupButtonWaitingStyle(true);
 }
 
-void QSODetailDialog::refreshDXCCTab()
+void QSODetailDialog::refreshDXStatTabs()
 {
     FCT_IDENTIFICATION;
 
-    DxccEntity dxccEntity = Data::instance()->lookupDxcc(ui->callsignEdit->text());
-    if ( dxccEntity.dxcc )
-    {
-        ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, BandPlan::freq2Band(ui->freqTXEdit->value()));
-    }
-    else
-    {
-        ui->dxccTableWidget->clear();
-    }
+    const QString &currCallsign = ui->callsignEdit->text();
+    const DxccEntity &dxccEntity = Data::instance()->lookupDxcc(currCallsign);
+    const Band &currBand = BandPlan::freq2Band(ui->freqTXEdit->value());
+
+    ui->dxccTableWidget->setDxcc(dxccEntity.dxcc, currBand);
+    ui->stationTableWidget->setDxCallsign(currCallsign, currBand);
 }
 
 const QString QSODetailDialog::getButtonText(int index) const
