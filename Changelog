@@ -13,6 +13,7 @@ TBC - 0.40.0
 - [CHANGED] - New Contact - Renamed DXCC Tab to DX Stats contains DXCC and Station Statistics (issue #477)
 - [CHANGED] - QSL Import dialog - Detail text is selectable by mouse and keyboard
 - [CHANGED] - Removed Main Menu Layout; Activity Manager is in the bottom-left corner
+- [CHANGED] - Removed Keep Options from the Equipment Menu - use Activity Manager for it
 - Fixed issue when CW is always selected after Settings exiting or connecting the Rig
 
 2024/10/05 - 0.39.0

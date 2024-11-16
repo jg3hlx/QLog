@@ -83,8 +83,6 @@
     <addaction name="actionConnectRig"/>
     <addaction name="actionConnectCWKeyer"/>
     <addaction name="actionConnectRotator"/>
-    <addaction name="separator"/>
-    <addaction name="actionEquipmentKeepOptions"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -1569,22 +1567,6 @@
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>saveProfileLayoutGeometry()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>456</x>
-     <y>256</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionEquipmentKeepOptions</sender>
-   <signal>triggered(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>setEquipmentKeepOptions(bool)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

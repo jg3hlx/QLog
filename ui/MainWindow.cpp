@@ -390,8 +390,8 @@ MainWindow::MainWindow(QWidget* parent) :
 
     restoreUserDefinedShortcuts();
 
-    restoreEquipmentConnOptions();
-    restoreConnectionStates();
+    //restoreEquipmentConnOptions();
+    //restoreConnectionStates();
 
     setupActivitiesMenu();
 }
@@ -494,7 +494,7 @@ void MainWindow::rigConnect()
 {
     FCT_IDENTIFICATION;
 
-    saveEquipmentConnOptions();
+    //saveEquipmentConnOptions();
 
     if ( ui->actionConnectRig->isChecked() )
         Rig::instance()->open();
@@ -733,7 +733,9 @@ void MainWindow::setEquipmentKeepOptions(bool)
 {
     FCT_IDENTIFICATION;
 
-    saveEquipmentConnOptions();
+    // this is obsolete, use activities instead.
+    // Left only because of possible problems and for quick activation of the function.
+    //saveEquipmentConnOptions();
 }
 
 
@@ -843,6 +845,9 @@ void MainWindow::saveEquipmentConnOptions()
 {
     FCT_IDENTIFICATION;
 
+    // this is obsolete, use activities instead.
+    // Left only because of possible problems and for quick activation of the function.
+#if 0
     settings.setValue("equipment/keepoptions", ui->actionEquipmentKeepOptions->isChecked());
 
     if ( ui->actionEquipmentKeepOptions->isChecked() )
@@ -851,12 +856,17 @@ void MainWindow::saveEquipmentConnOptions()
         settings.setValue("equipment/rotconnected", ui->actionConnectRotator->isChecked());
         settings.setValue("equipment/cwkeyconnected", ui->actionConnectCWKeyer->isChecked());
     }
+#endif
+
 }
 
 void MainWindow::restoreConnectionStates()
 {
     FCT_IDENTIFICATION;
 
+    // this is obsolete, use activities instead.
+    // Left only because of possible problems and for quick activation of the function.
+#if 0
     if ( ui->actionEquipmentKeepOptions->isChecked() )
     {
         if ( settings.value("equipment/rigconnected", false).toBool() )
@@ -886,15 +896,22 @@ void MainWindow::restoreConnectionStates()
             });
         }
     }
+#endif
+
 }
 
 void MainWindow::restoreEquipmentConnOptions()
 {
     FCT_IDENTIFICATION;
 
+    // this is obsolete, use activities instead.
+    // Left only because of possible problems and for quick activation of the function.
+#if 0
     ui->actionEquipmentKeepOptions->blockSignals(true);
     ui->actionEquipmentKeepOptions->setChecked(settings.value("equipment/keepoptions", false).toBool());
     ui->actionEquipmentKeepOptions->blockSignals(false);
+#endif
+
 }
 
 void MainWindow::restoreUserDefinedShortcuts()
@@ -1149,7 +1166,7 @@ void MainWindow::rotConnect()
 {
     FCT_IDENTIFICATION;
 
-    saveEquipmentConnOptions();
+    //saveEquipmentConnOptions();
 
     if ( ui->actionConnectRotator->isChecked() )
         Rotator::instance()->open();
@@ -1161,7 +1178,7 @@ void MainWindow::cwKeyerConnect()
 {
     FCT_IDENTIFICATION;
 
-    saveEquipmentConnOptions();;
+    //saveEquipmentConnOptions();;
 
     if ( ui->actionConnectCWKeyer->isChecked() )
     {
@@ -1522,7 +1539,7 @@ MainWindow::~MainWindow()
 {
     FCT_IDENTIFICATION;
 
-    saveEquipmentConnOptions();
+    //saveEquipmentConnOptions();
 
     CWKeyer::instance()->close();
     QThread::msleep(500);
