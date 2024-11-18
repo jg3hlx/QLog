@@ -279,6 +279,7 @@ private slots:
     void refreshSIGCompleter();
     void refreshContestCompleter();
     void tabsExpandCollapse();
+    void setContestFieldsState();
 
 private:
     void useFieldsFromPrevQSO(const QString &callsign,

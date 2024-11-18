@@ -237,6 +237,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     connect(uiDynamic->satNameEdit, &QLineEdit::textChanged, this, &NewContactWidget::satNameChanged);
     connect(uiDynamic->sigEdit, &NewContactEditLine::focusIn, this, &NewContactWidget::refreshSIGCompleter);
     connect(uiDynamic->contestIDEdit, &NewContactEditLine::focusIn, this, &NewContactWidget::refreshContestCompleter);
+    connect(uiDynamic->contestIDEdit, &NewContactEditLine::textEdited, this, &NewContactWidget::setContestFieldsState);
 
     ui->rstSentEdit->installEventFilter(this);
     ui->rstRcvdEdit->installEventFilter(this);
@@ -3642,6 +3643,19 @@ void NewContactWidget::tabsExpandCollapse()
         maxSize = ui->qsoTabs->tabBar()->sizeHint().height();
     }
     ui->qsoTabs->setMaximumHeight(maxSize);
+}
+
+void NewContactWidget::setContestFieldsState()
+{
+    FCT_IDENTIFICATION;
+
+    bool enabled = !uiDynamic->contestIDEdit->text().isEmpty();
+
+    uiDynamic->srxEdit->setEnabled(enabled);
+    uiDynamic->srxStringEdit->setEnabled(enabled);
+    uiDynamic->stxEdit->setEnabled(enabled);
+    uiDynamic->stxStringEdit->setEnabled(enabled);
+
 }
 
 NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
