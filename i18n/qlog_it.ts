@@ -6,47 +6,47 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="14"/>
         <source>Activity Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Editor delle attività</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="39"/>
         <source>Activity Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome dell&apos;attività</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="73"/>
         <source>Layout</source>
-        <translation type="unfinished"></translation>
+        <translation>Layout</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="90"/>
         <source>Window Arrangement:</source>
-        <translation type="unfinished">Disposizione delle finestre:</translation>
+        <translation>Disposizione delle finestre:</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="103"/>
         <source>Saved</source>
-        <translation type="unfinished">Salvato</translation>
+        <translation>Salvato</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="132"/>
         <source>Clear</source>
-        <translation type="unfinished">Cancella</translation>
+        <translation>Cancella</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="143"/>
         <source>Available Fields</source>
-        <translation type="unfinished">Campi disponibili</translation>
+        <translation>Campi disponibili</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="161"/>
         <source>List of fields that can be used</source>
-        <translation type="unfinished">Elenco di campi che possono essere utilizzati</translation>
+        <translation>Elenco di campi che possono essere utilizzati</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="213"/>
         <source>Row A</source>
-        <translation type="unfinished">Riga A</translation>
+        <translation>Riga A</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="258"/>
@@ -54,7 +54,7 @@
         <location filename="../ui/ActivityEditor.ui" line="892"/>
         <location filename="../ui/ActivityEditor.ui" line="1096"/>
         <source>Move selected fields from the Available Fields List to the Row A</source>
-        <translation type="unfinished">Sposta i campi selezionati dall&apos;elenco dei campi disponibili alla riga A</translation>
+        <translation>Sposta i campi selezionati dall&apos;elenco dei campi disponibili alla riga A</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="284"/>
@@ -62,12 +62,12 @@
         <location filename="../ui/ActivityEditor.ui" line="918"/>
         <location filename="../ui/ActivityEditor.ui" line="1122"/>
         <source>Remove selected field from the Row A</source>
-        <translation type="unfinished">Elimina il campo selezionato dalla riga A</translation>
+        <translation>Elimina il campo selezionato dalla riga A</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="313"/>
         <source>List of fields in the first variable row</source>
-        <translation type="unfinished">Elenco dei campi nella prima riga modificabile</translation>
+        <translation>Elenco dei campi nella prima riga modificabile</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="359"/>
@@ -76,7 +76,7 @@
         <location filename="../ui/ActivityEditor.ui" line="993"/>
         <location filename="../ui/ActivityEditor.ui" line="1197"/>
         <source>Change the order. Move selected field up</source>
-        <translation type="unfinished">Cambia ordine. Muove campo sesezionato in alto</translation>
+        <translation>Cambia ordine. Muovi campo sesezionato in alto</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="385"/>
@@ -85,77 +85,77 @@
         <location filename="../ui/ActivityEditor.ui" line="1019"/>
         <location filename="../ui/ActivityEditor.ui" line="1223"/>
         <source>Change the order. Move selected field down</source>
-        <translation type="unfinished">Cambia ordine. Muove campo sesezionato in basso</translation>
+        <translation>Cambia ordine. Muovi campo sesezionato in basso</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="417"/>
         <source>Row B</source>
-        <translation type="unfinished">Riga B</translation>
+        <translation>Riga B</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="465"/>
         <source>Move selected fields from the Available Fields List to the Row B</source>
-        <translation type="unfinished">Sposta i campi selezionati dall&apos;elenco dei campi disponibili alla riga B</translation>
+        <translation>Sposta i campi selezionati dall&apos;elenco dei campi disponibili alla riga B</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="491"/>
         <source>Remove selected field from the Row B</source>
-        <translation type="unfinished">Elimina il campo selezionato dalla riga B</translation>
+        <translation>Elimina il campo selezionato dalla riga B</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="520"/>
         <source>List of fields in the second variable row</source>
-        <translation type="unfinished">Elenco dei campi nella seconda riga modificabile</translation>
+        <translation>Elenco dei campi nella seconda riga modificabile</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="643"/>
         <source>Column A</source>
-        <translation type="unfinished">Colonna A</translation>
+        <translation>Colonna A</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="743"/>
         <source>List of fields in the first QSO Detail Column</source>
-        <translation type="unfinished">Elenco dei campi nella prima colonna dei dettagli del QSO</translation>
+        <translation>Elenco dei campi nella prima colonna dei dettagli del QSO</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="847"/>
         <source>Column B</source>
-        <translation type="unfinished">Colonna B</translation>
+        <translation>Colonna B</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="947"/>
         <source>List of fields in the second QSO Detail Column</source>
-        <translation type="unfinished">Elenco dei campi nella seconda colonna dei dettagli del QSO</translation>
+        <translation>Elenco dei campi nella seconda colonna dei dettagli del QSO</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1051"/>
         <source>Column C</source>
-        <translation type="unfinished">Colonna C</translation>
+        <translation>Colonna C</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1151"/>
         <source>List of fields in the third QSO Detail Column</source>
-        <translation type="unfinished">Elenco dei campi nella terza colonna dei dettagli del QSO</translation>
+        <translation>Elenco dei campi nella terza colonna dei dettagli del QSO</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1260"/>
         <source>New QSO Rows</source>
-        <translation type="unfinished">Righe del Nuovo QSO</translation>
+        <translation>Righe del Nuovo QSO</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1265"/>
         <source>New QSO Detail Columns</source>
-        <translation type="unfinished">Colonne Dettagli del Nuovo QSO</translation>
+        <translation>Colonne Dettagli del Nuovo QSO</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1278"/>
         <source>Values</source>
-        <translation type="unfinished"></translation>
+        <translation>Valori</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1284"/>
         <source>Profiles</source>
-        <translation type="unfinished">Profili</translation>
+        <translation>Profili</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1290"/>
@@ -163,54 +163,54 @@
         <location filename="../ui/ActivityEditor.ui" line="1332"/>
         <location filename="../ui/ActivityEditor.ui" line="1375"/>
         <source>If unchecked, the profile does not change</source>
-        <translation type="unfinished"></translation>
+        <translation>Se non selezionato, il profilo non cambia</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1293"/>
         <source>Station</source>
-        <translation type="unfinished">Stazione</translation>
+        <translation>Stazione</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1314"/>
         <source>Antenna</source>
-        <translation type="unfinished">Antenna</translation>
+        <translation>Antenna</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1335"/>
         <source>Rig</source>
-        <translation type="unfinished">Radio</translation>
+        <translation>Radio</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1360"/>
         <location filename="../ui/ActivityEditor.ui" line="1403"/>
         <source>Connect automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Connetti automaticamente</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1363"/>
         <location filename="../ui/ActivityEditor.ui" line="1406"/>
         <source>Connect</source>
-        <translation type="unfinished">Connette</translation>
+        <translation>Connette</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1378"/>
         <source>Rotator</source>
-        <translation type="unfinished">Rotore</translation>
+        <translation>Rotore</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1421"/>
         <source>Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Campi</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.cpp" line="89"/>
         <source>Must not be empty</source>
-        <translation type="unfinished">Non deve essere vuoto</translation>
+        <translation>Non deve essere vuoto</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.h" line="115"/>
         <source>Unsaved</source>
-        <translation type="unfinished">Non Salvato</translation>
+        <translation>Non Salvato</translation>
     </message>
 </context>
 <context>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="14"/>
         <source>Alert Rule Detail</source>
-        <translation>Dettaglio Allarme Regola</translation>
+        <translation>Dettaglio Regola dell&apos;Allarme</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="24"/>
@@ -286,12 +286,12 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="182"/>
         <source>ITU</source>
-        <translation type="unfinished">ITU</translation>
+        <translation>ITU</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="208"/>
         <source>CQZ</source>
-        <translation type="unfinished">CQZone</translation>
+        <translation>CQZone</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="263"/>
@@ -3850,27 +3850,27 @@
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="14"/>
         <source>Edit Activities</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica Attività</translation>
     </message>
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="22"/>
         <source>Activities</source>
-        <translation type="unfinished"></translation>
+        <translation>Attività</translation>
     </message>
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="53"/>
         <source>Add</source>
-        <translation type="unfinished">Aggiungi</translation>
+        <translation>Aggiungi</translation>
     </message>
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="60"/>
         <source>Edit</source>
-        <translation type="unfinished">Modifica</translation>
+        <translation>Modifica</translation>
     </message>
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="67"/>
         <source>Remove</source>
-        <translation type="unfinished">Rimuovi</translation>
+        <translation>Rimuovi</translation>
     </message>
 </context>
 <context>
@@ -4182,12 +4182,12 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="449"/>
         <source>User Filter</source>
-        <translation type="unfinished">Filtro Utente</translation>
+        <translation>Filtro Utente</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="459"/>
         <source>Export QSOs that match the selected user QSO Filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Esporta QSO che corrispondono al filtro QSO utente selezionato</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.cpp" line="21"/>
@@ -4394,7 +4394,7 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="226"/>
         <source>Rig Open Error</source>
-        <translation>Connessione fallita</translation>
+        <translation>Connessione Radio fallita</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="315"/>
@@ -4404,7 +4404,7 @@
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="357"/>
         <source>Set Mode Error</source>
-        <translation>Errore nella impostazione della modalità</translation>
+        <translation>Errore impostazione Modo</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="380"/>
@@ -4415,82 +4415,82 @@
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="445"/>
         <source>Cannot sent Morse</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>impossibile inviare il codice Morse</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="464"/>
         <source>Cannot stop Morse</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>impossibile fermare codice Morse</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="567"/>
         <source>Get PTT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore PTT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="602"/>
         <source>Get Frequency Error</source>
-        <translation>Errore di ricezione della frequenza</translation>
+        <translation>Errore della Frequenza</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="643"/>
         <source>Get Mode Error</source>
-        <translation>Errore di ricezione del modo</translation>
+        <translation>Errore del Modo</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="692"/>
         <source>Get VFO Error</source>
-        <translation>Errore nel recupero del VFO</translation>
+        <translation>Errore VFO</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="730"/>
         <source>Get PWR Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore PWR</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="734"/>
         <source>Get PWR (power2mw) Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore PWR (power2mw)</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="772"/>
         <source>Get RIT Function Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore funzione RIT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="778"/>
         <source>Get RIT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore RIT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="829"/>
         <source>Get XIT Function Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore funzione XIT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="835"/>
         <source>Get XIT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore XIT</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="884"/>
         <source>Get KeySpeed Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore di KeySpeed</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="936"/>
         <source>Set KeySpeed Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
-        <translation type="unfinished"></translation>
+        <translation>Errore impostazione KeySpeed</translation>
     </message>
 </context>
 <context>
@@ -4509,7 +4509,7 @@
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="161"/>
         <source>Rot Open Error</source>
-        <translation>Connessione fallita</translation>
+        <translation>Connessione Rotore fallita</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="251"/>
@@ -4519,7 +4519,7 @@
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="325"/>
         <source>Get Possition Error</source>
-        <translation>Errore di ricezione della posizione</translation>
+        <translation>Errore della posizione</translation>
     </message>
 </context>
 <context>
@@ -4994,7 +4994,7 @@
         <location filename="../logformat/LogFormat.cpp" line="582"/>
         <location filename="../logformat/LogFormat.cpp" line="602"/>
         <source>no Station Callsign present</source>
-        <translation type="unfinished"></translation>
+        <translation>Nominativo di Stazione assente</translation>
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="704"/>
@@ -5614,27 +5614,27 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="722"/>
         <source>RcvPWR</source>
-        <translation type="unfinished"></translation>
+        <translation>Potenza ricevuta</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="733"/>
         <source>RcvNr</source>
-        <translation type="unfinished">Numero Ricevuto</translation>
+        <translation>Numero Ricevuto</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="734"/>
         <source>RcvExch</source>
-        <translation type="unfinished">Scambio Ricevuto</translation>
+        <translation>Scambio Ricevuto</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="736"/>
         <source>SentNr</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero Inviato</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="737"/>
         <source>SentExch</source>
-        <translation type="unfinished"></translation>
+        <translation>Scambio Inviato</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="86"/>
@@ -5696,7 +5696,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="703"/>
         <source>Operator Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Call dell&apos;operatore</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="713"/>
@@ -6491,22 +6491,22 @@
         <location filename="../ui/MainWindow.ui" line="126"/>
         <location filename="../ui/MainWindow.cpp" line="1107"/>
         <source>Contest</source>
-        <translation type="unfinished"></translation>
+        <translation>Contest</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="130"/>
         <source>Dupe Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllo Duplicati</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="139"/>
         <source>Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Sequenza</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="148"/>
         <source>Linking Exchange With</source>
-        <translation type="unfinished"></translation>
+        <translation>Collega scambio con</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="542"/>
@@ -6618,47 +6618,47 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="818"/>
         <source>All Bands</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutte le Bande</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="826"/>
         <source>Each Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogni Banda</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="834"/>
         <source>Each Band &amp;&amp; Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Ogni Banda &amp;&amp; Modo</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="842"/>
         <source>No Check</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessun Controllo</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="850"/>
         <source>Single</source>
-        <translation type="unfinished"></translation>
+        <translation>Singolo</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="858"/>
         <source>Per Band</source>
-        <translation type="unfinished"></translation>
+        <translation>Per Banda</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="866"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="871"/>
         <source>Reset</source>
-        <translation type="unfinished">Reset</translation>
+        <translation>Reset</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="879"/>
         <source>None</source>
-        <translation type="unfinished">Nessuno</translation>
+        <translation>Nessuno</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="66"/>
@@ -6685,7 +6685,7 @@
     <message>
         <location filename="../ui/MainWindow.cpp" line="555"/>
         <source>op: </source>
-        <translation type="unfinished"></translation>
+        <translation>op: </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="786"/>
@@ -6695,12 +6695,12 @@
     <message>
         <location filename="../ui/MainWindow.cpp" line="1108"/>
         <source>Do you want to remove the Contest filter %1?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi rimuovere il Contest filter %1?</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1139"/>
         <source>Contest: </source>
-        <translation type="unfinished"></translation>
+        <translation>Contest: </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1302"/>
@@ -6787,14 +6787,14 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="81"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="158"/>
         <source>MUF</source>
-        <translation></translation>
+        <translation>MUF</translation>
     </message>
     <message>
         <location filename="../ui/MapWebChannelHandler.cpp" line="52"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="84"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="155"/>
         <source>IBP</source>
-        <translation></translation>
+        <translation>IBP</translation>
     </message>
     <message>
         <location filename="../ui/MapWebChannelHandler.cpp" line="55"/>
@@ -6815,7 +6815,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="93"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="164"/>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Direzioni</translation>
     </message>
 </context>
 <context>
@@ -6886,7 +6886,7 @@
     <message>
         <location filename="../ui/NewContactWidget.ui" line="173"/>
         <source>&lt;b&gt;DUPE !!!&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;DUPE !!!&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="201"/>
@@ -7019,17 +7019,17 @@
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1381"/>
         <source>D&amp;X Stats</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;X Statistiche</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1402"/>
         <source>&lt;b&gt;DXCC Statistics&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;DXCC Statistics&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1458"/>
         <source>&lt;b&gt;Station Statistics&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Station Statistics&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1509"/>
@@ -7074,7 +7074,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="61"/>
         <source>Expand/Collapse</source>
-        <translation type="unfinished"></translation>
+        <translation>Espandi/Comprimi</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="89"/>
@@ -7234,7 +7234,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3789"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
-        <translation type="unfinished"></translation>
+        <translation>Non è il nome del Contest ma è un ID del Contest assegnato (ad esempio CQ-WW-CW per CQ WW DX Contest (CW)) </translation>
     </message>
 </context>
 <context>
@@ -7552,7 +7552,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/ActivityEditor.cpp" line="96"/>
         <source>Activity name is already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation>Il Nome dell&apos;Attività esiste già.</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="157"/>
@@ -7713,7 +7713,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1514"/>
         <source>Operator Callsign has an invalid format</source>
-        <translation type="unfinished"></translation>
+        <translation>Il Call dell&apos;Operatore ha un formato non valido</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1521"/>
@@ -7743,7 +7743,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSOFilterDetail.cpp" line="468"/>
         <source>Cannot update QSO Filter Conditions</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile aggiornare le Condizioni del Filtro QSO</translation>
     </message>
 </context>
 <context>
@@ -7838,12 +7838,12 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../data/StationProfile.cpp" line="186"/>
         <source>Operator Name</source>
-        <translation type="unfinished">Nome dell&apos;operatore</translation>
+        <translation>Nome dell&apos;operatore</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="187"/>
         <source>Operator Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Call dell&apos;Operatore</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="188"/>
@@ -7853,12 +7853,12 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../data/StationProfile.cpp" line="189"/>
         <source>My Country</source>
-        <translation type="unfinished">Mia nazione</translation>
+        <translation>Mia nazione</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="190"/>
         <source>My County</source>
-        <translation type="unfinished">Mia contea</translation>
+        <translation>Mia Contea</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="191"/>
@@ -8364,7 +8364,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1436"/>
         <source>Operator Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Call dell&apos;Operatore</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1533"/>
@@ -8389,7 +8389,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="2054"/>
         <source>Contest ID</source>
-        <translation type="unfinished">Identificativo Contest</translation>
+        <translation>Contest ID</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1506"/>
@@ -8399,17 +8399,17 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1240"/>
         <source>D&amp;X Stats</source>
-        <translation type="unfinished"></translation>
+        <translation>D&amp;X Statistiche</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1246"/>
         <source>&lt;b&gt;DXCC Statistics&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;DXCC Statistics&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1272"/>
         <source>&lt;b&gt;Station Statistics&lt;/b&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Station Statistics&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="1591"/>
@@ -9158,7 +9158,27 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
 &lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;DXCALL&gt; = DX Callsign
+&lt;NAME&gt; = DX Operator Name
+&lt;RST&gt; = Report 599
+&lt;RSTN&gt; = Report 5NN
+&lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;MYCALL&gt; = My Callsign
+&lt;MYNAME&gt; = My Name
+&lt;MYQTH&gt; = My QTH
+&lt;MYLOCATOR&gt; = My Gridsquare
+&lt;MYGRID&gt; = My Gridsquare
+&lt;MYSIG&gt; = My SIG
+&lt;MYSIGINFO&gt; = My SIG Information
+&lt;MYIOTA&gt; = My IOTA
+&lt;MYSOTA&gt; = MY SOTA
+&lt;MYWWFT&gt; = My WWFT
+&lt;MYVUCC&gt; = MY VUCC
+&lt;MYPWR&gt; = My Power in W
+&lt;EXCHSTR&gt; = Contest Exchange Message
+&lt;EXCHNR&gt; = Contest Exchange Serial Number
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3435"/>
@@ -9285,7 +9305,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="188"/>
         <source>Operator Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Call dell&apos;Operatore</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="226"/>
@@ -9295,22 +9315,22 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.ui" line="233"/>
         <source>Station Callsign</source>
-        <translation type="unfinished"></translation>
+        <translation>Call della stazione</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="377"/>
         <source>Callsign of operator (Optional parameter, if different from station callsign)</source>
-        <translation type="unfinished"></translation>
+        <translation>Call dell&apos;operatore (Parametro Opzionale, se differente dal Call della stazione)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="412"/>
         <source>County</source>
-        <translation type="unfinished">Contea</translation>
+        <translation>Contea</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="419"/>
         <source>Station County Location (Optional parameter)</source>
-        <translation type="unfinished"></translation>
+        <translation>Posizione della Contea della Stazione (parametro facoltativo)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="443"/>
