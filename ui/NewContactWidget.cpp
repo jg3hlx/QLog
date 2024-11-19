@@ -3650,12 +3650,17 @@ void NewContactWidget::setContestFieldsState()
     FCT_IDENTIFICATION;
 
     bool enabled = !uiDynamic->contestIDEdit->text().isEmpty();
+    const QString &toolTip = (enabled) ? QString()
+                                       : tr("Contest ID must be filled in to activate");
 
     uiDynamic->srxEdit->setEnabled(enabled);
+    uiDynamic->srxEdit->setToolTip(toolTip);
     uiDynamic->srxStringEdit->setEnabled(enabled);
+    uiDynamic->srxStringEdit->setToolTip(toolTip);
     uiDynamic->stxEdit->setEnabled(enabled);
+    uiDynamic->stxEdit->setToolTip(toolTip);
     uiDynamic->stxStringEdit->setEnabled(enabled);
-
+    uiDynamic->stxStringEdit->setToolTip(toolTip);
 }
 
 NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
