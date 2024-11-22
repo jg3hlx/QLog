@@ -59,6 +59,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     tabCollapseBtn->setIcon(*toggleIcon);
     tabCollapseBtn->setCheckable(true);
     tabCollapseBtn->setToolTip(tr("Expand/Collapse"));
+    tabCollapseBtn->setFocusPolicy(Qt::NoFocus);
     ui->qsoTabs->setCornerWidget(tabCollapseBtn, Qt::TopLeftCorner);
     connect(tabCollapseBtn, &QAbstractButton::toggled, this, &NewContactWidget::tabsExpandCollapse);
     connect(ui->qsoTabs, &QTabWidget::tabBarClicked, this, [this](const int)
