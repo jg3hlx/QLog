@@ -233,7 +233,9 @@ void BandmapWidget::updateStations()
         QString unit;
         unsigned char decP;
         double spotFreq = Data::MHz2UserFriendlyFreq(lower.key(), unit, decP);
-        text->setToolTip(QString("<b>%1</b><br/>%2 %3; %4<br/>%5").arg(callsignTmp,
+        const QString &spotterCallsign = lower.value().spotter;
+        text->setToolTip(QString("<b>%1</b> de %2<br/>%3 %4; %5<br/>%6").arg(callsignTmp,
+                                                             spotterCallsign,
                                                              QString::number(spotFreq, 'f', decP),
                                                              unit,
                                                              lower.value().modeGroupString,
