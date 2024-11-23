@@ -16,6 +16,7 @@ TBC - 0.40.0
 - [CHANGED] - Removed Main Menu Layout; Activity Manager is in the bottom-left corner
 - [CHANGED] - Removed Keep Options from the Equipment Menu - use Activity Manager for it
 - Fixed issue when CW is always selected after Settings exiting or connecting the Rig
+- Updated Timezone definition file - version 2024b
 
 2024/10/05 - 0.39.0
 - [NEW] - DXC - Added Full-text search
