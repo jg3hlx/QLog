@@ -172,9 +172,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     /**********************/
     /* Propagation Combo  */
     /**********************/
-    QStringList propagationModeList = Data::instance()->propagationModesList();
-    propagationModeList.prepend("");
-    QStringListModel* propagationModeModel = new QStringListModel(propagationModeList, this);
+    QStringListModel* propagationModeModel = new QStringListModel(Data::instance()->propagationModesList(), this);
     ui->propagationModeEdit->setModel(propagationModeModel);
 
     /***************/

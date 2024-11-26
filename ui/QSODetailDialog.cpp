@@ -242,9 +242,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     ui->qslSentViaBox->addItem(tr("Electronic"), QVariant("E"));
 
     /* Propagation */
-    QStringList propagationModeList = Data::instance()->propagationModesList();
-    propagationModeList.prepend("");
-    QStringListModel* propagationModeModel = new QStringListModel(propagationModeList, this);
+    QStringListModel* propagationModeModel = new QStringListModel(Data::instance()->propagationModesList(), this);
     ui->propagationModeEdit->setModel(propagationModeModel);
 
     /* Sat Modes & sat names */
