@@ -210,19 +210,6 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->stationLocatorEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridRegEx(), this));
     ui->stationVUCCEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
 
-    static QRegularExpression comPortRE(
-#if defined(Q_OS_WIN)
-                                    "^COM[0-9]+$",
-#else
-                                    ".*",
-#endif
-                                    QRegularExpression::CaseInsensitiveOption);
-
-    ui->rigPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
-    ui->rotPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
-    ui->cwPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
-    ui->rigPTTPortEdit->setValidator(new QRegularExpressionValidator(comPortRE, this));
-
     /* https://stackoverflow.com/questions/13145397/regex-for-multicast-ip-address */
     static QRegularExpression multicastAddress("^2(?:2[4-9]|3\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]\\d?|0)){3}$");
 
