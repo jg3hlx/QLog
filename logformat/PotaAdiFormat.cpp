@@ -79,8 +79,7 @@ QList<QSqlRecord> PotaAdiFormat::splitActivatedParks(const QSqlRecord &record)
     QStringList activatedParks = record.field("my_pota_ref")
                                      .value()
                                      .toString()
-                                     .split(QRegularExpression("\\s*,\\s*"),
-                                            Qt::SplitBehaviorFlags::SkipEmptyParts);
+                                     .split(QRegularExpression("\\s*,\\s*"), Qt::SkipEmptyParts);
 
     if (activatedParks.length() <= 0) {
         return QList<QSqlRecord>();
@@ -98,9 +97,9 @@ QList<QSqlRecord> PotaAdiFormat::splitActivatedParks(const QSqlRecord &record)
             if (parkToPark.isNull() || !parkToPark.value().toString().contains(",")) {
                 records.append(single);
             } else {
-                QStringList remoteParks
-                    = parkToPark.value().toString().split(QRegularExpression("\\s*,\\s*"),
-                                                          Qt::SplitBehaviorFlags::SkipEmptyParts);
+                QStringList remoteParks = parkToPark.value().toString().split(QRegularExpression(
+                                                                                  "\\s*,\\s*"),
+                                                                              Qt::SkipEmptyParts);
                 for (const QString &remoteParkID : remoteParks) {
                     QSqlRecord remoteSingle = QSqlRecord(single);
                     remoteSingle.setValue("pota_ref", remoteParkID);
