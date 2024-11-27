@@ -50,9 +50,9 @@ AdiFormat *PotaAdiFormat::getParkFile(const QSqlRecord &record)
 {
     // https://docs.pota.app/docs/activator_reference/logging_made_easy.html#naming-your-files
     // station_callsign@park#-yyyymmdd
-    QString parkFileName(record.field("station_callsign").value().toString() + "@"
-                         + record.field("my_sig_info").value().toString() + "-"
-                         + currentDate.toString("yyyyMMdd-hhmm") + ".adif");
+    const QString parkFileName(record.field("station_callsign").value().toString() + "@"
+                               + record.field("my_sig_info").value().toString() + "-"
+                               + currentDate.toString("yyyyMMdd-hhmm") + ".adif");
 
     if (!parkFormats.contains(parkFileName)) {
         parkFiles[parkFileName] = new QFile(exportInfo->canonicalPath() + QDir::separator()
@@ -76,11 +76,19 @@ QList<QSqlRecord> PotaAdiFormat::splitActivatedParks(const QSqlRecord &record)
     FCT_IDENTIFICATION;
     // can contain multiple parks as a csv:
     // <MY_POTA_REF:40>K-0817,K-4566,K-4576,K-4573,K-4578@US-WY
-    QStringList activatedParks = record.field("my_pota_ref")
-                                     .value()
-                                     .toString()
-                                     .split(QRegularExpression("\\s*,\\s*"),
-                                            Qt::SplitBehaviorFlags::SkipEmptyParts);
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+    const QStringList activatedParks = record.field("my_pota_ref")
+                                           .value()
+                                           .toString()
+                                           .split(QRegularExpression("\\s*,\\s*"),
+                                                  Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else /* Due to ubuntu 20.04 where qt5.12 is present */
+    const QStringList activatedParks = record.field("my_pota_ref")
+                                           .value()
+                                           .toString()
+                                           .split(QRegularExpression("\\s*,\\s*"),
+                                                  QString::SkipEmptyParts);
+#endif
 
     if (activatedParks.length() <= 0) {
         return QList<QSqlRecord>();
@@ -94,13 +102,19 @@ QList<QSqlRecord> PotaAdiFormat::splitActivatedParks(const QSqlRecord &record)
 
             // If this is a park to park - the remote park can also be a multi park
             // activation. These must also be split into multiple records.
-            QSqlField parkToPark = record.field("pota_ref");
+            const QSqlField parkToPark = record.field("pota_ref");
             if (parkToPark.isNull() || !parkToPark.value().toString().contains(",")) {
                 records.append(single);
             } else {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
                 QStringList remoteParks
                     = parkToPark.value().toString().split(QRegularExpression("\\s*,\\s*"),
                                                           Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else /* Due to ubuntu 20.04 where qt5.12 is present */
+                QStringList remoteParks
+                    = parkToPark.value().toString().split(QRegularExpression("\\s*,\\s*"),
+                                                          QString::SkipEmptyParts);
+#endif
                 for (const QString &remoteParkID : remoteParks) {
                     QSqlRecord remoteSingle = QSqlRecord(single);
                     remoteSingle.setValue("pota_ref", remoteParkID);
