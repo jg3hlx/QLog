@@ -56,7 +56,7 @@ QVariant DxTableModel::data(const QModelIndex& index, int role) const
         switch ( index.column() )
         {
         case 0:
-            return spot.time.toString(locale.formatTimeLongWithoutTZ());
+            return spot.dateTime.toString(locale.formatTimeLongWithoutTZ());
         case 1:
             return spot.callsign;
         case 2:
@@ -122,7 +122,7 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
     {
         for (const DxSpot &record : static_cast<const QList<DxSpot>&>(dxData))
         {
-            if ( record.time.secsTo(entry.time) > dedup_interval )
+            if ( record.dateTime.secsTo(entry.dateTime) > dedup_interval )
                 break;
 
             if ( record.callsign == entry.callsign
@@ -143,21 +143,6 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
     }
 
     return shouldInsert;
-}
-
-QString DxTableModel::getCallsign(const QModelIndex& index)
-{
-    return dxData.at(index.row()).callsign;
-}
-
-double DxTableModel::getFrequency(const QModelIndex& index)
-{
-    return dxData.at(index.row()).freq;
-}
-
-BandPlan::BandPlanMode DxTableModel::getBandPlanode(const QModelIndex &index)
-{
-    return dxData.at(index.row()).bandPlanMode;
 }
 
 void DxTableModel::clear()
@@ -1206,9 +1191,7 @@ void DxWidget::entryDoubleClicked(QModelIndex index)
 
     const QModelIndex &source_index = dxTableProxyModel->mapToSource(index);
 
-    emit tuneDx(dxTableModel->getCallsign(source_index),
-                dxTableModel->getFrequency(source_index),
-                dxTableModel->getBandPlanode(source_index));
+    emit tuneDx(dxTableModel->getSpot(source_index));
 }
 
 void DxWidget::actionFilter()
@@ -1543,7 +1526,7 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     DxSpot spot;
 
-    spot.time = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
+    spot.dateTime = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
                                     : dateTime;
     spot.callsign = call;
     spot.freq = freq.toDouble() / 1000;

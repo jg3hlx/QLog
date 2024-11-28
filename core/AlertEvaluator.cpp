@@ -46,24 +46,7 @@ void AlertEvaluator::dxSpot(const DxSpot & spot)
 
     if ( matchedRules.size() > 0 )
     {
-        SpotAlert alert;
-
-        alert.dateTime = QDateTime::currentDateTimeUtc();
-        alert.source = SpotAlert::ALERTSOURCETYPE::DXSPOT;
-        alert.ruleName = matchedRules;
-        alert.callsign = spot.callsign;
-        alert.callsign_member = spot.callsign_member;
-        alert.freq = spot.freq;
-        alert.band = spot.band;
-        alert.bandPlanMode = spot.bandPlanMode;
-        alert.modeGroupString = spot.modeGroupString;
-        alert.dxcc = spot.dxcc;
-        alert.status = spot.status;
-        alert.comment = spot.comment;
-        alert.spotter = spot.spotter;
-        alert.dxcc_spotter = spot.dxcc_spotter;
-        alert.dupeCount = spot.dupeCount;
-
+        SpotAlert alert(matchedRules, spot);
         emit spotAlert(alert);
     }
 }
@@ -87,28 +70,8 @@ void AlertEvaluator::WSJTXCQSpot(const WsjtxEntry &wsjtx)
 
     if ( matchedRules.size() > 0 )
     {
-        SpotAlert alert;
-
-        alert.dateTime = QDateTime::currentDateTimeUtc();
-        alert.source = SpotAlert::ALERTSOURCETYPE::WSJTXCQSPOT;
-        alert.ruleName = matchedRules;
-        alert.callsign = wsjtx.callsign;
-        alert.callsign_member = wsjtx.callsign_member;
-        alert.freq = wsjtx.freq;
-        alert.band = wsjtx.band;
-        alert.bandPlanMode = ((wsjtx.decodedMode == "FT8")  ? BandPlan::BAND_MODE_FT8
-                                                             : BandPlan::BAND_MODE_DIGITAL );
-        alert.modeGroupString = BandPlan::bandMode2BandModeGroupString(alert.bandPlanMode);
-        alert.dxcc = wsjtx.dxcc;
-        alert.comment = wsjtx.decode.message;
-        alert.status = wsjtx.status;
-        alert.spotter = wsjtx.spotter;
-        alert.dxcc_spotter = wsjtx.dxcc_spotter;
-        alert.wsjtxDecode = wsjtx.decode;
-        alert.dupeCount = wsjtx.dupeCount;
-
+        SpotAlert alert(matchedRules, wsjtx);
         emit spotAlert(alert);
-        return;
     }
 }
 
@@ -280,19 +243,7 @@ bool AlertRule::match(const WsjtxEntry &wsjtx) const
 
     bool ret = false;
 
-    qCDebug(function_parameters) << "Country: " << wsjtx.dxcc.dxcc
-                                 << "CQZ" << wsjtx.dxcc.cqz
-                                 << "ITUZ" << wsjtx.dxcc.ituz
-                                 << "Status: " << wsjtx.status
-                                 << "Band: " << wsjtx.band
-                                 << "ModeGroup: " << ((wsjtx.decodedMode == "FT8") ? BandPlan::MODE_GROUP_STRING_FT8
-                                                                             : BandPlan::MODE_GROUP_STRING_DIGITAL )
-                                 << "spotter Country: " << wsjtx.dxcc_spotter.dxcc
-                                 << "Continent: " << wsjtx.dxcc.cont
-                                 << "Spotter Continent: " << wsjtx.dxcc_spotter.cont
-                                 << "Callsign: " << wsjtx.callsign
-                                 << "Message: " << wsjtx.decode.message
-                                 << "DX Member: " << wsjtx.memberList2StringList();
+    qCDebug(function_parameters) << wsjtx;
 
     /* the first part validates a primitive types */
     if ( isValid()
@@ -335,18 +286,7 @@ bool AlertRule::match(const DxSpot &spot) const
 
     bool ret = false;
 
-    qCDebug(function_parameters) << "Country: " << spot.dxcc.dxcc
-                                 << "CQZ" << spot.dxcc.cqz
-                                 << "ITUZ" << spot.dxcc.ituz
-                                 << "Status: " << spot.status
-                                 << "ModeGroup: " << spot.modeGroupString
-                                 << "Band: " << spot.band
-                                 << "spotter Country: " << spot.dxcc_spotter.dxcc
-                                 << "Continent: " << spot.dxcc.cont
-                                 << "Spotter Continent: " << spot.dxcc_spotter.cont
-                                 << "Callsign: " << spot.callsign
-                                 << "Message: " << spot.comment
-                                 << "DX Member: " << spot.memberList2StringList();
+    qCDebug(function_parameters) << spot;
 
     /* the first part validates a primitive types */
     if ( isValid()

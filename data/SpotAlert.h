@@ -1,50 +1,64 @@
 #ifndef QLOG_DATA_SPOTALERT_H
 #define QLOG_DATA_SPOTALERT_H
 
-#include <QString>
-#include <QDateTime>
 #include <QMetaType>
-#include "Dxcc.h"
-#include "core/MembershipQE.h"
-#include "data/BandPlan.h"
-#include "core/Wsjtx.h"
+#include "data/WsjtxEntry.h"
+#include "data/DxSpot.h"
 
-struct SpotAlert
+class SpotAlert
 {
+
+public:
+
     enum ALERTSOURCETYPE
     {
         DXSPOT = 0b1,
         WSJTXCQSPOT = 0b10
     };
 
-    QDateTime dateTime;
     ALERTSOURCETYPE source;
-    QStringList ruleName;
-    QString callsign;
-    double freq;
-    QString band;
-    QList<ClubInfo> callsign_member;
-    QString modeGroupString;
-    BandPlan::BandPlanMode bandPlanMode;
-    DxccEntity dxcc;
-    DxccStatus status;
-    QString comment;
-    QString spotter;
-    DxccEntity dxcc_spotter;
-    WsjtxDecode wsjtxDecode;
-    qulonglong dupeCount = 0;
+    QStringList ruleNameList;
+    WsjtxEntry spot;
 
-    QStringList memberList2StringList() const
+    SpotAlert() {};
+
+    SpotAlert(const SpotAlert &other) :
+        source(other.source),
+        ruleNameList(other.ruleNameList),
+        spot(other.spot) {};
+
+    SpotAlert& operator=(const SpotAlert &newSpot)
     {
-        QStringList ret;
-        for ( const ClubInfo &member : static_cast<const QList<ClubInfo>&>(callsign_member) )
-        {
-            ret << member.getClubInfo();
-        }
-        return ret;
+        if (this == &newSpot)
+            return *this;
+
+        source = newSpot.source;
+        ruleNameList = newSpot.ruleNameList;
+        spot = newSpot.spot;
+
+        return *this;
+    }
+
+    SpotAlert(const QStringList &ruleList, const DxSpot &sourceSpot) :
+        spot(sourceSpot)
+    {
+        source = SpotAlert::ALERTSOURCETYPE::DXSPOT;
+        ruleNameList = ruleList;
     };
+
+    SpotAlert(const QStringList &ruleList, const WsjtxEntry &sourceWsjtx) :
+        spot(sourceWsjtx)
+    {
+        source = SpotAlert::ALERTSOURCETYPE::WSJTXCQSPOT;
+        ruleNameList = ruleList;
+    };
+
+    const DxSpot& getDxSpot() const {return spot;};
+
+private:
+
 };
 
-Q_DECLARE_METATYPE(SpotAlert::ALERTSOURCETYPE);
+Q_DECLARE_METATYPE(SpotAlert);
 
 #endif // QLOG_DATA_SPOTALERT_H

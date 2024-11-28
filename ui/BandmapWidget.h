@@ -72,7 +72,7 @@ public slots:
     void recalculateDupe();
 
 signals:
-    void tuneDx(QString, double,  BandPlan::BandPlanMode);
+    void tuneDx(DxSpot);
     void nearestSpotFound(const DxSpot &);
 
 private:

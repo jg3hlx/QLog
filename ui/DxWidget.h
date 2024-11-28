@@ -39,9 +39,7 @@ public:
                   bool deduplicate = false,
                   qint16 dedup_interval = DEDUPLICATION_TIME,
                   double freq_tolerance = DEDUPLICATION_FREQ_TOLERANCE);
-    QString getCallsign(const QModelIndex& index);
-    double getFrequency(const QModelIndex& index);
-    BandPlan::BandPlanMode getBandPlanode(const QModelIndex& index);
+    const DxSpot getSpot(const QModelIndex& index) const {return dxData.at(index.row());};
     void clear();
 
 private:
@@ -154,7 +152,7 @@ private slots:
     void displayedColumns();
 
 signals:
-    void tuneDx(QString, double, BandPlan::BandPlanMode);
+    void tuneDx(DxSpot);
     void newSpot(DxSpot);
     void newWCYSpot(WCYSpot);
     void newWWVSpot(WWVSpot);

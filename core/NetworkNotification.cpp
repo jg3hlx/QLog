@@ -293,7 +293,7 @@ DXSpotNotificationMsg::DXSpotNotificationMsg(const DxSpot &spot, QObject *parent
     FCT_IDENTIFICATION;
 
     QJsonObject spotData;
-    spotData["rcvtime"] = spot.time.toString("yyyyMMdd hh:mm:ss");
+    spotData["rcvtime"] = spot.dateTime.toString("yyyyMMdd hh:mm:ss");
     spotData["freq"] = qRound(spot.freq * 10000.0) / 10000.0;
     spotData["band"] = spot.band;
     spotData["mode"] = spot.modeGroupString; 
@@ -365,40 +365,40 @@ GenericSpotNotificationMsg::GenericSpotNotificationMsg(QObject *parent)
     FCT_IDENTIFICATION;
 }
 
-SpotAlertNotificationMsg::SpotAlertNotificationMsg(const SpotAlert &spot, QObject *parent) :
+SpotAlertNotificationMsg::SpotAlertNotificationMsg(const SpotAlert &alert, QObject *parent) :
     GenericSpotNotificationMsg(parent)
 {
     FCT_IDENTIFICATION;
 
     QJsonObject spotData;
-    spotData["rcvtime"] = spot.dateTime.toString("yyyyMMdd hh:mm:ss");
-    spotData["freq"] = qRound(spot.freq * 10000.0) / 10000.0;
-    spotData["band"] = spot.band;
-    spotData["mode"] = spot.modeGroupString;
-    spotData["comment"] = spot.comment;
-    spotData["status"] = DxccStatus2String.value(spot.status, "unknown");
-    spotData["rules"] = QJsonArray::fromStringList(spot.ruleName);
+    spotData["rcvtime"] = alert.spot.dateTime.toString("yyyyMMdd hh:mm:ss");
+    spotData["freq"] = qRound(alert.spot.freq * 10000.0) / 10000.0;
+    spotData["band"] = alert.spot.band;
+    spotData["mode"] = alert.spot.modeGroupString;
+    spotData["comment"] = alert.spot.comment;
+    spotData["status"] = DxccStatus2String.value(alert.spot.status, "unknown");
+    spotData["rules"] = QJsonArray::fromStringList(alert.ruleNameList);
 
     QJsonObject dxInfo;
-    dxInfo["call"] = spot.callsign;
-    dxInfo["country"] = spot.dxcc.country;
-    dxInfo["pfx"] = spot.dxcc.prefix;
-    dxInfo["dxcc"] = spot.dxcc.dxcc;
-    dxInfo["cont"] = spot.dxcc.cont;
-    dxInfo["cqz"] = spot.dxcc.cqz;
-    dxInfo["ituz"] = spot.dxcc.ituz;
-    dxInfo["utcoffset"] = spot.dxcc.tz;
-    dxInfo["member"] = QJsonArray::fromStringList(spot.memberList2StringList());
+    dxInfo["call"] = alert.spot.callsign;
+    dxInfo["country"] = alert.spot.dxcc.country;
+    dxInfo["pfx"] = alert.spot.dxcc.prefix;
+    dxInfo["dxcc"] = alert.spot.dxcc.dxcc;
+    dxInfo["cont"] = alert.spot.dxcc.cont;
+    dxInfo["cqz"] = alert.spot.dxcc.cqz;
+    dxInfo["ituz"] = alert.spot.dxcc.ituz;
+    dxInfo["utcoffset"] = alert.spot.dxcc.tz;
+    dxInfo["member"] = QJsonArray::fromStringList(alert.spot.memberList2StringList());
 
     QJsonObject spotterInfo;
-    spotterInfo["call"] = spot.spotter;
-    spotterInfo["country"] = spot.dxcc_spotter.country;
-    spotterInfo["pfx"] = spot.dxcc_spotter.prefix;
-    spotterInfo["dxcc"] = spot.dxcc_spotter.dxcc;
-    spotterInfo["cont"] = spot.dxcc_spotter.cont;
-    spotterInfo["cqz"] = spot.dxcc_spotter.cqz;
-    spotterInfo["ituz"] = spot.dxcc_spotter.ituz;
-    spotterInfo["utcoffset"] = spot.dxcc_spotter.tz;
+    spotterInfo["call"] = alert.spot.spotter;
+    spotterInfo["country"] = alert.spot.dxcc_spotter.country;
+    spotterInfo["pfx"] = alert.spot.dxcc_spotter.prefix;
+    spotterInfo["dxcc"] = alert.spot.dxcc_spotter.dxcc;
+    spotterInfo["cont"] = alert.spot.dxcc_spotter.cont;
+    spotterInfo["cqz"] = alert.spot.dxcc_spotter.cqz;
+    spotterInfo["ituz"] = alert.spot.dxcc_spotter.ituz;
+    spotterInfo["utcoffset"] = alert.spot.dxcc_spotter.tz;
 
     spotData["spotter"] = spotterInfo;
     spotData["dx"] = dxInfo;

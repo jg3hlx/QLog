@@ -2,45 +2,70 @@
 #define QLOG_DATA_WSJTXENTRY_H
 
 #include "core/Wsjtx.h"
-#include "core/MembershipQE.h"
-#include "data/Dxcc.h"
+#include "data/DxSpot.h"
 
-struct WsjtxEntry {
+class WsjtxEntry : public DxSpot
+{
+
+public:
+
     WsjtxDecode decode;
-    DxccEntity dxcc;
-    DxccStatus status;
-    QString callsign;
-    QList<ClubInfo> callsign_member;
     QString grid;
     double distance;
     QDateTime receivedTime;
-    double freq;
-    QString band;
     QString decodedMode;
-    QString spotter;
-    DxccEntity dxcc_spotter;
-    qulonglong dupeCount = 0;
 
-    QStringList memberList2StringList() const
+    WsjtxEntry() : DxSpot(), distance(0.0){};
+
+    WsjtxEntry(const DxSpot &other) :
+        DxSpot(other) {};
+
+    WsjtxEntry(const WsjtxEntry &other) :
+        DxSpot(other),
+        decode(other.decode),
+        grid(other.grid),
+        distance(other.distance),
+        receivedTime(other.receivedTime),
+        decodedMode(other.decodedMode)
     {
-        QStringList ret;
-        for ( const ClubInfo &member : static_cast<const QList<ClubInfo>&>(callsign_member) )
-        {
-            ret << member.getClubInfo();
-        }
-        return ret;
+        bandPlanMode = ((decodedMode == "FT8")  ? BandPlan::BAND_MODE_FT8
+                                               : BandPlan::BAND_MODE_DIGITAL );
+        modeGroupString = BandPlan::bandMode2BandModeGroupString(bandPlanMode);
+    } ;
+
+    WsjtxEntry& operator=(const WsjtxEntry &newSpot)
+    {
+        if ( this == &newSpot )
+            return *this;
+
+        DxSpot::operator=(newSpot);
+
+        decode = newSpot.decode;
+        grid = newSpot.grid;
+        distance = newSpot.distance;
+        receivedTime = newSpot.receivedTime;
+        decodedMode = newSpot.decodedMode;
+
+        return *this;
     };
 
-    QSet<QString> memberList2Set() const
+    operator QString() const
     {
-        QSet<QString> ret;
-
-        for ( const ClubInfo &member : static_cast<const QList<ClubInfo>&>(callsign_member) )
-        {
-            ret << member.getClubInfo();
-        }
-        return ret;
-    }
+        return QString("WsjtxEntry")
+        + "Country: " + dxcc.dxcc
+        + "CQZ" + dxcc.cqz
+        + "ITUZ" + dxcc.ituz
+        + "Status: " + status
+        + "Band: " + band
+        + "ModeGroup: " + ((decodedMode == "FT8") ? BandPlan::MODE_GROUP_STRING_FT8
+                                                  : BandPlan::MODE_GROUP_STRING_DIGITAL )
+        + "spotter Country: " + dxcc_spotter.dxcc
+        + "Continent: " + dxcc.cont
+        + "Spotter Continent: " + dxcc_spotter.cont
+        + "Callsign: " + callsign
+        + "Message: " + decode.message
+        + "DX Member: " + memberList2StringList().join(", ");
+    };
 };
 
 #endif // QLOG_DATA_WSJTXENTRY_H

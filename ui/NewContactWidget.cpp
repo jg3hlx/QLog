@@ -1993,7 +1993,7 @@ void NewContactWidget::markContact()
     {
         DxSpot spot;
 
-        spot.time = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
+        spot.dateTime = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
         spot.freq = ui->freqRXEdit->value();
         spot.band = BandPlan::freq2Band(spot.freq).name;
         spot.callsign = ui->callsignEdit->text().toUpper();
@@ -2682,13 +2682,13 @@ void NewContactWidget::updateSatMode()
                                                                                                                    : bandTX.satDesignator + bandRX.satDesignator));
 }
 
-void NewContactWidget::tuneDx(const QString &callsign,
-                              double frequency,
-                              const BandPlan::BandPlanMode bandPlanMode)
+void NewContactWidget::tuneDx(const DxSpot &spot)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << callsign<< frequency << bandPlanMode;
+    double frequency = spot.freq;
+
+    qCDebug(function_parameters) << spot.callsign<< frequency << spot.bandPlanMode;
 
     if ( isManualEnterMode )
     {
@@ -2699,12 +2699,12 @@ void NewContactWidget::tuneDx(const QString &callsign,
     if ( frequency > 0.0 )
     {
         QString subMode;
-        QString mode = BandPlan::bandPlanMode2ExpectedMode(bandPlanMode,
+        QString mode = BandPlan::bandPlanMode2ExpectedMode(spot.bandPlanMode,
                                                            subMode);
 
         if ( mode.isEmpty() )
         {
-            qCDebug(runtime) << "mode not found" << bandPlanMode;
+            qCDebug(runtime) << "mode not found" << spot.bandPlanMode;
             mode = BandPlan::freq2ExpectedMode(frequency,
                                                subMode);
         }
@@ -2736,14 +2736,22 @@ void NewContactWidget::tuneDx(const QString &callsign,
 
     ui->freqRXEdit->setValue(frequency);
     resetContact();
-    changeCallsignManually(callsign, frequency);
+    changeCallsignManually(spot.callsign, frequency);
 }
 
 void NewContactWidget::fillCallsignGrid(const QString &callsign, const QString &grid)
 {
     FCT_IDENTIFICATION;
     qCDebug(function_parameters) << callsign<< grid;
-    tuneDx(callsign, -1, BandPlan::BAND_MODE_UNKNOWN);
+
+    if ( isManualEnterMode )
+    {
+        qCDebug(runtime) << "Manual mode enabled - ignore event";
+        return;
+    }
+
+    resetContact();
+    changeCallsignManually(callsign, ui->freqRXEdit->value());
     uiDynamic->gridEdit->setText(grid);
 }
 
