@@ -3,6 +3,7 @@ TBC - 0.40.1
 - Fixed CW Console - EXCSTR does not work properly (issue #517)
 - Fixed Activity Manager - Missing Propagation Mode None (issue #519)
 - Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
+- Fixed TCI error when you change Rig (issue #526)
 
 2024/11/24 - 0.40.0
 - [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
