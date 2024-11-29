@@ -1,3 +1,11 @@
+2024/11/29 - 0.40.1
+- Fixed Bands - Added missing 8m band (issue #515)
+- Fixed CW Console - EXCSTR does not work properly (issue #517)
+- Fixed Activity Manager - Missing Propagation Mode None (issue #519)
+- Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
+- Fixed TCI error when you change Rig (issue #526)
+- Fixed NewContact - satellite mode too wide (issue #527)
+
 2024/11/24 - 0.40.0
 - [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
 - [NEW] - Activity Manager - Added new dynamic fields - Contest fields, RX/TX Power

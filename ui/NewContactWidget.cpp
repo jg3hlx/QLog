@@ -172,9 +172,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     /**********************/
     /* Propagation Combo  */
     /**********************/
-    QStringList propagationModeList = Data::instance()->propagationModesList();
-    propagationModeList.prepend("");
-    QStringListModel* propagationModeModel = new QStringListModel(propagationModeList, this);
+    QStringListModel* propagationModeModel = new QStringListModel(Data::instance()->propagationModesList(), this);
     ui->propagationModeEdit->setModel(propagationModeModel);
 
     /***************/
@@ -3006,8 +3004,8 @@ QString NewContactWidget::getSentExch() const
 {
     FCT_IDENTIFICATION;
 
-    return (uiDynamic->stxEdit->isVisible()) ? uiDynamic->stxStringEdit->text()
-                                             : QString();
+    return (uiDynamic->stxStringEdit->isVisible()) ? uiDynamic->stxStringEdit->text()
+                                                   : QString();
 }
 
 double NewContactWidget::getQSOBearing() const
@@ -3798,7 +3796,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         satNameEdit->setCompleter(satCompleter);
         satModel->select();
 
-        satModeEdit->setMinimumSize(QSize(300, 0));
+        satModeEdit->setSizeAdjustPolicy(QComboBox::AdjustToContents);
         satModeEdit->setFocusPolicy(Qt::ClickFocus);
         satModeEdit->setEnabled(false);
         QStringList satModesList = Data::instance()->satModeList();

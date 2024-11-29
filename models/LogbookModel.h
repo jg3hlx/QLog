@@ -188,7 +188,7 @@ public:
     };
 
 private:
-    static QHash<LogbookModel::ColumnID, const char *> fieldNameTranslationMap;
+    static QMap<LogbookModel::ColumnID, const char *> fieldNameTranslationMap;
 
 public:
     static QString getFieldNameTranslation(const LogbookModel::ColumnID key)

@@ -1152,14 +1152,24 @@ void MainWindow::handleActivityChange(const QString name)
 
     if ( !valueRig.isNull()
         && RigProfilesManager::instance()->getCurProfile1().profileName == profile.profiles[ActivityProfile::ProfileType::RIG_PROFILE].name )
-        ui->actionConnectRig->setChecked(valueRig.toBool());
+    {
+        if ( ui->actionConnectRig->isChecked() && valueRig.toBool() )
+            rigConnect();
+        else
+            ui->actionConnectRig->setChecked(valueRig.toBool()); // rigConnect is called when the signal is processed
+    }
 
     const QVariant &valueRot = profile.getProfileParam(ActivityProfile::ProfileType::ROT_PROFILE,
                                                        ActivityProfile::ProfileParamType::CONNECT);
 
     if ( !valueRig.isNull()
           && RotProfilesManager::instance()->getCurProfile1().profileName == profile.profiles[ActivityProfile::ProfileType::ROT_PROFILE].name )
-        ui->actionConnectRotator->setChecked(valueRot.toBool());
+    {
+        if ( ui->actionConnectRotator->isChecked() && valueRig.toBool() )
+            rotConnect();
+        else
+            ui->actionConnectRotator->setChecked(valueRot.toBool()); // rotConnect is called when the signal is processed
+    }
 }
 
 void MainWindow::rotConnect()
