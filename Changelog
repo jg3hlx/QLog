@@ -1,4 +1,5 @@
 TBC - 0.40.1
+- CW Console - EXCSTR does not work properly (issue #517)
 - Activity Manager - Missing Propagation Mode None (issue #519)
 - Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
 
