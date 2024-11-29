@@ -24,48 +24,14 @@ public:
     DxccEntity dxcc_spotter;
     DxccStatus status;
     qulonglong dupeCount = 0;
+    QString wwffRef;
+    QString potaRef;
+    QString sotaRef;
 
     DxSpot() : freq(0.0),
         bandPlanMode(BandPlan::BAND_MODE_UNKNOWN),
         status(DxccStatus::UnknownStatus)
         {};
-
-    DxSpot(const DxSpot &newSpot):
-        dateTime(newSpot.dateTime),
-        callsign(newSpot.callsign),
-        callsign_member(newSpot.callsign_member),
-        freq(newSpot.freq),
-        band(newSpot.band),
-        modeGroupString(newSpot.modeGroupString),
-        bandPlanMode(newSpot.bandPlanMode),
-        spotter(newSpot.spotter),
-        comment(newSpot.comment),
-        dxcc(newSpot.dxcc),
-        dxcc_spotter(newSpot.dxcc_spotter),
-        status(newSpot.status),
-        dupeCount(newSpot.dupeCount) {};
-
-    DxSpot& operator=(const DxSpot &newSpot)
-    {
-        if ( this == &newSpot )
-            return *this;
-
-        dateTime = newSpot.dateTime;
-        callsign = newSpot.callsign;
-        callsign_member = newSpot.callsign_member;
-        freq = newSpot.freq;
-        band = newSpot.band;
-        modeGroupString = newSpot.modeGroupString;
-        bandPlanMode = newSpot.bandPlanMode;
-        spotter = newSpot.spotter;
-        comment = newSpot.comment;
-        dxcc = newSpot.dxcc;
-        dxcc_spotter = newSpot.dxcc_spotter;
-        status = newSpot.status;
-        dupeCount = newSpot.dupeCount;
-
-        return *this;
-    }
 
     QStringList memberList2StringList() const
     {
@@ -86,19 +52,21 @@ public:
 
     operator QString() const
     {
-        return QString("DxSpot")
-               + "Country: " + dxcc.dxcc
-               + "CQZ" + dxcc.cqz
-               + "ITUZ" + dxcc.ituz
-               + "Status: " + status
-               + "ModeGroup: " + modeGroupString
-               + "Band: " + band
-               + "spotter Country: " + dxcc_spotter.dxcc
-               + "Continent: " + dxcc.cont
-               + "Spotter Continent: " + dxcc_spotter.cont
-               + "Callsign: " + callsign
-               + "Message: " + comment
-               + "DX Member: " + memberList2StringList().join(", ");
+        return QString("DxSpot ")
+               + "Country: " + QString::number(dxcc.dxcc) + " "
+               + "CQZ" + dxcc.cqz + " "
+               + "ITUZ" + dxcc.ituz + " "
+               + "Status: " + status + " "
+               + "ModeGroup: " + modeGroupString  + " "
+               + "Band: " + band  + " "
+               + "spotter Country: " + QString::number(dxcc_spotter.dxcc) + " "
+               + "Continent: " + dxcc.cont + " "
+               + "Spotter Continent: " + dxcc_spotter.cont + " "
+               + "Callsign: " + callsign + " "
+               + "Message: " + comment + " "
+               + "DX Member: " + memberList2StringList().join(", ") + " "
+               + "POTA: " + potaRef  + " "
+               + "WWFF: " + wwffRef;
     }
 };
 

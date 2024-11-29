@@ -192,6 +192,7 @@ private:
     QTimer reconnectTimer;
     DXCConnectionState connectionState;
     DxServerString *connectedServerString;
+    QRegularExpression potaRegEx;
 
     void connectCluster();
     void disconnectCluster(bool tryReconnect = false);
@@ -227,6 +228,13 @@ private:
 
     QVector<int> dxcListHiddenCols() const;
     BandPlan::BandPlanMode modeGroupFromComment(const QString &comment) const;
+    QString refFromComment(const QString &comment,
+                           const QRegularExpression &regEx,
+                           const QString &refType, int justified) const;
+    QString wwffRefFromComment(const QString &comment) const;
+    QString potaRefFromComment(const QString &comment) const;
+    QString potaREGEXPattern();
+    QString sotaRefFromComment(const QString &comment) const;
 };
 
 #endif // QLOG_UI_DXWIDGET_H

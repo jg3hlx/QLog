@@ -20,24 +20,7 @@ public:
     QStringList ruleNameList;
     WsjtxEntry spot;
 
-    SpotAlert() {};
-
-    SpotAlert(const SpotAlert &other) :
-        source(other.source),
-        ruleNameList(other.ruleNameList),
-        spot(other.spot) {};
-
-    SpotAlert& operator=(const SpotAlert &newSpot)
-    {
-        if (this == &newSpot)
-            return *this;
-
-        source = newSpot.source;
-        ruleNameList = newSpot.ruleNameList;
-        spot = newSpot.spot;
-
-        return *this;
-    }
+    SpotAlert() : source(DXSPOT) {};
 
     SpotAlert(const QStringList &ruleList, const DxSpot &sourceSpot) :
         spot(sourceSpot)

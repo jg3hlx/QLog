@@ -31,12 +31,9 @@ public:
         long long counter;
         SpotAlert alert;
 
-        bool operator==(const AlertTableRecord &) const;
-        AlertTableRecord(const AlertTableRecord &other) :
-            ruleName(other.ruleName),
-            counter(other.counter),
-            alert(other.alert) {};
+        AlertTableRecord() : counter(0){};
 
+        bool operator==(const AlertTableRecord &) const;
         explicit AlertTableRecord(const SpotAlert&);
     };
 

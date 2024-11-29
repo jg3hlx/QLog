@@ -2737,6 +2737,27 @@ void NewContactWidget::tuneDx(const DxSpot &spot)
     ui->freqRXEdit->setValue(frequency);
     resetContact();
     changeCallsignManually(spot.callsign, frequency);
+
+    if ( uiDynamic->potaEdit->text().isEmpty()
+          && !spot.potaRef.isEmpty() )
+    {
+        uiDynamic->potaEdit->setText(spot.potaRef);
+        potaEditFinished();
+    }
+
+    if ( uiDynamic->sotaEdit->text().isEmpty()
+        && !spot.sotaRef.isEmpty() )
+    {
+        uiDynamic->sotaEdit->setText(spot.sotaRef);
+        sotaEditFinished();
+    }
+
+    if ( uiDynamic->wwffEdit->text().isEmpty()
+        && !spot.wwffRef.isEmpty() )
+    {
+        uiDynamic->wwffEdit->setText(spot.wwffRef);
+        wwffEditFinished();
+    }
 }
 
 void NewContactWidget::fillCallsignGrid(const QString &callsign, const QString &grid)
@@ -3156,25 +3177,15 @@ void NewContactWidget::sotaChanged(const QString &newSOTA)
 {
     FCT_IDENTIFICATION;
 
-    if ( newSOTA.length() >= 3 )
-    {
-        uiDynamic->sotaEdit->setCompleter(sotaCompleter);
-    }
-    else
-    {
-        uiDynamic->sotaEdit->setCompleter(nullptr);
-    }
+    uiDynamic->sotaEdit->setCompleter(( newSOTA.length() >= 3 ) ? sotaCompleter
+                                                                : nullptr);
 
     if ( uiDynamic->qthEdit->text() == lastSOTA.summitName )
-    {
         uiDynamic->qthEdit->clear();
-    }
 
-    Gridsquare SOTAGrid(lastSOTA.latitude, lastSOTA.longitude);
+    const Gridsquare SOTAGrid(lastSOTA.latitude, lastSOTA.longitude);
     if ( uiDynamic->gridEdit->text() == SOTAGrid.getGrid() )
-    {
         uiDynamic->gridEdit->clear();
-    }
 
     ui->AMLSInfo->clear();
 }
@@ -3186,7 +3197,7 @@ bool NewContactWidget::isSOTAValid(SOTAEntity *entity)
     if ( uiDynamic->sotaEdit->text().isEmpty() )
         return false;
 
-    SOTAEntity sotaInfo = Data::instance()->lookupSOTA(uiDynamic->sotaEdit->text());
+    const SOTAEntity &sotaInfo = Data::instance()->lookupSOTA(uiDynamic->sotaEdit->text());
     if ( entity ) *entity = sotaInfo;
     return ( sotaInfo.summitCode.toUpper() == uiDynamic->sotaEdit->text().toUpper()
              && !sotaInfo.summitName.isEmpty());
@@ -3201,48 +3212,32 @@ void NewContactWidget::sotaEditFinished()
     if ( isSOTAValid(&sotaInfo) )
     {
         uiDynamic->qthEdit->setText(sotaInfo.summitName);
-        Gridsquare SOTAGrid(sotaInfo.latitude, sotaInfo.longitude);
+        const Gridsquare SOTAGrid(sotaInfo.latitude, sotaInfo.longitude);
         if ( SOTAGrid.isValid() )
-        {
             uiDynamic->gridEdit->setText(SOTAGrid.getGrid());
-        }
         ui->AMLSInfo->setText(QString::number(sotaInfo.altm) + tr(" m"));
         lastSOTA = sotaInfo;
     }
     else if ( isPOTAValid(nullptr) )
-    {
         potaEditFinished();
-    }
     else if ( isWWFFValid(nullptr) )
-    {
         wwffEditFinished();
-    } 
 }
 
 void NewContactWidget::potaChanged(const QString &newPOTA)
 {
     FCT_IDENTIFICATION;
 
-    if ( newPOTA.length() >= 3 )
-    {
-        uiDynamic->potaEdit->setCompleter(potaCompleter);
-    }
-    else
-    {
-        uiDynamic->potaEdit->setCompleter(nullptr);
-    }
+    uiDynamic->potaEdit->setCompleter( ( newPOTA.length() >= 3 ) ? potaCompleter
+                                                                 : nullptr);
 
     if ( uiDynamic->qthEdit->text() == lastPOTA.name )
-    {
         uiDynamic->qthEdit->clear();
-    }
 
-    Gridsquare POTAGrid(lastPOTA.grid);
+    const Gridsquare POTAGrid(lastPOTA.grid);
 
     if ( uiDynamic->gridEdit->text() == POTAGrid.getGrid() )
-    {
         uiDynamic->gridEdit->clear();
-    }
 }
 
 bool NewContactWidget::isPOTAValid(POTAEntity *entity)
@@ -3256,16 +3251,10 @@ bool NewContactWidget::isPOTAValid(POTAEntity *entity)
 
     QString potaString;
 
-    if ( potaList.size() > 0 )
-    {
-        potaString = potaList[0];
-    }
-    else
-    {
-        potaString = uiDynamic->potaEdit->text();
-    }
+    potaString = ( potaList.size() > 0 ) ? potaList[0]
+                                         : uiDynamic->potaEdit->text();
 
-    POTAEntity potaInfo = Data::instance()->lookupPOTA(potaString);
+    const POTAEntity &potaInfo = Data::instance()->lookupPOTA(potaString);
 
     if ( entity ) *entity = potaInfo;
     return (potaInfo.reference.toUpper() == potaString.toUpper()
@@ -3283,19 +3272,13 @@ void NewContactWidget::potaEditFinished()
         uiDynamic->qthEdit->setText(potaInfo.name);
         Gridsquare POTAGrid(potaInfo.grid);
         if ( POTAGrid.isValid() )
-        {
             uiDynamic->gridEdit->setText(POTAGrid.getGrid());
-        }
         lastPOTA = potaInfo;
     }
     else if ( isSOTAValid(nullptr) )
-    {
         sotaEditFinished();
-    }
     else if ( isWWFFValid(nullptr) )
-    {
         wwffEditFinished();
-    }
 }
 
 bool NewContactWidget::isWWFFValid(WWFFEntity *entity)
@@ -3306,7 +3289,7 @@ bool NewContactWidget::isWWFFValid(WWFFEntity *entity)
     if ( uiDynamic->wwffEdit->text().isEmpty() )
         return false;
 
-    WWFFEntity wwffInfo = Data::instance()->lookupWWFF(uiDynamic->wwffEdit->text());
+    const WWFFEntity &wwffInfo = Data::instance()->lookupWWFF(uiDynamic->wwffEdit->text());
 
     if ( entity ) *entity = wwffInfo;
 
@@ -3511,27 +3494,17 @@ void NewContactWidget::wwffEditFinished()
         lastWWFF = wwffInfo;
     }
     else if ( isSOTAValid(nullptr) )
-    {
         sotaEditFinished();
-    }
     else if ( isPOTAValid(nullptr) )
-    {
         potaEditFinished();
-    }
 }
 
 void NewContactWidget::wwffChanged(const QString &newWWFF)
 {
     FCT_IDENTIFICATION;
 
-    if ( newWWFF.length() >= 3 )
-    {
-        uiDynamic->wwffEdit->setCompleter(wwffCompleter);
-    }
-    else
-    {
-        uiDynamic->wwffEdit->setCompleter(nullptr);
-    }
+    uiDynamic->wwffEdit->setCompleter( ( newWWFF.length() >= 3 ) ? wwffCompleter
+                                                                 : nullptr);
 
     if ( uiDynamic->qthEdit->text() == lastWWFF.name )
     {
