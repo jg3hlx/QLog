@@ -1,3 +1,13 @@
+qlog (0.40.1-1) UNRELEASED; urgency=low
+  * Fixed Bands - Added missing 8m band (issue #515)
+  * Fixed CW Console - EXCSTR does not work properly (issue #517)
+  * Fixed Activity Manager - Missing Propagation Mode None (issue #519)
+  * Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
+  * Fixed TCI error when you change Rig (issue #526)
+  * Fixed NewContact - satellite mode too wide (issue #527)
+
+ -- foldynl <foldyna@gmail.com>  Fri, 29 Nov 2024 12:07:56 +0100
+
 qlog (0.40.0-1) UNRELEASED; urgency=low
   * [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
   * [NEW] - Activity Manager - Added new dynamic fields - Contest fields, RX/TX Power

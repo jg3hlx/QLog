@@ -1,4 +1,4 @@
-TBC - 0.40.1
+2024/11/29 - 0.40.1
 - Fixed Bands - Added missing 8m band (issue #515)
 - Fixed CW Console - EXCSTR does not work properly (issue #517)
 - Fixed Activity Manager - Missing Propagation Mode None (issue #519)

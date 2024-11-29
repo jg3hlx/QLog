@@ -42,6 +42,14 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_metainfodir}/*
 
 %changelog
+* Fri Nov 29 2024 Ladislav Foldyna - 0.40.1-1
+- Fixed Bands - Added missing 8m band (issue #515)
+- Fixed CW Console - EXCSTR does not work properly (issue #517)
+- Fixed Activity Manager - Missing Propagation Mode None (issue #519)
+- Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
+- Fixed TCI error when you change Rig (issue #526)
+- Fixed NewContact - satellite mode too wide (issue #527)
+
 * Sun Nov 24 2024 Ladislav Foldyna - 0.40.0-1
 - [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
 - [NEW] - Activity Manager - Added new dynamic fields - Contest fields, RX/TX Power

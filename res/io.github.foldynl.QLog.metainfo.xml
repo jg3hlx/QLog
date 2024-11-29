@@ -47,6 +47,18 @@
   <url type="vcs-browser">https://github.com/foldynl/QLog</url>
   <url type="contribute">https://github.com/foldynl/QLog/blob/master/CONTRIBUTING.md</url>
   <releases>
+    <release version="0.40.1" date="2024-11-29">
+      <description>
+        <ul>
+          <li>Fixed Bands - Added missing 8m band (issue #515)</li>
+          <li>Fixed CW Console - EXCSTR does not work properly (issue #517)</li>
+          <li>Fixed Activity Manager - Missing Propagation Mode None (issue #519)</li>
+          <li>Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)</li>
+          <li>Fixed TCI error when you change Rig (issue #526)</li>
+          <li>Fixed NewContact - satellite mode too wide (issue #527)</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.40.0" date="2024-11-24">
       <description>
         <ul>
