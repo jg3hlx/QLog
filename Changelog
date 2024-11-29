@@ -1,4 +1,5 @@
 TBC - 0.40.1
+- Fixed QSO Filter - filter fields with random order (PR #525 @aa5sh)
 
 2024/11/24 - 0.40.0
 - [NEW] - Activity Manager - merged Layout Manager and profiles (issue #408)
