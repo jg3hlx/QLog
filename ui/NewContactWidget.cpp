@@ -3796,7 +3796,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         satNameEdit->setCompleter(satCompleter);
         satModel->select();
 
-        satModeEdit->setMinimumSize(QSize(300, 0));
+        satModeEdit->setSizeAdjustPolicy(QComboBox::AdjustToContents);
         satModeEdit->setFocusPolicy(Qt::ClickFocus);
         satModeEdit->setEnabled(false);
         QStringList satModesList = Data::instance()->satModeList();
