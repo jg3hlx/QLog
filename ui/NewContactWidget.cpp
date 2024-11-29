@@ -3004,8 +3004,8 @@ QString NewContactWidget::getSentExch() const
 {
     FCT_IDENTIFICATION;
 
-    return (uiDynamic->stxEdit->isVisible()) ? uiDynamic->stxStringEdit->text()
-                                             : QString();
+    return (uiDynamic->stxStringEdit->isVisible()) ? uiDynamic->stxStringEdit->text()
+                                                   : QString();
 }
 
 double NewContactWidget::getQSOBearing() const
