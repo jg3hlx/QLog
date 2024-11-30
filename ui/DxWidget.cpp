@@ -1554,6 +1554,7 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.potaRef = potaRefFromComment(spot.comment);
     spot.sotaRef = sotaRefFromComment(spot.comment);
 
+#if 0
     if ( !spot.sotaRef.isEmpty() )
         qInfo() << "SOTA" << spot.sotaRef << spot.comment;
 
@@ -1562,6 +1563,7 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     if ( !spot.potaRef.isEmpty() )
         qInfo() << "POTA" << spot.potaRef << spot.comment;
+#endif
 
     emit newSpot(spot);
 
