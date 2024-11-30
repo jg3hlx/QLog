@@ -1081,12 +1081,12 @@ void MainWindow::restoreContestMenuLinkExchange()
     ui->newContactWidget->changeSRXStringLink(linkExchangeType);
 }
 
-void MainWindow::startContest(const QString contestID, const QDateTime)
+void MainWindow::startContest(const QString contestID, const QDateTime dateTime)
 {
     FCT_IDENTIFICATION;
 
     // Contest's start signal is sent from NewContact
-    const QSOFilter &contestFilter = QSOFilter::createFromNowContestFilter(contestID);
+    const QSOFilter &contestFilter = QSOFilter::createFromDateContestFilter(contestID, dateTime);
     QSOFilterManager::instance()->save(contestFilter);
     ui->logbookWidget->refreshUserFilter();
     ui->logbookWidget->setUserFilter(contestFilter.filterName);
