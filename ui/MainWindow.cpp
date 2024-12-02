@@ -419,6 +419,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
         stats = nullptr;
     }
 
+     const QList<QDockWidget*> docks = findChildren<QDockWidget*>();
+     for (QDockWidget* dock : docks)
+         dock->close();  // Ensure they are closed
+
     QMainWindow::closeEvent(event);
 }
 
