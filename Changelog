@@ -1,4 +1,5 @@
 TBC - 0.41.0
+- [NEW] - DXC - Retrieve information about SOTA, POTA and WWFF from comment (issue #482)
 - [NEW] - Added the COM Port Completer for Windows platform (issue #490)
 - [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
