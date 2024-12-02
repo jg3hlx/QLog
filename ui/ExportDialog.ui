@@ -32,7 +32,7 @@
       <item row="0" column="0">
        <widget class="QLineEdit" name="fileEdit">
         <property name="focusPolicy">
-         <enum>Qt::FocusPolicy::ClickFocus</enum>
+         <enum>Qt::ClickFocus</enum>
         </property>
         <property name="readOnly">
          <bool>true</bool>
@@ -215,7 +215,7 @@
            </sizepolicy>
           </property>
           <property name="focusPolicy">
-           <enum>Qt::FocusPolicy::ClickFocus</enum>
+           <enum>Qt::ClickFocus</enum>
           </property>
           <property name="toolTip">
            <string>Export only QSOs that match the selected date range</string>
@@ -237,7 +237,7 @@
            <string notr="true">-</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignmentFlag::AlignCenter</set>
+           <set>Qt::AlignCenter</set>
           </property>
          </widget>
         </item>
@@ -253,7 +253,7 @@
            </sizepolicy>
           </property>
           <property name="focusPolicy">
-           <enum>Qt::FocusPolicy::ClickFocus</enum>
+           <enum>Qt::ClickFocus</enum>
           </property>
           <property name="toolTip">
            <string>Export only QSOs that match the selected date range</string>
@@ -266,7 +266,7 @@
         <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Orientation::Horizontal</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -478,10 +478,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
+      <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Close|QDialogButtonBox::StandardButton::Ok</set>
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
