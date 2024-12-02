@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "data/SpotAlert.h"
 #include "models/AlertTableModel.h"
+#include "data/DxSpot.h"
 
 namespace Ui {
 class AlertWidget;
@@ -37,7 +38,7 @@ private slots:
 
 signals:
     void alertsCleared();
-    void tuneDx(QString, double, BandPlan::BandPlanMode);
+    void tuneDx(DxSpot);
     void tuneWsjtx(WsjtxDecode);
     void rulesChanged();
 

@@ -87,7 +87,7 @@ class SpotAlertNotificationMsg : public GenericSpotNotificationMsg
 {
 
 public:
-    explicit SpotAlertNotificationMsg(const SpotAlert&, QObject *parent = nullptr);
+    explicit SpotAlertNotificationMsg(const SpotAlert&alert, QObject *parent = nullptr);
 
 };
 

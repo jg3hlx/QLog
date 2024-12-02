@@ -56,7 +56,7 @@ QVariant DxTableModel::data(const QModelIndex& index, int role) const
         switch ( index.column() )
         {
         case 0:
-            return spot.time.toString(locale.formatTimeLongWithoutTZ());
+            return spot.dateTime.toString(locale.formatTimeLongWithoutTZ());
         case 1:
             return spot.callsign;
         case 2:
@@ -122,7 +122,7 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
     {
         for (const DxSpot &record : static_cast<const QList<DxSpot>&>(dxData))
         {
-            if ( record.time.secsTo(entry.time) > dedup_interval )
+            if ( record.dateTime.secsTo(entry.dateTime) > dedup_interval )
                 break;
 
             if ( record.callsign == entry.callsign
@@ -143,21 +143,6 @@ bool DxTableModel::addEntry(DxSpot entry, bool deduplicate,
     }
 
     return shouldInsert;
-}
-
-QString DxTableModel::getCallsign(const QModelIndex& index)
-{
-    return dxData.at(index.row()).callsign;
-}
-
-double DxTableModel::getFrequency(const QModelIndex& index)
-{
-    return dxData.at(index.row()).freq;
-}
-
-BandPlan::BandPlanMode DxTableModel::getBandPlanode(const QModelIndex &index)
-{
-    return dxData.at(index.row()).bandPlanMode;
 }
 
 void DxTableModel::clear()
@@ -480,6 +465,8 @@ DxWidget::DxWidget(QWidget *parent) :
     ui->actionConnectOnStartup->setChecked(getAutoconnectServer());
     ui->actionKeepSpots->setChecked(getKeepQSOs());
     dxTableProxyModel->setSearchSkippedCols(dxcListHiddenCols());
+
+    potaRegEx.setPattern(potaREGEXPattern());
 }
 
 void DxWidget::toggleConnect()
@@ -1205,10 +1192,7 @@ void DxWidget::entryDoubleClicked(QModelIndex index)
     FCT_IDENTIFICATION;
 
     const QModelIndex &source_index = dxTableProxyModel->mapToSource(index);
-
-    emit tuneDx(dxTableModel->getCallsign(source_index),
-                dxTableModel->getFrequency(source_index),
-                dxTableModel->getBandPlanode(source_index));
+    emit tuneDx(dxTableModel->getSpot(source_index));
 }
 
 void DxWidget::actionFilter()
@@ -1543,7 +1527,7 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     DxSpot spot;
 
-    spot.time = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
+    spot.dateTime = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
                                     : dateTime;
     spot.callsign = call;
     spot.freq = freq.toDouble() / 1000;
@@ -1566,6 +1550,20 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
     spot.callsign_member = MembershipQE::instance()->query(spot.callsign);
     spot.dupeCount = Data::countDupe(spot.callsign, spot.band, spot.modeGroupString);
+    spot.wwffRef = wwffRefFromComment(spot.comment);
+    spot.potaRef = potaRefFromComment(spot.comment);
+    spot.sotaRef = sotaRefFromComment(spot.comment);
+
+#if 0
+    if ( !spot.sotaRef.isEmpty() )
+        qInfo() << "SOTA" << spot.sotaRef << spot.comment;
+
+    if ( !spot.wwffRef.isEmpty() )
+        qInfo() << "WWFF" << spot.wwffRef << spot.comment;
+
+    if ( !spot.potaRef.isEmpty() )
+        qInfo() << "POTA" << spot.potaRef << spot.comment;
+#endif
 
     emit newSpot(spot);
 
@@ -1643,6 +1641,77 @@ BandPlan::BandPlanMode DxWidget::modeGroupFromComment(const QString &comment) co
     return BandPlan::BAND_MODE_UNKNOWN;
 }
 
+QString DxWidget::potaREGEXPattern()
+{
+    FCT_IDENTIFICATION;
+
+    QSqlQuery query("SELECT DISTINCT(SUBSTR(reference,1,2)) FROM pota_directory");
+
+    QStringList combinations;
+    while ( query.next() )
+        combinations << query.value(0).toString();
+
+    QMap<QChar, QStringList> groups;
+    for ( const QString &item : static_cast<const QStringList&>(combinations))
+        groups[item.at(0)].append(item.at(1));
+
+    QStringList regexParts;
+    for ( auto it = groups.constBegin(); it != groups.constEnd(); ++it )
+    {
+        QStringList secondChars(it.value());
+        secondChars.sort();
+        regexParts << QString("%1[%2]").arg(it.key(), secondChars.join(""));
+    }
+
+    QString regex(QString("(?:^|\\s)(%0)-(\\d{1,4})(?:\\s|@|$)").arg(regexParts.join("|")));
+
+    qCDebug(runtime) << regex;
+
+    return regex;
+}
+
+QString DxWidget::refFromComment(const QString &comment,
+                                 const QRegularExpression &regEx,
+                                 const QString &refType,
+                                 int justified = 0) const
+{
+    FCT_IDENTIFICATION;
+
+    QRegularExpressionMatch stringMatch = regEx.match(comment);
+    QString ref;
+
+    if (stringMatch.hasMatch())
+    {
+        ref = stringMatch.captured(1).toUpper() + "-" + stringMatch.captured(2).rightJustified(justified, '0');
+        qCDebug(runtime) << refType << ":" << ref << "in comment:" << comment;
+    }
+
+    return ref;
+}
+
+QString DxWidget::wwffRefFromComment(const QString &comment) const
+{
+    FCT_IDENTIFICATION;
+
+    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})-?(\\d{1,4})(?:\\s|$)"));
+    return refFromComment(comment, wwffRegEx, QStringLiteral("WWFF"), 4);
+}
+
+QString DxWidget::potaRefFromComment(const QString &comment) const
+{
+    FCT_IDENTIFICATION;
+
+    return refFromComment(comment, potaRegEx, QStringLiteral("POTA"), 4);
+}
+
+QString DxWidget::sotaRefFromComment(const QString &comment) const
+{
+    FCT_IDENTIFICATION;
+
+    static QRegularExpression sotaRefRegEx(QStringLiteral("(?:^|\\s)([A-Za-z0-9]{1,3}/[A-Za-z]{2})-?(\\d{1,3})(?:\\s|$)"));
+    return refFromComment(comment, sotaRefRegEx, QStringLiteral("SOTA"), 3);
+}
+
 DxWidget::~DxWidget()
 {
     FCT_IDENTIFICATION;
@@ -1650,5 +1719,3 @@ DxWidget::~DxWidget()
     saveWidgetSetting();
     delete ui;
 }
-
-

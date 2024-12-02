@@ -427,6 +427,7 @@ int main(int argc, char* argv[])
 #endif
     qRegisterMetaType<DxSpot>();
     qRegisterMetaType<BandPlan::BandPlanMode>();
+    qRegisterMetaType<SpotAlert>();
 
     set_debug_level(LEVEL_PRODUCTION); // you can set more verbose rules via
                                        // environment variable QT_LOGGING_RULES (project setting/debug)

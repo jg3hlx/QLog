@@ -39,9 +39,7 @@ public:
                   bool deduplicate = false,
                   qint16 dedup_interval = DEDUPLICATION_TIME,
                   double freq_tolerance = DEDUPLICATION_FREQ_TOLERANCE);
-    QString getCallsign(const QModelIndex& index);
-    double getFrequency(const QModelIndex& index);
-    BandPlan::BandPlanMode getBandPlanode(const QModelIndex& index);
+    const DxSpot getSpot(const QModelIndex& index) const {return dxData.at(index.row());};
     void clear();
 
 private:
@@ -154,7 +152,7 @@ private slots:
     void displayedColumns();
 
 signals:
-    void tuneDx(QString, double, BandPlan::BandPlanMode);
+    void tuneDx(DxSpot);
     void newSpot(DxSpot);
     void newWCYSpot(WCYSpot);
     void newWWVSpot(WWVSpot);
@@ -194,6 +192,7 @@ private:
     QTimer reconnectTimer;
     DXCConnectionState connectionState;
     DxServerString *connectedServerString;
+    QRegularExpression potaRegEx;
 
     void connectCluster();
     void disconnectCluster(bool tryReconnect = false);
@@ -229,6 +228,13 @@ private:
 
     QVector<int> dxcListHiddenCols() const;
     BandPlan::BandPlanMode modeGroupFromComment(const QString &comment) const;
+    QString refFromComment(const QString &comment,
+                           const QRegularExpression &regEx,
+                           const QString &refType, int justified) const;
+    QString wwffRefFromComment(const QString &comment) const;
+    QString potaRefFromComment(const QString &comment) const;
+    QString potaREGEXPattern();
+    QString sotaRefFromComment(const QString &comment) const;
 };
 
 #endif // QLOG_UI_DXWIDGET_H

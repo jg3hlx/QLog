@@ -14,7 +14,6 @@
 #include "data/BandPlan.h"
 #include "core/debug.h"
 #include "rig/macros.h"
-#include "core/LogParam.h"
 
 MODULE_IDENTIFICATION("qlog.ui.bandmapwidget");
 
@@ -170,7 +169,7 @@ void BandmapWidget::spotAging()
     {
         spotIterator.next();
         //clear spots automatically
-        if ( spotIterator.value().time.addSecs(clear_interval_sec) <= QDateTime::currentDateTimeUtc() )
+        if ( spotIterator.value().dateTime.addSecs(clear_interval_sec) <= QDateTime::currentDateTimeUtc() )
         {
             spotIterator.remove();
         }
@@ -220,7 +219,7 @@ void BandmapWidget::updateStations()
                                                   QPen(QColor(192,192,192))));
 
         const QString &callsignTmp = lower.value().callsign;
-        const QString &timeTmp = lower.value().time.toString(locale.formatTimeShort());
+        const QString &timeTmp = lower.value().dateTime.toString(locale.formatTimeShort());
 
         QGraphicsTextItem* text = bandmapScene->addText(callsignTmp + " @ " + timeTmp);
         text->document()->setDocumentMargin(0);
@@ -768,7 +767,8 @@ void BandmapWidget::spotClicked(const QString &call,
          && lastTunedDX.freq == freq )
         return;
 
-    emit tuneDx(call, freq, mode);
+    emit tuneDx(spots.value(freq));
+
     lastTunedDX.callsign = call;
     lastTunedDX.freq = freq;
 

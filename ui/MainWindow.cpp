@@ -596,17 +596,15 @@ void MainWindow::processSpotAlert(SpotAlert alert)
 
     ui->alertsWidget->addAlert(alert);
     alertButton->setText(QString::number(ui->alertsWidget->alertCount()));
-    alertTextButton->setText(alert.ruleName.join(", ") + ": " + alert.callsign + ", " + alert.band + ", " + alert.modeGroupString);
+    alertTextButton->setText(alert.ruleNameList.join(", ") + ": " + alert.spot.callsign + ", " + alert.spot.band + ", " + alert.spot.modeGroupString);
     alertTextButton->disconnect();
 
     connect(alertTextButton, &QPushButton::clicked, this, [this, alert]()
     {
         if ( alert.source == SpotAlert::WSJTXCQSPOT )
-            this->wsjtx->startReply(alert.wsjtxDecode);
+            wsjtx->startReply(alert.spot.decode);
         else
-            ui->newContactWidget->tuneDx(alert.callsign,
-                                         alert.freq,
-                                         alert.bandPlanMode);
+            ui->newContactWidget->tuneDx(alert.getDxSpot());
     });
 
     if ( ui->actionBeepSettingAlert->isChecked() )
