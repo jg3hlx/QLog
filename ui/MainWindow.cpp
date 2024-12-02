@@ -394,6 +394,14 @@ MainWindow::MainWindow(QWidget* parent) :
     //restoreConnectionStates();
 
     setupActivitiesMenu();
+
+    const QList<QDockWidget*> dockWidgets = findChildren<QDockWidget*>();
+
+    for ( QDockWidget* dockWidget : dockWidgets )
+    {
+        if ( dockWidget )
+            dockWidget->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
