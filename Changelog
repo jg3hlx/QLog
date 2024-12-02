@@ -1,5 +1,6 @@
 TBC - 0.41.0
 - [NEW] - Added the COM Port Completer for Windows platform (issue #490)
+- [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 
 2024/11/29 - 0.40.1
 - Fixed Bands - Added missing 8m band (issue #515)
