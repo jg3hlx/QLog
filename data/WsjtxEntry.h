@@ -24,9 +24,9 @@ public:
     {
         return QString("WsjtxEntry ")
         + "Country: " + QString::number(dxcc.dxcc) + " "
-        + "CQZ" + dxcc.cqz + " "
-        + "ITUZ" + dxcc.ituz + " "
-        + "Status: " + status + " "
+        + "CQZ" + QString::number(dxcc.cqz) + " "
+        + "ITUZ" + QString::number(dxcc.ituz) + " "
+        + "Status: " + QString::number(status) + " "
         + "Band: " + band + " "
         + "ModeGroup: " + ((decodedMode == "FT8") ? BandPlan::MODE_GROUP_STRING_FT8
                                                   : BandPlan::MODE_GROUP_STRING_DIGITAL )  + " "
