@@ -109,6 +109,7 @@ public:
     static int getCQZMin();
     static int getCQZMax();
     static QString dbFilename();
+    static QString debugFilename();
     static double MHz2UserFriendlyFreq(double,
                                        QString &unit,
                                        unsigned char &efectiveDecP);

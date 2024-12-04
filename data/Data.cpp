@@ -614,6 +614,13 @@ QString Data::dbFilename()
     return dir.filePath("qlog.db");
 }
 
+QString Data::debugFilename()
+{
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
+    const QString debugFilename = "qlog_debug_" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".log";
+    return dir.filePath(debugFilename);
+}
+
 double Data::MHz2UserFriendlyFreq(double freqMHz,
                                   QString &unit,
                                   unsigned char &efectiveDecP)
