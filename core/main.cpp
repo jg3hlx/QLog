@@ -289,13 +289,13 @@ static void debugMessageOutput(QtMsgType type, const QMessageLogContext &context
         if ( logFile.open(QIODevice::WriteOnly | QIODevice::Text) )
         {
             logStream.setDevice(&logFile);
-            logStream << "App: " << QCoreApplication::applicationVersion() << Qt::endl
+            logStream << "App: " << QCoreApplication::applicationVersion() << "\n"
 #ifdef QLOG_FLATPAK
-                      << "Flatpak" << Qt::endl
+                      << "Flatpak" << "\n"
 #endif
-                      << "QT: " << qVersion() << Qt::endl
-                      << "OS: " << QString("%1 %2 (%3)").arg(QSysInfo::prettyProductName(), QSysInfo::currentCpuArchitecture(), QGuiApplication::platformName() ) << Qt::endl
-                      << "SSL: " << QSslSocket::sslLibraryVersionString() << Qt::endl << Qt::endl;
+                      << "QT: " << qVersion() << "\n"
+                      << "OS: " << QString("%1 %2 (%3)").arg(QSysInfo::prettyProductName(), QSysInfo::currentCpuArchitecture(), QGuiApplication::platformName() ) << "\n"
+                      << "SSL: " << QSslSocket::sslLibraryVersionString() << "\n\n";
         }
         else
         {
