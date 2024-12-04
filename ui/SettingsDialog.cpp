@@ -180,7 +180,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->modeTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->modeTableView->hideColumn(0);
     ui->modeTableView->hideColumn(2);
-    ui->modeTableView->setItemDelegateForColumn(1, new ReadOnlyDelegate());
+    ui->modeTableView->setItemDelegateForColumn(1, new ReadOnlyDelegate(ui->modeTableView));
     ui->modeTableView->setItemDelegateForColumn(4,new ComboFormatDelegate(QStringList()<<"CW"<< "PHONE" << "DIGITAL"));
     ui->modeTableView->setItemDelegateForColumn(5,new CheckBoxDelegate(ui->modeTableView));
     modeTableModel->select();
@@ -200,7 +200,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->bandTableView->horizontalHeader()->moveSection(6, 4);
     ui->bandTableView->hideColumn(0); // primary key
     ui->bandTableView->hideColumn(5); // last_seen_freq
-    ui->bandTableView->setItemDelegateForColumn(1, new ReadOnlyDelegate());
+    ui->bandTableView->setItemDelegateForColumn(1, new ReadOnlyDelegate(ui->bandTableView));
     ui->bandTableView->setItemDelegateForColumn(2, new UnitFormatDelegate("", 6, 0.001, ui->bandTableView));
     ui->bandTableView->setItemDelegateForColumn(3, new UnitFormatDelegate("", 6, 0.001, ui->bandTableView));
     ui->bandTableView->setItemDelegateForColumn(4,new CheckBoxDelegate(ui->bandTableView));
