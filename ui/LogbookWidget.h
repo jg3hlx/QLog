@@ -65,6 +65,7 @@ public slots:
     void focusSearchCallsign();
     void reloadSetting();
     void sendDXCSpot();
+    void setDefaultSort();
 
 private:
     ClubLog* clublog;

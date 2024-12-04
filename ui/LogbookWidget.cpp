@@ -165,6 +165,7 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
     ui->contactTable->horizontalHeader()->setSectionsMovable(true);
     ui->contactTable->setStyle(new ProxyStyle(ui->contactTable->style()));
     ui->contactTable->installEventFilter(this);
+    setDefaultSort();
 
     ui->bandFilter->blockSignals(true);
     ui->bandFilter->setModel(new SqlListModel("SELECT name FROM bands ORDER BY start_freq", tr("Band"), this));
@@ -854,6 +855,13 @@ void LogbookWidget::sendDXCSpot()
         return;
 
     emit sendDXSpotContactReq(model->record(selectedIndexes.at(0).row()));
+}
+
+void LogbookWidget::setDefaultSort()
+{
+    FCT_IDENTIFICATION;
+
+    ui->contactTable->sortByColumn(LogbookModel::COLUMN_TIME_ON, Qt::DescendingOrder);
 }
 
 void LogbookWidget::scrollToIndex(const QModelIndex &index, bool selectItem)
