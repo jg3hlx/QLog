@@ -3,6 +3,7 @@ TBC - 0.41.0
 - [NEW] - Added the COM Port Completer for Windows platform (issue #490)
 - [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 - [NEW] - Added an input parameter to save debug message to file
+- [CHANGED] - Settings: disabled band name modification
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)

@@ -199,6 +199,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->bandTableView->horizontalHeader()->moveSection(6, 4);
     ui->bandTableView->hideColumn(0); // primary key
     ui->bandTableView->hideColumn(5); // last_seen_freq
+    ui->bandTableView->setItemDelegateForColumn(1, new ReadOnlyDelegate());
     ui->bandTableView->setItemDelegateForColumn(2, new UnitFormatDelegate("", 6, 0.001, ui->bandTableView));
     ui->bandTableView->setItemDelegateForColumn(3, new UnitFormatDelegate("", 6, 0.001, ui->bandTableView));
     ui->bandTableView->setItemDelegateForColumn(4,new CheckBoxDelegate(ui->bandTableView));

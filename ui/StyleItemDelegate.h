@@ -593,4 +593,16 @@ private slots:
     }
 };
 
+class ReadOnlyDelegate : public QStyledItemDelegate {
+    Q_OBJECT
+
+public:
+    using QStyledItemDelegate::QStyledItemDelegate;
+
+    QWidget *createEditor(QWidget *, const QStyleOptionViewItem &, const QModelIndex &) const override
+    {
+            return nullptr;
+    }
+};
+
 #endif // QLOG_UI_STYLEITEMDELEGATE_H
