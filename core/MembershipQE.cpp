@@ -328,7 +328,7 @@ void MembershipQE::onFinishedListDownload(QNetworkReply *reply)
          && reply->error() == QNetworkReply::NoError
          && replyStatusCode >= 200 && replyStatusCode < 300)
     {
-        QByteArray data = reply->readAll();
+        QByteArray data = reply->readAll();        
         if ( ! importData(clubid, data) )
         {
             QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),

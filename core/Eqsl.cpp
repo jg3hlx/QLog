@@ -343,6 +343,7 @@ void EQSL::processReply(QNetworkReply* reply)
     {
         qCDebug(runtime) << "eQSL error URL " << reply->request().url().toString();
         qCDebug(runtime) << "eQSL error" << reply->errorString();
+        qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
 
         if ( reply->error() != QNetworkReply::OperationCanceledError )
         {

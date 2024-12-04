@@ -1013,6 +1013,7 @@ void LOVDownloader::processReply(QNetworkReply *reply)
     }
     else
     {
+        qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
         qCDebug(runtime) << "Failed to download " << sourceDef.fileName;
 
         reply->deleteLater();

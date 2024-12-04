@@ -298,6 +298,7 @@ void QRZ::processReply(QNetworkReply* reply)
     {
         qCDebug(runtime) << "QRZ.com error URL " << reply->request().url().toString();
         qCDebug(runtime) << "QRZ.com error" << reply->errorString();
+        qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
 
         if ( reply->error() != QNetworkReply::OperationCanceledError )
         {

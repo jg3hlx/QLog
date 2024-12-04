@@ -275,6 +275,8 @@ void ClubLog::processReply(QNetworkReply* reply)
     {
         qCDebug(runtime) << "Clublog error URL " << reply->request().url().toString();
         qCDebug(runtime) << "Clublog error" << reply->errorString();
+        qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
+
         if ( reply->error() != QNetworkReply::OperationCanceledError )
         {
             emit uploadError(tr("Clublog Operation for Callsign %1 failed.<br>%2").arg(reply->property("uploadCallsign").toString(),
