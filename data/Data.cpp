@@ -156,9 +156,21 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
         sql_mode = "(SELECT modes.dxcc FROM modes WHERE modes.name = :mode LIMIT 1) ";
     }
 
+
+    QStringList dxccConfirmedByCond(QLatin1String("0=1")); // if no option is selected then always false
+
+    if ( getDxccConfinfirmedByLotwState() )
+        dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.lotw_qsl_rcvd = 'Y'");
+
+    if ( getDxccConfinfirmedByPaperState() )
+        dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.qsl_rcvd = 'Y'");
+
+    if ( getDxccConfinfirmedByEqslState() )
+        dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.eqsl_qsl_rcvd = 'Y'");
+
     QSqlQuery query;
     QString sqlStatement = QString("WITH all_dxcc_qsos AS (SELECT DISTINCT contacts.mode, contacts.band, "
-                                         "                                       contacts.qsl_rcvd, contacts.lotw_qsl_rcvd "
+                                         "                                       contacts.qsl_rcvd, contacts.lotw_qsl_rcvd, contacts.eqsl_qsl_rcvd "
                                          "                       FROM contacts "
                                          "                       WHERE dxcc = :dxcc %1) "
                                          "  SELECT (SELECT 1 FROM all_dxcc_qsos LIMIT 1) as entity,"
@@ -169,12 +181,13 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
                                          "          WHERE modes.dxcc = %3 AND all_dxcc_qsos.band = :band LIMIT 1) as slot, "
                                          "         (SELECT 1 FROM all_dxcc_qsos INNER JOIN modes ON (modes.name = all_dxcc_qsos.mode) "
                                          "          WHERE modes.dxcc = %4 AND all_dxcc_qsos.band = :band "
-                                         "                AND (all_dxcc_qsos.qsl_rcvd = 'Y' OR all_dxcc_qsos.lotw_qsl_rcvd = 'Y') LIMIT 1) as confirmed")
+                                         "                AND (%5) LIMIT 1) as confirmed")
                                          .arg(( myDXCC != 0 ) ? QString(" AND my_dxcc = %1").arg(myDXCC)
                                                                     : "",
                                               sql_mode,
                                               sql_mode,
-                                              sql_mode);
+                                              sql_mode,
+                                              dxccConfirmedByCond.join(" OR "));
 
     if ( ! query.prepare(sqlStatement) )
     {

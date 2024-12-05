@@ -140,6 +140,13 @@ void AlertWidget::recalculateDupe()
     alertTableModel->recalculateDupe();
 }
 
+void AlertWidget::recalculateDxccStatus()
+{
+    FCT_IDENTIFICATION;
+
+    alertTableModel->recalculateDxccStatus();
+}
+
 void AlertWidget::showColumnVisibility()
 {
     FCT_IDENTIFICATION;

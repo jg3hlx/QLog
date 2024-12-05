@@ -261,6 +261,20 @@ void AlertTableModel::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &enti
     endResetModel();
 }
 
+void AlertTableModel::recalculateDxccStatus()
+{
+    QMutexLocker locker(&alertListMutex);
+
+    beginResetModel();
+    for ( AlertTableRecord &alertRecord : alertList  )
+    {
+        SpotAlert &alert = alertRecord.alert;
+
+        alert.spot.status = Data::instance()->dxccStatus(alert.spot.dxcc.dxcc, alert.spot.band, alert.spot.modeGroupString);
+    }
+    endResetModel();
+}
+
 bool AlertTableModel::AlertTableRecord::operator==(const AlertTableRecord &spot) const
 {
    return ( (spot.alert.spot.callsign == this->alert.spot.callsign)

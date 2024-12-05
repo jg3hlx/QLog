@@ -754,7 +754,7 @@ void NewContactWidget::refreshStationProfileCombo()
     }
 
     setDxccInfo(ui->callsignEdit->text().toUpper());
-
+    updateDxccStatus();
     ui->stationProfileCombo->blockSignals(false);
 }
 
@@ -2103,6 +2103,7 @@ void NewContactWidget::updateDxccStatus()
     FCT_IDENTIFICATION;
 
     setNearestSpotColor();
+
 
     if ( callsign.isEmpty() )
     {

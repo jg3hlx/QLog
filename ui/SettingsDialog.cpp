@@ -2309,6 +2309,13 @@ void SettingsDialog::readSettings() {
     /***********/
     ui->qrzApiKeyEdit->setText(QRZ::getLogbookAPIKey());
 
+    /***********************/
+    /* Others - DXCC Group */
+    /***********************/
+    ui->dxccConfirmedByLotwCheckBox->setChecked(Data::getDxccConfinfirmedByLotwState());
+    ui->dxccConfirmedByPaperCheckBox->setChecked(Data::getDxccConfinfirmedByPaperState());
+    ui->dxccConfirmedByEqslCheckBox->setChecked(Data::getDxccConfinfirmedByEqslState());
+
     /***************/
     /* ON4KST Chat */
     /***************/
@@ -2404,6 +2411,13 @@ void SettingsDialog::writeSettings() {
     /* QRZ.COM */
     /***********/
     QRZ::saveLogbookAPI(ui->qrzApiKeyEdit->text());
+
+    /***********************/
+    /* Others - DXCC Group */
+    /***********************/
+    Data::setDxccConfinfirmedByLotwState(ui->dxccConfirmedByLotwCheckBox->isChecked());
+    Data::setDxccConfinfirmedByPaperState(ui->dxccConfirmedByPaperCheckBox->isChecked());
+    Data::setDxccConfinfirmedByEqslState(ui->dxccConfirmedByEqslCheckBox->isChecked());
 
     /***************/
     /* ON4KST Chat */

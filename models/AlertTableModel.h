@@ -52,6 +52,7 @@ public:
     void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &);
     void updateSpotsStatusWhenQSODeleted(const QSqlRecord &record);
     void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);
+    void recalculateDxccStatus();
 
 private:
     LogLocale locale;

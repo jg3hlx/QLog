@@ -254,6 +254,9 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(this, &MainWindow::settingsChanged, ui->onlineMapWidget, &OnlineMapWidget::flyToMyQTH);
     connect(this, &MainWindow::settingsChanged, ui->logbookWidget, &LogbookWidget::reloadSetting);
     connect(this, &MainWindow::settingsChanged, ui->dxWidget, &DxWidget::reloadSetting);
+    connect(this, &MainWindow::settingsChanged, ui->bandmapWidget, &BandmapWidget::recalculateDxccStatus);
+    connect(this, &MainWindow::settingsChanged, ui->alertsWidget, &AlertWidget::recalculateDxccStatus);
+    connect(this, &MainWindow::settingsChanged, ui->chatWidget, &ChatWidget::recalculateDxccStatus);
     connect(this, &MainWindow::altBackslash, Rig::instance(), &Rig::setPTT);
     connect(this, &MainWindow::manualMode, ui->newContactWidget, &NewContactWidget::setManualMode);
     connect(this, &MainWindow::contestStopped, ui->newContactWidget, &NewContactWidget::stopContest);
@@ -1270,6 +1273,7 @@ void MainWindow::showSettings()
 
     if ( sw.exec() == QDialog::Accepted )
     {
+        Data::instance()->clearDXCCStatusCache();
         rigConnect();
         rotConnect();
         stationProfileChanged();

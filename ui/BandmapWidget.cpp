@@ -716,6 +716,19 @@ void BandmapWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entiti
     updateNearestSpot(true);
 }
 
+void BandmapWidget::recalculateDxccStatus()
+{
+    FCT_IDENTIFICATION;
+
+    for ( auto it = spots.begin(); it != spots.end(); ++it )
+    {
+        DxSpot &spot = it.value();
+        spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
+    }
+    updateStations();
+    updateNearestSpot(true);
+}
+
 void BandmapWidget::resetDupe()
 {
     FCT_IDENTIFICATION;

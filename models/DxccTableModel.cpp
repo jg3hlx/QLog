@@ -22,10 +22,16 @@ QVariant DxccTableModel::data(const QModelIndex &index, int role) const
     {
         const QString &currData = data(index, Qt::DisplayRole).toString();
 
-        if ( currData.contains("L") || currData.contains("P"))
+        bool containsL = currData.contains('L');
+        bool containsP = currData.contains('P');
+        bool containsE = currData.contains('e');
+
+        if ( (Data::getDxccConfinfirmedByLotwState() && containsL)
+             || ((Data::getDxccConfinfirmedByPaperState()) && containsP)
+             || (Data::getDxccConfinfirmedByEqslState() && containsE) )
             return Data::statusToColor(DxccStatus::NewMode, false, Qt::green);
 
-        if ( currData == "e" || currData == "W" )
+        if ( containsL || containsP ||containsE || currData.contains("W") )
             return Data::statusToColor(DxccStatus::Worked, false, Qt::transparent);
     }
         break;

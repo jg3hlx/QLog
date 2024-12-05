@@ -68,6 +68,7 @@ public slots:
     void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &);
     void updateSpotsDupeWhenQSODeleted(const QSqlRecord &record);
     void updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entities);
+    void recalculateDxccStatus();
     void resetDupe();
     void recalculateDupe();
 
