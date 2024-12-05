@@ -1,6 +1,7 @@
 TBC - 0.41.0
 - [NEW] - DXC - Retrieve information about SOTA, POTA and WWFF from comment (issue #482)
 - [NEW] - Added the COM Port Completer for Windows platform (issue #490)
+- [NEW] - Settings - Added DXCC Confirmed By options (issue #508)
 - [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 - [NEW] - Added an input parameter to save debug message to file
 - [NEW] - Logbook - Added sorting function to logbook table columns (PR #540 @kyleboyle)
