@@ -14,6 +14,7 @@
 #include "core/debug.h"
 #include "data/Data.h"
 #include "core/Callsign.h"
+#include "LogParam.h"
 
 MODULE_IDENTIFICATION("qlog.core.membershipqe");
 
@@ -514,22 +515,36 @@ void ClubStatusQuery::getClubStatus(const QString &in_callsign,
 
     QSqlDatabase db1 = QSqlDatabase::database(dbConnectionName);
     QSqlQuery query(db1);
-    Callsign qCall(in_callsign);
-    QString callModified = ( qCall.isValid() ) ? qCall.getBase() : in_callsign;
+    const Callsign qCall(in_callsign);
+    const QString &callModified = ( qCall.isValid() ) ? qCall.getBase() : in_callsign;
+
+    QStringList dxccConfirmedByCond(QLatin1String("0=1")); // if no option is selected then always false
+
+    if ( LogParam::getDxccConfirmedByLotwState() )
+        dxccConfirmedByCond << QLatin1String("c.lotw_qsl_rcvd = 'Y'");
+
+    if ( LogParam::getDxccConfirmedByPaperState() )
+        dxccConfirmedByCond << QLatin1String("c.qsl_rcvd = 'Y'");
+
+    if ( LogParam::getDxccConfirmedByEqslState() )
+        dxccConfirmedByCond << QLatin1String("c.eqsl_qsl_rcvd = 'Y'");
 
     if ( ! query.exec(QString("SELECT DISTINCT clubid, NULL band, NULL mode, "
                               "        NULL confirmed, NULL current_mode "
                               "FROM membership  WHERE callsign = '%1' "
                               "UNION ALL "
                               "SELECT DISTINCT clubid, c.band, o.dxcc mode, "
-                              "                CASE WHEN (c.qsl_rcvd = 'Y' OR c.lotw_qsl_rcvd = 'Y') THEN 1 ELSE 0 END confirmed, "
-                              "               (SELECT modes.dxcc FROM modes WHERE modes.name = '%2' LIMIT 1) current_mode "
+                              "                CASE WHEN (%2) THEN 1 ELSE 0 END confirmed, "
+                              "               (SELECT modes.dxcc FROM modes WHERE modes.name = '%3' LIMIT 1) current_mode "
                               "FROM contacts c, "
                               "    contact_clubs_view con2club, "
                               "    modes o "
                               "WHERE con2club.contactid = c.id "
                               "AND o.name = c.mode "
-                              "AND con2club.clubid in (SELECT clubid FROM membership a WHERE a.callsign = '%3') order by 1, 3, 2, 4").arg(callModified, in_mode, callModified)))
+                              "AND con2club.clubid in (SELECT clubid FROM membership a WHERE a.callsign = '%4') order by 1, 3, 2, 4").arg(callModified,
+                                                                                                                                          dxccConfirmedByCond.join(" OR "),
+                                                                                                                                          in_mode,
+                                                                                                                                          callModified)))
     {
        qCWarning(runtime) << "Cannot Get club status" << query.lastError().text();
        emit status(in_callsign, QMap<QString, ClubStatus>());
@@ -546,11 +561,11 @@ void ClubStatusQuery::getClubStatus(const QString &in_callsign,
 
     while ( ++records && query.next() )
     {
-        QString clubid = query.value(0).toString();
-        QString band = query.value(1).toString();
-        QString mode = query.value(2).toString();
-        QVariant confirmed = query.value(3);
-        QString current_mode = query.value(4).toString();
+        const QString &clubid = query.value(0).toString();
+        const QString &band = query.value(1).toString();
+        const QString &mode = query.value(2).toString();
+        const QVariant &confirmed = query.value(3);
+        const QString &current_mode = query.value(4).toString();
 
         qCDebug(runtime) << "Processing" << currentProcessedClub
                          << clubid
