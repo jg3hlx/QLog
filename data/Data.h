@@ -9,7 +9,6 @@
 #include "POTAEntity.h"
 #include "core/zonedetect.h"
 #include "core/QuadKeyCache.h"
-#include "core/LogParam.h"
 
 class Data : public QObject
 {
@@ -118,13 +117,6 @@ public:
     static qulonglong countDupe(const QString& callsign,
                                 const QString &band,
                                 const QString &mode);
-
-    static bool getDxccConfinfirmedByLotwState() {return LogParam::getParam("others/dxccconfirmedbylotw", true).toBool();};
-    static bool getDxccConfinfirmedByPaperState() {return LogParam::getParam("others/dxccconfirmedbypaper", true).toBool();};
-    static bool getDxccConfinfirmedByEqslState() {return LogParam::getParam("others/dxccconfirmedbyeqsl", false).toBool();};
-    static void setDxccConfinfirmedByLotwState(bool state) {LogParam::setParam("others/dxccconfirmedbylotw", state);}
-    static void setDxccConfinfirmedByPaperState(bool state) {LogParam::setParam("others/dxccconfirmedbypaper", state);}
-    static void setDxccConfinfirmedByEqslState(bool state) {LogParam::setParam("others/dxccconfirmedbyeqsl", state);}
 
     DxccStatus dxccStatus(int dxcc, const QString &band, const QString &mode);
     QStringList contestList();

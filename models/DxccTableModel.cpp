@@ -5,6 +5,7 @@
 #include <QBrush>
 #include "DxccTableModel.h"
 #include "data/Data.h"
+#include "core/LogParam.h"
 
 DxccTableModel::DxccTableModel(QObject* parent) : QSqlQueryModel(parent) {}
 
@@ -26,9 +27,9 @@ QVariant DxccTableModel::data(const QModelIndex &index, int role) const
         bool containsP = currData.contains('P');
         bool containsE = currData.contains('e');
 
-        if ( (Data::getDxccConfinfirmedByLotwState() && containsL)
-             || ((Data::getDxccConfinfirmedByPaperState()) && containsP)
-             || (Data::getDxccConfinfirmedByEqslState() && containsE) )
+        if ( (LogParam::getDxccConfirmedByLotwState() && containsL)
+             || (LogParam::getDxccConfirmedByPaperState() && containsP)
+             || (LogParam::getDxccConfirmedByEqslState() && containsE) )
             return Data::statusToColor(DxccStatus::NewMode, false, Qt::green);
 
         if ( containsL || containsP ||containsE || currData.contains("W") )

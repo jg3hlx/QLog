@@ -141,7 +141,7 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->statusBar->addPermanentWidget(darkLightModeSwith);
     ui->statusBar->addPermanentWidget(darkIconLabel);
 
-    setContestMode(LogParam::getParam("contest/contestid", QString()).toString());
+    setContestMode(LogParam::getContestID());
 
     connect(seqGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuSeqnoType);
     connect(dupeGroup, &QActionGroup::triggered, this, &MainWindow::saveContestMenuDupeType);
@@ -978,7 +978,7 @@ void MainWindow::saveContestMenuSeqnoType(QAction *action)
 {
     FCT_IDENTIFICATION;
 
-    LogParam::setParam("contest/seqnotype", action->data());
+    LogParam::setContestSeqnoType(action->data());
     // this function is called only if contest is not active
     // therefore it is not needed to somehow recalculate seq
 }
@@ -993,7 +993,7 @@ void MainWindow::restoreContestMenuSeqnoType()
     seqGroup->addAction(ui->actionSeqSingle);
     seqGroup->addAction(ui->actionSeqPerBand);
 
-    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
+    int seqnoType = LogParam::getContestSeqnoType();
 
     const QList<QAction *> seqActions = seqGroup->actions();
     for ( QAction *action : seqActions)
@@ -1010,7 +1010,7 @@ void MainWindow::saveContestMenuDupeType(QAction *action)
 {
     FCT_IDENTIFICATION;
 
-    LogParam::setParam("contest/dupetype", action->data());
+    LogParam::setContestManuDupeType(action->data());
     emit dupeTypeChanged();
 }
 
@@ -1018,7 +1018,7 @@ void MainWindow::saveContestMenuLinkExchangeType(QAction *action)
 {
     FCT_IDENTIFICATION;
 
-    LogParam::setParam("contest/linkexchangetype", action->data());
+    LogParam::setContestLinkExchange(action->data());
     ui->newContactWidget->changeSRXStringLink(action->data().toInt());
 }
 
@@ -1036,7 +1036,7 @@ void MainWindow::restoreContestMenuDupeType()
     dupeGroup->addAction(ui->actionDupeEachBandMode);
     dupeGroup->addAction(ui->actionDupeNoCheck);
 
-    int dupeType = LogParam::getParam("contest/dupetype", Data::DupeType::ALL_BANDS).toInt();
+    int dupeType = LogParam::getContestDupeType();
 
     const QList<QAction *> seqActions = dupeGroup->actions();
     for ( QAction *action : seqActions)
@@ -1055,7 +1055,7 @@ void MainWindow::restoreContestMenuLinkExchange()
 
     linkExchangeGroup = new QActionGroup(ui->menuLinkExchange);
 
-    int linkExchangeType = LogParam::getParam("contest/linkexchangetype", LogbookModel::COLUMN_INVALID).toInt();
+    int linkExchangeType = LogParam::getContestLinkExchange();
 
     ui->actionLinkExchangeNone->setData(LogbookModel::COLUMN_INVALID);
     linkExchangeGroup->addAction(ui->actionLinkExchangeNone);
@@ -1107,7 +1107,7 @@ void MainWindow::startContest(const QString contestID, const QDateTime dateTime)
     QSOFilterManager::instance()->save(contestFilter);
     ui->logbookWidget->refreshUserFilter();
     ui->logbookWidget->setUserFilter(contestFilter.filterName);
-    LogParam::setParam("contest/filter", contestFilter.filterName);
+    LogParam::setContestFilter(contestFilter.filterName);
     setContestMode(contestID);
 }
 
@@ -1115,7 +1115,7 @@ void MainWindow::stopContest()
 {
     FCT_IDENTIFICATION;
 
-    const QString &contestFilterName = LogParam::getParam("contest/filter").toString();
+    const QString &contestFilterName = LogParam::getContestFilter();
 
     if ( !contestFilterName.isEmpty() )
     {
@@ -1137,7 +1137,7 @@ void MainWindow::stopContest()
             QSOFilterManager::instance()->save(contestFilter);
         }
     }
-    LogParam::setParam("contest/filter", QString());
+    LogParam::setContestFilter(QString());
     setContestMode(QString());
 
     emit contestStopped();

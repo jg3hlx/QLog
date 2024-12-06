@@ -55,7 +55,7 @@ void LOVDownloader::update(const SourceType & sourceType)
     Q_ASSERT(sourceDef.type == sourceType);
 
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
-    QDate last_update = LogParam::getParam(sourceDef.lastTimeConfigName).toDate();
+    const QDate &last_update = LogParam::getLOVaParam(sourceDef.lastTimeConfigName);
 
     if ( dir.exists(sourceDef.fileName)
          && last_update.isValid()
@@ -1008,7 +1008,7 @@ void LOVDownloader::processReply(QNetworkReply *reply)
         file.close();
         reply->deleteLater();
 
-        LogParam::setParam(sourceDef.lastTimeConfigName, QDateTime::currentDateTimeUtc().date());
+        LogParam::setLOVParam(sourceDef.lastTimeConfigName, QDateTime::currentDateTimeUtc().date());
         loadData(sourceDef);
     }
     else

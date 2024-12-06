@@ -159,13 +159,13 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
 
     QStringList dxccConfirmedByCond(QLatin1String("0=1")); // if no option is selected then always false
 
-    if ( getDxccConfinfirmedByLotwState() )
+    if ( LogParam::getDxccConfirmedByLotwState() )
         dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.lotw_qsl_rcvd = 'Y'");
 
-    if ( getDxccConfinfirmedByPaperState() )
+    if ( LogParam::getDxccConfirmedByPaperState() )
         dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.qsl_rcvd = 'Y'");
 
-    if ( getDxccConfinfirmedByEqslState() )
+    if ( LogParam::getDxccConfirmedByEqslState() )
         dxccConfirmedByCond << QLatin1String("all_dxcc_qsos.eqsl_qsl_rcvd = 'Y'");
 
     QSqlQuery query;
@@ -433,8 +433,8 @@ qulonglong Data::dupeNewCountWhenQSOAdded(qulonglong oldCounter,
                                  << addedBand
                                  << addedMode;
 
-    int dupeType = LogParam::getParam("contest/dupetype" , Data::DupeType::ALL_BANDS).toInt();
-    const QString &contestID = LogParam::getParam("contest/contestid").toString();
+    int dupeType = LogParam::getContestDupeType();
+    const QString &contestID = LogParam::getContestID();
 
     qCDebug(runtime) << dupeType << contestID;
 
@@ -465,8 +465,8 @@ qulonglong Data::dupeNewCountWhenQSODelected(qulonglong oldCounter,
     if ( oldCounter == 0 )
         return 0;
 
-    int dupeType = LogParam::getParam("contest/dupetype" , Data::DupeType::ALL_BANDS).toInt();
-    const QString &contestID = LogParam::getParam("contest/contestid").toString();
+    int dupeType = LogParam::getContestDupeType();
+    const QString &contestID = LogParam::getContestID();
 
     qCDebug(runtime) << dupeType << contestID;
 
@@ -743,9 +743,9 @@ qulonglong Data::countDupe(const QString &callsign,
                                  << band
                                  << mode;
 
-    int dupeType = LogParam::getParam("contest/dupetype" , Data::DupeType::ALL_BANDS).toInt();
-    const QString &contestID = LogParam::getParam("contest/contestid").toString();
-    const QDateTime &dupeStartTime = LogParam::getParam("contest/dupeDate").toDateTime();
+    int dupeType = LogParam::getContestDupeType();
+    const QString &contestID = LogParam::getContestID();
+    const QDateTime &dupeStartTime = LogParam::getContestDupeDate();
 
     qCDebug(runtime) << dupeType <<  dupeStartTime << contestID;
 

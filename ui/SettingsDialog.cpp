@@ -2312,9 +2312,9 @@ void SettingsDialog::readSettings() {
     /***********************/
     /* Others - DXCC Group */
     /***********************/
-    ui->dxccConfirmedByLotwCheckBox->setChecked(Data::getDxccConfinfirmedByLotwState());
-    ui->dxccConfirmedByPaperCheckBox->setChecked(Data::getDxccConfinfirmedByPaperState());
-    ui->dxccConfirmedByEqslCheckBox->setChecked(Data::getDxccConfinfirmedByEqslState());
+    ui->dxccConfirmedByLotwCheckBox->setChecked(LogParam::getDxccConfirmedByLotwState());
+    ui->dxccConfirmedByPaperCheckBox->setChecked(LogParam::getDxccConfirmedByPaperState());
+    ui->dxccConfirmedByEqslCheckBox->setChecked(LogParam::getDxccConfirmedByEqslState());
 
     /***************/
     /* ON4KST Chat */
@@ -2337,7 +2337,7 @@ void SettingsDialog::readSettings() {
     ui->wsjtMulticastAddressEdit->setText(Wsjtx::getConfigMulticastAddress());
     ui->wsjtMulticastTTLSpin->setValue(Wsjtx::getConfigMulticastTTL());
 
-    ui->notifLogIDEdit->setText(LogParam::getParam("logid").toString());
+    ui->notifLogIDEdit->setText(LogParam::getLogID());
     ui->notifQSOEdit->setText(NetworkNotification::getNotifQSOAdiAddrs());
     ui->notifDXSpotsEdit->setText(NetworkNotification::getNotifDXSpotAddrs());
     ui->notifWSJTXCQSpotsEdit->setText(NetworkNotification::getNotifWSJTXCQSpotAddrs());
@@ -2415,9 +2415,9 @@ void SettingsDialog::writeSettings() {
     /***********************/
     /* Others - DXCC Group */
     /***********************/
-    Data::setDxccConfinfirmedByLotwState(ui->dxccConfirmedByLotwCheckBox->isChecked());
-    Data::setDxccConfinfirmedByPaperState(ui->dxccConfirmedByPaperCheckBox->isChecked());
-    Data::setDxccConfinfirmedByEqslState(ui->dxccConfirmedByEqslCheckBox->isChecked());
+    LogParam::setDxccConfirmedByLotwState(ui->dxccConfirmedByLotwCheckBox->isChecked());
+    LogParam::setDxccConfirmedByPaperState(ui->dxccConfirmedByPaperCheckBox->isChecked());
+    LogParam::setDxccConfirmedByEqslState(ui->dxccConfirmedByEqslCheckBox->isChecked());
 
     /***************/
     /* ON4KST Chat */

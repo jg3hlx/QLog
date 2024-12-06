@@ -247,7 +247,7 @@ GenericNotificationMsg::GenericNotificationMsg(QObject *parent) :
     FCT_IDENTIFICATION;
 
     msg["appid"] = "QLog";
-    msg["logid"] = LogParam::getParam("logid").toString();
+    msg["logid"] = LogParam::getLogID();
     msg["time"] = QDateTime::currentMSecsSinceEpoch();
 }
 

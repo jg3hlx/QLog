@@ -86,10 +86,9 @@ bool Migration::backupDatabase(bool force)
 
     const int backupCount = 10;
     const int backupIntervalDays = 7;
-    const QString lastBackupParamName("last_backup");
 
-    QDate lastBackupDate = LogParam::getParam(lastBackupParamName).toDate();
-    QDate now = QDate::currentDate();
+    const QDate &lastBackupDate = LogParam::getLastBackupDate();
+    const QDate &now = QDate::currentDate();
 
     qCDebug(runtime) << "The last backup date" << lastBackupDate
                      << "Force" << force;
@@ -175,7 +174,7 @@ bool Migration::backupDatabase(bool force)
     stream.flush();
     backupFile.close();
 
-    LogParam::setParam(lastBackupParamName, now);
+    LogParam::setLastBackupDate(now);
 
     qCDebug(runtime) << "Database backup finished";
     return true;
@@ -507,7 +506,7 @@ bool Migration::insertUUID()
 {
     FCT_IDENTIFICATION;
 
-    return LogParam::setParam("logid", QUuid::createUuid().toString());
+    return LogParam::setLogID(QUuid::createUuid().toString());
 }
 
 bool Migration::fillMyDXCC()

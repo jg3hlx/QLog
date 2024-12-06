@@ -73,7 +73,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     ui->dupeLabel->setVisible(false);
 
     setupCustomUi();
-    uiDynamic->contestIDEdit->setText(LogParam::getParam("contest/contestid").toString());
+    uiDynamic->contestIDEdit->setText(LogParam::getContestID());
 
     CWKeyProfilesManager::instance(); //TODO remove, make it better - workaround
 
@@ -3300,7 +3300,7 @@ bool NewContactWidget::shouldStartContest()
 {
     FCT_IDENTIFICATION;
 
-    const QString &prevContestID = LogParam::getParam("contest/contestid").toString();
+    const QString &prevContestID = LogParam::getContestID();
 
     qCDebug(runtime) << "Prev Contest" << prevContestID
                      << "Current" << uiDynamic->contestIDEdit->text();
@@ -3312,8 +3312,8 @@ void NewContactWidget::startContest(const QDateTime &date)
     FCT_IDENTIFICATION;
 
     resetSTXSeq();
-    LogParam::setParam("contest/contestid", uiDynamic->contestIDEdit->text());
-    LogParam::setParam("contest/dupeDate", date);
+    LogParam::setContestID(uiDynamic->contestIDEdit->text());
+    LogParam::setContestDupeDate(date);
     emit contestStarted(uiDynamic->contestIDEdit->text(), date);
 }
 
@@ -3321,11 +3321,10 @@ void NewContactWidget::setSTXSeq()
 {
     FCT_IDENTIFICATION;
 
-    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
-    QString key = ( seqnoType == Data::SeqType::SINGLE ) ? "contest/seqnos/single"
-                                     : QString("contest/seqnos/%1").arg(ui->bandRXLabel->text());
-
-    uiDynamic->stxEdit->setText(LogParam::getParam(key, 1).toString().rightJustified(3, '0'));
+    int seqnoType = LogParam::getContestSeqnoType();
+    int seq = LogParam::getContestSeqno(( seqnoType == Data::SeqType::SINGLE ) ? QString()
+                                                                               : ui->bandTXLabel->text());
+    uiDynamic->stxEdit->setText(QString::number(seq).rightJustified(3, '0'));
 }
 
 void NewContactWidget::setSTXSeq(int newValue)
@@ -3334,13 +3333,11 @@ void NewContactWidget::setSTXSeq(int newValue)
 
     qCDebug(function_parameters) << newValue;
 
-    int seqnoType = LogParam::getParam("contest/seqnotype", Data::SeqType::SINGLE).toInt();
-    QString key = ( seqnoType == Data::SeqType::SINGLE ) ? "contest/seqnos/single"
-                                                         : QString("contest/seqnos/%1").arg(ui->bandTXLabel->text());
+    int seqnoType = LogParam::getContestSeqnoType();
 
-    QString newValueString = QString::number(newValue);
-    LogParam::setParam(key, newValueString);
-    uiDynamic->stxEdit->setText(newValueString.rightJustified(3, '0'));
+    LogParam::setContestSeqno(newValue, (seqnoType == Data::SeqType::SINGLE) ? QString()
+                                                                             : ui->bandTXLabel->text());
+    uiDynamic->stxEdit->setText(QString::number(newValue).rightJustified(3, '0'));
 }
 
 void NewContactWidget::updateNearestSpotDupe()
@@ -3356,7 +3353,7 @@ void NewContactWidget::resetSTXSeq()
 {
     FCT_IDENTIFICATION;
 
-    LogParam::removeParamGroup("contest/seqnos/");
+    LogParam::removeContestSeqno();
     setSTXSeq();
 }
 
@@ -3364,8 +3361,8 @@ void NewContactWidget::stopContest()
 {
     FCT_IDENTIFICATION;
 
-    LogParam::setParam("contest/contestid", QString());
-    LogParam::setParam("contest/dupeDate", QString());
+    LogParam::setContestID(QString());
+    LogParam::removeConetstDupeDate();
     resetSTXSeq();
     resetContact();
     nearestSpot.dupeCount = false;
