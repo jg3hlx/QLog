@@ -399,8 +399,6 @@ MainWindow::MainWindow(QWidget* parent) :
 
     setupActivitiesMenu();
 
-// Temporary disabled (Issue #530)
-#if 0
     const QList<QDockWidget*> dockWidgets = findChildren<QDockWidget*>();
 
     for ( QDockWidget* dockWidget : dockWidgets )
@@ -408,7 +406,6 @@ MainWindow::MainWindow(QWidget* parent) :
         if ( dockWidget )
             dockWidget->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
     }
-#endif
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
