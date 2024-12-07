@@ -9,6 +9,7 @@ TBC - 0.41.0
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
+- Fixed ADX/CSV/JSON do not export non-ASCII chars (issue #542)
 
 2024/11/29 - 0.40.1
 - Fixed Bands - Added missing 8m band (issue #515)
