@@ -387,32 +387,32 @@ void Rig::setRawModeImpl(const QString &rawMode)
     rigDriver->setRawMode(rawMode);
 }
 
-void Rig::setMode(const QString &newMode, const QString &newSubMode)
+void Rig::setMode(const QString &newMode, const QString &newSubMode, bool digiVariant)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << newMode << newSubMode;
+    qCDebug(function_parameters) << newMode << newSubMode << digiVariant;
 
     if ( newMode.isEmpty()
          && newSubMode.isEmpty() )
         return;
 
     QMetaObject::invokeMethod(this, "setModeImpl",
-                              Qt::QueuedConnection, Q_ARG(QString, newMode), Q_ARG(QString, newSubMode));
+                              Qt::QueuedConnection, Q_ARG(QString, newMode), Q_ARG(QString, newSubMode), Q_ARG(bool, digiVariant));
 }
 
-void Rig::setModeImpl(const QString &newMode, const QString &newSubMode)
+void Rig::setModeImpl(const QString &newMode, const QString &newSubMode, bool digiVariant)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << newMode << newSubMode;
+    qCDebug(function_parameters) << newMode << newSubMode << digiVariant;
 
     MUTEXLOCKER;
 
     if ( ! rigDriver )
         return;
 
-    rigDriver->setMode(newMode, newSubMode);
+    rigDriver->setMode(newMode, newSubMode, digiVariant);
 }
 
 void Rig::setPTT(bool active)

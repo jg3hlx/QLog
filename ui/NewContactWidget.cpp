@@ -2714,12 +2714,13 @@ void NewContactWidget::tuneDx(const DxSpot &spot)
             // therefore change Mode without signals and then set the
             // final mode
             changeModeWithoutSignals(mode, subMode);
-            if ( mode == "FT8" )
+            if (spot.bandPlanMode ==  BandPlan::BAND_MODE_FT8
+                || spot.bandPlanMode ==  BandPlan::BAND_MODE_DIGITAL )
             {
                 // if rig is connected then FT8 mode is overwrotten by rit
                 // but it the rig is not connected then mode contains a correct
                 // mode
-                rig->setMode("SSB", "USB");
+                rig->setMode("SSB", "USB", true);
             }
             else
             {

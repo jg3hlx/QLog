@@ -24,7 +24,7 @@ public:
 
     virtual void setFrequency(double) override;
     virtual void setRawMode(const QString &) override;
-    virtual void setMode(const QString &, const QString &) override;
+    virtual void setMode(const QString &, const QString &, bool) override;
     virtual void setPTT(bool) override;
     virtual void setKeySpeed(qint16 wpm) override;
     virtual void syncKeySpeed(qint16 wpm) override;
@@ -92,6 +92,7 @@ private:
     bool morseOverCatSupported;
     QMutex drvLock;
     QHash<QString, QString>postponedErrors;
+    QStringList modeList;
 };
 
 #endif // RIG_DRIVERS_HAMLIBRIGDRV_H

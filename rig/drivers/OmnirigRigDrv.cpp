@@ -256,11 +256,11 @@ void OmnirigRigDrv::setRawMode(const QString &rawMode)
     }
 }
 
-void OmnirigRigDrv::setMode(const QString &mode, const QString &submode)
+void OmnirigRigDrv::setMode(const QString &mode, const QString &submode, bool digiVariant)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters) << mode << submode;
+    qCDebug(function_parameters) << mode << submode << digiVariant;
 
     setRawMode((submode.isEmpty()) ? mode.toUpper() : submode.toUpper());
 }
