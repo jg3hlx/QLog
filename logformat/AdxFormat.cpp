@@ -12,6 +12,11 @@ AdxFormat::AdxFormat(QTextStream &stream) :
     reader(nullptr)
 {
     FCT_IDENTIFICATION;
+#if QT_VERSION >= QT_VERSION_CHECK(6,0,0)
+    stream.setEncoding(QStringConverter::Utf8);
+#else
+    stream.setCodec("UTF-8");
+#endif
 }
 
 void AdxFormat::importStart()
