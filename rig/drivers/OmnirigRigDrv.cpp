@@ -398,14 +398,14 @@ const QString OmnirigRigDrv::getModeNormalizedText(const QString &rawMode, QStri
         return "FM";
 
     // maybe bad maybe good
-    if ( rawMode == "DIGI_U" )
+    if ( rawMode == "DIG_U" )
     {
         submode = "USB";
         return "SSB";
     }
 
     // maybe bad maybe good
-    if ( rawMode == "DIGI_L" )
+    if ( rawMode == "DIG_L" )
     {
         submode = "LSB";
         return "SSB";
