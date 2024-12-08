@@ -250,7 +250,7 @@ void OmnirigRigDrv::setRawMode(const QString &rawMode)
         if ( rawMode & writableParams )
         {
             qCDebug(runtime) << "Setting Mode";
-            rig->SetMode(mappedMode.at(0));
+            rig->SetMode(rawMode);
             commandSleep();
         }
     }
@@ -261,6 +261,15 @@ void OmnirigRigDrv::setMode(const QString &mode, const QString &submode, bool di
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << mode << submode << digiVariant;
+
+    QString innerSubmode(submode);
+
+    if ( digiVariant )
+    {
+        const QString digMode = QLatin1String("DIG_") + innerSubmode.at(0);
+        if ( modeMap.key(digMode) & writableParams )
+            innerSubmode = digMode;
+    }
 
     setRawMode((submode.isEmpty()) ? mode.toUpper() : submode.toUpper());
 }

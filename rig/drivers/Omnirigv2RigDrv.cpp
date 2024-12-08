@@ -253,7 +253,7 @@ void OmnirigV2RigDrv::setRawMode(const QString &rawMode)
         if ( rawMode & writableParams )
         {
             qCDebug(runtime) << "Setting Mode";
-            rig->SetMode(mappedMode.at(0));
+            rig->SetMode(rawMode);
             commandSleep();
         }
     }
@@ -265,7 +265,16 @@ void OmnirigV2RigDrv::setMode(const QString &mode, const QString &submode, bool 
 
     qCDebug(function_parameters) << mode << submode << digiVariant;
 
-    setRawMode((submode.isEmpty()) ? mode.toUpper() : submode.toUpper());
+    QString innerSubmode(submode);
+
+    if ( digiVariant )
+    {
+        const QString digMode = QLatin1String("DIG_") + innerSubmode.at(0);
+        if ( modeMap.key(digMode) & writableParams )
+            innerSubmode = digMode;
+    }
+
+    setRawMode((submode.isEmpty()) ? mode.toUpper() : innerSubmode.toUpper());
 }
 
 void OmnirigV2RigDrv::setPTT(bool newPTTSTate)
