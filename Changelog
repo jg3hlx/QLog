@@ -11,6 +11,7 @@ TBC - 0.41.0
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
 - Fixed ADX/CSV/JSON do not export non-ASCII chars (issue #542)
 - Fixed Checking the 60m checkbox in cluster filters allows 160m spots to appear (issue #543 @aa5sh)
+- Fixed DX Stat screen is jumping up/down
 
 2024/11/29 - 0.40.1
 - Fixed Bands - Added missing 8m band (issue #515)
