@@ -183,7 +183,11 @@ void MembershipQE::asyncQueryDetails(const QString &callsign,
                               Qt::QueuedConnection,
                               Q_ARG(QString, callsign.toUpper()),
                               Q_ARG(QString, band),
-                              Q_ARG(QString, mode));
+                              Q_ARG(QString, mode),
+                              Q_ARG(bool, LogParam::getDxccConfirmedByLotwState()),
+                              Q_ARG(bool, LogParam::getDxccConfirmedByPaperState()),
+                              Q_ARG(bool, LogParam::getDxccConfirmedByEqslState())
+                              );
 }
 
 void MembershipQE::updateLists()
@@ -489,7 +493,10 @@ ClubStatusQuery::~ClubStatusQuery()
 
 void ClubStatusQuery::getClubStatus(const QString &in_callsign,
                                     const QString &in_band,
-                                    const QString &in_mode)
+                                    const QString &in_mode,
+                                    bool lowtConfirmed,
+                                    bool paperConfirmed,
+                                    bool eqslConfirmed)
 {
     FCT_IDENTIFICATION;
     qCDebug(function_parameters) << in_callsign << in_band << in_mode;
@@ -520,13 +527,13 @@ void ClubStatusQuery::getClubStatus(const QString &in_callsign,
 
     QStringList dxccConfirmedByCond(QLatin1String("0=1")); // if no option is selected then always false
 
-    if ( LogParam::getDxccConfirmedByLotwState() )
+    if ( lowtConfirmed )
         dxccConfirmedByCond << QLatin1String("c.lotw_qsl_rcvd = 'Y'");
 
-    if ( LogParam::getDxccConfirmedByPaperState() )
+    if ( paperConfirmed )
         dxccConfirmedByCond << QLatin1String("c.qsl_rcvd = 'Y'");
 
-    if ( LogParam::getDxccConfirmedByEqslState() )
+    if ( eqslConfirmed )
         dxccConfirmedByCond << QLatin1String("c.eqsl_qsl_rcvd = 'Y'");
 
     if ( ! query.exec(QString("SELECT DISTINCT clubid, NULL band, NULL mode, "
