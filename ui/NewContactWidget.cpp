@@ -1593,7 +1593,7 @@ void NewContactWidget::saveContact()
     if ( !isQSOTimeStarted() )
         updateTime();
 
-    QDateTime start = QDateTime(ui->dateEdit->date(), ui->timeOnEdit->time(), Qt::UTC);
+    QDateTime start = QDateTime(ui->dateEdit->date(), ui->timeOnEdit->time(), QTimeZone::utc());
     QDateTime end = ( isManualEnterMode ) ? start.addSecs(QTime(0,0).secsTo(ui->qsoDurationEdit->time()))
                                           : timeOff;
 

@@ -470,8 +470,8 @@ void AdiFormat::contactFields2SQLRecord(QMap<QString, QVariant> &contact, QSqlRe
         time_on = time_off;
     }
 
-    QDateTime start_time(date_on, time_on, Qt::UTC);
-    QDateTime end_time(date_off, time_off, Qt::UTC);
+    QDateTime start_time(date_on, time_on, QTimeZone::utc());
+    QDateTime end_time(date_off, time_off, QTimeZone::utc());
 
     if ( end_time < start_time )
     {
