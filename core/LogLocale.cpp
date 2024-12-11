@@ -12,7 +12,7 @@ QString LogLocale::formatTimeLongWithoutTZ() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = timeFormat(QLocale::LongFormat).replace("(t)", "").replace(" t", "").replace("t", "");
+    QString ret = timeFormat(QLocale::LongFormat).replace(", tttt", "").replace("(t)", "").replace(" t", "").replace("t", "");
 
     qCDebug(runtime) << "format:" << ret;
     return ret;
@@ -32,7 +32,8 @@ QString LogLocale::formatTimeLong() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = timeFormat(QLocale::LongFormat);
+
+    QString ret = formatTimeLongWithoutTZ().append(" t");
 
     qCDebug(runtime) << "format:" << ret;
     return ret;
