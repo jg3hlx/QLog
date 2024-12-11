@@ -174,10 +174,10 @@ QStringList OmnirigV2RigDrv::getAvailableModes()
     FCT_IDENTIFICATION;
 
     QStringList ret;
-    const QStringList &modes = modeMap.values();
 
-    for ( const QString& mode : modes )
-        ret << mode;
+    for ( auto it = modeMap.constBegin(); it != modeMap.constEnd(); ++it )
+        if ( it.key() & writableParams )
+            ret.append(it.value());
 
     return ret;
 }
@@ -415,6 +415,8 @@ void OmnirigV2RigDrv::rigStatusChange(int rigID)
         emit errorOccured(tr("Rig status changed"),
                           tr("Rig is not connected"));
     }
+    else
+        emit rigIsReady();
 }
 
 void OmnirigV2RigDrv::COMException(int code,
