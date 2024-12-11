@@ -419,7 +419,7 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
             dupQuery.bindValue(":callsign", call);
             dupQuery.bindValue(":mode", mode);
             dupQuery.bindValue(":band", band);
-            dupQuery.bindValue(":startdate", start_time.toTimeSpec(Qt::UTC).toString("yyyy-MM-dd hh:mm:ss"));
+            dupQuery.bindValue(":startdate", start_time.toTimeZone(QTimeZone::utc()).toString("yyyy-MM-dd hh:mm:ss"));
 
             if ( !dupQuery.exec() )
             {
@@ -778,7 +778,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                 .arg(call.toString(),
                      mode.toString(),
                      band.toString(),
-                     start_time.toDateTime().toTimeSpec(Qt::UTC).toString("yyyy-MM-dd hh:mm:ss"));
+                     start_time.toDateTime().toTimeZone(QTimeZone::utc()).toString("yyyy-MM-dd hh:mm:ss"));
 
         /* set filter */
         model.setFilter(matchFilter);
@@ -1108,7 +1108,7 @@ void LogFormat::writeImportLog(QTextStream& errorLogStream,
     errorLogStream << QString("[QSO#%1]: ").arg(recordNo)
                    << importLogSeverityToString(severity)
                    << msg
-                   << QString(" (%1; %2; %3)").arg(record.value("start_time").toDateTime().toTimeSpec(Qt::UTC).toString(locale.formatDateShortWithYYYY()),
+                   << QString(" (%1; %2; %3)").arg(record.value("start_time").toDateTime().toTimeZone(QTimeZone::utc()).toString(locale.formatDateShortWithYYYY()),
                                                    record.value("callsign").toString(),
                                                    record.value("mode").toString())
                    << "\n";

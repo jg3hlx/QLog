@@ -151,7 +151,7 @@ void EQSL::getQSLImage(const QSqlRecord &qso)
 
     const QString &username = getUsername();
     const QString &password = getPassword();
-    const QDateTime &time_start = qso.value("start_time").toDateTime().toTimeSpec(Qt::UTC);
+    const QDateTime &time_start = qso.value("start_time").toDateTime().toTimeZone(QTimeZone::utc());
 
     QUrlQuery query;
 
@@ -293,7 +293,7 @@ QString EQSL::QSLImageFilename(const QSqlRecord &qso)
 
     /* QSL Fileformat YYYYMMDD_ID_Call_eqsl.jpg */
 
-    const QDateTime &time_start = qso.value("start_time").toDateTime().toTimeSpec(Qt::UTC);
+    const QDateTime &time_start = qso.value("start_time").toDateTime().toTimeZone(QTimeZone::utc());
 
     const QString &ret = QString("%1_%2_%3_eqsl.jpg").arg(time_start.toString("yyyyMMdd"),
                                                    qso.value("id").toString(),

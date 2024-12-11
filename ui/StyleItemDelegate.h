@@ -17,6 +17,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QApplication>
+#include <QTimeZone>
 
 #include "core/LogLocale.h"
 #include "core/Gridsquare.h"
@@ -104,7 +105,7 @@ public:
     {
         // own Locale
         LogLocale locale;
-        return value.toDateTime().toTimeSpec(Qt::UTC).toString(locale.formatDateShortWithYYYY() + " " + locale.formatTimeLongWithoutTZ());
+        return value.toDateTime().toTimeZone(QTimeZone::utc()).toString(locale.formatDateShortWithYYYY() + " " + locale.formatTimeLongWithoutTZ());
     }
 
     QWidget* createEditor(QWidget* parent,

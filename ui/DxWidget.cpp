@@ -981,7 +981,7 @@ void DxWidget::receive()
             {
                 WCYSpot spot;
 
-                spot.time = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
+                spot.time = QDateTime::currentDateTime().toTimeZone(QTimeZone::utc());
                 spot.KIndex = wcySpotMatch.captured(4).toUInt();
                 spot.expK = wcySpotMatch.captured(5).toUInt();
                 spot.AIndex = wcySpotMatch.captured(6).toUInt();
@@ -1006,7 +1006,7 @@ void DxWidget::receive()
             {
                 WWVSpot spot;
 
-                spot.time = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
+                spot.time = QDateTime::currentDateTime().toTimeZone(QTimeZone::utc());
                 spot.SFI = wwvSpotMatch.captured(4).toUInt();
                 spot.AIndex = wwvSpotMatch.captured(5).toUInt();
                 spot.KIndex = wwvSpotMatch.captured(6).toUInt();
@@ -1028,7 +1028,7 @@ void DxWidget::receive()
             {
                 ToAllSpot spot;
 
-                spot.time = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
+                spot.time = QDateTime::currentDateTime().toTimeZone(QTimeZone::utc());
                 spot.spotter = toAllSpotMatch.captured(2);
                 DxccEntity spotter_info = Data::instance()->lookupDxcc(spot.spotter);
                 spot.dxcc_spotter = spotter_info;
@@ -1527,7 +1527,7 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     DxSpot spot;
 
-    spot.dateTime = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeSpec(Qt::UTC)
+    spot.dateTime = (!dateTime.isValid()) ? QDateTime::currentDateTime().toTimeZone(QTimeZone::utc())
                                     : dateTime;
     spot.callsign = call;
     spot.freq = freq.toDouble() / 1000;

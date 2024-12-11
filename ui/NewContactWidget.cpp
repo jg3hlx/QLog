@@ -1995,7 +1995,7 @@ void NewContactWidget::markContact()
     {
         DxSpot spot;
 
-        spot.dateTime = QDateTime::currentDateTime().toTimeSpec(Qt::UTC);
+        spot.dateTime = QDateTime::currentDateTime().toTimeZone(QTimeZone::utc());
         spot.freq = ui->freqRXEdit->value();
         spot.band = BandPlan::freq2Band(spot.freq).name;
         spot.callsign = ui->callsignEdit->text().toUpper();

@@ -81,7 +81,7 @@ void AdiFormat::writeSQLRecord(const QSqlRecord &record,
 
     if ( startVariant.isValid() )
     {
-        const QDateTime &time_start = startVariant.toDateTime().toTimeSpec(Qt::UTC);
+        const QDateTime &time_start = startVariant.toDateTime().toTimeZone(QTimeZone::utc());
         writeField("qso_date", startVariant.isValid(),
                    time_start.toString("yyyyMMdd"), "D");
         writeField("time_on", startVariant.isValid(),
@@ -92,7 +92,7 @@ void AdiFormat::writeSQLRecord(const QSqlRecord &record,
 
     if ( endVariant.isValid() )
     {
-        const QDateTime &time_end = record.value("end_time").toDateTime().toTimeSpec(Qt::UTC);
+        const QDateTime &time_end = record.value("end_time").toDateTime().toTimeZone(QTimeZone::utc());
         writeField("qso_date_off", endVariant.isValid(),
                    time_end.toString("yyyyMMdd"), "D");
         writeField("time_off", endVariant.isValid(),
