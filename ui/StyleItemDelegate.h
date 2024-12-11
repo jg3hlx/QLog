@@ -50,7 +50,11 @@ public:
                           const QModelIndex&) const
     {
         QDateEdit* editor = new QDateEdit(parent);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+        editor->setTimeZone(QTimeZone::UTC);
+#else
         editor->setTimeSpec(Qt::UTC);
+#endif
         editor->setMinimumDate(QDate(1900, 1, 1));
         editor->setSpecialValueText(tr("Blank"));
         return editor;
@@ -113,7 +117,12 @@ public:
                           const QModelIndex&) const
     {
         QDateTimeEdit* editor = new QDateTimeEdit(parent);
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+        editor->setTimeZone(QTimeZone::UTC);
+#else
         editor->setTimeSpec(Qt::UTC);
+#endif
         editor->setDateTime(QDateTime(QDate(1900, 1, 1), QTime(0, 0, 0)));
         editor->setSpecialValueText(tr("Blank"));
         return editor;

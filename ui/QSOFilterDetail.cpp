@@ -345,7 +345,11 @@ QDateEdit *QSOFilterDetail::createDateEdit(const QString &value, const int ident
     valueDate->setObjectName(QString::fromUtf8("valueDateEdit%1").arg(identified));
     valueDate->setFocusPolicy(Qt::ClickFocus);
     valueDate->setCalendarPopup(true);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+    valueDate->setTimeZone(QTimeZone::UTC);
+#else
     valueDate->setTimeSpec(Qt::UTC);
+#endif
     valueDate->setDisplayFormat(locale.formatDateShortWithYYYY());
     valueDate->setSizePolicy(sizepolicy);
     if ( !value.isEmpty() )
@@ -361,7 +365,11 @@ QDateTimeEdit *QSOFilterDetail::createDateTimeEdit(const QString &value, const i
     QDateTimeEdit* valueDateTime = new QDateTimeEdit();
     valueDateTime->setObjectName(QString::fromUtf8("valueDateTimeEdit%1").arg(identified));
     valueDateTime->setFocusPolicy(Qt::ClickFocus);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 7, 0)
+    valueDateTime->setTimeZone(QTimeZone::UTC);
+#else
     valueDateTime->setTimeSpec(Qt::UTC);
+#endif
     valueDateTime->setDisplayFormat(locale.formatDateShortWithYYYY()
                                     + " " + locale.formatTimeLongWithoutTZ());
     valueDateTime->setSizePolicy(sizepolicy);
