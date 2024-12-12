@@ -451,6 +451,7 @@ void NewContactWidget::handleCallsignFromUser()
 
     if ( callsign.isEmpty() )
     {
+        setDxccInfo(DxccEntity());
         updateTime();
         stopContactTimer();
     }
