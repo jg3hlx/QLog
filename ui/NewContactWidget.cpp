@@ -408,7 +408,7 @@ void NewContactWidget::readGlobalSettings()
     refreshAntProfileCombo();
 
     // recalculate all stats
-    setDxccInfo(ui->callsignEdit->text().toUpper());
+    setDxccInfo(ui->callsignEdit->text());
 
     ui->freqRXEdit->loadBands();
     ui->freqTXEdit->loadBands();
@@ -518,7 +518,7 @@ void NewContactWidget::setDxccInfo(const QString &callsign)
 
     qCDebug(function_parameters) << callsign;
 
-    setDxccInfo(Data::instance()->lookupDxcc(callsign));
+    setDxccInfo(Data::instance()->lookupDxcc(callsign.toUpper()));
 }
 
 void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign, const QString &grid)
@@ -753,7 +753,7 @@ void NewContactWidget::refreshStationProfileCombo()
         ui->stationProfileCombo->setCurrentText(StationProfilesManager::instance()->getCurProfile1().profileName);
     }
 
-    setDxccInfo(ui->callsignEdit->text().toUpper());
+    setDxccInfo(ui->callsignEdit->text());
     updateDxccStatus();
     ui->stationProfileCombo->blockSignals(false);
 }
@@ -972,7 +972,7 @@ void NewContactWidget::gridChanged()
     if (!newGrid.isValid())
     {
         coordPrec = COORD_NONE;
-        setDxccInfo(ui->callsignEdit->text().toUpper());
+        setDxccInfo(ui->callsignEdit->text());
         return;
     }
 
@@ -3100,7 +3100,7 @@ void NewContactWidget::stationProfileComboChanged(const QString &profileName)
     StationProfilesManager::instance()->setCurProfile1(profileName);
 
     // recalculate all stats
-    setDxccInfo(ui->callsignEdit->text().toUpper());
+    setDxccInfo(ui->callsignEdit->text());
 }
 
 void NewContactWidget::setValuesFromActivity(const QString &name)
