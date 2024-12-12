@@ -96,7 +96,7 @@ void DxccTableWidget::updateDxTable(const QString &condition,
                                                                                                : defaultBrush, Qt::BackgroundRole);
         dxccTableModel->setHeaderData(i+1, Qt::Horizontal, dxccBands.at(i).name);
     }
-
+    setColumnWidth(0,65);
     show();
 }
 
