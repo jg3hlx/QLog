@@ -71,7 +71,11 @@ void ColumnSettingDialog::setupDialog()
                                              : !table->isColumnHidden(columnIndex)));
         columnCheckbox->setText(columnNameString);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+        connect(columnCheckbox, &QCheckBox::checkStateChanged, this, [columnIndex, this](Qt::CheckState state)
+#else
         connect(columnCheckbox, &QCheckBox::stateChanged, this, [columnIndex, this](int state)
+#endif
         {
             emit columnChanged(columnIndex, state);
             if ( table ) table->setColumnHidden(columnIndex, !table->isColumnHidden(columnIndex));
@@ -351,10 +355,14 @@ ColumnSettingSimpleDialog::ColumnSettingSimpleDialog(QTableView *table, QWidget 
         columnCheckbox->setChecked(!table->isColumnHidden(columnIndex));
         columnCheckbox->setText(columnNameString);
 
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+        connect(columnCheckbox, &QCheckBox::checkStateChanged, this, [columnIndex, table, this](Qt::CheckState state)
+#else
         connect(columnCheckbox, &QCheckBox::stateChanged, this, [columnIndex, table, this](int state)
+#endif
         {
             emit columnChanged(columnIndex, state);
-            table->setColumnHidden(columnIndex, !table->isColumnHidden(columnIndex));
+            if ( table) table->setColumnHidden(columnIndex, !table->isColumnHidden(columnIndex));
         });
 
         checkboxList.append(columnCheckbox);
