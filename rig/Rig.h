@@ -59,7 +59,7 @@ public slots:
 
     void setFrequency(double);
     void setRawMode(const QString &rawMode);
-    void setMode(const QString &, const QString &);
+    void setMode(const QString &, const QString &, bool = false);
     void setPTT(bool);
     void setKeySpeed(qint16 wpm);
     void syncKeySpeed(qint16 wpm);
@@ -90,7 +90,7 @@ private slots:
 
     void setFrequencyImpl(double);
     void setRawModeImpl(const QString&);
-    void setModeImpl(const QString &, const QString &);
+    void setModeImpl(const QString &, const QString &, bool);
     void setPTTImpl(bool);
     void setKeySpeedImpl(qint16 wpm);
     void syncKeySpeedImpl(qint16 wpm);
