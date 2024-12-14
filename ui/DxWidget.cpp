@@ -1701,7 +1701,7 @@ QString DxWidget::potaRefFromComment(const QString &comment) const
 {
     FCT_IDENTIFICATION;
 
-    return refFromComment(comment, potaRegEx, QStringLiteral("POTA"), 4);
+    return (!comment.contains(" IOTA ") ) ? refFromComment(comment, potaRegEx, QStringLiteral("POTA"), 4) : QString();
 }
 
 QString DxWidget::sotaRefFromComment(const QString &comment) const
