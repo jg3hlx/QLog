@@ -283,6 +283,23 @@ GenericNotificationMsg::GenericNotificationMsg(QObject *parent) :
     msg["time"] = QDateTime::currentMSecsSinceEpoch();
 }
 
+/* QSO Notification Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "operation":"insert",
+      "rowid":355,
+      "type":"adif",
+      "value":"<call:7>OK1TEST<qso_date:8:D>20220320<time_on:6:T>183536<qso_date_off:8:D>20220320<time_off:6:T>183557<rst_rcvd:3>599<rst_sent:3>599<name:12>Testing Name<qth:6>Prague<gridsquare:6>JO70GB<cqz:2>15<ituz:2>28<freq:8:N>10.12649<band:3>30m<mode:2>CW<cont:2>EU<dxcc:3>503<country:14>Czech Republic<qsl_rcvd:1>N<qsl_sent:1>N<lotw_qsl_rcvd:1>N<lotw_qsl_sent:1>N<a_index:1>5<band_rx:3>30m<distance:17>9.266243887046823<eqsl_qsl_rcvd:1>N<eqsl_qsl_sent:1>N<freq_rx:8>10.12649<hrdlog_qso_upload_status:1>N<k_index:4>1.33<my_city:5>PRAHA<my_gridsquare:6>JO70GD<my_rig:9>moje_nove<operator:5>LADAS<sfi:2>94<station_callsign:6>OK1MLG<eor>"
+   },
+   "logid":"{2046e323-b340-4634-8d52-4e70a4231978}",
+   "msgtype":"qso",
+   "time":1647801358067
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 QSONotificationMsg::QSONotificationMsg(const QSqlRecord &record,
                                        const QSOOperation operation,
                                        QObject *parent) :
@@ -319,6 +336,46 @@ QSONotificationMsg::QSONotificationMsg(const QSqlRecord &record,
     delete format;
 }
 
+/* DXC Spot Message
+ * Example
+ *
+{
+    "appid": "QLog",
+    "data": {
+        "band": "40m",
+        "comment": "tnx qso",
+        "dx": {
+            "call": "YB0AR",
+            "cont": "OC",
+            "country": "Indonesia",
+            "cqz": 28,
+            "dxcc": 327,
+            "ituz": 54,
+            "member": ["LoTW", "eQSLAG"]
+            "pfx": "YB",
+            "utcoffset": -7
+        },
+        "freq": "7.1880",
+        "mode": "PHONE",
+        "rcvtime": "20220316 20:04:30",
+        "spotter": {
+            "call": "G0DEF",
+            "cont": "EU",
+            "country": "England",
+            "cqz": 14,
+            "dxcc": 223,
+            "ituz": 27,
+            "pfx": "G",
+            "utcoffset": 0
+        },
+        "status": "newentity"
+    },
+    "logid":"{2046e323-b340-4634-8d52-4e70a4231978}",
+    "msgtype": "dxspot",
+    "time": 1647461070837
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 DXSpotNotificationMsg::DXSpotNotificationMsg(const DxSpot &spot, QObject *parent) :
     GenericSpotNotificationMsg(parent)
 {
@@ -360,6 +417,37 @@ DXSpotNotificationMsg::DXSpotNotificationMsg(const DxSpot &spot, QObject *parent
     msg["data"] = spotData;
 }
 
+/* WSJTX Spot Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "band":"80m",
+      "comment":"CQ OK1MLG JO70",
+      "dx":{
+         "call":"OK1MLG",
+         "cont":"EU",
+         "country":"Europe",
+         "cqz":15,
+         "dxcc":503,
+         "grid":"JO70",
+         "ituz":28,
+         "member":["LOTW", "eQSLAG"]
+         "pfx":"OK",
+         "utcoffset":-2
+      },
+      "freq":"3.5730",
+      "mode":"FT8",
+      "rcvtime":"20220318 17:04:29",
+      "status":"newband"
+   },
+   "logid":"{2046e323-b340-4634-8d52-4e70a4231978}",
+   "msgtype":"wsjtxcqspot",
+   "time":1647623069705
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 WSJTXCQSpotNotificationMsg::WSJTXCQSpotNotificationMsg(const WsjtxEntry &spot, QObject *parent) :
     GenericSpotNotificationMsg(parent)
 {
@@ -397,6 +485,50 @@ GenericSpotNotificationMsg::GenericSpotNotificationMsg(QObject *parent)
     FCT_IDENTIFICATION;
 }
 
+/* Spot Alert Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "band":"17m",
+      "comment":"CW     7 dB  25 WPM  CQ     ",
+      "dx":{
+         "call":"ZL3CW",
+         "cont":"OC",
+         "country":"New Zealand",
+         "cqz":32,
+         "dxcc":170,
+         "ituz":60,
+         "member": ["LOTW", "eQSLAG"]
+         "pfx":"ZL",
+         "utcoffset":-12
+      },
+      "freq":18.073,
+      "mode":"CW",
+      "rcvtime":"20220510 08:42:34",
+      "rules":[
+         "rule1",
+         "rule2"
+      ],
+      "spotter":{
+         "call":"SM6FMB",
+         "cont":"EU",
+         "country":"Sweden",
+         "cqz":14,
+         "dxcc":284,
+         "ituz":18,
+         "pfx":"SM",
+         "utcoffset":-1
+      },
+      "status":"newentity"
+   },
+   "logid":"{2046e323-b340-4634-8d52-4e70a4231978}",
+   "msgtype":"spotalert",
+   "time":1652172154472
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 SpotAlertNotificationMsg::SpotAlertNotificationMsg(const SpotAlert &alert, QObject *parent) :
     GenericSpotNotificationMsg(parent)
 {
@@ -440,6 +572,28 @@ SpotAlertNotificationMsg::SpotAlertNotificationMsg(const SpotAlert &alert, QObje
 
 }
 
+/* WCY Spot Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "A":13,
+      "Au":"no",
+      "GMF":"act",
+      "K":3,
+      "R":0,
+      "SA":"qui",
+      "SFI":68,
+      "expK":3,
+      "rcvtime":"20220923 11:29:16"
+   },
+   "logid":"{c804ab21-c1bf-4b7f-90a6-8927bdb10dd0}",
+   "msgtype":"wcyspot",
+   "time":1663932556260
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 WCYSpotNotificationMsg::WCYSpotNotificationMsg(const WCYSpot &spot, QObject *parent) :
     GenericNotificationMsg(parent)
 {
@@ -460,6 +614,25 @@ WCYSpotNotificationMsg::WCYSpotNotificationMsg(const WCYSpot &spot, QObject *par
     msg["data"] = spotData;
 }
 
+/* WWVSpot Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "A":12,
+      "Info1":"No Storms",
+      "Info2":"No Storms",
+      "K":2,
+      "SFI":68,
+      "rcvtime":"20220923 11:29:16"
+   },
+   "logid":"{c804ab21-c1bf-4b7f-90a6-8927bdb10dd0}",
+   "msgtype":"wwvspot",
+   "time":1663932556294
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 WWVSpotNotificationMsg::WWVSpotNotificationMsg(const WWVSpot &spot, QObject *parent) :
     GenericNotificationMsg(parent)
 {
@@ -477,6 +650,31 @@ WWVSpotNotificationMsg::WWVSpotNotificationMsg(const WWVSpot &spot, QObject *par
     msg["data"] = spotData;
 }
 
+/* ToAllSpot Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "data":{
+      "message":"GB7RDX New Users Welcome. cluster.g3ldi.co.uk Port 7000",
+      "rcvtime":"20220923 11:29:16",
+      "spotter":{
+         "call":"G3LDI",
+         "cont":"EU",
+         "country":"England",
+         "cqz":14,
+         "dxcc":223,
+         "ituz":27,
+         "pfx":"G",
+         "utcoffset":0
+      }
+   },
+   "logid":"{c804ab21-c1bf-4b7f-90a6-8927bdb10dd0}",
+   "msgtype":"toallspot",
+   "time":1663932556327
+}
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+  */
 ToAllSpotNotificationMsg::ToAllSpotNotificationMsg(const ToAllSpot &spot, QObject *parent) :
     GenericNotificationMsg(parent)
 {
