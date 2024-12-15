@@ -4360,6 +4360,9 @@
   <tabstop>tqslPathEdit</tabstop>
   <tabstop>tqslPathButton</tabstop>
   <tabstop>qrzApiKeyEdit</tabstop>
+  <tabstop>dxccConfirmedByLotwCheckBox</tabstop>
+  <tabstop>dxccConfirmedByPaperCheckBox</tabstop>
+  <tabstop>dxccConfirmedByEqslCheckBox</tabstop>
   <tabstop>bandTableView</tabstop>
   <tabstop>modeTableView</tabstop>
   <tabstop>wsjtForwardEdit</tabstop>
@@ -4375,9 +4378,6 @@
   <tabstop>notifRigEdit</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>tabWidget_2</tabstop>
-  <tabstop>dxccConfirmedByLotwCheckBox</tabstop>
-  <tabstop>dxccConfirmedByPaperCheckBox</tabstop>
-  <tabstop>dxccConfirmedByEqslCheckBox</tabstop>
   <tabstop>cwHostNameEdit</tabstop>
   <tabstop>equipmentTabWidget</tabstop>
   <tabstop>tabWidget_3</tabstop>

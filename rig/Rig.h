@@ -38,8 +38,8 @@ public:
         QString submode;
         QString rawmode;
         qint8 ptt = -1;
-        double power = -1.0;
-        int keySpeed = -1;
+        double power = 0.0;
+        quint16 keySpeed = 0;
         QString vfo = "Curr";
         double rit = 0.0;
         double xit = 0.0;
@@ -54,9 +54,9 @@ public:
             submode.clear();
             rawmode.clear();
             ptt = -1;
-            power = -1.0;
-            keySpeed = -1;
-            vfo.clear();
+            power = 0.0;
+            keySpeed = 0;
+            vfo="Curr";
             rit = 0.0;
             xit = 0.0;
             bandwidth = 0;

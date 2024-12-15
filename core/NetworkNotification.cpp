@@ -236,7 +236,7 @@ void NetworkNotification::rigStatus(const Rig::Status &status)
 
     qCDebug(function_parameters) << "Rig Status";
 
-    HostsPortString destList(getNotifSpotAlertAddrs());
+    HostsPortString destList(getNotifRigStateAddrs());
 
     if ( destList.getAddrList().size() > 0 )
     {
