@@ -502,6 +502,42 @@ ToAllSpotNotificationMsg::ToAllSpotNotificationMsg(const ToAllSpot &spot, QObjec
     msg["data"] = spotData;
 }
 
+/* Rig Status Message
+ * Example
+ *
+{
+   "appid":"QLog",
+   "msgtype":"rigstatus",
+   "time":1647197319251,
+   "data":{
+             "profile" : "IC7300",
+             "connected" : true,
+             "txvfo" : "CURR",
+             "rxvfo" : "CURR",                -- TX/RX VFOs have the same value - split is not supported
+             "txpower" : 0.01                 <in W>
+             "keyspeed" : 23
+             "vfostates" :
+              [
+                  {
+                     "vfo" : "CURR",
+                     "freq" : "7.18800"       <in MHz always 5 dec. places>
+                     "mode" : "FM",
+                     "rawmode" : "FM",        <raw mode from Rig>
+                     "ptt" : false,
+                     "rit" : 0.1              <in MHz>
+                     "xit" : 0.0              <in MHz>
+                     "bandwidth" : 2400       <in Hz>
+                  },
+                  {
+                     ....                     -- currently, the second VFO is not present
+                  }
+              ]
+          },
+   "logid":"{2046e323-b340-4634-8d52-4e70a4231978}"
+}
+  * Empty/Zero fields are not sent. Sent is everything that is known at the given moment of event.
+  * More info https://github.com/foldynl/QLog/wiki/Notifications
+*/
 RigStatusNotificationMsg::RigStatusNotificationMsg(const Rig::Status &status, QObject *parent) :
     GenericNotificationMsg(parent)
 {
