@@ -221,6 +221,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->notifDXSpotsEdit->setValidator(new QRegularExpressionValidator(HostsPortString::hostsPortRegEx(), this));
     ui->notifWSJTXCQSpotsEdit->setValidator(new QRegularExpressionValidator(HostsPortString::hostsPortRegEx(), this));
     ui->notifSpotAlertEdit->setValidator(new QRegularExpressionValidator(HostsPortString::hostsPortRegEx(), this));
+    ui->notifRigEdit->setValidator(new QRegularExpressionValidator(HostsPortString::hostsPortRegEx(), this));
 
     iotaCompleter = new QCompleter(Data::instance()->iotaIDList(), this);
     iotaCompleter->setCaseSensitivity(Qt::CaseInsensitive);
@@ -2342,6 +2343,7 @@ void SettingsDialog::readSettings() {
     ui->notifDXSpotsEdit->setText(NetworkNotification::getNotifDXSpotAddrs());
     ui->notifWSJTXCQSpotsEdit->setText(NetworkNotification::getNotifWSJTXCQSpotAddrs());
     ui->notifSpotAlertEdit->setText(NetworkNotification::getNotifSpotAlertAddrs());
+    ui->notifRigEdit->setText(NetworkNotification::getNotifRigStateAddrs());
 
     /******************/
     /* END OF Reading */
@@ -2453,6 +2455,7 @@ void SettingsDialog::writeSettings() {
     NetworkNotification::saveNotifDXSpotAddrs(ui->notifDXSpotsEdit->text());
     NetworkNotification::saveNotifWSJTXCQSpotAddrs(ui->notifWSJTXCQSpotsEdit->text());
     NetworkNotification::saveNotifSpotAlertAddrs(ui->notifSpotAlertEdit->text());
+    NetworkNotification::saveNotifRigStateAddrs(ui->notifSpotAlertEdit->text());
 }
 
 /* this function is called when user modify rig progile

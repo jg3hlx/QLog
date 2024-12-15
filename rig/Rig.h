@@ -30,6 +30,40 @@ public:
         TCI_DRIVER = 4
     };
 
+    struct Status
+    {
+        QString profile;
+        double freq = 0.0;
+        QString mode;
+        QString submode;
+        QString rawmode;
+        qint8 ptt = -1;
+        double power = -1.0;
+        int keySpeed = -1;
+        QString vfo = "Curr";
+        double rit = 0.0;
+        double xit = 0.0;
+        qint32 bandwidth = 0;
+        bool isConnected = false;
+
+        void clear()
+        {
+            profile.clear();
+            freq = 0.0;
+            mode.clear();
+            submode.clear();
+            rawmode.clear();
+            ptt = -1;
+            power = -1.0;
+            keySpeed = -1;
+            vfo.clear();
+            rit = 0.0;
+            xit = 0.0;
+            bandwidth = 0;
+            isConnected = false;
+        };
+    };
+
     static Rig* instance()
     {
         static Rig instance;
@@ -82,6 +116,7 @@ signals:
     void rigDisconnected();
     void rigConnected();
     void rigErrorPresent(QString, QString);
+    void rigStatusChanged(Rig::Status);
 
 private slots:
     void stopTimerImplt();
@@ -132,11 +167,15 @@ private:
     void __closeRig();
     void __openRig();
     GenericRigDrv *getDriver(const RigProfile &profile);
+    void emitRigStatusChanged();
 
 private:
     GenericRigDrv *rigDriver;
     QMutex rigLock;
+    Rig::Status rigStatus;
     bool connected;
 };
+
+Q_DECLARE_METATYPE(Rig::Status);
 
 #endif // RIG_RIG_H

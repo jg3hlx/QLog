@@ -13,6 +13,7 @@
 #include "data/WCYSpot.h"
 #include "data/WWVSpot.h"
 #include "data/ToAllSpot.h"
+#include "rig/Rig.h"
 
 class GenericNotificationMsg : public QObject
 {
@@ -115,6 +116,14 @@ public:
 
 };
 
+class RigStatusNotificationMsg : public GenericNotificationMsg
+{
+
+public:
+    explicit RigStatusNotificationMsg(const Rig::Status&, QObject *parent = nullptr);
+
+};
+
 class NetworkNotification : public QObject
 {
     Q_OBJECT
@@ -129,6 +138,8 @@ public:
     static void saveNotifWSJTXCQSpotAddrs(const QString &);
     static QString getNotifSpotAlertAddrs();
     static void saveNotifSpotAlertAddrs(const QString &);
+    static QString getNotifRigStateAddrs();
+    static void saveNotifRigStateAddrs(const QString &);
 
 public slots:
     void QSOInserted(const QSqlRecord &);
@@ -140,6 +151,7 @@ public slots:
     void toAllSpot(const ToAllSpot&);
     void WSJTXCQSpot(const WsjtxEntry&);
     void spotAlert(const SpotAlert&);
+    void rigStatus(const Rig::Status&);
 
 private:
 
@@ -149,6 +161,7 @@ private:
     static QString CONFIG_NOTIF_DXSPOT_ADDRS_KEY;
     static QString CONFIG_NOTIF_WSJTXCQSPOT_ADDRS_KEY;
     static QString CONFIG_NOTIF_SPOTALERT_ADDRS_KEY;
+    static QString CONFIG_NOTIF_RIGSTATE_ADDRS_KEY;
 
 };
 

@@ -84,6 +84,22 @@ void NetworkNotification::saveNotifSpotAlertAddrs(const QString &addresses)
 
 }
 
+QString NetworkNotification::getNotifRigStateAddrs()
+{
+    FCT_IDENTIFICATION;
+
+    QSettings settings;
+    return settings.value(NetworkNotification::CONFIG_NOTIF_RIGSTATE_ADDRS_KEY).toString();
+}
+
+void NetworkNotification::saveNotifRigStateAddrs(const QString &addresses)
+{
+    FCT_IDENTIFICATION;
+
+    QSettings settings;
+    settings.setValue(NetworkNotification::CONFIG_NOTIF_RIGSTATE_ADDRS_KEY, addresses);
+}
+
 void NetworkNotification::QSOInserted(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;
@@ -214,6 +230,21 @@ void NetworkNotification::spotAlert(const SpotAlert &spot)
     }
 }
 
+void NetworkNotification::rigStatus(const Rig::Status &status)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << "Rig Status";
+
+    HostsPortString destList(getNotifSpotAlertAddrs());
+
+    if ( destList.getAddrList().size() > 0 )
+    {
+        RigStatusNotificationMsg rigStatusMsg(status);
+        send(rigStatusMsg.getJson(), destList);
+    }
+}
+
 void NetworkNotification::send(const QByteArray &data, const HostsPortString &dests)
 {
     FCT_IDENTIFICATION;
@@ -240,6 +271,7 @@ QString NetworkNotification::CONFIG_NOTIF_QSO_ADI_ADDRS_KEY = "network/notificat
 QString NetworkNotification::CONFIG_NOTIF_DXSPOT_ADDRS_KEY = "network/notification/dxspot/addrs";
 QString NetworkNotification::CONFIG_NOTIF_WSJTXCQSPOT_ADDRS_KEY = "network/notification/wsjtx/cqspot/addrs";
 QString NetworkNotification::CONFIG_NOTIF_SPOTALERT_ADDRS_KEY = "network/notification/alerts/spot/addrs";
+QString NetworkNotification::CONFIG_NOTIF_RIGSTATE_ADDRS_KEY = "network/notification/rig/state/addrs";
 
 GenericNotificationMsg::GenericNotificationMsg(QObject *parent) :
     QObject(parent)
@@ -468,4 +500,71 @@ ToAllSpotNotificationMsg::ToAllSpotNotificationMsg(const ToAllSpot &spot, QObjec
 
     msg["msgtype"] = "toallspot";
     msg["data"] = spotData;
+}
+
+RigStatusNotificationMsg::RigStatusNotificationMsg(const Rig::Status &status, QObject *parent) :
+    GenericNotificationMsg(parent)
+{
+    FCT_IDENTIFICATION;
+
+    QJsonObject vfoState;
+
+    auto addIfNoEmpty = [&](const QString &key,
+                            const QString &value,
+                            bool addCond = true)
+    {
+        if ( !value.isEmpty() && addCond)
+            vfoState[key] = value;
+    };
+
+    auto addBoolIfNoEmpty = [&](const QString &key,
+                            const qint8 &value,
+                            bool addCond = true)
+    {
+        if ( addCond )
+            vfoState[key] = ( value != 0 );
+    };
+
+    auto addDoubleIfNoEmpty = [&](const QString &key,
+                                const double &value,
+                                bool addCond = true)
+    {
+        if ( value != 0.0 && addCond )
+            vfoState[key] = value;
+    };
+
+    addIfNoEmpty("vfo", status.vfo);
+    addIfNoEmpty("freq",  QString::number(status.freq, 'f', 5), status.freq != 0.0);
+    addIfNoEmpty("mode", status.mode);
+    addIfNoEmpty("submode", status.submode);
+    addIfNoEmpty("rawmode", status.rawmode);
+    addBoolIfNoEmpty("ptt", status.ptt, status.ptt != -1);
+    addDoubleIfNoEmpty("rit", status.rit);
+    addDoubleIfNoEmpty("xit", status.xit);
+    addDoubleIfNoEmpty("bandwidth", status.bandwidth);
+
+    QJsonArray vfoStates;
+    vfoStates.append(vfoState);
+
+    QJsonObject rigData;
+    rigData["profile"] = status.profile;
+    rigData["connected"] = status.isConnected;
+
+    if ( !status.vfo.isEmpty() )
+    {
+        rigData["txvfo"] = status.vfo;
+        rigData["rxvfo"] = status.vfo; // split mode is not supported yet
+    }
+
+    if ( status.power > 0.0 )
+        rigData["txpower"] = status.power;
+
+    if ( vfoState.size() > 0 )
+        rigData["vfostates"] = vfoStates;
+
+    if ( status.keySpeed > 0 )
+        rigData["keyspeed"] = status.keySpeed;
+
+    msg["msgtype"] = "rigstatus";
+    msg["data"] = rigData;
 }

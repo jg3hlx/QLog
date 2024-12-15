@@ -200,45 +200,64 @@ void Rig::__openRig()
 
     connect( rigDriver, &GenericRigDrv::frequencyChanged, this, [this](double a, double b, double c)
     {
+        rigStatus.freq = a;
         emit frequencyChanged(VFO1, a, b, c);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::pttChanged, this, [this](bool a)
     {
+        rigStatus.ptt = (a) ? 1 : 0;
         emit pttChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::modeChanged, this, [this](const QString &a,
-                                                               const QString &b,
-                                                               const QString &c,
-             qint32 d)
+                                                                  const QString &b,
+                                                                  const QString &c,
+                                                                  qint32 d)
     {
+        rigStatus.rawmode = a;
+        rigStatus.mode = b;
+        rigStatus.submode = c;
+        rigStatus.bandwidth = d;
         emit modeChanged(VFO1, a, b, c, d);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::vfoChanged, this, [this](const QString &a)
     {
+        rigStatus.vfo = a;
         emit vfoChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::powerChanged, this, [this](double a)
     {
+        rigStatus.power = a;
         emit powerChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::ritChanged, this, [this](double a)
     {
+        rigStatus.rit = a;
         emit ritChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::xitChanged, this, [this](double a)
     {
+        rigStatus.xit = a;
         emit xitChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::keySpeedChanged, this, [this](unsigned int a)
     {
+        rigStatus.keySpeed = a;
         emit keySpeedChanged(VFO1, a);
+        emitRigStatusChanged();
     });
 
     connect( rigDriver, &GenericRigDrv::errorOccured, this, [this](const QString &a,
@@ -259,6 +278,8 @@ void Rig::__openRig()
             emit rigCWKeyOpenRequest(newRigProfile.assignedCWKey);
         }
 
+        rigStatus.profile = newRigProfile.profileName;
+        rigStatus.isConnected = true;
         emit rigConnected();
 
         sendState();
@@ -307,6 +328,10 @@ void Rig::__closeRig()
     {
         emit rigCWKeyCloseRequest(connectedRigProfile.assignedCWKey);
     }
+
+    rigStatus.isConnected = false;
+    emitRigStatusChanged();
+    rigStatus.clear();
 
     delete rigDriver;
     rigDriver = nullptr;
@@ -597,6 +622,18 @@ GenericRigDrv *Rig::getDriver( const RigProfile &profile )
 #endif
     return new HamlibDrv(profile, this);
 #endif
+}
+
+void Rig::emitRigStatusChanged()
+{
+    FCT_IDENTIFICATION;
+
+    // it can happen especially with TCI that Rig received information,
+    // emit signals but rig is not connected.
+    if ( rigStatus.profile.isEmpty() )
+        return;
+
+    emit rigStatusChanged(rigStatus);
 }
 
 const QStringList Rig::getAvailableRawModes()
