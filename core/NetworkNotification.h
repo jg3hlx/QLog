@@ -5,6 +5,8 @@
 #include <QSqlRecord>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QUdpSocket>
+
 #include "core/HostsPortString.h"
 #include "logformat/LogFormat.h"
 #include "data/DxSpot.h"
@@ -154,6 +156,8 @@ public slots:
     void rigStatus(const Rig::Status&);
 
 private:
+
+    QUdpSocket udpSocket;
 
     void send(const QByteArray &, const HostsPortString &);
 

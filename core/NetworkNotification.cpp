@@ -1,5 +1,4 @@
 #include <QUuid>
-#include <QUdpSocket>
 
 #include "NetworkNotification.h"
 #include "debug.h"
@@ -251,17 +250,13 @@ void NetworkNotification::send(const QByteArray &data, const HostsPortString &de
 
     qCDebug(function_parameters) << QString(data);
 
-    if ( data.size() <= 0 )
-    {
+    if ( data.isEmpty() )
         return;
-    }
 
     const QList<HostPortAddress> &addrList = dests.getAddrList();
 
     for ( const HostPortAddress &addr : addrList )
     {
-        QUdpSocket udpSocket;
-
         qCDebug(runtime) << "Sending to " << addr;
         udpSocket.writeDatagram(data, addr, addr.getPort());
     }
