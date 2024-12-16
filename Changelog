@@ -6,6 +6,7 @@ TBC - 0.41.0
 - [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 - [NEW] - Added an input parameter to save debug message to file
 - [NEW] - Logbook - Added sorting function to logbook table columns (PR #540 @kyleboyle)
+- [NEW] - Network Notificaiton - Added Rig Status Notification
 - [CHANGED] - Settings: disabled band and mode name modification
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
