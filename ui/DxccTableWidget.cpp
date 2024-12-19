@@ -41,7 +41,7 @@ void DxccTableWidget::updateDxTable(const QString &condition,
 
     qCDebug(function_parameters) << condition << conditionValue;
 
-    const QList<Band>& dxccBands = BandPlan::bandsList(true, true);
+    const QList<Band>& dxccBands = BandPlan::bandsList(false, true);
 
     if ( dxccBands.isEmpty() )
         return;
