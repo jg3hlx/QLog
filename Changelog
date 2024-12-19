@@ -8,6 +8,7 @@ TBC - 0.41.0
 - [NEW] - Logbook - Added sorting function to logbook table columns (PR #540 @kyleboyle)
 - [NEW] - Network Notificaiton - Added Rig Status Notification
 - [CHANGED] - Settings: disabled band and mode name modification
+- [CHANGED] - DX Stats contain all enabled bands (issue #538)
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
