@@ -151,8 +151,10 @@ void ExportDialog::runExport()
         return;
     }
 
-    if (PotaAdiFormat *potaFormat = dynamic_cast<PotaAdiFormat *>(format)) {
-        potaFormat->setExportInfo(file);
+    if ( PotaAdiFormat *potaFormat = dynamic_cast<PotaAdiFormat *>(format) )
+    {
+        potaFormat->setPotaOnly(true);
+        potaFormat->setExportDirectory(QFileInfo(file).canonicalPath());
     }
 
     if ( ui->dateRangeCheckBox->isChecked() )
@@ -438,10 +440,15 @@ void ExportDialog::exportFormatChanged(const QString &format)
 {
     FCT_IDENTIFICATION;
 
-    if (format == "POTA") {
+    if (format == "POTA")
+    {
         ui->exportedColumnsCombo->setCurrentIndex(ui->exportedColumnsCombo->findData("pota"));
-    } else {
+        ui->exportTypeCombo->setEnabled(false);
+    }
+    else
+    {
         ui->exportedColumnsCombo->setCurrentIndex(ui->exportedColumnsCombo->findData("all"));
+        ui->exportTypeCombo->setEnabled(true);
     }
 }
 

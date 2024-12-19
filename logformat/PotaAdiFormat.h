@@ -18,20 +18,37 @@ public:
 
     virtual bool importNext(QSqlRecord &) override { return false; }
 
-    void setExportInfo(QFile &exportFile);
+    void setExportDirectory(const QString &dir);
     ~PotaAdiFormat();
 
-    static QList<QSqlRecord> splitActivatedParks(const QSqlRecord &);
-
 private:
-    QFileInfo *exportInfo;
-    QMap<QString, AdiFormat *> parkFormats;
-    QMap<QString, QFile *> parkFiles;
+    QString exportDir;
     QDateTime currentDate;
-    AdiFormat *getParkFile(const QSqlRecord &record);
-    static void duplicateField(QSqlRecord &record,
-                               const QString &fromFieldName,
-                               const QString &toFieldName);
+
+    struct ParkFormatter
+    {
+        AdiFormat *formatter = nullptr;
+        QFile *file = nullptr;
+        QTextStream *stream = nullptr;
+
+        ~ParkFormatter()
+        {
+            if ( formatter ) delete formatter;
+            if ( stream ) delete stream;
+            if ( file ) delete file;
+        }
+    };
+
+    QHash<QString, ParkFormatter *> parkFormatters;
+
+    AdiFormat *getActivatorParkFormatter(const QSqlRecord &record);
+    void moveFieldValue(QSqlRecord &record,
+                        const QString &fromFieldName,
+                        const QString &toFieldName);
+    bool isValidPotaRecord(const QSqlRecord &record) const;
+    void preparePotaField(QSqlRecord &record, const QString &refField,
+                          const QString &infoField, const QString &sigField);
+    void expandParkRecord(QList<QSqlRecord> &inputList, const QString &columnName);
 };
 
 #endif // QLOG_LOGFORMAT_POTALOGFORMAT_H

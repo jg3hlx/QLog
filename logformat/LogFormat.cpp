@@ -156,6 +156,12 @@ void LogFormat::setUserFilter(const QString &value)
     userFilter = value;
 }
 
+void LogFormat::setPotaOnly(bool only)
+{
+    FCT_IDENTIFICATION;
+    filterPOTAOnly = only;
+}
+
 QString LogFormat::getWhereClause()
 {
     FCT_IDENTIFICATION;
@@ -179,6 +185,9 @@ QString LogFormat::getWhereClause()
     if ( !filterSendVia.isEmpty() )
         whereClause << ( ( filterSendVia == " " ) ? "qsl_sent_via is NULL"
                                                   : "upper(qsl_sent_via) = upper(:qsl_sent_via)");
+
+    if ( filterPOTAOnly )
+        whereClause << QLatin1String("(my_pota_ref is not NULL OR pota_ref is not NULL OR lower(sig)='pota' OR lower(my_sig)='pota')");
 
     if ( !userFilter.isEmpty() )
         whereClause << QSOFilterManager::getWhereClause(userFilter);

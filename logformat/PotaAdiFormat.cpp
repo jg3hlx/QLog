@@ -7,147 +7,200 @@
 
 MODULE_IDENTIFICATION("qlog.logformat.potalogformat");
 
-#define ALWAYS_PRESENT true
-
-PotaAdiFormat::PotaAdiFormat(QTextStream &stream)
-    : AdiFormat(stream)
-    , currentDate(QDateTime::currentDateTime())
+PotaAdiFormat::PotaAdiFormat(QTextStream &stream) :
+    AdiFormat(stream),
+    currentDate(QDateTime::currentDateTime())
 {
     FCT_IDENTIFICATION;
 }
 
-void PotaAdiFormat::setExportInfo(QFile &exportFile)
+void PotaAdiFormat::setExportDirectory(const QString &dir)
 {
-    this->exportInfo = new QFileInfo(exportFile);
+    FCT_IDENTIFICATION;
+
+    exportDir = dir;
 }
 
 void PotaAdiFormat::exportContact(const QSqlRecord &sourceRecord, QMap<QString, QString> *applTags)
 {
     FCT_IDENTIFICATION;
-    if (this->exportInfo == nullptr) {
+
+    if ( exportDir.isEmpty() || !isValidPotaRecord(sourceRecord) )
         return;
-    }
-    // break single record into child activated park records
-    // assign records to files
-    QList<QSqlRecord> records = PotaAdiFormat::splitActivatedParks(sourceRecord);
-    for (QSqlRecord &record : records) {
-        duplicateField(record, "my_pota_ref", "my_sig");
-        record.field("my_sig").setValue(QString("POTA"));
-        duplicateField(record, "my_pota_ref", "my_sig_info");
-        if (!record.field("pota_ref").isNull()) {
-            duplicateField(record, "pota_ref", "sig_info");
-            duplicateField(record, "pota_ref", "sig");
-            record.field("sig").setValue(QString("POTA"));
-        }
-        AdiFormat *parkOut = this->getParkFile(record);
-        parkOut->exportContact(record, applTags);
-        // let parent do ADI export as normal to specified file
-        AdiFormat::exportContact(record, applTags);
-    }
-}
 
-AdiFormat *PotaAdiFormat::getParkFile(const QSqlRecord &record)
-{
-    // https://docs.pota.app/docs/activator_reference/logging_made_easy.html#naming-your-files
-    // station_callsign@park#-yyyymmdd
-    const QString parkFileName(record.field("station_callsign").value().toString() + "@"
-                               + record.field("my_sig_info").value().toString() + "-"
-                               + currentDate.toString("yyyyMMdd-hhmm") + ".adif");
+    QSqlRecord inputRecord(sourceRecord);
 
-    if (!parkFormats.contains(parkFileName)) {
-        parkFiles[parkFileName] = new QFile(exportInfo->canonicalPath() + QDir::separator()
-                                            + parkFileName);
-        if (!parkFiles[parkFileName]->open(QFile::WriteOnly | QFile::Text)) {
-            qCCritical(runtime) << "Could not open POTA park file for writing "
-                                << parkFiles[parkFileName]->fileName();
-        }
-        QTextStream *parkStream = new QTextStream(parkFiles[parkFileName]);
-        parkFormats[parkFileName] = new AdiFormat(*parkStream);
-        parkFormats[parkFileName]->exportStart();
-    }
-    qCDebug(runtime) << "using park file " << parkFileName << " is open? "
-                     << parkFiles[parkFileName]->isOpen();
+    preparePotaField(inputRecord, "my_pota_ref", "my_sig_info", "my_sig");
+    preparePotaField(inputRecord, "pota_ref", "sig_info", "sig");
 
-    return parkFormats[parkFileName];
-}
+    QList<QSqlRecord> expandedRecords({inputRecord});
 
-QList<QSqlRecord> PotaAdiFormat::splitActivatedParks(const QSqlRecord &record)
-{
-    FCT_IDENTIFICATION;
-    // can contain multiple parks as a csv:
-    // <MY_POTA_REF:40>K-0817,K-4566,K-4576,K-4573,K-4578@US-WY
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-    const QStringList activatedParks = record.field("my_pota_ref")
-                                           .value()
-                                           .toString()
-                                           .split(QRegularExpression("\\s*,\\s*"),
-                                                  Qt::SplitBehaviorFlags::SkipEmptyParts);
-#else /* Due to ubuntu 20.04 where qt5.12 is present */
-    const QStringList activatedParks = record.field("my_pota_ref")
-                                           .value()
-                                           .toString()
-                                           .split(QRegularExpression("\\s*,\\s*"),
-                                                  QString::SkipEmptyParts);
-#endif
+    // Expand records based on specific fields - one record for the specific POTA Ref
+    expandParkRecord(expandedRecords, "my_sig_info");
+    expandParkRecord(expandedRecords, "sig_info");
 
-    if (activatedParks.length() <= 0) {
-        return QList<QSqlRecord>();
-    } else if (activatedParks.length() == 1) {
-        return QList<QSqlRecord>({record});
-    } else {
-        QList<QSqlRecord> records = QList<QSqlRecord>();
-        for (const QString &parkID : activatedParks) {
-            QSqlRecord single = QSqlRecord(record);
-            single.setValue("my_pota_ref", parkID);
+    for ( const QSqlRecord &record : static_cast<const QList<QSqlRecord>&>(expandedRecords) )
+    {
+        const QString &mySig = record.value("my_sig").toString().toLower();
 
-            // If this is a park to park - the remote park can also be a multi park
-            // activation. These must also be split into multiple records.
-            const QSqlField parkToPark = record.field("pota_ref");
-            if (parkToPark.isNull() || !parkToPark.value().toString().contains(",")) {
-                records.append(single);
-            } else {
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-                QStringList remoteParks
-                    = parkToPark.value().toString().split(QRegularExpression("\\s*,\\s*"),
-                                                          Qt::SplitBehaviorFlags::SkipEmptyParts);
-#else /* Due to ubuntu 20.04 where qt5.12 is present */
-                QStringList remoteParks
-                    = parkToPark.value().toString().split(QRegularExpression("\\s*,\\s*"),
-                                                          QString::SkipEmptyParts);
-#endif
-                for (const QString &remoteParkID : remoteParks) {
-                    QSqlRecord remoteSingle = QSqlRecord(single);
-                    remoteSingle.setValue("pota_ref", remoteParkID);
-                    records.append(remoteSingle);
-                }
+        // export Activator Log
+        if ( mySig == "pota" )
+        {
+            if ( AdiFormat *parkOut = this->getActivatorParkFormatter(record) )
+            {
+                parkOut->exportContact(record, applTags);
+                continue;
             }
         }
-        return records;
+        // export Hunter Log
+        else if ( record.value("sig").toString().toLower() == "pota" && mySig.isEmpty() )
+            AdiFormat::exportContact(record, applTags);
     }
+}
+
+AdiFormat *PotaAdiFormat::getActivatorParkFormatter(const QSqlRecord &record)
+{
+    FCT_IDENTIFICATION;
+
+    // https://docs.pota.app/docs/activator_reference/logging_made_easy.html#naming-your-files
+    // station_callsign@park#-yyyymmdd
+    const QString parkFileName = QString("%1@%2-%3.adif")
+                                .arg(record.value("station_callsign").toString(),
+                                     record.value("my_sig_info").toString(),
+                                     currentDate.toString("yyyyMMdd-hhmm"));
+
+    if ( parkFormatters.contains(parkFileName) )
+    {
+        qCDebug(runtime) << "Using park file " << parkFileName;
+        return parkFormatters[parkFileName]->formatter;
+    }
+
+    ParkFormatter *parkFormatter = new ParkFormatter();
+
+    parkFormatter->file = new QFile(exportDir + QDir::separator() + parkFileName);
+    if ( !parkFormatter->file->open(QFile::WriteOnly | QFile::Text) )
+    {
+        qCWarning(runtime) << "Could not open POTA park file for writing "
+                           << exportDir + QDir::separator() + parkFileName;
+        delete parkFormatter;
+        return nullptr;
+    }
+
+    parkFormatter->stream = new QTextStream(parkFormatter->file);
+    if ( !parkFormatter->stream )
+    {
+        qCWarning(runtime) << "Cannot allocate QTextStream";
+        delete parkFormatter;
+        return nullptr;
+    }
+
+    parkFormatter->formatter = new AdiFormat(*parkFormatter->stream);
+    if ( !parkFormatter->formatter )
+    {
+        qCWarning(runtime) << "Cannot allocate AdifFormatter";
+        delete parkFormatter;
+        return nullptr;
+    }
+
+    parkFormatters[parkFileName] = parkFormatter;
+    parkFormatter->formatter->exportStart();
+    return parkFormatter->formatter;
+}
+
+void PotaAdiFormat::expandParkRecord(QList<QSqlRecord> &inputList, const QString &columnName)
+{
+    FCT_IDENTIFICATION;
+
+    QList<QSqlRecord> expandedNewRecords;
+
+    // can contain multiple parks as a csv:
+    // <MY_POTA_REF:40>K-0817,K-4566,K-4576,K-4573,K-4578@US-WY
+
+    for ( auto it = inputList.cbegin(); it != inputList.cend(); it++ )
+    {
+        QStringList activatedParks = it->value(columnName).toString().split(",",
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
+                                                                              Qt::SplitBehaviorFlags::SkipEmptyParts);
+#else
+                                                                              QString::SkipEmptyParts);
+#endif
+        for ( QString &str : activatedParks )
+            str = str.trimmed();
+
+        if ( activatedParks.size() <= 1 )
+        {
+            expandedNewRecords.append(*it);
+            continue;
+        }
+
+        for ( const QString &parkID : static_cast<const QStringList&>(activatedParks) )
+        {
+            QSqlRecord newRecord(*it);
+            newRecord.setValue(columnName, parkID);
+            expandedNewRecords.append(newRecord);
+        }
+    }
+
+    inputList.swap(expandedNewRecords);
 }
 
 void PotaAdiFormat::exportEnd()
 {
-    for (AdiFormat *parkFormat : parkFormats.values()) {
-        parkFormat->exportEnd();
-    }
+    FCT_IDENTIFICATION;
+
+    const QList<ParkFormatter*> &formatters = parkFormatters.values();
+
+    for ( ParkFormatter *parkFormat :  formatters)
+        parkFormat->formatter->exportEnd();
 }
 
-void PotaAdiFormat::duplicateField(QSqlRecord &record,
+void PotaAdiFormat::moveFieldValue(QSqlRecord &record,
                                    const QString &fromFieldName,
                                    const QString &toFieldName)
 {
+    FCT_IDENTIFICATION;
+
     QSqlField dupped(record.field(fromFieldName));
+    record.remove(record.indexOf(fromFieldName));
     record.remove(record.indexOf(toFieldName));
     dupped.setName(toFieldName);
     record.append(dupped);
 }
 
+bool PotaAdiFormat::isValidPotaRecord(const QSqlRecord &record) const
+{
+    FCT_IDENTIFICATION;
+
+    auto isPotaWithEmptyInfo = [](const QString &sig, const QString &info)
+    {
+        return sig == "pota" && info.isEmpty();
+    };
+
+    const QString &sigField = record.value("sig").toString().toLower();
+    const QString &mysigField = record.value("my_sig").toString().toLower();
+
+    return !record.value("my_pota_ref").toString().isEmpty()
+           || !record.value("pota_ref").toString().isEmpty()
+           || (sigField == "pota" && !isPotaWithEmptyInfo(sigField, record.value("sig_info").toString()))
+           || (mysigField == "pota" && !isPotaWithEmptyInfo(mysigField, record.value("my_sig_info").toString()));
+}
+
+void PotaAdiFormat::preparePotaField(QSqlRecord &record, const QString &fromField, const QString &toField, const QString &toFieldSig)
+{
+    FCT_IDENTIFICATION;
+
+    if (record.value(fromField).toString().isEmpty())
+        return;
+
+    moveFieldValue(record, fromField, toField);
+    record.setValue(toFieldSig, "POTA");
+
+}
+
 PotaAdiFormat::~PotaAdiFormat()
 {
     FCT_IDENTIFICATION;
-    qDeleteAll(parkFormats.values());
-    parkFormats.clear();
-    qDeleteAll(parkFiles.values());
-    parkFiles.clear();
+
+    qDeleteAll(parkFormatters);
+    parkFormatters.clear();
 }
