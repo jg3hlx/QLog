@@ -3,6 +3,7 @@
 #include "LogFormat.h"
 #include "AdiFormat.h"
 #include "AdxFormat.h"
+#include "PotaAdiFormat.h"
 #include "JsonFormat.h"
 #include "CSVFormat.h"
 #include "data/Data.h"
@@ -51,6 +52,9 @@ LogFormat* LogFormat::open(QString type, QTextStream& stream) {
     else if (type == "cabrillo") {
         return open(LogFormat::JSON, stream);
     }
+    else if (type == "pota") {
+        return open(LogFormat::POTA, stream);
+    }
     else {
         return nullptr;
     }
@@ -76,6 +80,9 @@ LogFormat* LogFormat::open(LogFormat::Type type, QTextStream& stream) {
 
     case LogFormat::CABRILLO:
         return nullptr;
+
+    case LogFormat::POTA:
+        return new PotaAdiFormat(stream);
 
     default:
         return nullptr;
@@ -149,6 +156,12 @@ void LogFormat::setUserFilter(const QString &value)
     userFilter = value;
 }
 
+void LogFormat::setPotaOnly(bool only)
+{
+    FCT_IDENTIFICATION;
+    filterPOTAOnly = only;
+}
+
 QString LogFormat::getWhereClause()
 {
     FCT_IDENTIFICATION;
@@ -172,6 +185,9 @@ QString LogFormat::getWhereClause()
     if ( !filterSendVia.isEmpty() )
         whereClause << ( ( filterSendVia == " " ) ? "qsl_sent_via is NULL"
                                                   : "upper(qsl_sent_via) = upper(:qsl_sent_via)");
+
+    if ( filterPOTAOnly )
+        whereClause << QLatin1String("(my_pota_ref is not NULL OR pota_ref is not NULL OR lower(sig)='pota' OR lower(my_sig)='pota')");
 
     if ( !userFilter.isEmpty() )
         whereClause << QSOFilterManager::getWhereClause(userFilter);
