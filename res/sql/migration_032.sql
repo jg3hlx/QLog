@@ -1,0 +1,1 @@
+UPDATE modes SET submodes = '["FMHELL", "FSKHELL", "HELL80", "HELLX5", "HELLX9", "HFSK", "PSKHELL", "SLOWHELL", "FSKH245", "FSKH105"]' WHERE name = 'HELL';
