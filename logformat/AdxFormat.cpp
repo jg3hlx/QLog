@@ -78,8 +78,8 @@ void AdxFormat::exportStart()
     writer->writeStartElement("ADX");
 
     writer->writeStartElement("HEADER");
-    writer->writeTextElement("ADIF_VER", "3.1.4");
-    writer->writeTextElement("PROGRAMID", "QLog");
+    writer->writeTextElement("ADIF_VER", ADIF_VERSION_STRING);
+    writer->writeTextElement("PROGRAMID", PROGRAMID_STRING);
     writer->writeTextElement("PROGRAMVERSION", VERSION);
     writer->writeTextElement("CREATED_TIMESTAMP", date);
     writer->writeEndElement();

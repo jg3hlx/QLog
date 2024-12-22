@@ -106,6 +106,8 @@ void QSOFilterDetail::addCondition(int fieldIdx, int operatorId, QString value)
     stacked->addWidget(createComboBox(Data::instance()->antPathEnum, value, condCount, sizePolicy));
     stacked->addWidget(createComboBox(Data::instance()->boolEnum, value, condCount, sizePolicy));
     stacked->addWidget(createComboBox(Data::instance()->qsoCompleteEnum, value, condCount, sizePolicy));
+    stacked->addWidget(createComboBox(Data::instance()->downloadStatusEnum, value, condCount, sizePolicy));
+    stacked->addWidget(createComboBox(Data::instance()->morseKeyTypeEnum, value, condCount, sizePolicy));
 
     conditionLayout->addWidget(stacked);
 
@@ -134,6 +136,10 @@ void QSOFilterDetail::addCondition(int fieldIdx, int operatorId, QString value)
             stacked->setCurrentIndex(8);
         else if ( this->isQSOCompleteField(index) )
             stacked->setCurrentIndex(9);
+        else if ( this->isDownloadStatusField(index))
+            stacked->setCurrentIndex(10);
+        else if ( this->isMorseKeyTypeField(index))
+            stacked->setCurrentIndex(11);
         else
             stacked->setCurrentIndex(0);
     });
@@ -209,7 +215,10 @@ bool QSOFilterDetail::isDateField(int index)
                  || index == LogbookModel::COLUMN_EQSL_QSLSDATE
                  || index == LogbookModel::COLUMN_HRDLOG_QSO_UPLOAD_DATE
                  || index == LogbookModel::COLUMN_HAMLOGEU_QSO_UPLOAD_DATE
-                 || index == LogbookModel::COLUMN_HAMQTH_QSO_UPLOAD_DATE);
+                 || index == LogbookModel::COLUMN_HAMQTH_QSO_UPLOAD_DATE
+                 || index == LogbookModel::COLUMN_DCL_QSLRDATE
+                 || index == LogbookModel::COLUMN_DCL_QSLSDATE
+                 || index == LogbookModel::COLUMN_QRZCOM_QSO_DOWNLOAD_DATE);
 
     qCDebug(function_parameters) << index << " return " << ret;
     return ret;
@@ -232,7 +241,8 @@ bool QSOFilterDetail::isQSLSentField(int index)
 
     bool ret = (    index == LogbookModel::COLUMN_QSL_SENT
                  || index == LogbookModel::COLUMN_LOTW_SENT
-                 || index == LogbookModel::COLUMN_EQSL_QSL_SENT );
+                 || index == LogbookModel::COLUMN_EQSL_QSL_SENT
+                 || index == LogbookModel::COLUMN_DCL_QSL_SENT);
 
     qCDebug(function_parameters) << index << " return " << ret;
     return ret;
@@ -255,7 +265,8 @@ bool QSOFilterDetail::isQSLRcvdField(int index)
 
     bool ret = (    index == LogbookModel::COLUMN_QSL_RCVD
                  || index == LogbookModel::COLUMN_LOTW_RCVD
-                 || index == LogbookModel::COLUMN_EQSL_QSL_RCVD);
+                 || index == LogbookModel::COLUMN_EQSL_QSL_RCVD
+                 || index == LogbookModel::COLUMN_DCL_QSL_RCVD);
 
     qCDebug(function_parameters) << index << " return " << ret;
     return ret;
@@ -303,6 +314,25 @@ bool QSOFilterDetail::isQSOCompleteField(int index)
     FCT_IDENTIFICATION;
 
     bool ret = ( index == LogbookModel::COLUMN_QSO_COMPLETE );
+
+    qCDebug(function_parameters) << index << " return " << ret;
+    return ret;
+}
+
+bool QSOFilterDetail::isDownloadStatusField(int index)
+{
+    FCT_IDENTIFICATION;
+
+    bool ret = ( index == LogbookModel::COLUMN_QRZCOM_QSO_DOWNLOAD_STATUS );
+
+    qCDebug(function_parameters) << index << " return " << ret;
+    return ret;
+}
+
+bool QSOFilterDetail::isMorseKeyTypeField(int index)
+{
+    bool ret = ( index == LogbookModel::COLUMN_MORSE_KEY_TYPE
+                 || index == LogbookModel::COLUMN_MY_MORSE_KEY_TYPE );
 
     qCDebug(function_parameters) << index << " return " << ret;
     return ret;
