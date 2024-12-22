@@ -578,7 +578,7 @@ bool LogbookModel::setData(const QModelIndex &index, const QVariant &value, int 
     return main_update_result && depend_update_result;
 }
 
-QMap<LogbookModel::ColumnID, const char *> LogbookModel::fieldNameTranslationMap =
+QMap<LogbookModel::ColumnID, QString> LogbookModel::fieldNameTranslationMap =
 {
     {COLUMN_ID, QT_TR_NOOP("QSO ID")},
     {COLUMN_TIME_ON, QT_TR_NOOP("Time on")},

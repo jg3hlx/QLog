@@ -202,22 +202,18 @@ public:
     };
 
 private:
-    static QMap<LogbookModel::ColumnID, const char *> fieldNameTranslationMap;
+    static QMap<LogbookModel::ColumnID, QString> fieldNameTranslationMap;
 
 public:
-    static QString getFieldNameTranslation(const LogbookModel::ColumnID key)
+    static const QString getFieldNameTranslation(const LogbookModel::ColumnID key)
     {
-        const char *value = fieldNameTranslationMap.value(key);
-        return value ? tr(value) : QString();
+        const QString value = fieldNameTranslationMap.value(key);
+        return value.isEmpty() ? QString () : tr(value.toStdString().c_str());
     }
 
-    static const QStringList getAllFieldNamesTranslation()
+    static const QMap<LogbookModel::ColumnID, QString> getAllFieldNamesTranslation()
     {
-        QStringList ret;
-        for (auto it = fieldNameTranslationMap.begin(); it != fieldNameTranslationMap.end(); ++it)
-            ret.append(getFieldNameTranslation(it.key()));
-
-        return ret;
+        return fieldNameTranslationMap;
     }
 };
 
