@@ -319,6 +319,7 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
         setIfEmpty(LogbookModel::COLUMN_MY_COUNTRY_INTL, defaultStationProfile->country);
         setIfEmpty(LogbookModel::COLUMN_MY_COUNTRY, Data::removeAccents(defaultStationProfile->country));
         setIfEmpty(LogbookModel::COLUMN_MY_CNTY, Data::removeAccents(defaultStationProfile->county));
+        setIfEmpty(LogbookModel::COLUMN_MY_DARC_DOK, Data::removeAccents(defaultStationProfile->darcDOK));
     };
 
     auto setMyEntity = [&](const DxccEntity &myEntity)

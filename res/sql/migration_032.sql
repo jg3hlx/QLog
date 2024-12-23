@@ -14,3 +14,5 @@ ALTER TABLE contacts ADD my_morse_key_type TEXT;
 ALTER TABLE contacts ADD qrzcom_qso_download_date TEXT;
 ALTER TABLE contacts ADD qrzcom_qso_download_status TEXT;
 ALTER TABLE contacts ADD qslmsg_rcvd TEXT;
+
+ALTER TABLE station_profiles ADD darc_dok TEXT;

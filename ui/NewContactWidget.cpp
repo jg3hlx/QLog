@@ -1249,6 +1249,12 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
         record.setValue("my_cq_zone", profile.cqz);
     }
 
+    if ( record.value("my_darc_dok").toString().isEmpty()
+        && !profile.darcDOK.isEmpty() )
+    {
+        record.setValue("my_darc_dok", profile.darcDOK);
+    }
+
     if ( record.value("my_name_intl").toString().isEmpty()
          && !profile.operatorName.isEmpty() )
     {
