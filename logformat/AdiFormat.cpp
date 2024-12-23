@@ -321,7 +321,7 @@ void AdiFormat::contactFields2SQLRecord(QMap<QString, QVariant> &contact, QSqlRe
     record.setValue("country_intl",contact.take("country_intl"));
     record.setValue("credit_submitted",contact.take("credit_submitted"));
     record.setValue("credit_granted",contact.take("credit_granted"));
-    record.setValue("darc_dok",contact.take("darc_dok"));
+    record.setValue("darc_dok",contact.take("darc_dok").toString().toUpper());
     record.setValue("dcl_qslrdate",parseDate(contact.take("dcl_qslrdate").toString()));
     record.setValue("dcl_qslsdate",parseDate(contact.take("dcl_qslsdate").toString()));
     record.setValue("dcl_qsl_rcvd",parseQslRcvd(contact.take("dcl_qsl_rcvd").toString()));
@@ -364,7 +364,7 @@ void AdiFormat::contactFields2SQLRecord(QMap<QString, QVariant> &contact, QSqlRe
     record.setValue("my_cnty",contact.take("my_cnty"));
     record.setValue("my_cnty_alt",contact.take("my_cnty_alt"));
     record.setValue("my_cq_zone",contact.take("my_cq_zone"));
-    record.setValue("my_darc_dok",contact.take("my_darc_dok"));
+    record.setValue("my_darc_dok",contact.take("my_darc_dok").toString().toUpper());
     record.setValue("my_dxcc",contact.take("my_dxcc"));
     record.setValue("my_fists",contact.take("my_fists"));
     record.setValue("my_gridsquare",contact.take("my_gridsquare").toString().toUpper());

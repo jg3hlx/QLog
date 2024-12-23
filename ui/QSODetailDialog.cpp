@@ -2159,6 +2159,7 @@ bool QSODetailDialog::LogbookModelPrivate::setData(const QModelIndex &index, con
            case COLUMN_WWFF_REF:
            case COLUMN_STATION_CALLSIGN:
            case COLUMN_OPERATOR:
+           case COLUMN_DARC_DOK:
            case COLUMN_MY_DARC_DOK:
                main_update_result = QSqlTableModel::setData(index, ( !value.toString().isEmpty() ) ? value.toString().toUpper() // clazy:exclude=skipped-base-method
                                                                                                    : QVariant(), role);
