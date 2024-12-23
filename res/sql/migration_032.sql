@@ -1,4 +1,4 @@
-UPDATE modes SET submodes = '["FMHELL", "FSKHELL", "HELL80", "HELLX5", "HELLX9", "HFSK", "PSKHELL", "SLOWHELL", "FSKH245", "FSKH105"]' WHERE name = 'HELL';
+UPDATE modes SET submodes = '["FMHELL", "FSKHELL", "FSKH105", "FSKH245", "HELL80", "HELLX5", "HELLX9", "HFSK", "PSKHELL", "SLOWHELL"]' WHERE name = 'HELL';
 
 ALTER TABLE contacts ADD cnty_alt TEXT;
 ALTER TABLE contacts ADD dcl_qslrdate TEXT;
