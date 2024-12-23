@@ -515,6 +515,18 @@ const QString AdiFormat::toYYYYMMDD(const QVariant &var)
     return var.toDate().toString("yyyyMMdd");
 }
 
+// There are fields with a default value of 'N'.
+// Therefore, it is not necessary to explicitly export them when
+// the local database also has the value 'N'. This approach can be
+// helpful, for example, in the case of new fields in ADIF, where
+// external systems are not yet prepared, and QLog would generate ADIF
+// with the default value 'N'.
+const QString AdiFormat::removeDefaulValueN(const QVariant &var)
+{
+    const QString value = var.toString();
+    return (value == "N") ? QString() : value;
+}
+
 void AdiFormat::preprocessINTLField(const QString &fieldName,
                                     const QString &fieldIntlName,
                                     QMap<QString, QVariant> &contact)
@@ -811,13 +823,13 @@ QHash<QString, AdiFormat::ExportParams> AdiFormat::DB2ADIFExportParams =
     { "cnty", ExportParams("cnty")},
     { "cnty_alt", ExportParams("cnty_alt")},
     { "iota", ExportParams("iota", &AdiFormat::toUpper)},
-    { "qsl_rcvd", ExportParams("qsl_rcvd")},
+    { "qsl_rcvd", ExportParams("qsl_rcvd", &AdiFormat::removeDefaulValueN)},
     { "qsl_rdate", ExportParams("qslrdate", &AdiFormat::toYYYYMMDD)},
-    { "qsl_sent", ExportParams("qsl_sent")},
+    { "qsl_sent", ExportParams("qsl_sent", &AdiFormat::removeDefaulValueN)},
     { "qsl_sdate", ExportParams("qslsdate", &AdiFormat::toYYYYMMDD)},
-    { "lotw_qsl_rcvd", ExportParams("lotw_qsl_rcvd")},
+    { "lotw_qsl_rcvd", ExportParams("lotw_qsl_rcvd", &AdiFormat::removeDefaulValueN)},
     { "lotw_qslrdate", ExportParams("lotw_qslrdate", &AdiFormat::toYYYYMMDD)},
-    { "lotw_qsl_sent", ExportParams("lotw_qsl_sent")},
+    { "lotw_qsl_sent", ExportParams("lotw_qsl_sent", &AdiFormat::removeDefaulValueN)},
     { "lotw_qslsdate", ExportParams("lotw_qslsdate", &AdiFormat::toYYYYMMDD)},
     { "tx_pwr", ExportParams("tx_pwr")},
     { "address", ExportParams("address")},
@@ -843,15 +855,15 @@ QHash<QString, AdiFormat::ExportParams> AdiFormat::DB2ADIFExportParams =
     { "darc_dok", ExportParams("darc_dok")},
     { "dcl_qslrdate", ExportParams("dcl_qslrdate", &AdiFormat::toYYYYMMDD)},
     { "dcl_qslsdate", ExportParams("dcl_qslsdate", &AdiFormat::toYYYYMMDD)},
-    { "dcl_qsl_rcvd", ExportParams("dcl_qsl_rcvd")},
-    { "dcl_qsl_sent", ExportParams("dcl_qsl_sent")},
+    { "dcl_qsl_rcvd", ExportParams("dcl_qsl_rcvd", &AdiFormat::removeDefaulValueN)},
+    { "dcl_qsl_sent", ExportParams("dcl_qsl_sent", &AdiFormat::removeDefaulValueN)},
     { "distance", ExportParams("distance")},
     { "email", ExportParams("email")},
     { "eq_call", ExportParams("eq_call")},
     { "eqsl_qslrdate", ExportParams("eqsl_qslrdate", &AdiFormat::toYYYYMMDD)},
     { "eqsl_qslsdate", ExportParams("eqsl_qslsdate", &AdiFormat::toYYYYMMDD)},
-    { "eqsl_qsl_rcvd", ExportParams("eqsl_qsl_rcvd")},
-    { "eqsl_qsl_sent", ExportParams("eqsl_qsl_sent")},
+    { "eqsl_qsl_rcvd", ExportParams("eqsl_qsl_rcvd", &AdiFormat::removeDefaulValueN)},
+    { "eqsl_qsl_sent", ExportParams("eqsl_qsl_sent", &AdiFormat::removeDefaulValueN)},
     { "fists", ExportParams("fists")},
     { "fists_cc", ExportParams("fists_cc")},
     { "force_init", ExportParams("force_init")},

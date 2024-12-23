@@ -43,6 +43,7 @@ protected:
     static const QString toLower(const QVariant &);
     static const QString toUpper(const QVariant &);
     static const QString toYYYYMMDD(const QVariant &);
+    static const QString removeDefaulValueN(const QVariant &);
 
     class ExportParams
     {
