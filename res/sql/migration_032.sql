@@ -3,8 +3,8 @@ UPDATE modes SET submodes = '["FMHELL", "FSKHELL", "HELL80", "HELLX5", "HELLX9",
 ALTER TABLE contacts ADD cnty_alt TEXT;
 ALTER TABLE contacts ADD dcl_qslrdate TEXT;
 ALTER TABLE contacts ADD dcl_qslsdate TEXT;
-ALTER TABLE contacts ADD dcl_qsl_rcvd TEXT;
-ALTER TABLE contacts ADD dcl_qsl_sent TEXT;
+ALTER TABLE contacts ADD dcl_qsl_rcvd TEXT NOT NULL DEFAULT 'N';
+ALTER TABLE contacts ADD dcl_qsl_sent TEXT NOT NULL DEFAULT 'N';
 ALTER TABLE contacts ADD morse_key_info TEXT;
 ALTER TABLE contacts ADD morse_key_type TEXT;
 ALTER TABLE contacts ADD my_cnty_alt TEXT;
