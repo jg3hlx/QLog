@@ -1151,6 +1151,7 @@ void LogbookWidget::reloadSetting()
     FCT_IDENTIFICATION;
     /* Refresh dynamic Club selection combobox */
     refreshClubFilter();
+    callbookManager.initCallbooks();
 }
 
 void LogbookWidget::sendDXCSpot()
