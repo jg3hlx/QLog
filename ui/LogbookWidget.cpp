@@ -287,293 +287,133 @@ void LogbookWidget::actionCallbookLookup()
 {
     FCT_IDENTIFICATION;
 
-    int count = 0;
-    QList<QSqlRecord>QSOs;
-
-    const QModelIndexList &selectedIndexes = ui->contactTable->selectionModel()->selectedRows();
-    count = selectedIndexes.count();
+    callbookLookupBatch = ui->contactTable->selectionModel()->selectedRows();
     ui->contactTable->clearSelection();
 
-    if (count>=100)
+    if ( callbookLookupBatch.count() > 100 )
     {
-        QMessageBox::critical(this, tr("QLog Warning"), tr("Recommended to select less than 100 QSOs!"));
+        callbookLookupBatch.clear();
+        QMessageBox::warning(this, tr("QLog Warning"), tr("Up to 100 QSOs are supported per batch."));
         return;
     }
 
-
-    if ( selectedIndexes.count() > 0 )
-    {
-        for ( const QModelIndex &index : selectedIndexes )
-            QSOs << model->record(index.row());
-
-        updateQSOsCallbook(QSOs);
-    }
-    else
-    {
-        qWarning() << "Nothing Selected";
-        return;
-    }
+    queryNextQSOLookupBatch();
 }
 
-void LogbookWidget::updateQSOsCallbook(QList<QSqlRecord> qsos)
+void LogbookWidget::queryNextQSOLookupBatch()
 {
     FCT_IDENTIFICATION;
 
-    if(qsos.isEmpty())
-    {
-        QMessageBox::information(this, tr("QLog Information"), tr("Callbook lookups have completed."));
-
-        TempQSOsCallbookLookup.clear();
+    if ( callbookLookupBatch.isEmpty() )
         return;
-    }
 
-    if(qsos.count()>0)
-    {
-        TempQSOsCallbookLookup.clear();
-        TempQSOsCallbookLookup = qsos;
-        updateQSOCallbook(TempQSOsCallbookLookup.first());
-        TempQSOsCallbookLookup.removeFirst();
-    }
+    currLookupIndex = callbookLookupBatch.takeFirst();
+    callbookManager.queryCallsign(model->data(model->index(currLookupIndex.row(), LogbookModel::COLUMN_CALL), Qt::DisplayRole).toString());
 }
 
-void LogbookWidget::updateQSOCallbook(QSqlRecord qso)
+void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& data)
 {
     FCT_IDENTIFICATION;
-    TempQSOCallbookLookup = qso;
-    callbookManager.queryCallsign(qso.value("callsign").toString());
-}
 
-void LogbookWidget::UpdateQSORecordFromCallbook(QSqlRecord qso, const QMap<QString, QString>& data)
-{
-    FCT_IDENTIFICATION;
-    if (qso.value("callsign") != data.value("call"))
+    auto getCurrIndexColumnValue = [&](const LogbookModel::ColumnID id)
     {
-        qWarning() << "Callsigns don't match - skipping. qso " << qso.value("callsign") << " data " << data.value("call");
+        return model->data(model->index(currLookupIndex.row(), id), Qt::EditRole).toString();
+    };
+
+    auto setModeData = [&](const LogbookModel::ColumnID id, const QVariant &value)
+    {
+        return model->setData(model->index(currLookupIndex.row(), id), value, Qt::EditRole);
+    };
+
+    if ( getCurrIndexColumnValue(LogbookModel::COLUMN_CALL) != data.value("call"))
+    {
+        qWarning() << "Callsigns don't match - skipping. QSO " << model->data(model->index(currLookupIndex.row(), LogbookModel::COLUMN_CALL), Qt::DisplayRole).toString()
+                   << "data " << data.value("call");
         return;
     }
-
 
     const QString fnamelname = QString("%1 %2").arg(data.value("fname"),
                                                     data.value("lname"));
-    QString Sqlstring = "update contacts set ";
-    QString WhereString = " where id = :id ";
-    QString UpdateString = "";
-    QString name = data.value("name_fmt");
-    QStringList updateStr;
 
-    if ( name.isEmpty() )
-        name = ( data.value("fname").isEmpty() && data.value("lname").isEmpty() ) ? data.value("nick")
-                                                                                : fnamelname;
+    const QString &nameValue = getCurrIndexColumnValue(LogbookModel::COLUMN_NAME_INTL);
+    const LogbookModel::EditStrategy originEditStrategy = model->editStrategy();
 
-    if (  qso.value("name").toString().isEmpty()
-        && !name.isEmpty())
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+
+    if ( nameValue.isEmpty()
+         || data.value("name_fmt").contains(nameValue)
+         || fnamelname.contains(nameValue)
+         || data.value("nick").contains(nameValue) )
     {
-        updateStr << "name = :name";
-        updateStr << "name_intl = :name_intl";
+        QString name = data.value("name_fmt");
+        if ( name.isEmpty() )
+            name = ( data.value("fname").isEmpty() && data.value("lname").isEmpty() ) ? data.value("nick")
+                                                                                    : fnamelname;
+        setModeData(LogbookModel::COLUMN_NAME_INTL, name);
     }
 
-    if ( qso.value("gridsquare").toString().isEmpty()
-        && !data.value("gridsquare").isEmpty())
+    auto setIfEmpty = [&](const LogbookModel::ColumnID id,
+                          const QString &dataFieldID,
+                          bool containsEnabled = false)
     {
-        updateStr << "gridsquare = :gridsquare";
-    }
+        const QString &columnValue = getCurrIndexColumnValue(id);
 
-    if ( qso.value("qth").toString().isEmpty()
-        && !data.value("qth").isEmpty())
-    {
-        updateStr << "qth = :qth";
-        updateStr << "qth_intl = :qth_intl";
-    }
+        if ( columnValue.isEmpty()
+            || (containsEnabled && data.value(dataFieldID).contains(columnValue)) )
+        {
+            qInfo() << "Setting" << dataFieldID << setModeData(id, data.value(dataFieldID));
+            qInfo() << "value" << getCurrIndexColumnValue(id);
+        }
+    };
 
-    if ( qso.value("dok").toString().isEmpty()
-        && !data.value("dok").isEmpty())
-    {
-        updateStr << "darc_dok = :darc_dok";
-    }
+    setIfEmpty(LogbookModel::COLUMN_GRID, "gridsquare", true);
+    setIfEmpty(LogbookModel::COLUMN_QTH_INTL, "qth");
+    setIfEmpty(LogbookModel::COLUMN_DARC_DOK, "dok");
+    setIfEmpty(LogbookModel::COLUMN_IOTA, "iota");
+    setIfEmpty(LogbookModel::COLUMN_EMAIL, "email");
+    setIfEmpty(LogbookModel::COLUMN_COUNTY, "county");
+    setIfEmpty(LogbookModel::COLUMN_QSL_VIA, "qsl_via");
+    setIfEmpty(LogbookModel::COLUMN_WEB, "url");
+    setIfEmpty(LogbookModel::COLUMN_STATE, "us_state");
+    setIfEmpty(LogbookModel::COLUMN_ITUZ, "itu");
+    setIfEmpty(LogbookModel::COLUMN_CQZ, "cqz");
+    model->submitAll();
 
-    if ( qso.value("iota").toString().isEmpty()
-        && !data.value("iota").isEmpty())
-    {
-        updateStr << "iota = :iota";
-    }
-
-    if ( qso.value("email").toString().isEmpty()
-        && !data.value("email").isEmpty())
-    {
-        updateStr << "email = :email";
-    }
-
-    if ( qso.value("county").toString().isEmpty()
-        && !data.value("county").isEmpty())
-    {
-        updateStr << "cnty = :cnty";
-    }
-
-    if ( qso.value("qsl_via").toString().isEmpty()
-        && !data.value("qsl_via").isEmpty())
-    {
-        updateStr << "qsl_via = :qsl_via";
-    }
-
-    if ( qso.value("url").toString().isEmpty()
-        && !data.value("url").isEmpty())
-    {
-        updateStr << "web = :web";
-    }
-
-    if ( qso.value("state").toString().isEmpty()
-        && !data.value("state").isEmpty())
-    {
-        updateStr << "state = :state";
-    }
-
-    if ( qso.value("itu").toString().isEmpty()
-        && !data.value("itu").isEmpty())
-    {
-        updateStr << "ituz = :ituz";
-    }
-
-    if ( qso.value("cq").toString().isEmpty()
-        &&  !data.value("cq").isEmpty())
-    {
-        updateStr << "cqz = :cqz";
-    }
-
-    UpdateString = updateStr.join(" , ");
-
-    if (UpdateString.length() < 5)
-    {
-        return;
-    }
-
-    QString updateQuery = Sqlstring + UpdateString + WhereString;
-
-    QSqlQuery query_update;
-
-    if (!query_update.prepare(updateQuery))
-    {
-        qWarning() << "Cannot create query callbook data! " << query_update.lastError().text();
-    }
-
-    if (  qso.value("name").toString().isEmpty()
-        && !name.isEmpty())
-    {
-        query_update.bindValue(":name",name);
-        query_update.bindValue(":name_intl",name);
-    }
-
-    if ( qso.value("gridsquare").toString().isEmpty()
-        && !data.value("gridsquare").isEmpty())
-    {
-        query_update.bindValue(":gridsquare",data.value("gridsquare"));
-    }
-
-    if ( qso.value("qth").toString().isEmpty()
-        && !data.value("qth").isEmpty())
-    {
-        query_update.bindValue(":qth",data.value("qth"));
-        query_update.bindValue(":qth_intl",data.value("qth"));
-    }
-
-    if ( qso.value("dok").toString().isEmpty()
-        && !data.value("dok").isEmpty())
-    {
-        query_update.bindValue(":darc_dok",data.value("dok"));
-    }
-
-    if ( qso.value("iota").toString().isEmpty()
-        && !data.value("iota").isEmpty())
-    {
-        query_update.bindValue(":iota",data.value("iota"));
-    }
-
-    if ( qso.value("email").toString().isEmpty()
-        && !data.value("email").isEmpty())
-    {
-        query_update.bindValue(":email",data.value("email"));
-    }
-
-    if ( qso.value("county").toString().isEmpty()
-        && !data.value("county").isEmpty())
-    {
-        query_update.bindValue(":cnty",data.value("county"));
-    }
-
-    if ( qso.value("qsl_via").toString().isEmpty()
-        && !data.value("qsl_via").isEmpty())
-    {
-        query_update.bindValue(":qsl_via",data.value("qsl_via"));
-    }
-
-    if ( qso.value("url").toString().isEmpty()
-        && !data.value("url").isEmpty())
-    {
-        query_update.bindValue(":web",data.value("url"));
-    }
-
-    if ( qso.value("state").toString().isEmpty()
-        && !data.value("state").isEmpty())
-    {
-        query_update.bindValue(":state",data.value("state"));
-    }
-
-    if ( qso.value("itu").toString().isEmpty()
-        && !data.value("itu").isEmpty())
-    {
-        query_update.bindValue(":ituz",data.value("itu"));
-    }
-
-    if ( qso.value("cq").toString().isEmpty()
-        &&  !data.value("cq").isEmpty())
-    {
-        query_update.bindValue(":cqz",data.value("cq"));
-    }
-
-    query_update.bindValue(":id",qso.value("id").toString());
-
-    if ( !query_update.exec() )
-    {
-        qWarning() << "Cannot update callbook data! " << query_update.lastError().text();
-    }
-
-    if(TempQSOsCallbookLookup.count()==0)
-    {
-        updateTable();
-    }
-
+    model->setEditStrategy(originEditStrategy);
 }
-
 
 void LogbookWidget::callsignFound(const QMap<QString, QString> &data)
 {
     FCT_IDENTIFICATION;
 
-    UpdateQSORecordFromCallbook(TempQSOCallbookLookup, data);
-
-    updateQSOsCallbook(TempQSOsCallbookLookup);
+    updateQSORecordFromCallbook(data);
+    currLookupIndex = QModelIndex();
+    queryNextQSOLookupBatch();
 }
 
-void LogbookWidget::callsignNotFound(const QString &)
+void LogbookWidget::callsignNotFound(const QString &call)
 {
     FCT_IDENTIFICATION;
 
-    qWarning() << "callsignNotFound ";
-    updateQSOsCallbook(TempQSOsCallbookLookup);
+    qCDebug(runtime) << call << "not found";
+    queryNextQSOLookupBatch();
 }
 
-void LogbookWidget::callbookLoginFailed(const QString&)
+void LogbookWidget::callbookLoginFailed(const QString&callbookString)
 {
     FCT_IDENTIFICATION;
 
-    TempQSOsCallbookLookup.clear();
-    QMessageBox::critical(this, tr("QLog Error"), tr("Callbook login failed"));
+    callbookLookupBatch.clear();
+    currLookupIndex = QModelIndex();
+    QMessageBox::critical(this, tr("QLog Error"), callbookString + " " + tr("Callbook login failed"));
 }
 
 void LogbookWidget::callbookError(const QString &error)
 {
     FCT_IDENTIFICATION;
 
-    TempQSOsCallbookLookup.clear();
+    callbookLookupBatch.clear();
+    currLookupIndex = QModelIndex();
     QMessageBox::critical(this, tr("QLog Error"), tr("Callbook error: ") + error);
 }
 

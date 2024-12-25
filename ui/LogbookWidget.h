@@ -73,8 +73,6 @@ public slots:
     void callsignNotFound(const QString&);
     void callbookLoginFailed(const QString&);
     void callbookError(const QString&);
-    void updateQSOsCallbook(QList<QSqlRecord> qsos);
-    void updateQSOCallbook(QSqlRecord qso);
 
 private:
     ClubLog* clublog;
@@ -101,9 +99,10 @@ private:
     void reselectModel();
     void scrollToIndex(const QModelIndex& index, bool select = true);
     void adjusteComboMinSize(QComboBox * combo);
-    void UpdateQSORecordFromCallbook(QSqlRecord qso, const QMap<QString, QString>& data);
-    QList<QSqlRecord> TempQSOsCallbookLookup;
-    QSqlRecord TempQSOCallbookLookup;
+    void updateQSORecordFromCallbook(const QMap<QString, QString>& data);
+    void queryNextQSOLookupBatch();
+    QModelIndexList callbookLookupBatch;
+    QModelIndex currLookupIndex;
     CallbookManager callbookManager;
 };
 
