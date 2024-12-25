@@ -350,6 +350,8 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
 {
     FCT_IDENTIFICATION;
 
+    qCDebug(function_parameters) << data;
+
     auto getCurrIndexColumnValue = [&](const LogbookModel::ColumnID id)
     {
         return model->data(model->index(currLookupIndex.row(), id), Qt::EditRole).toString();
@@ -389,15 +391,25 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
 
     auto setIfEmpty = [&](const LogbookModel::ColumnID id,
                           const QString &dataFieldID,
-                          bool containsEnabled = false)
+                          bool containsEnabled = false,
+                          bool forceReplace = false)
     {
+        const QString &callbookValue = data.value(dataFieldID);
+
+        if ( callbookValue.isEmpty() )
+            return;
+
         const QString &columnValue = getCurrIndexColumnValue(id);
 
         if ( columnValue.isEmpty()
-            || (containsEnabled && data.value(dataFieldID).contains(columnValue)) )
+             || (forceReplace && callbookValue != columnValue)
+             || (containsEnabled
+                  && callbookValue.contains(columnValue)
+                  && callbookValue != columnValue) )
         {
-            qInfo() << "Setting" << dataFieldID << setModeData(id, data.value(dataFieldID));
-            qInfo() << "value" << getCurrIndexColumnValue(id);
+            qCDebug(runtime) << "Changing"
+                             << dataFieldID << callbookValue
+                             << setModeData(id, callbookValue);
         }
     };
 
@@ -410,8 +422,8 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
     setIfEmpty(LogbookModel::COLUMN_QSL_VIA, "qsl_via");
     setIfEmpty(LogbookModel::COLUMN_WEB, "url");
     setIfEmpty(LogbookModel::COLUMN_STATE, "us_state");
-    setIfEmpty(LogbookModel::COLUMN_ITUZ, "itu");
-    setIfEmpty(LogbookModel::COLUMN_CQZ, "cqz");
+    setIfEmpty(LogbookModel::COLUMN_ITUZ, "ituz", false, true); // always replace if different
+    setIfEmpty(LogbookModel::COLUMN_CQZ, "cqz", false, true);   // always replace if different
     model->submitAll();
 
     model->setEditStrategy(originEditStrategy);
