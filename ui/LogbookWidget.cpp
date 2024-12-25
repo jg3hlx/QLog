@@ -8,6 +8,7 @@
 #include <QShortcut>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QProgressDialog>
 
 #include "logformat/AdiFormat.h"
 #include "models/LogbookModel.h"
@@ -34,7 +35,8 @@ MODULE_IDENTIFICATION("qlog.ui.logbookwidget");
 LogbookWidget::LogbookWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LogbookWidget),
-    blockClublogSignals(false)
+    blockClublogSignals(false),
+    lookupDialog(nullptr)
 {
     FCT_IDENTIFICATION;
 
@@ -293,9 +295,25 @@ void LogbookWidget::actionCallbookLookup()
     if ( callbookLookupBatch.count() > 100 )
     {
         callbookLookupBatch.clear();
-        QMessageBox::warning(this, tr("QLog Warning"), tr("Up to 100 QSOs are supported per batch."));
+        QMessageBox::warning(this, tr("QLog Warning"), tr("Each batch supports up to 100 QSOs."));
         return;
     }
+
+    lookupDialog = new QProgressDialog(tr("QSOs Update Progress"),
+                                       tr("Cancel"),
+                                       0, callbookLookupBatch.count(),
+                                       this);
+
+    connect(lookupDialog, &QProgressDialog::canceled, this, [this]()
+    {
+        qCDebug(runtime)<< "Operation canceled";
+        callbookManager.abortQuery();
+        finishQSOLookupBatch();
+    });
+
+    lookupDialog->setValue(0);
+    lookupDialog->setWindowModality(Qt::WindowModal);
+    lookupDialog->show();
 
     queryNextQSOLookupBatch();
 }
@@ -305,10 +323,27 @@ void LogbookWidget::queryNextQSOLookupBatch()
     FCT_IDENTIFICATION;
 
     if ( callbookLookupBatch.isEmpty() )
+    {
+        finishQSOLookupBatch();
         return;
+    }
 
     currLookupIndex = callbookLookupBatch.takeFirst();
     callbookManager.queryCallsign(model->data(model->index(currLookupIndex.row(), LogbookModel::COLUMN_CALL), Qt::DisplayRole).toString());
+}
+
+void LogbookWidget::finishQSOLookupBatch()
+{
+    FCT_IDENTIFICATION;
+
+    callbookLookupBatch.clear();
+    currLookupIndex = QModelIndex();
+    if ( lookupDialog )
+    {
+        lookupDialog->done(QDialog::Accepted);
+        lookupDialog->deleteLater();
+        lookupDialog = nullptr;
+    }
 }
 
 void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& data)
@@ -388,6 +423,9 @@ void LogbookWidget::callsignFound(const QMap<QString, QString> &data)
 
     updateQSORecordFromCallbook(data);
     currLookupIndex = QModelIndex();
+    if ( lookupDialog )
+        lookupDialog->setValue(lookupDialog->value() + 1);
+
     queryNextQSOLookupBatch();
 }
 
@@ -396,6 +434,9 @@ void LogbookWidget::callsignNotFound(const QString &call)
     FCT_IDENTIFICATION;
 
     qCDebug(runtime) << call << "not found";
+    if ( lookupDialog )
+        lookupDialog->setValue(lookupDialog->value() + 1);
+
     queryNextQSOLookupBatch();
 }
 
@@ -403,8 +444,7 @@ void LogbookWidget::callbookLoginFailed(const QString&callbookString)
 {
     FCT_IDENTIFICATION;
 
-    callbookLookupBatch.clear();
-    currLookupIndex = QModelIndex();
+    finishQSOLookupBatch();
     QMessageBox::critical(this, tr("QLog Error"), callbookString + " " + tr("Callbook login failed"));
 }
 
@@ -412,8 +452,7 @@ void LogbookWidget::callbookError(const QString &error)
 {
     FCT_IDENTIFICATION;
 
-    callbookLookupBatch.clear();
-    currLookupIndex = QModelIndex();
+    finishQSOLookupBatch();
     QMessageBox::critical(this, tr("QLog Error"), tr("Callbook error: ") + error);
 }
 
@@ -1117,5 +1156,10 @@ LogbookWidget::~LogbookWidget()
     FCT_IDENTIFICATION;
 
     saveTableHeaderState();
+    if ( lookupDialog )
+    {
+        callbookManager.abortQuery();
+        finishQSOLookupBatch();
+    }
     delete ui;
 }

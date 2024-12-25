@@ -14,6 +14,7 @@ class LogbookWidget;
 
 class ClubLog;
 class LogbookModel;
+class QProgressDialog;
 
 class LogbookWidget : public QWidget {
     Q_OBJECT
@@ -101,9 +102,11 @@ private:
     void adjusteComboMinSize(QComboBox * combo);
     void updateQSORecordFromCallbook(const QMap<QString, QString>& data);
     void queryNextQSOLookupBatch();
+    void finishQSOLookupBatch();
     QModelIndexList callbookLookupBatch;
     QModelIndex currLookupIndex;
     CallbookManager callbookManager;
+    QProgressDialog *lookupDialog;
 };
 
 /* https://forum.qt.io/topic/90403/show-tooltip-immediatly/7/ */

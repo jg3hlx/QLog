@@ -276,7 +276,7 @@
      <normaloff>:/icons/cloud_download-24px.svg</normaloff>:/icons/cloud_download-24px.svg</iconset>
    </property>
    <property name="text">
-    <string>Add Missing Callbook Info</string>
+    <string>Update from Callbook</string>
    </property>
    <property name="toolTip">
     <string>Add Missing Callbook Info</string>
