@@ -357,7 +357,7 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
         return model->data(model->index(currLookupIndex.row(), id), Qt::EditRole).toString();
     };
 
-    auto setModeData = [&](const LogbookModel::ColumnID id, const QVariant &value)
+    auto setModelData = [&](const LogbookModel::ColumnID id, const QVariant &value)
     {
         return model->setData(model->index(currLookupIndex.row(), id), value, Qt::EditRole);
     };
@@ -386,7 +386,7 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
         if ( name.isEmpty() )
             name = ( data.value("fname").isEmpty() && data.value("lname").isEmpty() ) ? data.value("nick")
                                                                                     : fnamelname;
-        setModeData(LogbookModel::COLUMN_NAME_INTL, name);
+        setModelData(LogbookModel::COLUMN_NAME_INTL, name);
     }
 
     auto setIfEmpty = [&](const LogbookModel::ColumnID id,
@@ -407,9 +407,11 @@ void LogbookWidget::updateQSORecordFromCallbook(const QMap<QString, QString>& da
                   && callbookValue.contains(columnValue)
                   && callbookValue != columnValue) )
         {
+            bool ret = setModelData(id, callbookValue);
+
             qCDebug(runtime) << "Changing"
                              << dataFieldID << callbookValue
-                             << setModeData(id, callbookValue);
+                             << ret;
         }
     };
 
