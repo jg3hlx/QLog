@@ -1,4 +1,5 @@
 TBC - 0.41.0
+- [NEW] - Logbook - Added a new context menu item - Update QSO from Callbook (issue #450 @aa5sh)
 - [NEW] - DIGI mode is used in case of DXC Digi Spots (issue #480)
 - [NEW] - DXC - Retrieve information about SOTA, POTA and WWFF from comment (issue #482)
 - [NEW] - Added the COM Port Completer for Windows platform (issue #490)
