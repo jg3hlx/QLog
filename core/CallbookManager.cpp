@@ -226,4 +226,4 @@ void CallbookManager::processCallsignResult(const QMap<QString, QString> &data)
     }
 }
 
-QCache<QString, QMap<QString, QString>> CallbookManager::queryCache(10);
+QCache<QString, QMap<QString, QString>> CallbookManager::queryCache(100);
