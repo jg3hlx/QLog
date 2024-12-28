@@ -81,11 +81,13 @@ public:
         {"SP", tr("Single Paddle")},
         {"DP", tr("Dual Paddle")},
         {"CPU", tr("Computer Driven")},
+        {" ", tr("Blank")}
         };
     const QMap<QString, QString> downloadStatusEnum = {
         {"Y", tr("Yes")},
         {"N", tr("No")},
-        {"I", tr("Invalid")}
+        {"I", tr("Invalid")},
+        {" ", tr("Blank")}
     };
 
     explicit Data(QObject *parent = nullptr);
