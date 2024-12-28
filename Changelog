@@ -8,7 +8,7 @@ TBC - 0.41.0
 - [NEW] - CW Console - CW Halt with the user-defined shortcut (issue #518)
 - [NEW] - Added an input parameter to save debug message to file
 - [NEW] - Logbook - Added sorting function to logbook table columns (PR #540 @kyleboyle)
-- [NEW] - Network Notificaiton - Added Rig Status Notification
+- [NEW] - Network Notification - Added Rig Status Notification
 - [NEW] - Implemented ADIF 3.1.5
 - [NEW] - ADIF 3.1.5 - Added new submodes FSKH245 and FSKH105 for HELL
 - [NEW] - ADIF 3.1.5 - Added new contest IDs
