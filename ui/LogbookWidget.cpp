@@ -62,21 +62,25 @@ LogbookWidget::LogbookWidget(QWidget *parent) :
 
     ui->contactTable->setModel(model);
 
-    QAction *separator = new QAction(this);
+    QAction *separator = new QAction(ui->contactTable);
     separator->setSeparator(true);
 
-    QAction *separator1 = new QAction(this);
+    QAction *separator1 = new QAction(ui->contactTable);
     separator1->setSeparator(true);
+
+    QAction *separator2 = new QAction(ui->contactTable);
+    separator2->setSeparator(true);
 
     ui->contactTable->addAction(ui->actionEditContact);
     ui->contactTable->addAction(ui->actionFilter);
     ui->contactTable->addAction(ui->actionLookup);
     ui->contactTable->addAction(ui->actionSendDXCSpot);
+    ui->contactTable->addAction(separator);
     ui->contactTable->addAction(ui->actionExportAs);
     ui->contactTable->addAction(ui->actionCallbookLookup);
-    ui->contactTable->addAction(separator);
-    ui->contactTable->addAction(ui->actionDisplayedColumns);
     ui->contactTable->addAction(separator1);
+    ui->contactTable->addAction(ui->actionDisplayedColumns);
+    ui->contactTable->addAction(separator2);
     ui->contactTable->addAction(ui->actionDeleteContact);
 
     ui->contactTable->horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
