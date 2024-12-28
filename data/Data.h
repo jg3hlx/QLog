@@ -73,6 +73,20 @@ public:
         {"?", tr("Uncertain")},
         {" ", tr("Blank")}
     };
+    const QMap<QString, QString> morseKeyTypeEnum = {
+        {"SK", tr("Straight Key")},
+        {"SS", tr("Sideswiper")},
+        {"BUG", tr("Mechanical semi-automatic keyer or Bug")},
+        {"FAB", tr("Mechanical fully-automatic keyer or Bug")},
+        {"SP", tr("Single Paddle")},
+        {"DP", tr("Dual Paddle")},
+        {"CPU", tr("Computer Driven")},
+        };
+    const QMap<QString, QString> downloadStatusEnum = {
+        {"Y", tr("Yes")},
+        {"N", tr("No")},
+        {"I", tr("Invalid")}
+    };
 
     explicit Data(QObject *parent = nullptr);
     ~Data();

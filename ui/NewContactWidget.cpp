@@ -1106,6 +1106,8 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
     record.setValue("qsl_rcvd", "N");
     record.setValue("lotw_qsl_rcvd", "N");
     record.setValue("eqsl_qsl_rcvd", "N");
+    record.setValue("dcl_qsl_rcvd", "N");
+    record.setValue("dcl_qsl_sent", "N");
 
     /* isNull is not necessary to use because NULL Text fields are empty */
     if ( record.value("my_gridsquare").toString().isEmpty()
@@ -1247,6 +1249,12 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
          && profile.cqz != 0 )
     {
         record.setValue("my_cq_zone", profile.cqz);
+    }
+
+    if ( record.value("my_darc_dok").toString().isEmpty()
+        && !profile.darcDOK.isEmpty() )
+    {
+        record.setValue("my_darc_dok", profile.darcDOK);
     }
 
     if ( record.value("my_name_intl").toString().isEmpty()

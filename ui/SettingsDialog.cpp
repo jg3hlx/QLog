@@ -1566,6 +1566,7 @@ void SettingsDialog::addStationProfile()
     profile.cqz = ui->stationCQZEdit->text().toInt();
     profile.ituz = ui->stationITUEdit->text().toInt();
     profile.county = ui->stationCountyEdit->text();
+    profile.darcDOK = ui->stationDarcDokEdit->text().toUpper();
 
     int row = ui->stationCountryCombo->currentIndex();
     const QModelIndex &idxDXCC = ui->stationCountryCombo->model()->index(row,0);
@@ -1629,6 +1630,7 @@ void SettingsDialog::doubleClickStationProfile(QModelIndex i)
     ui->stationCQZEdit->setText(QString::number(profile.cqz));
     ui->stationITUEdit->setText(QString::number(profile.ituz));
     ui->stationCountyEdit->setText(profile.county);
+    ui->stationDarcDokEdit->setText(profile.darcDOK);
     const QModelIndexList &countryIndex = ui->stationCountryCombo->model()->match(ui->stationCountryCombo->model()->index(0,0),
                                                                            Qt::DisplayRole, profile.dxcc,
                                                                            1, Qt::MatchExactly);
@@ -1662,6 +1664,7 @@ void SettingsDialog::clearStationProfileForm()
     ui->stationITUEdit->clear();
     ui->stationCountryCombo->setCurrentIndex(0);
     ui->stationCountyEdit->clear();
+    ui->stationDarcDokEdit->clear();
 
     ui->stationAddProfileButton->setText(tr("Add"));
 }
