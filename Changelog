@@ -9,9 +9,16 @@ TBC - 0.41.0
 - [NEW] - Added an input parameter to save debug message to file
 - [NEW] - Logbook - Added sorting function to logbook table columns (PR #540 @kyleboyle)
 - [NEW] - Network Notificaiton - Added Rig Status Notification
+- [NEW] - Implemented ADIF 3.1.5
+- [NEW] - ADIF 3.1.5 - Added new submodes FSKH245 and FSKH105 for HELL
+- [NEW] - ADIF 3.1.5 - Added new contest IDs
+- [NEW] - ADIF 3.1.5 - Added new columns (Import/Export only)
+- [NEW] - ADIF 3.1.5 - Added My DARC DOK to Station Profile
 - [CHANGED] - Settings: disabled band and mode name modification
 - [CHANGED] - DX Stats contain all enabled bands (issue #538)
 - [CHANGED] - Removed Freq, TimeDate On/Off Data Type Indicators (issue #552)
+- [CHANGED] - ADIF 3.1.5 - VUCC and MY_VUCC can contain 6 or 4-chars locators
+- [CHANGED] - Stop exporting default value N for qsl_rcvd, qsl_sent, lotw/dcl/eslq_qsl_rcvd/sent
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
