@@ -54,8 +54,8 @@ public:
     {
         return QString("DxSpot ")
                + "Country: " + QString::number(dxcc.dxcc) + " "
-               + "CQZ" + QString::number(dxcc.cqz) + " "
-               + "ITUZ" + QString::number(dxcc.ituz) + " "
+               + "CQZ: " + QString::number(dxcc.cqz) + " "
+               + "ITUZ: " + QString::number(dxcc.ituz) + " "
                + "Status: " + QString::number(status) + " "
                + "ModeGroup: " + modeGroupString  + " "
                + "Band: " + band  + " "
