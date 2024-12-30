@@ -119,6 +119,10 @@ AlertRule::AlertRule(QObject *parent) :
     dxCountry(-1),
     dxLogStatusMap(0),
     spotterCountry(-1),
+    pota(false),
+    sota(false),
+    iota(false),
+    wwff(false),
     ruleValid(false)
 {
     FCT_IDENTIFICATION;
@@ -137,12 +141,12 @@ bool AlertRule::save()
     QSqlQuery insertUpdateStmt;
 
     if ( ! insertUpdateStmt.prepare("INSERT INTO alert_rules(rule_name, enabled, source, dx_callsign, dx_country, "
-                                    "dx_logstatus, dx_continent, spot_comment, mode, band, spotter_country, spotter_continent, dx_member, ituz, cqz) "
+                                    "dx_logstatus, dx_continent, spot_comment, mode, band, spotter_country, spotter_continent, dx_member, ituz, cqz, pota, sota, iota, wwff) "
                                     " VALUES (:ruleName, :enabled, :source, :dxCallsign, :dxCountry, "
-                                    ":dxLogstatus, :dxContinent, :spotComment, :mode, :band, :spotterCountry, :spotterContinent, :dxMember, :ituz, :cqz) "
+                                    ":dxLogstatus, :dxContinent, :spotComment, :mode, :band, :spotterCountry, :spotterContinent, :dxMember, :ituz, :cqz, :pota, :sota, :iota, :wwff) "
                                     " ON CONFLICT(rule_name) DO UPDATE SET enabled = :enabled, source = :source, dx_callsign =:dxCallsign, "
                                     "dx_country = :dxCountry, dx_logstatus = :dxLogstatus, dx_continent = :dxContinent, spot_comment = :spotComment, "
-                                    "mode = :mode, band = :band, spotter_country = :spotterCountry, spotter_continent = :spotterContinent, dx_member = :dxMember, ituz = :ituz, cqz = :cqz "
+                                    "mode = :mode, band = :band, spotter_country = :spotterCountry, spotter_continent = :spotterContinent, dx_member = :dxMember, ituz = :ituz, cqz = :cqz, pota = :pota, sota = :sota, iota = :iota, wwff = :wwff "
                                     " WHERE rule_name = :ruleName"))
     {
         qWarning() << "Cannot prepare insert/update Alert Rule statement" << insertUpdateStmt.lastError();
@@ -164,6 +168,10 @@ bool AlertRule::save()
     insertUpdateStmt.bindValue(":spotterContinent", spotterContinent);
     insertUpdateStmt.bindValue(":cqz", cqz);
     insertUpdateStmt.bindValue(":ituz", ituz);
+    insertUpdateStmt.bindValue(":pota", pota);
+    insertUpdateStmt.bindValue(":sota", sota);
+    insertUpdateStmt.bindValue(":iota", iota);
+    insertUpdateStmt.bindValue(":wwff", wwff);
 
     if ( ! insertUpdateStmt.exec() )
     {
@@ -182,7 +190,7 @@ bool AlertRule::load(const QString &in_ruleName)
     QSqlQuery query;
 
     if ( ! query.prepare("SELECT rule_name, enabled, source, dx_callsign, dx_country, dx_logstatus, "
-                         "dx_continent, spot_comment, mode, band, spotter_country, spotter_continent, dx_member, ituz, cqz "
+                         "dx_continent, spot_comment, mode, band, spotter_country, spotter_continent, dx_member, ituz, cqz, pota, sota, iota, wwff "
                          "FROM alert_rules "
                          "WHERE rule_name = :rule") )
     {
@@ -218,6 +226,10 @@ bool AlertRule::load(const QString &in_ruleName)
         spotterContinent = record.value("spotter_continent").toString();
         ituz             = record.value("ituz").toInt();
         cqz              = record.value("cqz").toInt();
+        pota             = record.value("pota").toBool();
+        sota             = record.value("sota").toBool();
+        iota             = record.value("iota").toBool();
+        wwff             = record.value("wwff").toBool();
 
         callsignRE.setPattern(dxCallsign);
         callsignRE.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
@@ -252,6 +264,10 @@ bool AlertRule::match(const WsjtxEntry &wsjtx) const
          && (dxCountry == 0 || dxCountry == wsjtx.dxcc.dxcc)
          && (ituz == 0 || ituz == wsjtx.dxcc.ituz)
          && (cqz == 0 || cqz == wsjtx.dxcc.cqz)
+         && (pota == false || ( pota == true && !wsjtx.potaRef.isEmpty()) )
+         && (sota == false || ( sota == true && !wsjtx.sotaRef.isEmpty()) )
+         && (iota == false || ( iota == true && !wsjtx.iotaRef.isEmpty()) )
+         && (wwff == false || ( wwff == true && !wsjtx.wwffRef.isEmpty()) )
          && (wsjtx.status & dxLogStatusMap)
          && (mode == "*" || mode.contains("|" + ((wsjtx.decodedMode == "FT8") ? BandPlan::MODE_GROUP_STRING_FT8
                                                                               : BandPlan::MODE_GROUP_STRING_DIGITAL )))
@@ -295,6 +311,10 @@ bool AlertRule::match(const DxSpot &spot) const
          && (dxCountry == 0 || dxCountry == spot.dxcc.dxcc)
          && (ituz == 0 || ituz == spot.dxcc.ituz)
          && (cqz == 0 || cqz == spot.dxcc.cqz)
+         && (pota == false || ( pota == true && !spot.potaRef.isEmpty()) )
+         && (sota == false || ( sota == true && !spot.sotaRef.isEmpty()) )
+         && (iota == false || ( iota == true && !spot.iotaRef.isEmpty()) )
+         && (wwff == false || ( wwff == true && !spot.wwffRef.isEmpty()) )
          && (spot.status & dxLogStatusMap)
          && (mode == "*" || (!spot.modeGroupString.isEmpty() && mode.contains("|" + spot.modeGroupString)))
          && (band == "*" || (!spot.band.isEmpty() && band.contains("|" + spot.band)))
@@ -340,6 +360,10 @@ AlertRule::operator QString() const
             + "dxCallsign: "       + dxCallsign + "; "
             + "CQZ: "              + QString::number(cqz) + "; "
             + "ITUZ: "             + QString::number(ituz) + "; "
+            + "POTA: "             + pota + "; "
+            + "SOTA: "             + sota + "; "
+            + "IOTA: "             + iota + "; "
+            + "WWFF: "             + wwff + "; "
             + "dxMember: "         + dxMember.join(", ") + "; "
             + "dxCountry: "        + QString::number(dxCountry) + "; "
             + "dxLogStatusMap: 0b" + QString::number(dxLogStatusMap,2) + "; "

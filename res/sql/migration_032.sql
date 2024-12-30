@@ -16,3 +16,8 @@ ALTER TABLE contacts ADD qrzcom_qso_download_status TEXT;
 ALTER TABLE contacts ADD qslmsg_rcvd TEXT;
 
 ALTER TABLE station_profiles ADD darc_dok TEXT;
+
+ALTER TABLE alert_rules ADD pota INTEGER DEFAULT 0;
+ALTER TABLE alert_rules ADD sota INTEGER DEFAULT 0;
+ALTER TABLE alert_rules ADD iota INTEGER DEFAULT 0;
+ALTER TABLE alert_rules ADD wwff INTEGER DEFAULT 0;
