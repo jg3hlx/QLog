@@ -192,7 +192,6 @@ private:
     QTimer reconnectTimer;
     DXCConnectionState connectionState;
     DxServerString *connectedServerString;
-    QRegularExpression potaRegEx;
 
     void connectCluster();
     void disconnectCluster(bool tryReconnect = false);
@@ -232,8 +231,7 @@ private:
                            const QRegularExpression &regEx,
                            const QString &refType, int justified) const;
     QString wwffRefFromComment(const QString &comment) const;
-    QString potaRefFromComment(const QString &comment) const;
-    QString potaREGEXPattern();
+    QString potaRefFromComment(const int dxcc, const QString &comment) const;
     QString sotaRefFromComment(const QString &comment) const;
 };
 

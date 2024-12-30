@@ -465,8 +465,6 @@ DxWidget::DxWidget(QWidget *parent) :
     ui->actionConnectOnStartup->setChecked(getAutoconnectServer());
     ui->actionKeepSpots->setChecked(getKeepQSOs());
     dxTableProxyModel->setSearchSkippedCols(dxcListHiddenCols());
-
-    potaRegEx.setPattern(potaREGEXPattern());
 }
 
 void DxWidget::toggleConnect()
@@ -1555,7 +1553,7 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.callsign_member = MembershipQE::instance()->query(spot.callsign);
     spot.dupeCount = Data::countDupe(spot.callsign, spot.band, spot.modeGroupString);
     spot.wwffRef = wwffRefFromComment(spot.comment);
-    spot.potaRef = potaRefFromComment(spot.comment);
+    spot.potaRef = potaRefFromComment(spot.dxcc.dxcc, spot.comment);
     spot.sotaRef = sotaRefFromComment(spot.comment);
 
 #if 0
@@ -1645,35 +1643,6 @@ BandPlan::BandPlanMode DxWidget::modeGroupFromComment(const QString &comment) co
     return BandPlan::BAND_MODE_UNKNOWN;
 }
 
-QString DxWidget::potaREGEXPattern()
-{
-    FCT_IDENTIFICATION;
-
-    QSqlQuery query("SELECT DISTINCT(SUBSTR(reference,1,2)) FROM pota_directory");
-
-    QStringList combinations;
-    while ( query.next() )
-        combinations << query.value(0).toString();
-
-    QMap<QChar, QStringList> groups;
-    for ( const QString &item : static_cast<const QStringList&>(combinations))
-        groups[item.at(0)].append(item.at(1));
-
-    QStringList regexParts;
-    for ( auto it = groups.constBegin(); it != groups.constEnd(); ++it )
-    {
-        QStringList secondChars(it.value());
-        secondChars.sort();
-        regexParts << QString("%1[%2]").arg(it.key(), secondChars.join(""));
-    }
-
-    QString regex(QString("(?:^|\\s)(%0)-(\\d{1,4})(?:\\s|@|$)").arg(regexParts.join("|")));
-
-    qCDebug(runtime) << regex;
-
-    return regex;
-}
-
 QString DxWidget::refFromComment(const QString &comment,
                                  const QRegularExpression &regEx,
                                  const QString &refType,
@@ -1701,11 +1670,16 @@ QString DxWidget::wwffRefFromComment(const QString &comment) const
     return refFromComment(comment, wwffRegEx, QStringLiteral("WWFF"), 4);
 }
 
-QString DxWidget::potaRefFromComment(const QString &comment) const
+QString DxWidget::potaRefFromComment(const int in_dxcc, const QString &comment) const
 {
     FCT_IDENTIFICATION;
 
-    return (!comment.contains(" IOTA ") ) ? refFromComment(comment, potaRegEx, QStringLiteral("POTA"), 4) : QString();
+    if ( in_dxcc == 0 )
+        return QString();
+
+    QRegularExpression potaCountryRE(QString("(?:^|\\s)(%0)-(\\d{1,5})(?:\\s|@|$)").arg(Data::instance()->dxccFlag(in_dxcc)));
+
+    return refFromComment(comment, potaCountryRE, QStringLiteral("POTA_alternative"), 4);
 }
 
 QString DxWidget::sotaRefFromComment(const QString &comment) const
