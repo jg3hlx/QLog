@@ -853,6 +853,10 @@ void DxWidget::receive()
     static QRegularExpression loginRE(QStringLiteral("enter your call(sign)?:"));
 
     reconnectAttempts = 0;
+
+    if ( !socket )
+        return;
+
     const QStringList &lines = QString::fromUtf8(socket->readAll()).split(splitLineRE);
 
     for ( const QString &line : lines )
