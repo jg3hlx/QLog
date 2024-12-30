@@ -2767,6 +2767,12 @@ void NewContactWidget::tuneDx(const DxSpot &spot)
         uiDynamic->wwffEdit->setText(spot.wwffRef);
         wwffEditFinished();
     }
+
+    if ( uiDynamic->iotaEdit->text().isEmpty()
+        && !spot.iotaRef.isEmpty() )
+    {
+        uiDynamic->iotaEdit->setText(spot.iotaRef);
+    }
 }
 
 void NewContactWidget::fillCallsignGrid(const QString &callsign, const QString &grid)

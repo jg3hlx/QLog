@@ -1555,6 +1555,7 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.wwffRef = wwffRefFromComment(spot.comment);
     spot.potaRef = potaRefFromComment(spot.dxcc.dxcc, spot.comment);
     spot.sotaRef = sotaRefFromComment(spot.comment);
+    spot.iotaRef = iotaRefFromComment(spot);
 
 #if 0
     if ( !spot.sotaRef.isEmpty() )
@@ -1565,6 +1566,9 @@ void DxWidget::processDxSpot(const QString &spotter,
 
     if ( !spot.potaRef.isEmpty() )
         qInfo() << "POTA" << spot.potaRef << spot.comment;
+
+    if ( !spot.iotaRef.isEmpty() )
+        qInfo() << "IOTA" << spot.iotaRef << spot.comment;
 #endif
 
     emit newSpot(spot);
@@ -1677,7 +1681,13 @@ QString DxWidget::potaRefFromComment(const int in_dxcc, const QString &comment) 
     if ( in_dxcc == 0 )
         return QString();
 
-    QRegularExpression potaCountryRE(QString("(?:^|\\s)(%0)-(\\d{1,5})(?:\\s|@|$)").arg(Data::instance()->dxccFlag(in_dxcc)));
+    QString flagA2Code = Data::instance()->dxccFlag(in_dxcc);
+
+    if ( flagA2Code == "england" || flagA2Code == "scotland"
+         || flagA2Code == "wales")
+        flagA2Code = "GB";
+
+    QRegularExpression potaCountryRE(QString("(?:^|\\s)(%0)-(\\d{1,5})(?:\\s|@|$)").arg(flagA2Code));
 
     return refFromComment(comment, potaCountryRE, QStringLiteral("POTA_alternative"), 4);
 }
@@ -1687,7 +1697,20 @@ QString DxWidget::sotaRefFromComment(const QString &comment) const
     FCT_IDENTIFICATION;
 
     static QRegularExpression sotaRefRegEx(QStringLiteral("(?:^|\\s)([A-Za-z0-9]{1,3}/[A-Za-z]{2})-?(\\d{1,3})(?:\\s|$)"));
+
+    if ( comment.contains("FT8", Qt::CaseInsensitive)  // a false detection in case of TNX/FT8 comments
+        || comment.contains("FT4",Qt::CaseInsensitive) )
+        return QString();
+
     return refFromComment(comment, sotaRefRegEx, QStringLiteral("SOTA"), 3);
+}
+
+QString DxWidget::iotaRefFromComment(const DxSpot &spot) const
+{
+    FCT_IDENTIFICATION;
+
+    QRegularExpression iotaRegEx(QString("(?:^|\\s)(%0)[- ]?(\\d{1,3})(?:\\s|$)").arg(spot.dxcc.cont));
+    return refFromComment(spot.comment, iotaRegEx, QStringLiteral("IOTA"), 3);
 }
 
 DxWidget::~DxWidget()

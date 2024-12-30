@@ -27,6 +27,7 @@ public:
     QString wwffRef;
     QString potaRef;
     QString sotaRef;
+    QString iotaRef;
 
     DxSpot() : freq(0.0),
         bandPlanMode(BandPlan::BAND_MODE_UNKNOWN),
@@ -66,7 +67,8 @@ public:
                + "Message: " + comment + " "
                + "DX Member: " + memberList2StringList().join(", ") + " "
                + "POTA: " + potaRef  + " "
-               + "WWFF: " + wwffRef;
+               + "WWFF: " + wwffRef + " "
+               + "IOTA: " + iotaRef;
     }
 };
 

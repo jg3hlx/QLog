@@ -233,6 +233,7 @@ private:
     QString wwffRefFromComment(const QString &comment) const;
     QString potaRefFromComment(const int dxcc, const QString &comment) const;
     QString sotaRefFromComment(const QString &comment) const;
+    QString iotaRefFromComment(const DxSpot &spot) const;
 };
 
 #endif // QLOG_UI_DXWIDGET_H
