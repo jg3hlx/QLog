@@ -1666,7 +1666,7 @@ QString DxWidget::wwffRefFromComment(const QString &comment) const
 {
     FCT_IDENTIFICATION;
 
-    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})-?(\\d{1,4})(?:\\s|$)"));
+    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})[- ]?(\\d{1,4})(?:\\s|$)"));
     return refFromComment(comment, wwffRegEx, QStringLiteral("WWFF"), 4);
 }
 
