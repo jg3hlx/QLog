@@ -1552,10 +1552,10 @@ void DxWidget::processDxSpot(const QString &spotter,
     spot.status = Data::instance()->dxccStatus(spot.dxcc.dxcc, spot.band, spot.modeGroupString);
     spot.callsign_member = MembershipQE::instance()->query(spot.callsign);
     spot.dupeCount = Data::countDupe(spot.callsign, spot.band, spot.modeGroupString);
-    spot.wwffRef = wwffRefFromComment(spot.comment);
-    spot.potaRef = potaRefFromComment(spot.dxcc.dxcc, spot.comment);
-    spot.sotaRef = sotaRefFromComment(spot.comment);
-    spot.iotaRef = iotaRefFromComment(spot);
+    wwffRefFromComment(spot);
+    potaRefFromComment(spot);
+    sotaRefFromComment(spot);
+    iotaRefFromComment(spot);
 
 #if 0
     if ( !spot.sotaRef.isEmpty() )
@@ -1648,6 +1648,7 @@ BandPlan::BandPlanMode DxWidget::modeGroupFromComment(const QString &comment) co
 }
 
 QString DxWidget::refFromComment(const QString &comment,
+                                 bool &flag,
                                  const QRegularExpression &regEx,
                                  const QString &refType,
                                  int justified = 0) const
@@ -1659,6 +1660,7 @@ QString DxWidget::refFromComment(const QString &comment,
 
     if (stringMatch.hasMatch())
     {
+        flag = true;
         ref = stringMatch.captured(1).toUpper() + "-" + stringMatch.captured(2).rightJustified(justified, '0');
         qCDebug(runtime) << refType << ":" << ref << "in comment:" << comment;
     }
@@ -1666,51 +1668,70 @@ QString DxWidget::refFromComment(const QString &comment,
     return ref;
 }
 
-QString DxWidget::wwffRefFromComment(const QString &comment) const
+void DxWidget::wwffRefFromComment(DxSpot &spot) const
 {
     FCT_IDENTIFICATION;
 
-    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})[- ]?(\\d{1,4})(?:\\s|$)"));
-    return refFromComment(comment, wwffRegEx, QStringLiteral("WWFF"), 4);
+    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})[- ]?(\\d{1,4})(?:\\s|$)"),
+                                        QRegularExpression::CaseInsensitiveOption);
+
+    spot.containsWWFF = spot.comment.contains("WWFF", Qt::CaseInsensitive);
+    spot.wwffRef = refFromComment(spot.comment, spot.containsWWFF,
+                                  wwffRegEx, QStringLiteral("WWFF"), 4);
 }
 
-QString DxWidget::potaRefFromComment(const int in_dxcc, const QString &comment) const
+void DxWidget::potaRefFromComment(DxSpot &spot) const
 {
     FCT_IDENTIFICATION;
 
-    if ( in_dxcc == 0 )
-        return QString();
+    spot.containsPOTA = spot.comment.contains("POTA", Qt::CaseInsensitive);
 
-    QString flagA2Code = Data::instance()->dxccFlag(in_dxcc);
+    if ( spot.dxcc.dxcc == 0 )
+        return;
+
+    QString flagA2Code = Data::instance()->dxccFlag(spot.dxcc.dxcc);
 
     if ( flagA2Code == "england" || flagA2Code == "scotland"
          || flagA2Code == "wales")
         flagA2Code = "GB";
 
-    QRegularExpression potaCountryRE(QString("(?:^|\\s)(%0)-(\\d{1,5})(?:\\s|@|$)").arg(flagA2Code));
+    QRegularExpression potaCountryRE(QString("(?:^|\\s)(%0)-(\\d{1,5})(?:\\s|@|$)").arg(flagA2Code),
+                                     QRegularExpression::CaseInsensitiveOption);
 
-    return refFromComment(comment, potaCountryRE, QStringLiteral("POTA_alternative"), 4);
+    spot.potaRef = refFromComment(spot.comment, spot.containsPOTA,
+                                  potaCountryRE, QStringLiteral("POTA_alternative"), 4);
 }
 
-QString DxWidget::sotaRefFromComment(const QString &comment) const
+void DxWidget::sotaRefFromComment(DxSpot &spot) const
 {
     FCT_IDENTIFICATION;
 
-    static QRegularExpression sotaRefRegEx(QStringLiteral("(?:^|\\s)([A-Za-z0-9]{1,3}/[A-Za-z]{2})-?(\\d{1,3})(?:\\s|$)"));
+    static QRegularExpression sotaRefRegEx(QStringLiteral("(?:^|\\s)([A-Za-z0-9]{1,3}/[A-Za-z]{2})-?(\\d{1,3})(?:\\s|$)"),
+                                           QRegularExpression::CaseInsensitiveOption);
 
-    if ( comment.contains("FT8", Qt::CaseInsensitive)  // a false detection in case of TNX/FT8 comments
-        || comment.contains("FT4",Qt::CaseInsensitive) )
-        return QString();
+    spot.containsSOTA = spot.comment.contains("SOTA", Qt::CaseInsensitive);
 
-    return refFromComment(comment, sotaRefRegEx, QStringLiteral("SOTA"), 3);
+    if ( spot.comment.contains("FT8", Qt::CaseInsensitive)  // a false detection in case of TNX/FT8 comments
+        || spot.comment.contains("FT4",Qt::CaseInsensitive) )
+        return;
+
+    spot.sotaRef = refFromComment(spot.comment, spot.containsSOTA,
+                                  sotaRefRegEx, QStringLiteral("SOTA"), 3);
 }
 
-QString DxWidget::iotaRefFromComment(const DxSpot &spot) const
+void DxWidget::iotaRefFromComment(DxSpot &spot) const
 {
     FCT_IDENTIFICATION;
 
-    QRegularExpression iotaRegEx(QString("(?:^|\\s)(%0)[- ]?(\\d{1,3})(?:\\s|$)").arg(spot.dxcc.cont));
-    return refFromComment(spot.comment, iotaRegEx, QStringLiteral("IOTA"), 3);
+    spot.containsIOTA = spot.comment.contains("IOTA", Qt::CaseInsensitive);
+
+    if ( spot.dxcc.cont.isEmpty() )
+        return;
+
+    QRegularExpression iotaRegEx(QString("(?:^|\\s)(%0)[- ]?(\\d{1,3})(?:\\s|$)").arg(spot.dxcc.cont),
+                                 QRegularExpression::CaseInsensitiveOption);
+    spot.iotaRef = refFromComment(spot.comment, spot.containsIOTA,
+                                  iotaRegEx, QStringLiteral("IOTA"), 3);
 }
 
 DxWidget::~DxWidget()

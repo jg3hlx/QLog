@@ -227,13 +227,13 @@ private:
 
     QVector<int> dxcListHiddenCols() const;
     BandPlan::BandPlanMode modeGroupFromComment(const QString &comment) const;
-    QString refFromComment(const QString &comment,
+    QString refFromComment(const QString &comment, bool &flag,
                            const QRegularExpression &regEx,
                            const QString &refType, int justified) const;
-    QString wwffRefFromComment(const QString &comment) const;
-    QString potaRefFromComment(const int dxcc, const QString &comment) const;
-    QString sotaRefFromComment(const QString &comment) const;
-    QString iotaRefFromComment(const DxSpot &spot) const;
+    void wwffRefFromComment(DxSpot &spot) const;
+    void potaRefFromComment(DxSpot &spot) const;
+    void sotaRefFromComment(DxSpot &spot) const;
+    void iotaRefFromComment(DxSpot &spot) const;
 };
 
 #endif // QLOG_UI_DXWIDGET_H

@@ -20,18 +20,24 @@ public:
     BandPlan::BandPlanMode bandPlanMode;
     QString spotter;
     QString comment;
-    DxccEntity dxcc;
-    DxccEntity dxcc_spotter;
-    DxccStatus status;
     qulonglong dupeCount = 0;
     QString wwffRef;
     QString potaRef;
     QString sotaRef;
     QString iotaRef;
+    DxccEntity dxcc;
+    DxccEntity dxcc_spotter;
+    DxccStatus status;
+    bool containsWWFF;
+    bool containsPOTA;
+    bool containsSOTA;
+    bool containsIOTA;
 
     DxSpot() : freq(0.0),
         bandPlanMode(BandPlan::BAND_MODE_UNKNOWN),
-        status(DxccStatus::UnknownStatus)
+        status(DxccStatus::UnknownStatus),
+        containsWWFF(false), containsPOTA(false),
+        containsSOTA(false), containsIOTA(false)
         {};
 
     QStringList memberList2StringList() const
@@ -66,9 +72,10 @@ public:
                + "Callsign: " + callsign + " "
                + "Message: " + comment + " "
                + "DX Member: " + memberList2StringList().join(", ") + " "
-               + "POTA: " + potaRef  + " "
-               + "WWFF: " + wwffRef + " "
-               + "IOTA: " + iotaRef;
+               + "POTA: " + potaRef  + " " + "POTA present: " + containsPOTA + " "
+               + "SOTA: " + sotaRef  + " " + "SOTA present: " + containsSOTA + " "
+               + "WWFF: " + wwffRef + " " + "WWFF present: " + containsWWFF + " "
+               + "IOTA: " + iotaRef + " " + "IOTA present: " + containsIOTA + " ";
     }
 };
 
