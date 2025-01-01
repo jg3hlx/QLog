@@ -26,7 +26,7 @@ private:
     bool runSqlFile(QString filename);
     int tableRows(QString name);
     bool updateExternalResource();
-    bool updateExternalResourceProgress(QProgressDialog&,
+    void updateExternalResourceProgress(QProgressDialog&,
                                         LOVDownloader&,
                                         const LOVDownloader::SourceType & sourceType,
                                         const QString &counter);

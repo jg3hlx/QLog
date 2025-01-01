@@ -348,25 +348,18 @@ bool Migration::updateExternalResource()
     connect(&progress, &QProgressDialog::canceled,
             &downloader, &LOVDownloader::abortRequest);
 
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::CTY, "(1/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::SATLIST, "(2/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::SOTASUMMITS, "(3/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::WWFFDIRECTORY, "(4/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::IOTALIST, "(5/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::POTADIRECTORY, "(6/7)") )
-        return false;
-    if ( ! updateExternalResourceProgress(progress, downloader, LOVDownloader::MEMBERSHIPCONTENTLIST, "(7/7)") )
-        return false;
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::CTY, "(1/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::SATLIST, "(2/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::SOTASUMMITS, "(3/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::WWFFDIRECTORY, "(4/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::IOTALIST, "(5/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::POTADIRECTORY, "(6/7)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::MEMBERSHIPCONTENTLIST, "(7/7)");
 
     return true;
 }
 
-bool Migration::updateExternalResourceProgress(QProgressDialog& progress,
+void Migration::updateExternalResourceProgress(QProgressDialog& progress,
                                                LOVDownloader& downloader,
                                                const LOVDownloader::SourceType & sourceType,
                                                const QString &counter)
@@ -412,20 +405,13 @@ bool Migration::updateExternalResourceProgress(QProgressDialog& progress,
     downloader.update(sourceType);
 
     if ( progress.wasCanceled() )
-    {
         qCDebug(runtime) << "Update was canceled";
-    }
     else
     {
         if ( !progress.exec() )
-        {
             QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
                                  stringInfo + tr(" Update Failed"));
-            return false;
-        }
     }
-
-    return true;
 }
 
 /* Fixing error when QLog stored UTF characters to non-Intl field of ADIF (contact) table */
