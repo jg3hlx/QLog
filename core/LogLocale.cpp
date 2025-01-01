@@ -32,8 +32,12 @@ QString LogLocale::formatTimeLong() const
 {
     FCT_IDENTIFICATION;
 
-
-    QString ret = formatTimeLongWithoutTZ().append(" t");
+    QString ret = formatTimeLongWithoutTZ()
+#if (QT_VERSION < QT_VERSION_CHECK(6, 5, 0))
+                                           .append(" t");
+#else
+                                           .append(" ttt");
+#endif
 
     qCDebug(runtime) << "format:" << ret;
     return ret;
