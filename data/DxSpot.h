@@ -72,10 +72,10 @@ public:
                + "Callsign: " + callsign + " "
                + "Message: " + comment + " "
                + "DX Member: " + memberList2StringList().join(", ") + " "
-               + "POTA: " + potaRef  + " " + "POTA present: " + containsPOTA + " "
-               + "SOTA: " + sotaRef  + " " + "SOTA present: " + containsSOTA + " "
-               + "WWFF: " + wwffRef + " " + "WWFF present: " + containsWWFF + " "
-               + "IOTA: " + iotaRef + " " + "IOTA present: " + containsIOTA + " ";
+               + "POTA: " + potaRef  + " " + "POTA present: " + (containsPOTA ? "true" : "false") + " "
+               + "SOTA: " + sotaRef  + " " + "SOTA present: " + (containsSOTA ? "true" : "false") + " "
+               + "WWFF: " + wwffRef + " " + "WWFF present: " + (containsWWFF ? "true" : "false") + " "
+               + "IOTA: " + iotaRef + " " + "IOTA present: " + (containsIOTA ? "true" : "false") + " ";
     }
 };
 
