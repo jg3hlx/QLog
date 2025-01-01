@@ -145,7 +145,8 @@ void LOVDownloader::download(const LOVDownloader::SourceDefinition &sourceDef)
     QUrl url(sourceDef.URL);
     QNetworkRequest request(url);
 
-    request.setRawHeader("User-Agent", "QLog/1.0 (Qt)");
+    QString rheader = QString("QLog/%1").arg(VERSION);
+    request.setRawHeader("User-Agent", rheader.toUtf8());
 
     if ( currentReply )
     {

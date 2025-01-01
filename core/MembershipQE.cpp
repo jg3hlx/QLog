@@ -295,7 +295,8 @@ void MembershipQE::startPlannedDownload()
     QPair<QString, QString> nextDownload = updatePlan.at(0);
 
     QNetworkRequest request(nextDownload.second);
-    request.setRawHeader("User-Agent", "QLog/1.0 (Qt)");
+    QString rheader = QString("QLog/%1").arg(VERSION);
+    request.setRawHeader("User-Agent", rheader.toUtf8());
     QNetworkReply *reply = nam->get(request);
     reply->setProperty("clubid", nextDownload.first);
 }
