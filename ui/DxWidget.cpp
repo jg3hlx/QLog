@@ -1672,7 +1672,7 @@ void DxWidget::wwffRefFromComment(DxSpot &spot) const
 {
     FCT_IDENTIFICATION;
 
-    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z]{1,3}[Ff]{2})[- ]?(\\d{1,4})(?:\\s|$)"),
+    static QRegularExpression wwffRegEx(QStringLiteral("(?:^|\\s)([A-Za-z0-9]{1,3}[Ff]{2})[- ]?(\\d{1,4})(?:\\s|$)"),
                                         QRegularExpression::CaseInsensitiveOption);
 
     spot.containsWWFF = spot.comment.contains("WWFF", Qt::CaseInsensitive);
