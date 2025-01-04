@@ -1,6 +1,6 @@
 // This module is compiled only under Windows - therefore no ifdef related to Windows is needed
 
-#include <windows.h>
+#include <Combaseapi.h>
 
 #include <QTimer>
 #include "Omnirigv2RigDrv.h"
