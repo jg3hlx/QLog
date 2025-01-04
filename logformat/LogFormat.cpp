@@ -260,6 +260,7 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
                             "WHERE callsign=upper(:callsign) "
                             "AND upper(mode)=upper(:mode) "
                             "AND upper(band)=upper(:band) "
+                            "AND COALESCE(sat_name, '') = COALESCE(:sat_name, '') "
                             "AND ABS(JULIANDAY(start_time)-JULIANDAY(datetime(:startdate)))*24*60<30") )
     {
         qWarning() << "cannot prepare Dup statement";
@@ -374,7 +375,7 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
         const QDateTime &start_time = record.value(RECORDIDX(LogbookModel::COLUMN_TIME_ON)).toDateTime();
         const QVariant &sota = record.value(RECORDIDX(LogbookModel::COLUMN_SOTA_REF));
         const QVariant &mysota = record.value(RECORDIDX(LogbookModel::COLUMN_MY_SOTA_REF));
-
+        const QVariant &satName = record.value(RECORDIDX(LogbookModel::COLUMN_SAT_NAME));
 
         /* checking matching fields if they are not empty */
         if ( !start_time.isValid()
@@ -419,6 +420,7 @@ unsigned long LogFormat::runImport(QTextStream& importLogStream,
             dupQuery.bindValue(":callsign", call);
             dupQuery.bindValue(":mode", mode);
             dupQuery.bindValue(":band", band);
+            dupQuery.bindValue(":sat_name", satName);
             dupQuery.bindValue(":startdate", start_time.toTimeSpec(Qt::UTC).toString("yyyy-MM-dd hh:mm:ss"));
 
             if ( !dupQuery.exec() )
@@ -760,6 +762,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
         const QVariant &band = QSLRecord.value("band");
         const QVariant &mode = QSLRecord.value("mode");
         const QVariant &start_time = QSLRecord.value("start_time");
+        const QVariant &satName = QSLRecord.value("sat_name");
 
         /* checking matching fields if they are not empty */
         if ( !start_time.toDateTime().isValid()
@@ -774,10 +777,11 @@ void LogFormat::runQSLImport(QSLFrom fromService)
         }
 
         // It is important to use callsign index here
-        QString matchFilter = QString("callsign=upper('%1') AND upper(mode)=upper('%2') AND upper(band)=upper('%3') AND ABS(JULIANDAY(start_time)-JULIANDAY(datetime('%4')))*24*60<30")
+        QString matchFilter = QString("callsign=upper('%1') AND upper(mode)=upper('%2') AND upper(band)=upper('%3') AND COALESCE(sat_name, '') = upper('%4') AND ABS(JULIANDAY(start_time)-JULIANDAY(datetime('%5')))*24*60<30")
                 .arg(call.toString(),
                      mode.toString(),
                      band.toString(),
+                     satName.toString(),
                      start_time.toDateTime().toTimeSpec(Qt::UTC).toString("yyyy-MM-dd hh:mm:ss"));
 
         /* set filter */
