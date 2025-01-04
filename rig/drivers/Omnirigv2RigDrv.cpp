@@ -476,7 +476,7 @@ OmniRigV2::IRigX *OmnirigV2RigDrv::getRigPtr()
 
 void OmnirigV2RigDrv::commandSleep()
 {
-    Sleep(100);
+    QThread::msleep(100);
 }
 
 const QString OmnirigV2RigDrv::getModeNormalizedText(const QString &rawMode, QString &submode)

@@ -374,7 +374,7 @@ void OmnirigRigDrv::__rigTypeChange(int rigID)
 
 void OmnirigRigDrv::commandSleep()
 {
-    Sleep(100);
+    QThread::msleep(200);
 }
 
 const QString OmnirigRigDrv::getModeNormalizedText(const QString &rawMode, QString &submode)
