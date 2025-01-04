@@ -20,6 +20,7 @@ TBC - 0.41.0
 - [CHANGED] - Removed Freq, TimeDate On/Off Data Type Indicators (issue #552)
 - [CHANGED] - ADIF 3.1.5 - VUCC and MY_VUCC can contain 6 or 4-chars locators
 - [CHANGED] - Stop exporting default value N for qsl_rcvd, qsl_sent, lotw/dcl/eslq_qsl_rcvd/sent
+- [CHANGED] - Extended QSL/Import Dupe matching rule to Callsign, Band, Mode, Time and Sat_Name (issue #563)
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
 - Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
