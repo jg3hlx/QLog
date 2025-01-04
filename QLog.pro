@@ -521,6 +521,8 @@ win32: {
    LIBS += -lws2_32 -lhamlib
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
+
+   DEFINES += WIN32_LEAN_AND_MEAN
 }
 
 DEFINES += HAMLIBVERSION_MAJOR=$$HAMLIBVERSION_MAJOR
