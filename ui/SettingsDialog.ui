@@ -3175,7 +3175,7 @@
           <item row="2" column="1">
            <widget class="QLabel" name="qrzNotice">
             <property name="text">
-             <string>&lt;b&gt;Notice:&lt;/b&gt; At least a QRZ XML Subscription is recommended to access detailed information. Without a subscription, you will obtain limited data from QRZ, such as missing grid and other key items.</string>
+             <string>&lt;b&gt;Notice:&lt;/b&gt; At least a QRZ XML Subscription is recommended to access detailed information. Without a subscription, you will obtain limited data from QRZ, such as missing grid and other fields.</string>
             </property>
             <property name="wordWrap">
              <bool>true</bool>
@@ -4173,7 +4173,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="notifRigLabel">
             <property name="text">
-             <string>Rig Changes</string>
+             <string>Rig Status</string>
             </property>
            </widget>
           </item>

@@ -279,7 +279,7 @@
     <string>Update from Callbook</string>
    </property>
    <property name="toolTip">
-    <string>Add Missing Callbook Info</string>
+    <string>Add Missing Info</string>
    </property>
   </action>
   <action name="actionFilter">

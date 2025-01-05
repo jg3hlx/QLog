@@ -444,7 +444,7 @@
     <string>CW Console - Halt Sending</string>
    </property>
    <property name="shortcut">
-    <string>Alt+T</string>
+    <string notr="true">Alt+T</string>
    </property>
    <property name="shortcutContext">
     <enum>Qt::ApplicationShortcut</enum>
@@ -635,8 +635,8 @@
      <y>200</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>111</y>
+     <x>-1</x>
+     <y>-1</y>
     </hint>
    </hints>
   </connection>
