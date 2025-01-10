@@ -151,7 +151,9 @@ void ExportDialog::runExport()
         return;
     }
 
-    if ( PotaAdiFormat *potaFormat = dynamic_cast<PotaAdiFormat *>(format) )
+    PotaAdiFormat *potaFormat = dynamic_cast<PotaAdiFormat *>(format);
+
+    if ( potaFormat )
     {
         potaFormat->setPotaOnly(true);
         potaFormat->setExportDirectory(QFileInfo(file).canonicalPath());
@@ -243,8 +245,13 @@ void ExportDialog::runExport()
 
     delete format;
 
-    QMessageBox::information(nullptr, QMessageBox::tr("QLog Information"),
-                         QMessageBox::tr("Exported %n contact(s).", "", count));
+    if ( potaFormat && qsos4export.size() > 0 ) // TODO: correctly calculate
+                                                // the exported QSOs in case of POTA formatter and direct export dialog
+        QMessageBox::information(nullptr, QMessageBox::tr("QLog Information"),
+                                 QMessageBox::tr("Exported."));
+    else
+        QMessageBox::information(nullptr, QMessageBox::tr("QLog Information"),
+                                 QMessageBox::tr("Exported %n contact(s).", "", count));
 
     accept();
 }

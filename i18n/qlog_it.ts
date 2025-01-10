@@ -4126,7 +4126,7 @@
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="83"/>
-        <location filename="../ui/ExportDialog.cpp" line="344"/>
+        <location filename="../ui/ExportDialog.cpp" line="351"/>
         <source>POTA</source>
         <translation>POTA</translation>
     </message>
@@ -4276,52 +4276,52 @@
         <translation>&amp;Esporta</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="238"/>
+        <location filename="../ui/ExportDialog.cpp" line="240"/>
         <source>QLog Error</source>
         <translation>Errore di QLog</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="239"/>
+        <location filename="../ui/ExportDialog.cpp" line="241"/>
         <source>Cannot mark exported QSOs as Sent</source>
         <translation>Impossibile Segnare QSO esportati come Inviati</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="297"/>
+        <location filename="../ui/ExportDialog.cpp" line="304"/>
         <source>Generic</source>
         <translation>Generico</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="301"/>
+        <location filename="../ui/ExportDialog.cpp" line="308"/>
         <source>QSLs</source>
         <translation>QSLs</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="342"/>
+        <location filename="../ui/ExportDialog.cpp" line="349"/>
         <source>All</source>
         <translation>Tutte</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="343"/>
+        <location filename="../ui/ExportDialog.cpp" line="350"/>
         <source>Minimal</source>
         <translation>Mínimo</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="345"/>
+        <location filename="../ui/ExportDialog.cpp" line="352"/>
         <source>QSL-specific</source>
         <translation>Specifico per QSL</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="346"/>
+        <location filename="../ui/ExportDialog.cpp" line="353"/>
         <source>Custom 1</source>
         <translation>Personalizzato 1</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="347"/>
+        <location filename="../ui/ExportDialog.cpp" line="354"/>
         <source>Custom 2</source>
         <translation>Personalizzato 2</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="348"/>
+        <location filename="../ui/ExportDialog.cpp" line="355"/>
         <source>Custom 3</source>
         <translation>Personalizzato 3</translation>
     </message>
@@ -7804,12 +7804,18 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Impossibile scrivere nel file</translation>
     </message>
     <message>
-        <location filename="../ui/ExportDialog.cpp" line="246"/>
+        <location filename="../ui/ExportDialog.cpp" line="250"/>
+        <location filename="../ui/ExportDialog.cpp" line="253"/>
         <source>QLog Information</source>
         <translation>Informazioni QLog</translation>
     </message>
+    <message>
+        <location filename="../ui/ExportDialog.cpp" line="251"/>
+        <source>Exported.</source>
+        <translation>Esportati.</translation>
+    </message>
     <message numerus="yes">
-        <location filename="../ui/ExportDialog.cpp" line="247"/>
+        <location filename="../ui/ExportDialog.cpp" line="254"/>
         <source>Exported %n contact(s).</source>
         <translation>
             <numerusform>Esportato %n contatto.</numerusform>
