@@ -87,8 +87,9 @@ SerialPortEditLine::SerialPortEditLine(QWidget *parent) :
     QLineEdit(parent)
 {
 #if defined(Q_OS_WIN)
-    setInputMask("COM000");
-
+    // setInputMask("COM000"); // temporarily removed - it does not work in a user-friendly
+                               // because when you click, the cursor can reach the end
+                               // and in that case the mask does not work correctly.
     QStringList portNames;
     const QList<QSerialPortInfo> &ports = QSerialPortInfo::availablePorts();
 
