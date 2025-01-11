@@ -1,4 +1,4 @@
-TBC - 0.41.0
+2025/01/11 - 0.41.0
 - [NEW] - Logbook - Added a new context menu item - Update QSO from Callbook (issue #450 @aa5sh)
 - [NEW] - DIGI mode is used in case of DXC Digi Spots (issue #480)
 - [NEW] - DXC - Retrieve information about SOTA, POTA, IOTA and WWFF from comment (issue #482)
@@ -23,7 +23,7 @@ TBC - 0.41.0
 - [CHANGED] - Extended QSL/Import Dupe matching rule to Callsign, Band, Mode, Time and Sat_Name (issue #563)
 - Fixed MacOS - keep floating windows visible on app unfocus (issue #530)
 - Fixed Contest Filter ignores the first QSO (issue #529)
-- Fixed It is not possible to quit Qlog with detached widgets Rot & Rig (issue #534)
+- Fixed It is not possible to quit Qlog with detached widgets Rot and Rig (issue #534)
 - Fixed ADX/CSV/JSON do not export non-ASCII chars (issue #542)
 - Fixed Checking the 60m checkbox in cluster filters allows 160m spots to appear (issue #543 @aa5sh)
 - Fixed Problems uploading to QRZ.com (issue #559 PR #561 @aa5sh)
