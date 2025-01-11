@@ -53,7 +53,7 @@ QList<QPair<QString, QString> > HamlibRigDrv::getPTTTypeList()
     return ret;
 }
 
-#if ( HAMLIBVERSION_MAJOR >= 4 && HAMLIBVERSION_MINOR >= 6 )
+#if ( HAMLIBVERSION_MAJOR == 4 && HAMLIBVERSION_MINOR == 6 && HAMLIBVERSION_PATCH == 0  )
 int HamlibRigDrv::addRig(rig_caps *caps, void* data)
 #else
 int HamlibRigDrv::addRig(const rig_caps *caps, void* data)
