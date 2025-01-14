@@ -709,66 +709,59 @@ void LOVDownloader::parseIOTA(const SourceDefinition &sourceDef, QTextStream &da
 {
     FCT_IDENTIFICATION;
 
+    QSqlQuery insertQuery;
+    if ( ! insertQuery.prepare("INSERT INTO IOTA(iotaid,"
+                             "                 islandname)"
+                             " VALUES (:iotaid,"
+                             "         :islandname)") )
+    {
+        qWarning() << "cannot prepare Insert statement";
+        abortRequested = true;
+        return;
+    }
+
     QSqlDatabase::database().transaction();
 
     if ( ! deleteTable(sourceDef.tableName) )
     {
         qCWarning(runtime) << "IOTA List delete failed - rollback";
+        abortRequested = true;
         QSqlDatabase::database().rollback();
         return;
     }
 
-    int count = 0;
+    unsigned int count = 0;
 
-    QSqlQuery insertQuery;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(data.readAll().toUtf8());
 
-    if ( ! insertQuery.prepare("INSERT INTO IOTA(iotaid,"
-                               "                 islandname)"
-                               " VALUES (:iotaid,"
-                               "         :islandname)") )
+    if ( !jsonDoc.isArray() )
     {
-        qWarning() << "cannot prepare Insert statement";
+        qCDebug(runtime) << jsonDoc;
+        qWarning() << "Unexpected IOTA JSON - aborting";
         abortRequested = true;
     }
-
-    while ( !data.atEnd() && !abortRequested )
+    else
     {
-        QString line = data.readLine();
-        if ( count == 0 )
+        const QJsonArray &jsonArray = jsonDoc.array();
+
+        for ( const QJsonValue &value : jsonArray )
         {
-            QString checkingString = "iotaid, islandname";
-            //read the first line
-            if ( !line.contains(checkingString) )
-            {
-                qCDebug(runtime) << line;
-                qWarning() << "Unexpected header for IOTA CSV file - aborting";
-                abortRequested = true;
-            }
-            count++;
-            continue;
-        }
+            if ( !value.isObject() ) continue;
 
-        QRegularExpressionMatchIterator i = CSVRe.globalMatch(line);
-        QStringList fields;
+            const QJsonObject &obj = value.toObject();
+            const QJsonValue &refno = obj.value("refno");
+            const QJsonValue &name = obj.value("name");
 
-        while ( i.hasNext() )
-        {
-            QRegularExpressionMatch match = i.next();
-            fields << match.captured(2);
-        }
+            qCDebug(runtime) << "IOTA Record" << refno << name;
 
-        if ( fields.size() >= 2 )
-        {
-            qCDebug(runtime) << fields;
-
-            insertQuery.bindValue(":iotaid", fields.at(0));
-            insertQuery.bindValue(":islandname", fields.at(1));
+            insertQuery.bindValue(":iotaid", refno);
+            insertQuery.bindValue(":islandname", name);
 
             if ( ! insertQuery.exec() )
             {
                 qInfo() << "IOTA Directory insert error " << insertQuery.lastError().text() << insertQuery.lastQuery();
                 abortRequested = true;
-                continue;
+                break;
             }
 
             if ( count%100 == 0 )
@@ -776,12 +769,8 @@ void LOVDownloader::parseIOTA(const SourceDefinition &sourceDef, QTextStream &da
                 emit progress(data.pos());
                 QCoreApplication::processEvents();
             }
+            count++;
         }
-        else
-        {
-            qCDebug(runtime) << "Invalid line in the input file " << line;
-        }
-        count++;
     }
 
     if ( !abortRequested )
