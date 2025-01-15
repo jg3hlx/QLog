@@ -128,6 +128,9 @@ public:
     QLabel *powerLabel;
     QDoubleSpinBox *powerEdit;
 
+    QLabel *rigLabel;
+    NewContactEditLine *rigEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);

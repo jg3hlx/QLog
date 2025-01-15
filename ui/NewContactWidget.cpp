@@ -1036,6 +1036,7 @@ void NewContactWidget::resetContact()
     uiDynamic->srxStringEdit->clear();
     uiDynamic->srxEdit->clear();
     uiDynamic->rxPWREdit->clear();
+    uiDynamic->rigEdit->clear();
     ui->dupeLabel->setVisible(false);
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1573,6 +1574,9 @@ void NewContactWidget::connectFieldChanged()
     connect(uiDynamic->rxPWREdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
+    connect(uiDynamic->rigEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
     /* no other fields are currently considered
      * as an attempt to fill out the form */
 }
@@ -1761,6 +1765,11 @@ void NewContactWidget::saveContact()
 
     if (!uiDynamic->urlEdit->text().isEmpty()) {
         record.setValue("web", Data::removeAccents(uiDynamic->urlEdit->text()));
+    }
+
+    if ( ! uiDynamic->rigEdit->text().isEmpty() )
+    {
+        record.setValue("rig_intl", uiDynamic->rigEdit->text());
     }
 
     AdiFormat::preprocessINTLFields<QSqlRecord>(record);
@@ -3692,6 +3701,7 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_STX, "stx", stxLabel, stxEdit);
     initializeWidgets(LogbookModel::COLUMN_RX_PWR, "rx_pwr", rxPWRLabel, rxPWREdit);
     initializeWidgets(LogbookModel::COLUMN_TX_POWER, "power", powerLabel, powerEdit);
+    initializeWidgets(LogbookModel::COLUMN_RIG_INTL, "rigDX", rigLabel, rigEdit);
 
     if ( allocateWidgets )
     {
@@ -3813,6 +3823,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         powerEdit->setDecimals(3);
         powerEdit->setSpecialValueText(QCoreApplication::translate("NewContactWidget", "Blank"));
         powerEdit->setSuffix(QCoreApplication::translate("NewContactWidget", " W"));
+
+        rigEdit->setToolTip(QCoreApplication::translate("NewContactWidget", "Description of the contacted station's equipment", nullptr));
     }
 }
 
