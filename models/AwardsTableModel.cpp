@@ -20,6 +20,17 @@ QVariant AwardsTableModel::data(const QModelIndex &index, int role) const
     QVariant originCellValue = QSqlQueryModel::data(index, Qt::DisplayRole);
     int cellIntValue = originCellValue.toInt();
 
+    if ( role == Qt::DisplayRole
+         && (originRowType == 1 || originRowType == 2)
+         && index.column() == 2 )
+    {
+        unsigned int count = 0;
+        for ( int i = 3; i <= columnCount(); i++ )
+            count += QSqlQueryModel::data(this->index(index.row(), i),
+                                          Qt::DisplayRole).toInt();
+        return tr("Slots: ") + QString::number(count) + "  ";
+    }
+
     if ( index.column() >= 3 )
     {
         switch (role)
