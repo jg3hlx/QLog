@@ -4,7 +4,7 @@ Summary: Qt Logging program for hamradio operators
 Name: QLog
 Version: %{REPO_VERSION}
 Release: 1%{?dist}
-License: GPLv2
+License: GPLv3
 Group: Productivity/Hamradio/Logging
 Source: https://github.com/foldynl/QLog/archive/refs/tags/v%{version}.tar.gz#/qlog-%{version}.tar.gz
 Source1: https://github.com/foldynl/QLog-Flags/archive/refs/tags/v%{version}.tar.gz#/qlog-flags-%{version}.tar.gz
