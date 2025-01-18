@@ -1,4 +1,5 @@
 TBC - 0.41.1
+- Fixed compilation issue under Debian 12 (issue #571)
 - Updated IT translation
 
 2025/01/11 - 0.41.0
