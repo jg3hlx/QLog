@@ -412,6 +412,10 @@ void NewContactWidget::readGlobalSettings()
 
     ui->freqRXEdit->loadBands();
     ui->freqTXEdit->loadBands();
+
+    updatePartnerLocTime();
+    ui->dateEdit->setDisplayFormat(locale.formatDateShortWithYYYY());
+    ui->timeOnEdit->setDisplayFormat(locale.formatTimeLongWithoutTZ());
 }
 
 /* function is called when an operator change Callsign Edit */

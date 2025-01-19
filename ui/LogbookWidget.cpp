@@ -1057,6 +1057,7 @@ void LogbookWidget::reloadSetting()
     /* Refresh dynamic Club selection combobox */
     refreshClubFilter();
     callbookManager.initCallbooks();
+    updateTable();
 }
 
 void LogbookWidget::sendDXCSpot()

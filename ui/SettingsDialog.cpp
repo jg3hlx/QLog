@@ -2348,6 +2348,13 @@ void SettingsDialog::readSettings() {
     ui->notifSpotAlertEdit->setText(NetworkNotification::getNotifSpotAlertAddrs());
     ui->notifRigEdit->setText(NetworkNotification::getNotifRigStateAddrs());
 
+    /*******/
+    /* GUI */
+    /*******/
+    bool timeformat24 = locale.getSettingUse24hformat();
+    ui->timeFormat24RadioButton->setChecked(timeformat24);
+    ui->timeFormat12RadioButton->setChecked(!timeformat24);
+
     /******************/
     /* END OF Reading */
     /******************/
@@ -2459,6 +2466,11 @@ void SettingsDialog::writeSettings() {
     NetworkNotification::saveNotifWSJTXCQSpotAddrs(ui->notifWSJTXCQSpotsEdit->text());
     NetworkNotification::saveNotifSpotAlertAddrs(ui->notifSpotAlertEdit->text());
     NetworkNotification::saveNotifRigStateAddrs(ui->notifRigEdit->text());
+
+    /*******/
+    /* GUI */
+    /*******/
+    locale.setSettingUse24hformat(ui->timeFormat24RadioButton->isChecked());
 }
 
 /* this function is called when user modify rig progile
