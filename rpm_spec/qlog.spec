@@ -42,6 +42,12 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_metainfodir}/*
 
 %changelog
+* Tue Jan 21 2025 Ladislav Foldyna - 0.41.1-1
+- Fixed compilation issue under Debian 12 (issue #571)
+- Fixed Incorrect GPL version in rpm/deb packages (issue #572)
+- Fixed MacOS floating utility window bug (PR #576 @kyleboyle)
+- Updated IT translation
+
 * Sat Jan 11 2025 Ladislav Foldyna - 0.41.0-1
 - [NEW] - Logbook - Added a new context menu item - Update QSO from Callbook (issue #450 @aa5sh)
 - [NEW] - DIGI mode is used in case of DXC Digi Spots (issue #480)
