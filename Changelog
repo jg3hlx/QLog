@@ -1,4 +1,5 @@
 TBC - 0.42.0
+- [CHANGED] - Changed IOTA LOV Source, the official web is used
 
 2025/01/21 - 0.41.1
 - Fixed compilation issue under Debian 12 (issue #571)
