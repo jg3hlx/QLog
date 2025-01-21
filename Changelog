@@ -1,5 +1,7 @@
 TBC - 0.42.0
+- [NEW] - Activity Manager - Added new dynamic fields - Rig
 - [CHANGED] - Changed IOTA LOV Source, the official web is used
+- [CHANGED] - CSV Export: Time and Date formats use ISO8601 format
 
 2025/01/21 - 0.41.1
 - Fixed compilation issue under Debian 12 (issue #571)
