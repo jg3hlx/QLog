@@ -41,6 +41,9 @@ AwardsDialog::AwardsDialog(QWidget *parent) :
     ui->awardComboBox->addItem(tr("POTA Activator"), QVariant("potaa"));
     ui->awardComboBox->addItem(tr("SOTA"), QVariant("sota"));
     ui->awardComboBox->addItem(tr("WWFF"), QVariant("wwff"));
+    ui->awardComboBox->addItem(tr("Gridsquare 2-Chars"), QVariant("grid2"));
+    ui->awardComboBox->addItem(tr("Gridsquare 4-Chars"), QVariant("grid4"));
+    ui->awardComboBox->addItem(tr("Gridsquare 6-Chars"), QVariant("grid6"));
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("Done"));
     ui->awardTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -246,6 +249,22 @@ void AwardsDialog::refreshTable(int)
                              " WHERE c.my_dxcc = '" + entitySelected + "' ";
         addWherePart = " AND c.iota is not NULL"
                        " AND c.my_dxcc = '" + entitySelected + "' ";
+    }
+    else if ( awardSelected == "grid2"
+              || awardSelected == "grid4"
+              || awardSelected == "grid6" )
+    {
+        const QString &number = awardSelected.right(awardSelected.size() - 4);
+
+        setEntityInputEnabled(true);
+        setNotWorkedEnabled(false);
+        const QString &entitySelected = getSelectedEntity();
+        headersColumns = QString("substr(c.gridsquare, 1, %0) col1, NULL col2 ").arg(number);
+        uniqColumns = QString("substr(c.gridsquare, 1, %0)").arg(number);
+        sqlPartDetailTable = " FROM source_contacts c"
+                             "      INNER JOIN modes m ON c.mode = m.name"
+                             " WHERE c.my_dxcc = '" + entitySelected + "' ";
+        addWherePart = QString(" AND length(c.gridsquare) >= %0 AND c.my_dxcc = '%1' ").arg(number, entitySelected);
     }
     else if ( awardSelected == "potah" )
     {
