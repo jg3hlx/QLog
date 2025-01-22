@@ -8,6 +8,10 @@ LogLocale::LogLocale() :
     is24hUsed(!timeFormat(QLocale::ShortFormat).contains("ap", Qt::CaseInsensitive))
 {
     FCT_IDENTIFICATION;
+
+    systemDateFormat = dateFormat(QLocale::ShortFormat);
+    if ( systemDateFormat.contains("yy") && !systemDateFormat.contains("yyyy") )
+        systemDateFormat.replace("yy", "yyyy");
 }
 
 void LogLocale::changeTime12_24Format(QString &formatString) const
@@ -15,10 +19,13 @@ void LogLocale::changeTime12_24Format(QString &formatString) const
     if ( getSettingUse24hformat() )
         formatString.remove("ap", Qt::CaseInsensitive).remove("a", Qt::CaseInsensitive);
     else if ( is24hUsed )
+    {
         formatString += " AP";
+        formatString = formatString.toLower();
+    }
 }
 
-QString LogLocale::formatTimeLongWithoutTZ() const
+const QString LogLocale::formatTimeLongWithoutTZ() const
 {
     FCT_IDENTIFICATION;
 
@@ -29,7 +36,7 @@ QString LogLocale::formatTimeLongWithoutTZ() const
     return ret;
 }
 
-QString LogLocale::formatTimeShort() const
+const QString LogLocale::formatTimeShort() const
 {
     FCT_IDENTIFICATION;
 
@@ -40,11 +47,12 @@ QString LogLocale::formatTimeShort() const
     return ret;
 }
 
-QString LogLocale::formatTimeLong() const
+const QString LogLocale::formatTimeLong() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = formatTimeLongWithoutTZ()
+    QString ret = formatTimeLongWithoutTZ();
+    ret
 #if (QT_VERSION < QT_VERSION_CHECK(6, 5, 0))
                                            .append(" t");
 #else
@@ -55,24 +63,20 @@ QString LogLocale::formatTimeLong() const
     return ret;
 }
 
-QString LogLocale::formatDateShortWithYYYY() const
+const QString LogLocale::formatDateShortWithYYYY() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = dateFormat(QLocale::ShortFormat);
-
-    if ( ret.contains("yy") && !ret.contains("yyyy") )
-        ret = ret.replace("yy", "yyyy");
-
+    QString ret = (getSettingUseSystemDateFormat()) ? systemDateFormat : getSettingDateFormat();
     qCDebug(runtime) << "format:" << ret;
     return ret;
 }
 
-QString LogLocale::formatDateTimeShortWithYYYY() const
+const QString LogLocale::formatDateTimeShortWithYYYY() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = formatDateShortWithYYYY() + " " +formatTimeShort();
+    QString ret = formatDateShortWithYYYY() + " " + formatTimeShort();
 
     qCDebug(runtime) << "format:" << ret;
     return ret;
@@ -87,3 +91,24 @@ void LogLocale::setSettingUse24hformat(bool value)
 {
     settings.setValue("use24hformat", value);
 }
+
+bool LogLocale::getSettingUseSystemDateFormat() const
+{
+    return settings.value("usesystemdateformat", true).toBool();
+}
+
+void LogLocale::setSettingUseSystemDateFormat(bool value)
+{
+    settings.setValue("usesystemdateformat", value);
+}
+
+const QString LogLocale::getSettingDateFormat() const
+{
+    return settings.value("customdateformatstring", systemDateFormat).toString();
+}
+
+void LogLocale::setSettingDateFormat(const QString &value)
+{
+    settings.setValue("customdateformatstring", value);
+}
+
