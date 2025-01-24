@@ -821,72 +821,75 @@ void LogFormat::runQSLImport(QSLFrom fromService)
         case LOTW:
         {
             /* https://lotw.arrl.org/lotw-help/developer-query-qsos-qsls/?lang=en */
-            if ( !QSLRecord.value("lotw_qsl_rcvd").toString().isEmpty() )
+            // always try to update contact from received QSL
+            if ( QSLRecord.value("qsl_rcvd").toString() == 'Y' ) // qsl_rcvd is OK because LoTW sends lotw_qsl_rcvd value in qsl_rcvd
             {
-                if ( QSLRecord.value("qsl_rcvd") != originalRecord.value("lotw_qsl_rcvd")
-                     && QSLRecord.value("qsl_rcvd").toString() == 'Y' )
+                bool callUpdate = false;
+                bool newlyReceived = (QSLRecord.value("qsl_rcvd").toString() != originalRecord.value("lotw_qsl_rcvd").toString());
+
+                qCDebug(runtime) << "Attempt to" << (newlyReceived ? "force " : "") << "update QSO" << call.toString()
+                                 << band.toString() << start_time.toString();
+
+                auto conditionUpdate = [&](const QString &contactKey,
+                                           const QString &qslKey,
+                                           bool forceUpdate = false)
                 {
-                    originalRecord.setValue("lotw_qsl_rcvd", QSLRecord.value("qsl_rcvd"));
-
-                    originalRecord.setValue("lotw_qslrdate", QSLRecord.value("qsl_rdate"));
-
-                    Gridsquare dxNewGrid(QSLRecord.value("gridsquare").toString());
-
-                    if ( dxNewGrid.isValid()
-                         && ( originalRecord.value("gridsquare").toString().isEmpty()
-                              ||
-                              dxNewGrid.getGrid().contains(originalRecord.value("gridsquare").toString()))
-                       )
+                    if ( !QSLRecord.value(qslKey).toString().isEmpty()
+                        && ( forceUpdate || originalRecord.value(contactKey).toString().isEmpty() ) )
                     {
-                        Gridsquare myGrid(originalRecord.value("my_gridsquare").toString());
-
-                        originalRecord.setValue("gridsquare", dxNewGrid.getGrid());
-
-                        double distance;
-
-                        if ( myGrid.distanceTo(dxNewGrid, distance) )
-                        {
-                            originalRecord.setValue("distance", QVariant(distance));
-                        }
+                        qCDebug(runtime) << "Updating:" << contactKey
+                                         << "to" << QSLRecord.value(qslKey)
+                                         << (forceUpdate ? "force update" : "");
+                        originalRecord.setValue(contactKey, QSLRecord.value(qslKey));
+                        return true;
                     }
+                    return false;
+                };
 
-                    if ( !QSLRecord.value("credit_granted").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("credit_granted", QSLRecord.value("credit_granted"));
-                    }
+                callUpdate |= conditionUpdate("lotw_qsl_rcvd", "qsl_rcvd", newlyReceived);
+                callUpdate |= conditionUpdate("lotw_qslrdate", "qsl_rdate", newlyReceived);
+                callUpdate |= conditionUpdate("credit_granted", "credit_granted", newlyReceived);
+                callUpdate |= conditionUpdate("credit_submitted", "credit_submitted", newlyReceived);
+                callUpdate |= conditionUpdate("pfx", "pfx", newlyReceived);
+                callUpdate |= conditionUpdate("iota", "iota", newlyReceived);
+                callUpdate |= conditionUpdate("vucc_grids", "vucc_grids", newlyReceived);
+                callUpdate |= conditionUpdate("state", "state", newlyReceived);
+                callUpdate |= conditionUpdate("cnty", "cnty", newlyReceived);
 
-                    if ( !QSLRecord.value("credit_submitted").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("credit_submitted", QSLRecord.value("credit_submitted"));
-                    }
-
-                    if ( !QSLRecord.value("pfx").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("pfx", QSLRecord.value("pfx"));
-                    }
-
-                    if ( !QSLRecord.value("iota").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("iota", QSLRecord.value("iota"));
-                    }
-
-                    if ( !QSLRecord.value("vucc_grids").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("vucc_grids", QSLRecord.value("vucc_grids"));
-                    }
-
-                    if ( !QSLRecord.value("state").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("state", QSLRecord.value("state"));
-                    }
-
-                    if ( !QSLRecord.value("cnty").toString().isEmpty() )
-                    {
-                        originalRecord.setValue("cnty", QSLRecord.value("cnty"));
-                    }
-
+                if ( originalRecord.value("qsl_rcvd_via").toString() != "E" )
+                {
+                    qCDebug(runtime) << "Updating: qsl_rcvd_via from" << originalRecord.value("qsl_rcvd_via").toString() << "to E";
                     originalRecord.setValue("qsl_rcvd_via", "E");
+                    callUpdate |= true;
+                }
 
+                const QString origGrig = originalRecord.value("gridsquare").toString();
+                const Gridsquare dxNewGrid(QSLRecord.value("gridsquare").toString());
+
+                if ( ( newlyReceived
+                       ||  origGrig.isEmpty()
+                       || ( origGrig.length() < QSLRecord.value("gridsquare").toString().length()
+                            && dxNewGrid.isValid()
+                            && dxNewGrid.getGrid().contains(origGrig) ) )
+                    && !dxNewGrid.getGrid().isEmpty() )
+                {
+                    const Gridsquare myGrid(originalRecord.value("my_gridsquare").toString());
+
+                    originalRecord.setValue("gridsquare", dxNewGrid.getGrid());
+
+                    double distance;
+
+                    if ( myGrid.distanceTo(dxNewGrid, distance) )
+                    {
+                        originalRecord.setValue("distance", QVariant(distance));
+                    }
+                    qCDebug(runtime) << "Updating: grid from " << origGrig << "to" << dxNewGrid.getGrid();
+                    callUpdate |= true;
+                }
+
+                if ( callUpdate )
+                {
+                    qCDebug(runtime) << "Calling update for" << call << band << mode << start_time << satName;
                     if ( !model.setRecord(0, originalRecord) )
                     {
                         qWarning() << "Cannot update a Contact record - " << model.lastError();
@@ -898,12 +901,9 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                         qWarning() << "Cannot commit changes to Contact Table - " << model.lastError();
                     }
                     stats.qsos_updated++;
-                    stats.newQSLs.append(call.toString());
+                    if ( newlyReceived )
+                        stats.newQSLs.append(call.toString());
                 }
-            }
-            else
-            {
-                qCInfo(runtime) << "Malformed Lotw Record " << QSLRecord;
             }
             break;
         }
@@ -928,7 +928,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                  APP_EQSL_AG (tag only present if sender has Authenticity Guaranteed status and then always Y)
                  GRIDSQUARE (tag only present if non-blank and at least 4 long)
             */
-
+            //try to update contact from received QSL only in case when contact != Y
             if ( originalRecord.value("eqsl_qsl_rcvd").toString() != 'Y' )
             {
                 originalRecord.setValue("eqsl_qsl_rcvd", QSLRecord.value("qsl_sent"));
