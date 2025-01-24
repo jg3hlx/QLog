@@ -753,8 +753,8 @@ void LogFormat::runQSLImport(QSLFrom fromService)
 {
     FCT_IDENTIFICATION;
 
+    static QRegularExpression reLeadingZero("^0+");
     QSLMergeStat stats = {QStringList(), QStringList(), 0, 0, 0, 0};
-
     this->importStart();
 
     QSqlTableModel model;
@@ -846,6 +846,28 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                     return false;
                 };
 
+                auto conditionUpdateSpecial = [&](const QString &contactKey,
+                                                  const QString &qslKey,
+                                                  bool forceUpdate = false)
+                {
+                    QString contactValue = originalRecord.value(contactKey).toString();
+                    QString QSLValue = QSLRecord.value(qslKey).toString();
+                    contactValue.remove(reLeadingZero);
+                    QSLValue.remove(reLeadingZero);
+
+                    if ( !QSLValue.isEmpty()
+                        && ( forceUpdate || contactValue != QSLValue ) )
+                    {
+                        qCDebug(runtime) << "Updating:" << contactKey
+                                         << "from" << originalRecord.value(contactKey).toString()
+                                         << "to" << QSLValue
+                                         << (forceUpdate ? "force update" : "");
+                        originalRecord.setValue(contactKey, QSLValue);
+                        return true;
+                    }
+                    return false;
+                };
+
                 callUpdate |= conditionUpdate("lotw_qsl_rcvd", "qsl_rcvd", newlyReceived);
                 callUpdate |= conditionUpdate("lotw_qslrdate", "qsl_rdate", newlyReceived);
                 callUpdate |= conditionUpdate("credit_granted", "credit_granted", newlyReceived);
@@ -855,6 +877,8 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                 callUpdate |= conditionUpdate("vucc_grids", "vucc_grids", newlyReceived);
                 callUpdate |= conditionUpdate("state", "state", newlyReceived);
                 callUpdate |= conditionUpdate("cnty", "cnty", newlyReceived);
+                callUpdate |= conditionUpdateSpecial("ituz", "ituz", newlyReceived);
+                callUpdate |= conditionUpdateSpecial("cqz", "cqz", newlyReceived);
 
                 if ( originalRecord.value("qsl_rcvd_via").toString() != "E" )
                 {
