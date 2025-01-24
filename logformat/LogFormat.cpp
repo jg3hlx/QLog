@@ -972,7 +972,8 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                  APP_EQSL_AG (tag only present if sender has Authenticity Guaranteed status and then always Y)
                  GRIDSQUARE (tag only present if non-blank and at least 4 long)
             */
-            //try to update contact from received QSL only in case when contact != Y
+            // LF: Since I consider this source unreliable, I will not update it here, as I do with LoTW
+            // try to update contact from received QSL only in case when contact != Y
             if ( originalRecord.value("eqsl_qsl_rcvd").toString() != 'Y' )
             {
                 originalRecord.setValue("eqsl_qsl_rcvd", QSLRecord.value("qsl_sent"));
