@@ -755,17 +755,14 @@ void LogFormat::runQSLImport(QSLFrom fromService)
 
     auto reportFormatter = [&](const QDateTime &qsoTime,
                                const QString &callsign,
-                               const QString &mode)
+                               const QString &mode,
+                               const QStringList addInfo = QStringList())
     {
-        return QString("%0; %1; %2").arg(qsoTime.isValid() ? qsoTime.toString(locale.formatDateShortWithYYYY()) : "-", callsign, mode);
-    };
-
-    auto reportFormatterUpdated = [&](const QDateTime &qsoTime,
-                                      const QString &callsign,
-                                      const QString &mode,
-                                      const QStringList updates)
-    {
-        return QString("%0, %1").arg(reportFormatter(qsoTime, callsign, mode), updates.join(", "));
+        return QString("%0; %1; %2%3 %4").arg(qsoTime.isValid() ? qsoTime.toString(locale.formatDateShortWithYYYY()) : "-",
+                                            callsign,
+                                            mode,
+                                            (addInfo.size() > 0 ) ? ";" : "",
+                                            addInfo.join(", "));
     };
 
     static QRegularExpression reLeadingZero("^0+");
@@ -944,9 +941,12 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                         qWarning() << "Cannot commit changes to Contact Table - " << model.lastError();
                     }
                     if ( newlyReceived )
-                        stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
+                    {
+                        const DxccStatus status = Data::instance()->dxccStatus(originalRecord.value("dxcc").toInt(), band.toString(), mode.toString());
+                        stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString(), {tr("DXCC State:") + " " + Data::statusToText(status)}));
+                    }
                     else
-                        stats.updatedQSOs.append(reportFormatterUpdated(start_time.toDateTime(), call.toString(), mode.toString(), updatedFields));
+                        stats.updatedQSOs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString(), updatedFields));
                 }
             }
             break;
@@ -1016,7 +1016,8 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                 {
                     qWarning() << "Cannot commit changes to Contact Table - " << model.lastError();
                 }
-                stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
+                const DxccStatus status = Data::instance()->dxccStatus(originalRecord.value("dxcc").toInt(), band.toString(), mode.toString());
+                stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString(), {tr("DXCC State:") + " " + Data::statusToText(status)}));
             }
 
             break;
