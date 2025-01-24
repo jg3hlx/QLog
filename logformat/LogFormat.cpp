@@ -753,8 +753,23 @@ void LogFormat::runQSLImport(QSLFrom fromService)
 {
     FCT_IDENTIFICATION;
 
+    auto reportFormatter = [&](const QDateTime &qsoTime,
+                               const QString &callsign,
+                               const QString &mode)
+    {
+        return QString("%0; %1; %2").arg(qsoTime.isValid() ? qsoTime.toString(locale.formatDateShortWithYYYY()) : "-", callsign, mode);
+    };
+
+    auto reportFormatterUpdated = [&](const QDateTime &qsoTime,
+                                      const QString &callsign,
+                                      const QString &mode,
+                                      const QStringList updates)
+    {
+        return QString("%0, %1").arg(reportFormatter(qsoTime, callsign, mode), updates.join(", "));
+    };
+
     static QRegularExpression reLeadingZero("^0+");
-    QSLMergeStat stats = {QStringList(), QStringList(), 0, 0, 0, 0};
+    QSLMergeStat stats = {QStringList(), QStringList(), QStringList(), QStringList(), 0};
     this->importStart();
 
     QSqlTableModel model;
@@ -767,9 +782,9 @@ void LogFormat::runQSLImport(QSLFrom fromService)
 
         if ( !this->importNext(QSLRecord) ) break;
 
-        stats.qsos_checked++;
+        stats.qsosDownloaded++;
 
-        if ( stats.qsos_checked % 100 == 0 )
+        if ( stats.qsosDownloaded % 100 == 0 )
         {
             emit importPosition(stream.pos());
         }
@@ -789,7 +804,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
         {
             qWarning() << "Import does not contain field start_time or callsign or band or mode ";
             qCDebug(runtime) << QSLRecord;
-            stats.qsos_errors++;
+            stats.errorQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
             continue;
         }
 
@@ -807,8 +822,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
 
         if ( model.rowCount() != 1 )
         {
-            stats.qsos_unmatched++;
-            stats.unmatchedQSLs.append(call.toString());
+            stats.unmatchedQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
             continue;
         }
 
@@ -824,6 +838,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
             // always try to update contact from received QSL
             if ( QSLRecord.value("qsl_rcvd").toString() == 'Y' ) // qsl_rcvd is OK because LoTW sends lotw_qsl_rcvd value in qsl_rcvd
             {
+                QStringList updatedFields;
                 bool callUpdate = false;
                 bool newlyReceived = (QSLRecord.value("qsl_rcvd").toString() != originalRecord.value("lotw_qsl_rcvd").toString());
 
@@ -838,8 +853,9 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                         && ( forceUpdate || originalRecord.value(contactKey).toString().isEmpty() ) )
                     {
                         qCDebug(runtime) << "Updating:" << contactKey
-                                         << "to" << QSLRecord.value(qslKey)
+                                         << "to" << QSLRecord.value(qslKey).toString()
                                          << (forceUpdate ? "force update" : "");
+                        updatedFields.append(contactKey + "(" + QSLRecord.value(qslKey).toString()  +")");
                         originalRecord.setValue(contactKey, QSLRecord.value(qslKey));
                         return true;
                     }
@@ -862,6 +878,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                                          << "from" << originalRecord.value(contactKey).toString()
                                          << "to" << QSLValue
                                          << (forceUpdate ? "force update" : "");
+                        updatedFields.append(contactKey + "(" + QSLRecord.value(qslKey).toString()  +")");
                         originalRecord.setValue(contactKey, QSLValue);
                         return true;
                     }
@@ -884,6 +901,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                 {
                     qCDebug(runtime) << "Updating: qsl_rcvd_via from" << originalRecord.value("qsl_rcvd_via").toString() << "to E";
                     originalRecord.setValue("qsl_rcvd_via", "E");
+                    updatedFields.append("qsl_rcvd_via (E)");
                     callUpdate |= true;
                 }
 
@@ -908,6 +926,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                         originalRecord.setValue("distance", QVariant(distance));
                     }
                     qCDebug(runtime) << "Updating: grid from " << origGrig << "to" << dxNewGrid.getGrid();
+                    updatedFields.append("gridsquare (" + dxNewGrid.getGrid()  +")");
                     callUpdate |= true;
                 }
 
@@ -924,9 +943,10 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                     {
                         qWarning() << "Cannot commit changes to Contact Table - " << model.lastError();
                     }
-                    stats.qsos_updated++;
                     if ( newlyReceived )
-                        stats.newQSLs.append(call.toString());
+                        stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
+                    else
+                        stats.updatedQSOs.append(reportFormatterUpdated(start_time.toDateTime(), call.toString(), mode.toString(), updatedFields));
                 }
             }
             break;
@@ -995,8 +1015,7 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                 {
                     qWarning() << "Cannot commit changes to Contact Table - " << model.lastError();
                 }
-                stats.qsos_updated++;
-                stats.newQSLs.append(call.toString());
+                stats.newQSLs.append(reportFormatter(start_time.toDateTime(), call.toString(), mode.toString()));
             }
 
             break;
