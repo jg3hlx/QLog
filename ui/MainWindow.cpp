@@ -97,8 +97,6 @@ MainWindow::MainWindow(QWidget* parent) :
             dockWidget->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
     }
 
-    setLayoutGeometry();
-
     const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
 
     activityButton = new QPushButton("", ui->statusBar);
@@ -171,8 +169,6 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(RigProfilesManager::instance(), &RigProfilesManager::profileChanged,
             ui->rigWidget, &RigWidget::refreshRigProfileCombo);
 
-    connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
-            this, &MainWindow::setSimplyLayoutGeometry);
     connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
             ui->newContactWidget, &NewContactWidget::setupCustomUi);
 
@@ -677,35 +673,46 @@ void MainWindow::setLayoutGeometry()
     // restore the window geometry and state
     const MainLayoutProfile &layoutProfile = MainLayoutProfilesManager::instance()->getCurProfile1();
 
+    QByteArray newGeometry;
+    QByteArray newState;
+    bool darkMode = false;
+
     if ( layoutProfile.mainGeometry != QByteArray()
-         || layoutProfile.mainState != QByteArray() )
+        || layoutProfile.mainState != QByteArray() )
     {
-        restoreGeometry(layoutProfile.mainGeometry);
-#if (QT_VERSION < QT_VERSION_CHECK(6, 3, 0))
-        // workaround for QTBUG-46620
-        if ( isMaximized() )
-        {
-            const QList<QScreen *> &screens = QGuiApplication::screens();
-            setGeometry( screens[0]->availableGeometry() );
-        }
-#endif
-        restoreState(layoutProfile.mainState);
-        darkLightModeSwith->setChecked(layoutProfile.darkMode);
+        newGeometry = layoutProfile.mainGeometry;
+        newState = layoutProfile.mainState;
+        darkMode = layoutProfile.darkMode;
     }
     else
     {
-        restoreGeometry(settings.value("geometry").toByteArray());
-#if (QT_VERSION < QT_VERSION_CHECK(6, 3, 0))
-        // workaround for QTBUG-46620
-        if ( isMaximized() )
-        {
-            const QList<QScreen *> &screens = QGuiApplication::screens();
-            setGeometry( screens[0]->availableGeometry() );
-        }
-#endif
-        restoreState(settings.value("windowState").toByteArray());
-        // leave dark mode as is
+        newGeometry = settings.value("geometry").toByteArray();
+        newState = settings.value("windowState").toByteArray();
+        darkMode = settings.value("darkmode", false).toBool();
     }
+
+    restoreGeometry(newGeometry);
+
+#ifdef Q_OS_LINUX
+    // workaround for QTBUG-46620
+    // side-effet - sometime it sets fullscreen mode
+    if ( isMaximized() )
+        setGeometry(screen()->availableGeometry());
+#endif
+
+    // workaround for QTBUG-46620
+    QTimer* nt = new QTimer(this);
+    nt->setSingleShot(true);
+    nt->setInterval(500);
+    connect(nt, &QTimer::timeout, this, [this, darkMode, newState]()
+    {
+        restoreState(newState);
+        darkLightModeSwith->setChecked(isFusionStyle && darkMode);
+        connect(MainLayoutProfilesManager::instance(), &MainLayoutProfilesManager::profileChanged,
+                this, &MainWindow::setSimplyLayoutGeometry);
+    });
+    nt->connect(nt, &QTimer::timeout, nt, &QTimer::deleteLater);
+    nt->start();
 }
 
 void MainWindow::setSimplyLayoutGeometry()
@@ -720,8 +727,28 @@ void MainWindow::setSimplyLayoutGeometry()
         || layoutProfile.mainState != QByteArray() )
     {
         restoreGeometry(layoutProfile.mainGeometry);
-        restoreState(layoutProfile.mainState);
-        darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
+
+#ifdef Q_OS_LINUX
+        if ( isMaximized() )
+        {
+            // workaround for QTBUG-46620
+            // side-effect: screen is flashing
+            QApplication::processEvents(); showNormal();
+            QApplication::processEvents(); showMaximized();
+        }
+#endif
+
+        // workaround for QTBUG-46620
+        QTimer* nt = new QTimer(this);
+        nt->setSingleShot(true);
+        nt->setInterval(500);
+        connect(nt, &QTimer::timeout, this, [this, layoutProfile]()
+        {
+            restoreState(layoutProfile.mainState);
+            darkLightModeSwith->setChecked(isFusionStyle && layoutProfile.darkMode);
+        });
+        nt->connect(nt, &QTimer::timeout, nt, &QTimer::deleteLater);
+        nt->start();
     }
 }
 
@@ -738,7 +765,9 @@ void MainWindow::saveProfileLayoutGeometry()
         layoutProfile.darkMode = darkLightModeSwith->isChecked();
         layoutProfile.tabsexpanded =  ui->newContactWidget->getTabCollapseState();
         MainLayoutProfilesManager::instance()->addProfile(layoutProfile.profileName, layoutProfile);
+        MainLayoutProfilesManager::instance()->blockSignals(true); // prevent screen flashing
         MainLayoutProfilesManager::instance()->save();
+        MainLayoutProfilesManager::instance()->blockSignals(false);
     }
 }
 
