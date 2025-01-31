@@ -1,6 +1,7 @@
 TBC - 0.42.0
 - [NEW] - Awards - Added Slots - total over each band (issue #538)
 - [NEW] - Awards - Added Grid Award - 2/4/6 Chars grid (issue #564)
+- [NEW] - Settings - Added options to switch 12/24 time and date format (issue #573)
 - [NEW] - Activity Manager - Added new dynamic fields - Rig (issue #575)
 - [CHANGED] - Changed IOTA LOV Source, the official web is used
 - [CHANGED] - CSV Export: Time and Date formats use ISO8601 format (issue #562)
