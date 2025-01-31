@@ -400,7 +400,7 @@ void AwardsDialog::refreshTable(int)
                                                            stmt_sum_total.join(","),
                                                            ui->notWorkedCheckBox->isChecked() ? QString("HAVING %1").arg(stmt_having.join(" AND ")) : QString(),totalTable ));
     qDebug(runtime) << finalSQL;
-    qWarning() << finalSQL;
+
     detailedViewModel->setQuery(finalSQL);
     detailedViewModel->setHeaderData(1, Qt::Horizontal, "");
     detailedViewModel->setHeaderData(2, Qt::Horizontal, "");
