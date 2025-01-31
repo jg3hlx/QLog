@@ -698,7 +698,11 @@ void MainWindow::setLayoutGeometry()
     // workaround for QTBUG-46620
     // side-effet - sometime it sets fullscreen mode
     if ( isMaximized() )
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
         setGeometry(screen()->availableGeometry());
+#else
+        setGeometry(QApplication::desktop()->availableGeometry(this));
+#endif
 #endif
 
     // workaround for QTBUG-46620
