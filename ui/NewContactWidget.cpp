@@ -797,8 +797,10 @@ void NewContactWidget::refreshRigProfileCombo()
     if ( isManualEnterMode )
         return;
 
-    ui->freqRXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).ritOffset);
-    ui->freqTXEdit->setValue(realRigFreq + RigProfilesManager::instance()->getProfile(currentText).xitOffset);
+    __changeFrequency(VFO1, realRigFreq,
+                      realRigFreq + RigProfilesManager::instance()->getProfile(currentText).ritOffset,
+                      realRigFreq + RigProfilesManager::instance()->getProfile(currentText).xitOffset);
+
     uiDynamic->powerEdit->setValue(RigProfilesManager::instance()->getProfile(currentText).defaultPWR);
 }
 
