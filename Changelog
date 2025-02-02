@@ -8,6 +8,7 @@ TBC - 0.42.0
 - [CHANGED] - CSV Export: Time and Date formats use ISO8601 format (issue #562)
 - [CHANGED] - Settings - Renamed Shortcuts to GUI tab
 - Partial fix Windows State/Size does not save in case of fullscreen (issue #418)
+- Fixing TCI error when you change Rig (issue #526)
 
 2025/01/21 - 0.41.1
 - Fixed compilation issue under Debian 12 (issue #571)
