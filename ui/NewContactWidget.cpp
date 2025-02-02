@@ -2916,6 +2916,14 @@ QString NewContactWidget::getRST() const
     return ui->rstSentEdit->text();
 }
 
+QString NewContactWidget::getQTH() const
+{
+    FCT_IDENTIFICATION;
+
+    return uiDynamic->qthEdit->text();
+}
+
+
 QString NewContactWidget::getGreeting() const
 {
     FCT_IDENTIFICATION;

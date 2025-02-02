@@ -1057,6 +1057,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1126,6 +1127,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1153,6 +1155,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1180,6 +1183,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1207,6 +1211,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1234,6 +1239,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH
@@ -1261,6 +1267,7 @@
 &lt;RST&gt; = Report 599
 &lt;RSTN&gt; = Report 5NN
 &lt;GREETING&gt; = Greenting GM/GA/GE
+&lt;QTH&gt; = QTH
 &lt;MYCALL&gt; = My Callsign
 &lt;MYNAME&gt; = My Name
 &lt;MYQTH&gt; = My QTH

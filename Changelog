@@ -4,6 +4,7 @@ TBC - 0.42.0
 - [NEW] - Settings - Added options to switch 12/24 time and date format (issue #573)
 - [NEW] - Activity Manager - Added new dynamic fields - Rig (issue #575)
 - [NEW] - LoTW Import - Fill missing information also for confirmed QSOs (@aa5sh)
+- [NEW] - Added CW macro QTH
 - [CHANGED] - Changed IOTA LOV Source, the official web is used
 - [CHANGED] - CSV Export: Time and Date formats use ISO8601 format (issue #562)
 - [CHANGED] - Settings - Renamed Shortcuts to GUI tab

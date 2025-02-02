@@ -175,6 +175,7 @@ public:
     QString getName() const;
     QString getRST() const;
     QString getGreeting() const;
+    QString getQTH() const;
     QString getMyCallsign() const;
     QString getMyName() const;
     QString getMyQTH() const;
