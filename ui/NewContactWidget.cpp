@@ -3732,13 +3732,9 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         contEdit->setMaximumSize(QSize(50, 16777215));
         contEdit->setSizeAdjustPolicy(QComboBox::AdjustToContents);
         contEdit->addItem(QString());
-        contEdit->addItem(QString("AF"));
-        contEdit->addItem(QString("AN"));
-        contEdit->addItem(QString("AS"));
-        contEdit->addItem(QString("EU"));
-        contEdit->addItem(QString("NA"));
-        contEdit->addItem(QString("OC"));
-        contEdit->addItem(QString("SA"));
+
+        for ( const QString &cont : Data::getContinentList() )
+            contEdit->addItem(cont);
 
         ituEdit->setMaximumSize(QSize(40, 16777215));
         ituEdit->setSizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Maximum);
