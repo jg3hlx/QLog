@@ -12,6 +12,7 @@ TBC - 0.42.0
 - Partial fix Windows State/Size does not save in case of fullscreen (issue #418)
 - Fixing TCI error when you change Rig (issue #526)
 - Fixed DXCC Award total worked confirmed counts included deleted entities (PR #588 @aa5sh)
+- Suppressed the ability to edit Contest fields after the start (issue #590)
 
 2025/01/21 - 0.41.1
 - Fixed compilation issue under Debian 12 (issue #571)
