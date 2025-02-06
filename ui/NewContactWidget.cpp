@@ -317,6 +317,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     if ( !isPrevQSOBaseCallMatchQuery)
         qWarning() << "Cannot prepare prevQSOBaseCallMatchQuery statement";
 
+    setContestFieldsState();
 }
 
 void NewContactWidget::setComboBaseData(QComboBox *combo, const QString &data)
