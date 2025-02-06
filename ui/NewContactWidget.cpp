@@ -1368,6 +1368,25 @@ void NewContactWidget::addAddlFields(QSqlRecord &record, const StationProfile &p
             setSTXSeq(uiDynamic->stxEdit->text().toInt() + 1);
         }
     }
+    else if ( !uiDynamic->srxStringEdit->text().isEmpty()
+               || !uiDynamic->stxStringEdit->text().isEmpty()
+               || uiDynamic->stxEdit->isVisible()
+               || !uiDynamic->srxEdit->text().isEmpty() )
+    {
+        QStringList fieldsTranslation
+        ({
+            LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SRX_STRING),
+            LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_STX_STRING),
+            LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_SRX),
+            LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_STX),
+        });
+
+        QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
+                             QMessageBox::tr("The fields <b>%0</b> will not be saved because the <b>%1</b> is not filled.")
+                                             .arg(fieldsTranslation.join(", "),
+                                                  LogbookModel::getFieldNameTranslation(LogbookModel::COLUMN_CONTEST_ID)));
+
+    }
 
     if ( record.value("rx_pwr").toString().isEmpty()
          && uiDynamic->rxPWREdit->isVisible()
