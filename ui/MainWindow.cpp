@@ -184,6 +184,8 @@ MainWindow::MainWindow(QWidget* parent) :
             ui->chatWidget, &ChatWidget::reloadStationProfile);
     connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
             ui->clockWidget, &ClockWidget::updateSun);
+    connect(StationProfilesManager::instance(), &StationProfilesManager::profileChanged,
+            ui->dxWidget, &DxWidget::recalculateTrend);
 
     connect(this, &MainWindow::themeChanged, ui->bandmapWidget, &BandmapWidget::update);
     connect(this, &MainWindow::themeChanged, ui->clockWidget, &ClockWidget::updateClock);
@@ -201,6 +203,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(Rig::instance(), &Rig::frequencyChanged, ui->bandmapWidget , &BandmapWidget::updateTunedFrequency);
     connect(Rig::instance(), &Rig::frequencyChanged, ui->newContactWidget, &NewContactWidget::changeFrequency);
     connect(Rig::instance(), &Rig::frequencyChanged, ui->rigWidget, &RigWidget::updateFrequency);
+    connect(Rig::instance(), &Rig::frequencyChanged, ui->dxWidget , &DxWidget::setTunedFrequency);
     connect(Rig::instance(), &Rig::modeChanged, ui->bandmapWidget, &BandmapWidget::updateMode);
     connect(Rig::instance(), &Rig::modeChanged, ui->newContactWidget, &NewContactWidget::changeModefromRig);
     connect(Rig::instance(), &Rig::modeChanged, ui->rigWidget, &RigWidget::updateMode);
@@ -247,6 +250,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->newContactWidget, &NewContactWidget::changeFrequency);
     connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->onlineMapWidget, &OnlineMapWidget::setIBPBand);
     connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->bandmapWidget , &BandmapWidget::updateTunedFrequency);
+    connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, ui->dxWidget , &DxWidget::setTunedFrequency);
     connect(ui->wsjtxWidget, &WsjtxWidget::modeChanged, ui->newContactWidget, &NewContactWidget::changeModefromRig);
 
     connect(this, &MainWindow::settingsChanged, wsjtx, &Wsjtx::reloadSetting);
@@ -308,6 +312,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->newContactWidget, &NewContactWidget::filterCallsign, ui->logbookWidget, &LogbookWidget::filterCallsign);
     connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, ui->bandmapWidget, &BandmapWidget::updateTunedFrequency);
     connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, ui->onlineMapWidget, &OnlineMapWidget::setIBPBand);
+    connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, ui->dxWidget , &DxWidget::setTunedFrequency);
     connect(ui->newContactWidget, &NewContactWidget::userModeChanged, ui->bandmapWidget, &BandmapWidget::updateMode);
     connect(ui->newContactWidget, &NewContactWidget::markQSO, ui->bandmapWidget, &BandmapWidget::addSpot);
     connect(ui->newContactWidget, &NewContactWidget::callboolImageUrl, ui->profileImageWidget, &ProfileImageWidget::loadImageFromUrl);
@@ -321,6 +326,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(ui->dxWidget, &DxWidget::newWWVSpot, &networknotification, &NetworkNotification::wwvSpot);
     connect(ui->dxWidget, &DxWidget::newToAllSpot, &networknotification, &NetworkNotification::toAllSpot);
     connect(ui->dxWidget, &DxWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
+    connect(ui->dxWidget, &DxWidget::tuneBand, ui->rigWidget, &RigWidget::setBand);
 
     connect(&alertEvaluator, &AlertEvaluator::spotAlert, this, &MainWindow::processSpotAlert);
     connect(&alertEvaluator, &AlertEvaluator::spotAlert, &networknotification, &NetworkNotification::spotAlert);
@@ -347,6 +353,7 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(conditions, &PropConditions::conditionsUpdated, this, &MainWindow::conditionsUpdated);
     connect(conditions, &PropConditions::auroraMapUpdated, ui->onlineMapWidget, &OnlineMapWidget::auroraDataUpdate);
     connect(conditions, &PropConditions::mufMapUpdated, ui->onlineMapWidget, &OnlineMapWidget::mufDataUpdate);
+    connect(conditions, &PropConditions::dxTrendFinalized, ui->dxWidget, &DxWidget::setDxTrend);
 
     ui->onlineMapWidget->assignPropConditions(conditions);
     ui->newContactWidget->assignPropConditions(conditions);

@@ -357,6 +357,18 @@ void RigWidget::bandDown()
         ui->bandComboBox->setCurrentIndex(currentIndex - 1);
 }
 
+void RigWidget::setBand(const QString &band)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << band;
+
+    if ( !rigOnline )
+        return;
+
+    ui->bandComboBox->setCurrentText(band);
+}
+
 void RigWidget::sendOnAirState()
 {
     FCT_IDENTIFICATION;
