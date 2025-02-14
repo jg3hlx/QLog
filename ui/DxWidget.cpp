@@ -3,7 +3,7 @@
 #include <QSettings>
 #include <QMessageBox>
 #include <QFontMetrics>
-#include <QAction>
+#include <QActionGroup>
 
 #ifdef Q_OS_WIN
 #include <Ws2tcpip.h>
