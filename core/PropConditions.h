@@ -8,6 +8,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QNetworkRequest;
 
 template<class T>
 class GenericValueMap
@@ -106,8 +107,9 @@ private:
     QList<QNetworkReply *> dxTrendPendingConnections;
     QTimer dxTrendTimeoutTimer;
     QHash<QString, QHash<QString, QHash<QString, int>>> dxTrendResult;
-
+    QByteArray agentString;
     void repeateRequest(const QUrl &);
+    QNetworkRequest prepareRequest(const QUrl &);
 
 private slots:
     void dxTrendTimeout();

@@ -37,7 +37,8 @@
 
 MODULE_IDENTIFICATION("qlog.core.conditions");
 
-PropConditions::PropConditions(QObject *parent) : QObject(parent)
+PropConditions::PropConditions(QObject *parent) : QObject(parent),
+    agentString(QString("QLog/%1").arg(VERSION).toUtf8())
 {
     FCT_IDENTIFICATION;
 
@@ -62,10 +63,10 @@ void PropConditions::update()
 {
     FCT_IDENTIFICATION;
 
-    nam->get(QNetworkRequest(QUrl(SOLAR_SUMMARY_IMG)));
-    nam->get(QNetworkRequest(QUrl(K_INDEX_URL)));
-    nam->get(QNetworkRequest(QUrl(AURORA_MAP)));
-    nam->get(QNetworkRequest(QUrl(MUF_POINTS)));
+    nam->get(prepareRequest(QUrl(SOLAR_SUMMARY_IMG)));
+    nam->get(prepareRequest(QUrl(K_INDEX_URL)));
+    nam->get(prepareRequest(QUrl(AURORA_MAP)));
+    nam->get(prepareRequest(QUrl(MUF_POINTS)));
 }
 
 void PropConditions::updateDxTrends()
@@ -75,7 +76,7 @@ void PropConditions::updateDxTrends()
     dxTrendResult.clear();
 
     for ( const QString& continent : Data::getContinentList() )
-        dxTrendPendingConnections << nam->get(QNetworkRequest(QUrl(DXC_TRENDS + QString("/%0/15").arg(continent))));
+        dxTrendPendingConnections << nam->get(prepareRequest(QUrl(DXC_TRENDS + QString("/%0/15").arg(continent))));
 
     dxTrendTimeoutTimer.start(DXTRENDS_TIMEOUT * 1000);
 }
@@ -265,13 +266,22 @@ void PropConditions::repeateRequest(const QUrl &url)
         QTimer::singleShot(1000 * RESEND_BASE_INTERVAL * failedRequests[url], this, [this, url]()
         {
             qCDebug(runtime) << "Resending request" << url.toString();
-            nam->get(QNetworkRequest(url));
+            nam->get(prepareRequest(url));
         });
     }
     else
     {
         qCDebug(runtime) << "Propagation - detected consecutive errors from" << url.toString();
     }
+}
+
+QNetworkRequest PropConditions::prepareRequest(const QUrl &url)
+{
+    FCT_IDENTIFICATION;
+
+    QNetworkRequest req(url);
+    req.setRawHeader("User-Agent", agentString);
+    return req;
 }
 
 void PropConditions::dxTrendTimeout()
