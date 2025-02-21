@@ -247,6 +247,7 @@ void PropConditions::processReply(QNetworkReply* reply)
     else
     {
         qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
+        dxTrendPendingConnections.removeAll(reply);
         repeateRequest(reply->url());
         reply->deleteLater();
     }
@@ -287,6 +288,8 @@ QNetworkRequest PropConditions::prepareRequest(const QUrl &url)
 void PropConditions::dxTrendTimeout()
 {
     FCT_IDENTIFICATION;
+
+    dxTrendTimeoutTimer.stop();
 
     for ( auto it = dxTrendPendingConnections.begin(); it != dxTrendPendingConnections.end(); ++it )
     {
