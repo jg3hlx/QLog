@@ -10,6 +10,8 @@ LogLocale::LogLocale() :
     FCT_IDENTIFICATION;
 
     systemDateFormat = dateFormat(QLocale::ShortFormat);
+    qCDebug(runtime) << systemDateFormat;
+
     if ( systemDateFormat.contains("yy") && !systemDateFormat.contains("yyyy") )
         systemDateFormat.replace("yy", "yyyy");
 }
@@ -29,6 +31,8 @@ const QString LogLocale::formatTimeLongWithoutTZ() const
 {
     FCT_IDENTIFICATION;
 
+    qCDebug(runtime) << timeFormat(QLocale::LongFormat);
+
     QString ret = timeFormat(QLocale::LongFormat).remove(regexp).trimmed();
 
     changeTime12_24Format(ret);
@@ -39,6 +43,8 @@ const QString LogLocale::formatTimeLongWithoutTZ() const
 const QString LogLocale::formatTimeShort() const
 {
     FCT_IDENTIFICATION;
+
+    qCDebug(runtime) << timeFormat(QLocale::ShortFormat);
 
     QString ret = timeFormat(QLocale::ShortFormat);
 
