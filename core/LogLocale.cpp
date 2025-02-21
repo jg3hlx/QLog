@@ -29,7 +29,7 @@ const QString LogLocale::formatTimeLongWithoutTZ() const
 {
     FCT_IDENTIFICATION;
 
-    QString ret = timeFormat(QLocale::LongFormat).remove(regexp);
+    QString ret = timeFormat(QLocale::LongFormat).remove(regexp).trimmed();
 
     changeTime12_24Format(ret);
     qCDebug(runtime) << "format:" << ret;
