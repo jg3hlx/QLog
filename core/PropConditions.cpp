@@ -74,6 +74,8 @@ void PropConditions::updateDxTrends()
     FCT_IDENTIFICATION;
 
     dxTrendResult.clear();
+    dxTrendTimeoutTimer.stop();
+    dxTrendPendingConnections.clear(); // pending connections will be ignored.
 
     for ( const QString& continent : Data::getContinentList() )
         dxTrendPendingConnections << nam->get(prepareRequest(QUrl(DXC_TRENDS + QString("/%0/15").arg(continent))));
@@ -209,9 +211,9 @@ void PropConditions::processReply(QNetworkReply* reply)
                 emit mufMapUpdated();
             }
         }
-        else if ( replyURL.toString().contains(DXC_TRENDS) )
+        else if ( dxTrendPendingConnections.contains(reply) )
         {
-            dxTrendPendingConnections.removeAll(reply);
+            dxTrendPendingConnections.remove(reply);
 
             QJsonDocument doc = QJsonDocument::fromJson(data);
             const QString &requestContinent = replyURL.path().section('/', -2, -2);
@@ -247,7 +249,7 @@ void PropConditions::processReply(QNetworkReply* reply)
     else
     {
         qCDebug(runtime) << "HTTP Status Code" << replyStatusCode;
-        dxTrendPendingConnections.removeAll(reply);
+        dxTrendPendingConnections.remove(reply);
         repeateRequest(reply->url());
         reply->deleteLater();
     }
@@ -267,7 +269,10 @@ void PropConditions::repeateRequest(const QUrl &url)
         QTimer::singleShot(1000 * RESEND_BASE_INTERVAL * failedRequests[url], this, [this, url]()
         {
             qCDebug(runtime) << "Resending request" << url.toString();
-            nam->get(prepareRequest(url));
+            QNetworkReply *req = nam->get(prepareRequest(url));
+            if ( url.toString().contains(DXC_TRENDS))
+                dxTrendPendingConnections << req;
+
         });
     }
     else
@@ -291,18 +296,24 @@ void PropConditions::dxTrendTimeout()
 
     dxTrendTimeoutTimer.stop();
 
-    for ( auto it = dxTrendPendingConnections.begin(); it != dxTrendPendingConnections.end(); ++it )
+    for ( auto it = dxTrendPendingConnections.begin(); it != dxTrendPendingConnections.end(); )
     {
-        (*it)->abort();
-        (*it)->deleteLater();
+        QNetworkReply* reply = *it;
+        it = dxTrendPendingConnections.erase(it);
+        if ( reply )
+        {
+            reply->abort();
+            reply->deleteLater();
+        }
     }
+
+    dxTrendPendingConnections.clear();
     dxTrendResult.clear();
     emit dxTrendFinalized(dxTrendResult); // emit empty result
 }
 
 PropConditions::~PropConditions()
 {
-    dxTrendTimeoutTimer.stop();
     dxTrendTimeout();
     nam->deleteLater();
 }
