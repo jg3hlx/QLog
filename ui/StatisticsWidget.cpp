@@ -172,7 +172,7 @@ void StatisticsWidget::refreshGraph()
          }
              break;
          case 4:
-             stmt = "SELECT mode, COUNT(1) FROM contacts WHERE "
+             stmt = "SELECT IFNULL(mode, '" + tr("Not specified") + "'), COUNT(1) FROM contacts WHERE "
                      + genericFilter.join(" AND ") + " GROUP BY mode ORDER BY mode";
              break;
          case 5:
