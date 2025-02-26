@@ -92,6 +92,9 @@ void StatisticsWidget::refreshGraph()
      qCDebug(runtime) << "main " << ui->statTypeMainCombo->currentIndex()
                       << " secondary " << ui->statTypeSecCombo->currentIndex();
 
+     /****************/
+     /* QSO Per .... */
+     /****************/
      if ( ui->statTypeMainCombo->currentIndex() == 0 )
      {
          QString stmt;
@@ -99,10 +102,10 @@ void StatisticsWidget::refreshGraph()
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
 
-         case 0:
-         case 1:
-         case 2:
-         case 3:
+         case 0: // Year
+         case 1: // Month
+         case 2: // Day in Week
+         case 3: // Hour
          {
              QString startGenerator = "1";
              QString endGenerator = "12";
@@ -171,23 +174,23 @@ void StatisticsWidget::refreshGraph()
                     " ORDER BY col1";
          }
              break;
-         case 4:
+         case 4:  // Mode
              stmt = "SELECT IFNULL(mode, '" + tr("Not specified") + "'), COUNT(1) FROM contacts WHERE "
                      + genericFilter.join(" AND ") + " GROUP BY mode ORDER BY mode";
              break;
-         case 5:
+         case 5:  // Band
              stmt = "SELECT IFNULL(band, '" + tr("Not specified") + "'), cnt "
                     " FROM (SELECT c.band, b.start_freq, COUNT(1) AS cnt FROM contacts c LEFT JOIN bands b ON c.band = b.name"
                     " WHERE "
                     + genericFilter.join(" AND ")
                     + " GROUP BY band, start_freq) ORDER BY start_freq";
              break;
-         case 6:
+         case 6:  // Continent
              stmt = "SELECT IFNULL(cont, '" + tr("Not specified") + "'), COUNT(1) FROM contacts WHERE "
                     + genericFilter.join(" AND ")
                     + " GROUP BY cont ORDER BY cont";
              break;
-         case 7:
+         case 7:  // Prop Mode
              stmt = "SELECT IFNULL(prop_mode, '" + tr("Not specified") + "'), COUNT(1) FROM contacts WHERE "
                     + genericFilter.join(" AND ") + " GROUP BY prop_mode ORDER BY prop_mode";
              break;
@@ -202,6 +205,9 @@ void StatisticsWidget::refreshGraph()
                        + ui->statTypeSecCombo->currentText(),
                        query);
      }
+     /************/
+     /* Percents */
+     /************/
      else if ( ui->statTypeMainCombo->currentIndex() == 1 )
      {
          QString stmt;
@@ -209,7 +215,7 @@ void StatisticsWidget::refreshGraph()
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
 
-         case 0:
+         case 0:  // Confirmed/Not Confirmed
              stmt = "SELECT (1.0 * COUNT(1)/(SELECT COUNT(1) AS total_cnt FROM contacts WHERE "
                     + genericFilter.join(" AND ") +")) * 100 FROM contacts WHERE "
                     + genericFilter.join(" AND ")
@@ -233,18 +239,21 @@ void StatisticsWidget::refreshGraph()
 
          drawPieGraph(QString(), series);
      }
+     /**********/
+     /* TOP 10 */
+     /**********/
      else if ( ui->statTypeMainCombo->currentIndex() == 2 )
      {
          QString stmt;
 
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
-         case 0:
+         case 0:  // Countries
              stmt = "SELECT d.name, COUNT(1) AS cnt FROM contacts c, dxcc_entities d WHERE "
                     + genericFilter.join(" AND ")
                     + " AND c.dxcc = d.id GROUP BY d.name ORDER BY cnt DESC LIMIT 10";
              break;
-         case 1:
+         case 1:  // Big squares
              stmt = "SELECT SUBSTR(gridsquare,1,4), COUNT(1) AS cnt FROM contacts WHERE gridsquare IS NOT NULL GROUP by SUBSTR(gridsquare,1,4) ORDER BY cnt DESC LIMIT 10";
              break;
          }
@@ -259,13 +268,16 @@ void StatisticsWidget::refreshGraph()
                        query);
 
      }
+     /*************/
+     /* Histogram */
+     /*************/
      else if ( ui->statTypeMainCombo->currentIndex() == 3 )
      {
          QString stmt;
 
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
-         case 0:
+         case 0:  // Distance
              QString distCoef = QString::number(Gridsquare::localeDistanceCoef());
              stmt = QString("WITH hist AS ( "
                     " SELECT CAST((distance * %1)/500.00 AS INTEGER) * 500 as dist_floor, "
@@ -291,6 +303,9 @@ void StatisticsWidget::refreshGraph()
                        + ui->statTypeSecCombo->currentText(),
                        query);
      }
+     /***************/
+     /* Show on Map */
+     /***************/
      else if ( ui->statTypeMainCombo->currentIndex() == 4 )
      {
          QStringList confirmed("1=2 ");
@@ -316,13 +331,13 @@ void StatisticsWidget::refreshGraph()
 
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
-         case 0:
-         case 1:
+         case 0: // QSOs
+         case 1: // Confirmed & WorkedGrids
              stmt = "SELECT callsign, gridsquare, my_gridsquare, SUM(confirmed) FROM (SELECT callsign, gridsquare, my_gridsquare,"
                         + innerCase +" AS confirmed FROM contacts WHERE gridsquare is not NULL AND "
                         + genericFilter.join(" AND ") +" ) GROUP BY callsign, gridsquare, my_gridsquare";
              break;
-         case 2:
+         case 2: // ODX
              QString unit;
              Gridsquare::distance2localeUnitDistance(0, unit);
              QString distCoef = QString::number(Gridsquare::localeDistanceCoef());
