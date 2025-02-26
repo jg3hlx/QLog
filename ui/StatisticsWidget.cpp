@@ -633,7 +633,7 @@ void StatisticsWidget::drawPointsOnMap(QSqlQuery &query)
                                  "grids_worked = [];"
                                  "drawPoints([%1]);"
                                  "drawShortPaths([%2]);"
-                                 "maidenheadConfWorked.redraw();").arg(stations.join(",")).arg(shortPaths.join(","));
+                                 "maidenheadConfWorked.redraw();").arg(stations.join(","), shortPaths.join(","));
 
     qCDebug(runtime) << javaScript;
 
