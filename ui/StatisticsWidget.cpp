@@ -491,15 +491,15 @@ void StatisticsWidget::drawBarGraphs(const QString &title, QSqlQuery &query)
     if ( query.lastQuery().isEmpty() ) return;
 
     QChart *chart = ui->graphView->chart();
-    QBarSet* set = new QBarSet(title);
-    QBarCategoryAxis* axisX = new QBarCategoryAxis();
-    QBarSeries* series = new QBarSeries();
-    QValueAxis *axisY = new QValueAxis();
 
     if ( chart != nullptr )
         chart->deleteLater();
 
     chart = new QChart();
+    QBarSet* set = new QBarSet(title, chart);
+    QBarCategoryAxis* axisX = new QBarCategoryAxis(chart);
+    QBarSeries* series = new QBarSeries(chart);
+    QValueAxis *axisY = new QValueAxis(chart);
 
     while ( query.next() )
     {
