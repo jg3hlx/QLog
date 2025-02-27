@@ -247,7 +247,7 @@
   </widget>
   <widget class="QDockWidget" name="bandmapDockWidget">
    <property name="windowTitle">
-    <string>Bandmap</string>
+    <string>VFO Bandmap</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>

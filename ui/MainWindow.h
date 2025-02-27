@@ -88,6 +88,8 @@ private slots:
 
     void handleActivityChange(const QString name);
 
+    void openNonVfoBandmap(const QString &widgetID, const Band &band);
+
 private:
     Ui::MainWindow* ui;
     QLabel* conditionsLabel;

@@ -333,6 +333,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     connect(ui->bandmapWidget, &BandmapWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
     connect(ui->bandmapWidget, &BandmapWidget::nearestSpotFound, ui->newContactWidget, &NewContactWidget::setNearestSpot);
+    connect(ui->bandmapWidget, &BandmapWidget::requestNewNonVfoBandmapWindow, this, &MainWindow::openNonVfoBandmap);
 
     connect(ui->wsjtxWidget, &WsjtxWidget::callsignSelected, ui->newContactWidget, &NewContactWidget::prepareWSJTXQSO);
 
@@ -414,6 +415,20 @@ MainWindow::MainWindow(QWidget* parent) :
 void MainWindow::closeEvent(QCloseEvent* event)
 {
     FCT_IDENTIFICATION;
+
+    // save dynamic Bandmap Widgets
+    QStringList bandmapList;
+    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
+    bandmapWidgets.removeAll(ui->bandmapWidget);
+
+    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
+        if ( widget )
+            bandmapList << widget->objectName() + "/" + widget->getBand().name;
+
+    if ( bandmapList.isEmpty() )
+        settings.remove("bandmapwidgets");
+    else
+        settings.setValue("bandmapwidgets", bandmapList.join(","));
 
     // save the window geometry
     settings.setValue("geometry", saveGeometry());
@@ -574,6 +589,34 @@ QString MainWindow::stationCallsignStatus(const StationProfile &profile) const
     return profile.callsign.toLower() + " [" + tr("op: ") + profile.operatorCallsign.toLower() + "]";
 }
 
+void MainWindow::openNonVfoBandmap(const QString &widgetID, const Band &band)
+{
+    FCT_IDENTIFICATION;
+
+    BandmapWidget *bandmap = new BandmapWidget(widgetID, band, this);
+
+    QDockWidget *dock = new QDockWidget(tr("Bandmap"), this);
+    dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
+    dock->setObjectName(widgetID + "-dock");
+
+    dock->setWidget(bandmap);
+    this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, dock);
+    dock->setFloating(true);
+
+    // the vfo bandmap takes care of managing the spot map, which is shared with the non vfo bandmaps. spotsUpdated
+    // is triggered when spot map is dirty and the bandmaps should re-render.
+    connect(ui->bandmapWidget, &BandmapWidget::spotsUpdated, bandmap, &BandmapWidget::updateStations);
+
+    // connect selected signals as a common Bandmap widget
+    connect(this, &MainWindow::themeChanged, bandmap, &BandmapWidget::update);
+    connect(Rig::instance(), &Rig::frequencyChanged, bandmap, &BandmapWidget::updateTunedFrequency);
+    connect(Rig::instance(), &Rig::modeChanged, bandmap, &BandmapWidget::updateMode);
+    connect(ui->wsjtxWidget, &WsjtxWidget::frequencyChanged, bandmap, &BandmapWidget::updateTunedFrequency);
+    connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, bandmap, &BandmapWidget::updateTunedFrequency);
+    connect(ui->newContactWidget, &NewContactWidget::userModeChanged, bandmap, &BandmapWidget::updateMode);
+    connect(bandmap, &BandmapWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
+}
+
 void MainWindow::darkModeToggle(int mode)
 {
     FCT_IDENTIFICATION;
@@ -694,6 +737,18 @@ void MainWindow::setLayoutGeometry()
     }
     else
     {
+        const QStringList &bandmapWidgets = settings.value("bandmapwidgets").toString().split(",");
+
+        // create additional bandmap widgets
+        for ( const QString &widget : bandmapWidgets )
+        {
+            const QStringList &widgetParam = widget.split("/");
+            if ( widgetParam.size() == 2 )
+                openNonVfoBandmap(widgetParam.at(0), BandPlan::bandName2Band(widgetParam.at(1)));
+            else
+                qWarning() << "Unexpected number of Bandmap widget params" << widgetParam;
+        }
+
         newGeometry = settings.value("geometry").toByteArray();
         newState = settings.value("windowState").toByteArray();
         darkMode = settings.value("darkmode", false).toBool();
