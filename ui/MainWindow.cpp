@@ -422,7 +422,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
     bandmapWidgets.removeAll(ui->bandmapWidget);
 
     for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
-        if ( widget )
+        if ( widget && widget->isVisible() )
             bandmapList << widget->objectName() + "/" + widget->getBand().name;
 
     if ( bandmapList.isEmpty() )
