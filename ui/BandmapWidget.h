@@ -41,8 +41,11 @@ class BandmapWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit BandmapWidget(QWidget *parent = nullptr);
+    explicit BandmapWidget(const QString &widgetID = QString(),
+                           const Band &widgetBand = Band(),
+                           QWidget *parent = nullptr);
     ~BandmapWidget();
+    const Band& getBand() const {return currentBand;};
 
     enum BandmapZoom {
         ZOOM_100HZ,
@@ -71,20 +74,24 @@ public slots:
     void recalculateDxccStatus();
     void resetDupe();
     void recalculateDupe();
+    void updateStations();
 
 signals:
     void tuneDx(DxSpot);
     void nearestSpotFound(const DxSpot &);
+    void spotsUpdated();
+    void requestNewNonVfoBandmapWindow(const QString &id, const Band&);
 
 private:
     void removeDuplicates(DxSpot &spot);
     void spotAging();
-    void updateStations();
+
     void determineStepDigits(double &steps, int &digits) const;
     void clearAllCallsignFromScene();
     void clearFreqMark(QGraphicsPolygonItem **);
     void drawFreqMark(const double, const double, const QColor&, QGraphicsPolygonItem **);
     void drawTXRXMarks(double);
+    void drawMarkers(double frequency);
     void resizeEvent(QResizeEvent * event) override;
     bool eventFilter(QObject *obj, QEvent *event) override;
     void scrollToFreq(double freq);
@@ -106,6 +113,7 @@ private slots:
     void showContextMenu(const QPoint&);
     void updateStationTimer();
     void focusZoomFreq(int, int);
+    void clickNewBandmapWindow();
 
 private:
     Ui::BandmapWidget *ui;
@@ -115,7 +123,7 @@ private:
     Band currentBand;
     BandmapZoom zoom;
     GraphicsScene* bandmapScene;
-    QMap<double, DxSpot> spots;
+    static QMap<double, DxSpot> spots;
     QTimer *update_timer;
     QList<QGraphicsLineItem *> lineItemList;
     QList<QGraphicsTextItem *> textItemList;
@@ -130,7 +138,7 @@ private:
     bool bandmapAnimation;
     QString currBandMode;
     QSettings settings;
-
+    bool isNonVfo;
     struct LastTuneDx
     {
         QString callsign;
