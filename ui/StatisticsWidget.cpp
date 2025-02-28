@@ -249,7 +249,7 @@ void StatisticsWidget::refreshGraph()
          switch ( ui->statTypeSecCombo->currentIndex() )
          {
          case 0:  // Countries
-             stmt = "SELECT COALESCE(d.name, c.dxcc) as dxcc_display, COUNT(1) AS cnt "
+             stmt = "SELECT translate_to_locale(COALESCE(d.name, c.dxcc)) as dxcc_display, COUNT(1) AS cnt "
                     "FROM contacts c LEFT JOIN dxcc_entities d ON c.dxcc = d.id "
                     "WHERE " + genericFilter.join(" AND ") + " "
                     "GROUP BY dxcc_display ORDER BY cnt DESC LIMIT 10";
