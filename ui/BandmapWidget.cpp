@@ -856,7 +856,7 @@ void BandmapWidget::clickNewBandmapWindow()
     FCT_IDENTIFICATION;
 
     const QString widgetID = QString("bandmap%1").arg(QDateTime::currentMSecsSinceEpoch());
-    emit requestNewNonVfoBandmapWindow(widgetID, currentBand);
+    emit requestNewNonVfoBandmapWindow(widgetID, currentBand.name);
 }
 
 void BandmapWidget::spotClicked(const QString &call,

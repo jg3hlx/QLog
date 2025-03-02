@@ -80,7 +80,7 @@ signals:
     void tuneDx(DxSpot);
     void nearestSpotFound(const DxSpot &);
     void spotsUpdated();
-    void requestNewNonVfoBandmapWindow(const QString &id, const Band&);
+    void requestNewNonVfoBandmapWindow(const QString &id, const QString &bandName);
 
 private:
     void removeDuplicates(DxSpot &spot);

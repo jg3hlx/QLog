@@ -417,18 +417,12 @@ void MainWindow::closeEvent(QCloseEvent* event)
     FCT_IDENTIFICATION;
 
     // save dynamic Bandmap Widgets
-    QStringList bandmapList;
-    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
-    bandmapWidgets.removeAll(ui->bandmapWidget);
-
-    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
-        if ( widget && widget->isVisible() )
-            bandmapList << widget->objectName() + "/" + widget->getBand().name;
+    const QList<QPair<QString, QString>> &bandmapList = getNonVfoBandmapsParams();
 
     if ( bandmapList.isEmpty() )
         settings.remove("bandmapwidgets");
     else
-        settings.setValue("bandmapwidgets", bandmapList.join(","));
+        settings.setValue("bandmapwidgets", MainLayoutProfilesManager::toDBStringList(bandmapList));
 
     // save the window geometry
     settings.setValue("geometry", saveGeometry());
@@ -589,19 +583,22 @@ QString MainWindow::stationCallsignStatus(const StationProfile &profile) const
     return profile.callsign.toLower() + " [" + tr("op: ") + profile.operatorCallsign.toLower() + "]";
 }
 
-void MainWindow::openNonVfoBandmap(const QString &widgetID, const Band &band)
+void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandName)
 {
     FCT_IDENTIFICATION;
 
+    qCDebug(function_parameters) << widgetID << bandName;
+
+    const Band band = BandPlan::bandName2Band(bandName);
     BandmapWidget *bandmap = new BandmapWidget(widgetID, band, this);
 
     QDockWidget *dock = new QDockWidget(tr("Bandmap"), this);
     dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
     dock->setObjectName(widgetID + "-dock");
-
     dock->setWidget(bandmap);
-    this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, dock);
     dock->setFloating(true);
+
+    addDockWidget(Qt::RightDockWidgetArea, dock);
 
     // the vfo bandmap takes care of managing the spot map, which is shared with the non vfo bandmaps. spotsUpdated
     // is triggered when spot map is dirty and the bandmaps should re-render.
@@ -615,6 +612,55 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const Band &band)
     connect(ui->newContactWidget, &NewContactWidget::userFrequencyChanged, bandmap, &BandmapWidget::updateTunedFrequency);
     connect(ui->newContactWidget, &NewContactWidget::userModeChanged, bandmap, &BandmapWidget::updateMode);
     connect(bandmap, &BandmapWidget::tuneDx, ui->newContactWidget, &NewContactWidget::tuneDx);
+}
+
+void MainWindow::openNonVfoBandmaps(const QList<QPair<QString, QString> > &list)
+{
+    FCT_IDENTIFICATION;
+
+    // create additional bandmap widgets
+    for ( const QPair<QString, QString> &widget : list )
+        openNonVfoBandmap(widget.first, widget.second);
+}
+
+void MainWindow::clearNonVfoBandmaps()
+{
+    FCT_IDENTIFICATION;
+
+    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
+    bandmapWidgets.removeAll(ui->bandmapWidget);
+
+    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
+    {
+        if ( widget )
+        {
+            qCDebug(runtime) << "Removing" << widget->objectName();
+            QDockWidget *dock = findChild<QDockWidget*>(widget->objectName() + "-dock");
+            widget->close();
+            widget->deleteLater();
+            if ( dock )
+            {
+                dock->close();
+                dock->deleteLater();
+            }
+        }
+    }
+}
+
+QList<QPair<QString, QString>> MainWindow::getNonVfoBandmapsParams() const
+{
+    FCT_IDENTIFICATION;
+
+    QList<QPair<QString, QString>> bandmapList;
+    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
+    bandmapWidgets.removeAll(ui->bandmapWidget);
+
+    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
+        if ( widget && widget->isVisible() )
+            bandmapList << QPair<QString, QString>(widget->objectName(), widget->getBand().name);
+
+    qCDebug(runtime) << bandmapList;
+    return  bandmapList;
 }
 
 void MainWindow::darkModeToggle(int mode)
@@ -727,32 +773,28 @@ void MainWindow::setLayoutGeometry()
     QByteArray newGeometry;
     QByteArray newState;
     bool darkMode = false;
+    QList<QPair<QString, QString>> bandmapWidgets;
 
     if ( layoutProfile.mainGeometry != QByteArray()
         || layoutProfile.mainState != QByteArray() )
     {
+        // layout from config
+        bandmapWidgets = layoutProfile.addlBandmaps;
         newGeometry = layoutProfile.mainGeometry;
         newState = layoutProfile.mainState;
         darkMode = layoutProfile.darkMode;
     }
     else
     {
-        const QStringList &bandmapWidgets = settings.value("bandmapwidgets").toString().split(",");
-
-        // create additional bandmap widgets
-        for ( const QString &widget : bandmapWidgets )
-        {
-            const QStringList &widgetParam = widget.split("/");
-            if ( widgetParam.size() == 2 )
-                openNonVfoBandmap(widgetParam.at(0), BandPlan::bandName2Band(widgetParam.at(1)));
-            else
-                qWarning() << "Unexpected number of Bandmap widget params" << widgetParam;
-        }
+        // Classic Layout
+        bandmapWidgets = MainLayoutProfilesManager::toPairStringList(settings.value("bandmapwidgets").toString());
 
         newGeometry = settings.value("geometry").toByteArray();
         newState = settings.value("windowState").toByteArray();
         darkMode = settings.value("darkmode", false).toBool();
     }
+
+    openNonVfoBandmaps(bandmapWidgets);
 
     restoreGeometry(newGeometry);
 
@@ -790,9 +832,12 @@ void MainWindow::setSimplyLayoutGeometry()
     FCT_IDENTIFICATION;
 
     const MainLayoutProfile &layoutProfile = MainLayoutProfilesManager::instance()->getCurProfile1();
+
     if ( layoutProfile.mainGeometry != QByteArray()
         || layoutProfile.mainState != QByteArray() )
     {
+        clearNonVfoBandmaps();
+        openNonVfoBandmaps(layoutProfile.addlBandmaps);
         restoreGeometry(layoutProfile.mainGeometry);
 
 #ifdef Q_OS_LINUX
@@ -827,6 +872,7 @@ void MainWindow::saveProfileLayoutGeometry()
 
     if ( layoutProfile != MainLayoutProfile() )
     {
+        layoutProfile.addlBandmaps = getNonVfoBandmapsParams();
         layoutProfile.mainGeometry = saveGeometry();
         layoutProfile.mainState = saveState();
         layoutProfile.darkMode = darkLightModeSwith->isChecked();

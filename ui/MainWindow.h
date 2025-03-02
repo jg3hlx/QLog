@@ -88,7 +88,10 @@ private slots:
 
     void handleActivityChange(const QString name);
 
-    void openNonVfoBandmap(const QString &widgetID, const Band &band);
+    void openNonVfoBandmap(const QString &widgetID, const QString& bandName);
+    void openNonVfoBandmaps(const QList<QPair<QString, QString>> &list);
+    void clearNonVfoBandmaps();
+    QList<QPair<QString, QString>> getNonVfoBandmapsParams() const;
 
 private:
     Ui::MainWindow* ui;
