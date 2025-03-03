@@ -106,6 +106,7 @@ private:
     void saveCurrentScrollFreq();
     double getSavedScrollFreq(Band);
     double visibleCentreFreq() const;
+    bool isAlreadyOpened(const Band &band) const;
 
 private slots:
     void centerRXActionChecked(bool);
@@ -124,6 +125,7 @@ private:
     BandmapZoom zoom;
     GraphicsScene* bandmapScene;
     static QMap<double, DxSpot> spots;
+    static QList<BandmapWidget *> nonVfoWidgets;
     QTimer *update_timer;
     QList<QGraphicsLineItem *> lineItemList;
     QList<QGraphicsTextItem *> textItemList;

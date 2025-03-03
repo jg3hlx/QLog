@@ -29,6 +29,7 @@ MODULE_IDENTIFICATION("qlog.ui.bandmapwidget");
 #define WIDGET_CENTER ( height()/2 - 50 )
 
 QMap<double, DxSpot> BandmapWidget::spots;
+QList<BandmapWidget *> BandmapWidget::nonVfoWidgets;
 
 BandmapWidget::BandmapWidget(const QString &widgetID,
                              const Band &widgetBand,
@@ -63,6 +64,7 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
         // bandmap should start at the currently active vfo
         setBand((widgetBand == Band()) ? BandPlan::freq2Band(ritFreq)
                                        :  widgetBand);
+        nonVfoWidgets.append(this);
     }
     else
     {
@@ -607,6 +609,18 @@ double BandmapWidget::visibleCentreFreq() const
     return ret;
 }
 
+bool BandmapWidget::isAlreadyOpened(const Band &band) const
+{
+    FCT_IDENTIFICATION;
+
+    for ( const BandmapWidget *widget : static_cast<const QList<BandmapWidget *>>(nonVfoWidgets))
+    {
+        if ( widget && widget->isVisible() && widget->getBand() == band )
+            return true;
+    }
+    return false;
+}
+
 void BandmapWidget::spotAgingChanged(int)
 {
     FCT_IDENTIFICATION;
@@ -958,7 +972,7 @@ void BandmapWidget::updateTunedFrequency(VFOID, double vfoFreq, double ritFreq, 
         {
             /* Operator switched a band */
             const Band& newBand = BandPlan::freq2Band(rx_freq);
-            if ( !newBand.name.isEmpty() )
+            if ( !newBand.name.isEmpty() && !isAlreadyOpened(newBand) )
             {
                 setBand(newBand);
             }
@@ -1018,6 +1032,7 @@ BandmapWidget::~BandmapWidget()
     }
 
     saveCurrentZoom();
+    nonVfoWidgets.removeAll(this);
 
     delete ui;
 }
