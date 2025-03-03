@@ -159,7 +159,7 @@ void BandmapWidget::update()
     bandmapScene->setSceneRect(160 - (endFreqDigits.size() * PIXELSPERSTEP),
                                0,
                                0,
-                               steps * PIXELSPERSTEP + 20);
+                               steps * PIXELSPERSTEP + 10);
 
     /************************/
     /* Draw TX and RX Marks */
