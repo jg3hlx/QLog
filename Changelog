@@ -1,4 +1,5 @@
 TBC - 0.42.2
+- Fixed Unexpected dialog when QSO after contest (issue #614)
 
 2025/02/22 - 0.42.1
 - Fixed Unexpected timezone info (issue #600)
