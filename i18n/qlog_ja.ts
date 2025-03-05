@@ -6,12 +6,12 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="14"/>
         <source>Activity Editor</source>
-        <translation></translation>
+        <translation>アクティビティ・エディタ</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="39"/>
         <source>Activity Name</source>
-        <translation></translation>
+        <translation>活動内容</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="73"/>
@@ -67,7 +67,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="313"/>
         <source>List of fields in the first variable row</source>
-        <translation></translation>
+        <translation>最初の変数行のフィールドリスト</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="359"/>
@@ -125,7 +125,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="947"/>
         <source>List of fields in the second QSO Detail Column</source>
-        <translation></translation>
+        <translation>セカンドQSO詳細欄のフィールド一覧</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1051"/>
@@ -248,12 +248,12 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="115"/>
         <source>DX</source>
-        <translation>DX</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="129"/>
         <source>DX Callsign</source>
-        <translation>DX Callsign</translation>
+        <translation>DX コールサイン</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="136"/>
@@ -265,7 +265,7 @@
         <location filename="../ui/AlertRuleDetail.ui" line="139"/>
         <location filename="../ui/AlertRuleDetail.ui" line="179"/>
         <source>.*</source>
-        <translation>.*</translation>
+        <translation type="unfinished">.*</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="149"/>
@@ -331,7 +331,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="387"/>
         <source>CW</source>
-        <translation>CW</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="400"/>
@@ -947,7 +947,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="193"/>
         <source>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</source>
-        <translation>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="233"/>
@@ -1276,7 +1276,7 @@
     <message>
         <location filename="../ui/ClublogDialog.ui" line="14"/>
         <source>Clublog</source>
-        <translation> クラブブログ</translation>
+        <translation>クラブブログ</translation>
     </message>
     <message>
         <location filename="../ui/ClublogDialog.ui" line="20"/>
@@ -1345,7 +1345,6 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1533,7 +1532,7 @@
     <message>
         <location filename="dbstrings.tri" line="19"/>
         <source>Ascension Island</source>
-        <translation>Is。アセンション</translation>
+        <translation>Is.アセンション</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="20"/>
@@ -3707,7 +3706,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="139"/>
         <source>To All</source>
-        <translation>A すべて</translation>
+        <translation>すべて</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="144"/>
@@ -3752,7 +3751,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="602"/>
         <source>Spot Last QSO</source>
-        <translation> お知らせ。最後QSO</translation>
+        <translation>お知らせ。最後QSO</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="605"/>
@@ -3867,7 +3866,7 @@
     <message>
         <location filename="../ui/DxWidget.cpp" line="930"/>
         <source>DXC Server Error</source>
-        <translation> クラスター サーバー エラー DX</translation>
+        <translation>クラスター サーバー エラー DX</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="931"/>
@@ -3981,7 +3980,7 @@
     </message>
 </context>
 <context>
-    <name>EditLayoutDialog</name>
+    <name>EditActivitiesDialog</name>
     <message>
         <location filename="../ui/EditActivitiesDialog.ui" line="14"/>
         <source>Edit Activities</source>
@@ -4138,7 +4137,6 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4462,7 +4460,6 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4809,7 +4806,6 @@
         <source>Imported: %n contact(s)</source>
         <translation>
             <numerusform>Importado: %n contacto/s</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4817,7 +4813,6 @@
         <source>Warning(s): %n</source>
         <translation>
             <numerusform>Alerta/s: %n</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4825,7 +4820,6 @@
         <source>Error(s): %n</source>
         <translation>
             <numerusform>Error/s: %n</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -6258,7 +6252,6 @@
         <source>Count: %n</source>
         <translation>
             <numerusform>QSO: %n</numerusform>
-            <numerusform>QSOs: %n</numerusform>
         </translation>
     </message>
     <message>
@@ -6514,7 +6507,6 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -6522,7 +6514,7 @@
         <source>QLog Warning</source>
         <translatorcomment>QLog te avisa de un error.</translatorcomment>
         <translation></translation>
-        </message>
+    </message>
     <message>
         <location filename="../ui/LotwDialog.cpp" line="207"/>
         <source>Cannot upload the QSO(s): </source>
@@ -7135,7 +7127,7 @@
     <message>
         <location filename="../core/Migration.cpp" line="413"/>
         <source> Update Failed</source>
-        <translation> 更新に失敗しました</translation>
+        <translation>更新に失敗しました</translation>
     </message>
 </context>
 <context>
@@ -7349,7 +7341,7 @@
         <location filename="../ui/NewContactWidget.cpp" line="103"/>
         <location filename="../ui/NewContactWidget.cpp" line="116"/>
         <source>No</source>
-        <translation>No</translation>
+        <translation>いいえ</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="91"/>
@@ -7397,7 +7389,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="218"/>
         <source>QLog Error</source>
-        <translation>Qログエラー</translation>
+        <translation>QLogエラー</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="218"/>
@@ -7749,7 +7741,7 @@
         <location filename="../ui/SettingsDialog.cpp" line="1545"/>
         <location filename="../ui/SettingsDialog.cpp" line="1981"/>
         <source>QLog Warning</source>
-        <translation>Qログアラート</translation>
+        <translation>QLogアラート</translation>
     </message>
     <message>
         <location filename="../core/MembershipQE.cpp" line="207"/>
@@ -7769,7 +7761,7 @@
     <message>
         <location filename="../core/MembershipQE.cpp" line="341"/>
         <source>Unexpected Club List content for</source>
-        <translation> の予期しないクラブ リストの内容</translation>
+        <translation>の予期しないクラブ リストの内容</translation>
     </message>
     <message>
         <location filename="../core/MembershipQE.cpp" line="348"/>
@@ -7825,7 +7817,7 @@
         <location filename="../ui/KSTHighlightRuleDetail.cpp" line="143"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="452"/>
         <source>QLog Info</source>
-        <translation>Qログ情報</translation>
+        <translation>QLog情報</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.cpp" line="96"/>
@@ -7892,7 +7884,7 @@
         <location filename="../ui/ExportDialog.cpp" line="250"/>
         <location filename="../ui/ExportDialog.cpp" line="253"/>
         <source>QLog Information</source>
-        <translation>Qログ情報</translation>
+        <translation>QLog情報</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.cpp" line="251"/>
@@ -7904,7 +7896,6 @@
         <source>Exported %n contact(s).</source>
         <translation>
             <numerusform>Exportado: %n contacto/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -8041,7 +8032,7 @@
     <message>
         <location filename="../core/Gridsquare.cpp" line="139"/>
         <source>km</source>
-        <translation>km</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../core/Gridsquare.cpp" line="145"/>
@@ -8153,12 +8144,12 @@
     <message>
         <location filename="../data/StationProfile.cpp" line="195"/>
         <source>My IOTA</source>
-        <translation>IOTA</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="196"/>
         <source>My SOTA</source>
-        <translation>SOTA</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="197"/>
@@ -8215,7 +8206,6 @@
         <source>&lt;b&gt;Imported&lt;/b&gt;: %n contact(s)</source>
         <translation>
             <numerusform>&lt;b&gt;Importado&lt;/b&gt;: %n contacto/s</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8223,7 +8213,6 @@
         <source>&lt;b&gt;Warning(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;Alerta/s&lt;/b&gt;: %n</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8231,7 +8220,6 @@
         <source>&lt;b&gt;Error(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;Error/es&lt;/b&gt;: %n</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -8311,7 +8299,6 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>
