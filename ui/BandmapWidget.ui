@@ -223,7 +223,7 @@
          <string>Create an additional user-controlled Bandmap Window</string>
         </property>
         <property name="text">
-         <string>+</string>
+         <string notr="true">+</string>
         </property>
        </widget>
       </item>
