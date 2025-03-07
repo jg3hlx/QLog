@@ -1,4 +1,4 @@
-TBC - 0.42.2
+2025/03/07 - 0.42.2
 - Fixed Logbook country translations (issue #608)
 - Fixed Unexpected dialog when QSO after contest (issue #614)
 - Fixed Statistics Widget does not display NULL continents (@aa5sh)
