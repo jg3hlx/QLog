@@ -36,6 +36,8 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
                              QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BandmapWidget),
+    bandmapScene(new GraphicsScene(this)),
+    update_timer(new QTimer(this)),
     rxMark(nullptr),
     txMark(nullptr),
     keepRXCenter(true),
@@ -59,7 +61,7 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
     {
         setObjectName(widgetID);
         ui->bottomRow->setVisible(false);
-        ui->clearButton->setVisible(false);
+        ui->clearAllButton->setVisible(false);
         // read the band for this window from persisted state (settings) or a new
         // bandmap should start at the currently active vfo
         setBand((widgetBand == Band()) ? BandPlan::freq2Band(ritFreq)
@@ -72,7 +74,6 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
         setBand(BandPlan::freq2Band(ritFreq), false);
     }
 
-    bandmapScene = new GraphicsScene(this);
     bandmapScene->setFocusOnTouch(false);
 
     connect(bandmapScene, &GraphicsScene::spotClicked,
@@ -84,12 +85,13 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
     ui->graphicsView->installEventFilter(this);
     //ui->scrollArea->verticalScrollBar()->setSingleStep(5);
 
-    update_timer = new QTimer;
     connect(update_timer, &QTimer::timeout, this, &BandmapWidget::updateStationTimer);
     update_timer->start(BANDMAP_MAX_REFRESH_TIME);
 
     updateMode(VFO1, QString(), mode, submode, 0);
     updateTunedFrequency(VFO1, newContactFreq, ritFreq, xitFreq);
+
+    ui->zoomSlider->setSliderPosition(zoom);
 }
 
 void BandmapWidget::update()
@@ -282,6 +284,20 @@ void BandmapWidget::updateStations()
         // signal to the non-vfo bandmaps that the spots should be redrawn
         emit spotsUpdated();
     }
+}
+
+void BandmapWidget::clearWidgetBand()
+{
+    FCT_IDENTIFICATION;
+
+    auto begin = spots.lowerBound(currentBand.start);
+    auto end = spots.upperBound(currentBand.end);
+
+    while (begin != end)
+        begin = spots.erase(begin);
+
+    updateStations();
+    updateNearestSpot();
 }
 
 void BandmapWidget::determineStepDigits(double &step, int &digits) const
@@ -637,7 +653,7 @@ void BandmapWidget::clearSpots()
     updateNearestSpot();
 }
 
-void BandmapWidget::zoomIn()
+void BandmapWidget::setZoom(int zoomParam)
 {
     FCT_IDENTIFICATION;
 
@@ -645,34 +661,10 @@ void BandmapWidget::zoomIn()
     {
         zoomWidgetYOffset = WIDGET_CENTER;
         zoomFreq = ( keepRXCenter ) ? rx_freq
-                                    : visibleCentreFreq();
+                                  : visibleCentreFreq();
     }
 
-    if ( zoom > ZOOM_100HZ )
-    {
-        zoom = static_cast<BandmapZoom>(static_cast<int>(zoom) - 1);
-    }
-    setBandmapAnimation(false);
-    update();
-    scrollToFreq(zoomFreq);
-    setBandmapAnimation(true);
-}
-
-void BandmapWidget::zoomOut()
-{
-    FCT_IDENTIFICATION;
-
-    if ( zoomFreq == 0.0 )
-    {
-        zoomWidgetYOffset = WIDGET_CENTER;
-        zoomFreq = ( keepRXCenter ) ? rx_freq
-                                    : visibleCentreFreq();
-    }
-
-    if ( zoom < ZOOM_10KHZ )
-    {
-        zoom = static_cast<BandmapZoom>(static_cast<int>(zoom) + 1);
-    }
+    zoom = static_cast<BandmapZoom>(static_cast<int>(zoomParam));
     setBandmapAnimation(false);
     update();
     scrollToFreq(zoomFreq);
@@ -1069,16 +1061,8 @@ bool BandmapWidget::eventFilter(QObject *, QEvent *event)
                 zoomFreq = ScenePos2Freq(ui->graphicsView->mapToScene(zoomViewPoint));
 
                 QPoint wheelDelta(wheelEvent->angleDelta());
-
-                if ( wheelDelta.y() > 0 )
-                {
-                    zoomIn();
-                }
-
-                if ( wheelDelta.y() < 0 )
-                {
-                    zoomOut();
-                }
+                int delta = (wheelDelta.y() > 0) ? 1 : -1;
+                ui->zoomSlider->setValue(ui->zoomSlider->value() + delta * ui->zoomSlider->singleStep());
 
                 /*
                  * DO NOT focus zoomed Freq here because the scrollbar

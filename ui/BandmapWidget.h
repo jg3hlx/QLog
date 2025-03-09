@@ -48,13 +48,13 @@ public:
     const Band& getBand() const {return currentBand;};
 
     enum BandmapZoom {
-        ZOOM_100HZ,
-        ZOOM_250HZ,
-        ZOOM_500HZ,
-        ZOOM_1KHZ,
-        ZOOM_2K5HZ,
-        ZOOM_5KHZ,
-        ZOOM_10KHZ
+        ZOOM_100HZ = 6,
+        ZOOM_250HZ = 5,
+        ZOOM_500HZ = 4,
+        ZOOM_1KHZ = 3,
+        ZOOM_2K5HZ = 2,
+        ZOOM_5KHZ = 1,
+        ZOOM_10KHZ = 0
     };
 
 public slots:
@@ -65,8 +65,7 @@ public slots:
     void addSpot(DxSpot spot);
     void spotAgingChanged(int);
     void clearSpots();
-    void zoomIn();
-    void zoomOut();
+    void setZoom(int);
     void updateSpotsStatusWhenQSOAdded(const QSqlRecord &record);
     void updateSpotsStatusWhenQSOUpdated(const QSqlRecord &);
     void updateSpotsDupeWhenQSODeleted(const QSqlRecord &record);
@@ -75,6 +74,7 @@ public slots:
     void resetDupe();
     void recalculateDupe();
     void updateStations();
+    void clearWidgetBand();
 
 signals:
     void tuneDx(DxSpot);
