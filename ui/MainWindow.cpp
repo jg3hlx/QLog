@@ -796,18 +796,12 @@ void MainWindow::setLayoutGeometry()
 
     openNonVfoBandmaps(bandmapWidgets);
 
-    restoreGeometry(newGeometry);
-
 #ifdef Q_OS_LINUX
     // workaround for QTBUG-46620
-    // side-effet - sometime it sets fullscreen mode
-    if ( isMaximized() )
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
-        setGeometry(screen()->availableGeometry());
-#else
-        setGeometry(QApplication::desktop()->availableGeometry(this));
+    showNormal();
+    QApplication::processEvents();
 #endif
-#endif
+    restoreGeometry(newGeometry);
 
     // workaround for QTBUG-46620
     QTimer* nt = new QTimer(this);
@@ -838,17 +832,14 @@ void MainWindow::setSimplyLayoutGeometry()
     {
         clearNonVfoBandmaps();
         openNonVfoBandmaps(layoutProfile.addlBandmaps);
-        restoreGeometry(layoutProfile.mainGeometry);
 
 #ifdef Q_OS_LINUX
-        if ( isMaximized() )
-        {
-            // workaround for QTBUG-46620
-            // side-effect: screen is flashing
-            QApplication::processEvents(); showNormal();
-            QApplication::processEvents(); showMaximized();
-        }
+        // workaround for QTBUG-46620
+        showNormal();
+        QApplication::processEvents();
 #endif
+        restoreGeometry(layoutProfile.mainGeometry);
+        QApplication::processEvents();
 
         // workaround for QTBUG-46620
         QTimer* nt = new QTimer(this);
