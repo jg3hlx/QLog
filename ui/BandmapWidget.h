@@ -75,6 +75,7 @@ public slots:
     void recalculateDupe();
     void updateStations();
     void clearWidgetBand();
+    void saveState();
 
 signals:
     void tuneDx(DxSpot);
@@ -139,8 +140,8 @@ private:
     int zoomWidgetYOffset;
     bool bandmapAnimation;
     QString currBandMode;
-    QSettings settings;
     bool isNonVfo;
+    bool isActive;
     struct LastTuneDx
     {
         QString callsign;

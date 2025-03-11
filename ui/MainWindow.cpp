@@ -416,13 +416,51 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     FCT_IDENTIFICATION;
 
-    // save dynamic Bandmap Widgets
-    const QList<QPair<QString, QString>> &bandmapList = getNonVfoBandmapsParams();
+    const QString &currActivityProfile = ActivityProfilesManager::instance()->getCurProfile1().profileName;
 
-    if ( bandmapList.isEmpty() )
-        settings.remove("bandmapwidgets");
+    if ( currActivityProfile == QString() )
+    {
+        // save dynamic Bandmap Widgets
+        const QList<QPair<QString, QString>> &bandmapList = getNonVfoBandmapsParams();
+
+        if ( bandmapList.isEmpty() )
+            settings.remove("bandmapwidgets");
+        else
+            settings.setValue("bandmapwidgets", MainLayoutProfilesManager::toDBStringList(bandmapList));
+    }
     else
-        settings.setValue("bandmapwidgets", MainLayoutProfilesManager::toDBStringList(bandmapList));
+        settings.remove("bandmapwidgets");
+
+    // cleanup Bandmap config
+    const QStringList configBandmapList = LogParam::bandmapsWidgets();
+    QSet<QString> configBandmapSet(configBandmapList.begin(), configBandmapList.end());
+
+    MainLayoutProfilesManager *layoutManager = MainLayoutProfilesManager::instance();
+    QSet<QString> layoutBandmapSet;
+    const QStringList &profiles = layoutManager->profileNameList();
+
+    for (const auto &addBandmapClassic : MainLayoutProfilesManager::toPairStringList(settings.value("bandmapwidgets").toString()))
+        layoutBandmapSet.insert(addBandmapClassic.first);
+
+    for ( const QString &profile: profiles )
+        for ( const auto &addlProfileBandmap : layoutManager->getProfile(profile).addlBandmaps )
+            layoutBandmapSet.insert(addlProfileBandmap.first);
+
+    QSet<QString> orphanConfigurations = configBandmapSet.subtract(layoutBandmapSet);
+    orphanConfigurations.remove(ui->bandmapWidget->objectName()); // removed the main window name
+
+    for ( const QString &orphanConfig : static_cast<const QSet<QString>&>(orphanConfigurations) )
+    {
+        qCDebug(runtime) << "Removing orphan configuration" << orphanConfig;
+        LogParam::removeBandmapWidgetGroup(orphanConfig);
+    }
+
+    // Save unsaved bandmap states
+    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(findChildren<BandmapWidget *>()) )
+    {
+        if ( widget )
+            widget->saveState();
+    }
 
     // save the window geometry
     settings.setValue("geometry", saveGeometry());
