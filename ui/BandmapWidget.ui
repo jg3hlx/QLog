@@ -136,7 +136,7 @@
         <x>0</x>
         <y>0</y>
         <width>451</width>
-        <height>597</height>
+        <height>591</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -211,7 +211,13 @@
        </property>
        <property name="icon">
         <iconset resource="../res/icons/icons.qrc">
-         <normaloff>:/icons/delete-button.svg</normaloff>:/icons/delete-button.svg</iconset>
+         <normaloff>:/icons/clear-button.svg</normaloff>:/icons/clear-button.svg</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
        </property>
       </widget>
      </item>
