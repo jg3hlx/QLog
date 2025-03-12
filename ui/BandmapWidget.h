@@ -76,6 +76,7 @@ public slots:
     void updateStations();
     void clearWidgetBand();
     void saveState();
+    void increasePendingSpots() {pendingSpots++;};
 
 signals:
     void tuneDx(DxSpot);

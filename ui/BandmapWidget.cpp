@@ -491,15 +491,16 @@ void BandmapWidget::addSpot(DxSpot spot)
          * QLog does not have to wait for the timer to tick to update the stations.
          */
         if ( currTime -  BANDMAP_MAX_REFRESH_TIME >= lastStationUpdate )
-        {
             updateStations();
-        }
         else
-        {
             /* If the spot are received quickly then store them and wait for QTimer tick */
-            pendingSpots++;
-        }
+            increasePendingSpots();
     }
+
+    //update NonVFO Pending spot counters
+    for ( BandmapWidget *nonVfoWidget : static_cast<const QList<BandmapWidget *>>(nonVfoWidgets) )
+        if ( nonVfoWidget->getBand().name == spot.band )
+            nonVfoWidget->increasePendingSpots();
 }
 
 void BandmapWidget::updateStationTimer()
