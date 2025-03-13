@@ -46,7 +46,7 @@ public:
                            QWidget *parent = nullptr);
     ~BandmapWidget();
     const Band& getBand() const {return currentBand;};
-
+    const QList<BandmapWidget *> getNonVfoWidgetList() {return nonVfoWidgets;};
     enum BandmapZoom {
         ZOOM_100HZ = 6,
         ZOOM_250HZ = 5,
@@ -128,6 +128,8 @@ private:
     GraphicsScene* bandmapScene;
     static QMap<double, DxSpot> spots;
     static QList<BandmapWidget *> nonVfoWidgets;
+    static BandmapWidget* vfoWidget;
+    static double lastSeenVFOFreq;
     QTimer *update_timer;
     QList<QGraphicsLineItem *> lineItemList;
     QList<QGraphicsTextItem *> textItemList;

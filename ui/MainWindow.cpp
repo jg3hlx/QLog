@@ -627,12 +627,13 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
 
     qCDebug(function_parameters) << widgetID << bandName;
 
-    const Band band = BandPlan::bandName2Band(bandName);
+    const Band &band = BandPlan::bandName2Band(bandName);
     BandmapWidget *bandmap = new BandmapWidget(widgetID, band, this);
 
     QDockWidget *dock = new QDockWidget(tr("Bandmap"), this);
     dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
     dock->setObjectName(widgetID + "-dock");
+    bandmap->setParent(dock);
     dock->setWidget(bandmap);
     dock->setFloating(true);
 
@@ -665,21 +666,25 @@ void MainWindow::clearNonVfoBandmaps()
 {
     FCT_IDENTIFICATION;
 
-    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
-    bandmapWidgets.removeAll(ui->bandmapWidget);
-
-    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
+    const QList<BandmapWidget *> bandmapWidgets = ui->bandmapWidget->getNonVfoWidgetList();
+    BandmapWidget *widget = nullptr;
+    QDockWidget *widgetDock = nullptr;
+    for (auto it = bandmapWidgets.begin(); it != bandmapWidgets.end(); ++it)
     {
+        widget = *it;
         if ( widget )
         {
-            qCDebug(runtime) << "Removing" << widget->objectName();
-            QDockWidget *dock = findChild<QDockWidget*>(widget->objectName() + "-dock");
+            widgetDock = findChild<QDockWidget*>(widget->objectName() + "-dock");
+            widget->saveState();
+            widget->setParent(nullptr);
             widget->close();
             widget->deleteLater();
-            if ( dock )
+
+            if ( widgetDock )
             {
-                dock->close();
-                dock->deleteLater();
+                widgetDock->close();
+                addDockWidget(Qt::RightDockWidgetArea, widgetDock); // without this, sometime is does not close the dock if it is floating
+                widgetDock->deleteLater();
             }
         }
     }
@@ -690,10 +695,9 @@ QList<QPair<QString, QString>> MainWindow::getNonVfoBandmapsParams() const
     FCT_IDENTIFICATION;
 
     QList<QPair<QString, QString>> bandmapList;
-    QList<BandmapWidget *> bandmapWidgets = findChildren<BandmapWidget *>();
-    bandmapWidgets.removeAll(ui->bandmapWidget);
+    const QList<BandmapWidget *> bandmapWidgets = ui->bandmapWidget->getNonVfoWidgetList();
 
-    for ( BandmapWidget *widget : static_cast<const QList<BandmapWidget *>&>(bandmapWidgets) )
+    for ( BandmapWidget *widget : bandmapWidgets )
         if ( widget && widget->isVisible() )
             bandmapList << QPair<QString, QString>(widget->objectName(), widget->getBand().name);
 
@@ -865,10 +869,12 @@ void MainWindow::setSimplyLayoutGeometry()
 
     const MainLayoutProfile &layoutProfile = MainLayoutProfilesManager::instance()->getCurProfile1();
 
+    if ( !layoutProfile.profileName.isEmpty() )
+        clearNonVfoBandmaps();
+
     if ( layoutProfile.mainGeometry != QByteArray()
         || layoutProfile.mainState != QByteArray() )
     {
-        clearNonVfoBandmaps();
         openNonVfoBandmaps(layoutProfile.addlBandmaps);
 
 #ifdef Q_OS_LINUX

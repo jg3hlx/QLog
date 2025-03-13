@@ -89,9 +89,6 @@ private slots:
     void handleActivityChange(const QString name);
 
     void openNonVfoBandmap(const QString &widgetID, const QString& bandName);
-    void openNonVfoBandmaps(const QList<QPair<QString, QString>> &list);
-    void clearNonVfoBandmaps();
-    QList<QPair<QString, QString>> getNonVfoBandmapsParams() const;
 
 private:
     Ui::MainWindow* ui;
@@ -133,6 +130,10 @@ private:
     void restoreContestMenuLinkExchange();
 
     QString stationCallsignStatus(const StationProfile &profile) const;
+
+    void openNonVfoBandmaps(const QList<QPair<QString, QString>> &list);
+    void clearNonVfoBandmaps();
+    QList<QPair<QString, QString>> getNonVfoBandmapsParams() const;
 };
 
 #endif // QLOG_UI_MAINWINDOW_H

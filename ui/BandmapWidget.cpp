@@ -31,6 +31,8 @@ MODULE_IDENTIFICATION("qlog.ui.bandmapwidget");
 
 QMap<double, DxSpot> BandmapWidget::spots;
 QList<BandmapWidget *> BandmapWidget::nonVfoWidgets;
+double BandmapWidget::lastSeenVFOFreq = 0.0;
+BandmapWidget *BandmapWidget::vfoWidget = nullptr;
 
 BandmapWidget::BandmapWidget(const QString &widgetID,
                              const Band &widgetBand,
@@ -56,7 +58,8 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
     setObjectName((isNonVfo) ? widgetID : "bandmapWidget");
 
     QSettings settings;
-    double newContactFreq = settings.value("newcontact/frequency", 3.5).toDouble();
+    double newContactFreq = (lastSeenVFOFreq == 0.0 ) ? settings.value("newcontact/frequency", 3.5).toDouble()
+                                                      : lastSeenVFOFreq;
     double ritFreq = newContactFreq + RigProfilesManager::instance()->getCurProfile1().ritOffset;
     double xitFreq = newContactFreq + RigProfilesManager::instance()->getCurProfile1().xitOffset;
     const QString &mode = settings.value("newcontact/mode", "CW").toString();
@@ -68,17 +71,17 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
     {
         ui->bottomRow->setVisible(false);
         ui->clearAllButton->setVisible(false);
-        // read the band for this window from persisted state or a new
-        // bandmap should start at the currently active vfo
-        setBand((widgetBand == Band()) ? BandPlan::freq2Band(ritFreq)
-                                       :  widgetBand, false);
         nonVfoWidgets.append(this);
     }
     else
     {
+        vfoWidget = this;
         ui->clearSpotOlderSpin->setValue(LogParam::getBandmapAging(objectName()));
-        setBand(BandPlan::freq2Band(ritFreq), false);
     }
+
+    setBand((widgetBand == Band()) ? BandPlan::freq2Band(ritFreq)
+                                   : widgetBand,
+            false);
 
     bandmapScene->setFocusOnTouch(false);
 
@@ -302,7 +305,8 @@ void BandmapWidget::clearWidgetBand()
     while (begin != end)
         begin = spots.erase(begin);
 
-    updateStations();
+    if ( vfoWidget )
+        vfoWidget->updateStations(); // this causes that all bandmap will be updated
     updateNearestSpot();
 }
 
@@ -953,6 +957,8 @@ void BandmapWidget::updateTunedFrequency(VFOID, double vfoFreq, double ritFreq, 
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << vfoFreq << ritFreq << xitFreq;
+
+    lastSeenVFOFreq = vfoFreq;
 
     isActive = (ritFreq >= currentBand.start && ritFreq <= currentBand.end);
 
