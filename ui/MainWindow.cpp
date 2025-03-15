@@ -817,11 +817,12 @@ void MainWindow::setLayoutGeometry()
     bool darkMode = false;
     QList<QPair<QString, QString>> bandmapWidgets;
 
+    bandmapWidgets = (layoutProfile.profileName.isEmpty()) ? MainLayoutProfilesManager::toPairStringList(settings.value("bandmapwidgets").toString())
+                                                           : layoutProfile.addlBandmaps;
     if ( layoutProfile.mainGeometry != QByteArray()
         || layoutProfile.mainState != QByteArray() )
     {
         // layout from config
-        bandmapWidgets = layoutProfile.addlBandmaps;
         newGeometry = layoutProfile.mainGeometry;
         newState = layoutProfile.mainState;
         darkMode = layoutProfile.darkMode;
@@ -829,8 +830,6 @@ void MainWindow::setLayoutGeometry()
     else
     {
         // Classic Layout
-        bandmapWidgets = MainLayoutProfilesManager::toPairStringList(settings.value("bandmapwidgets").toString());
-
         newGeometry = settings.value("geometry").toByteArray();
         newState = settings.value("windowState").toByteArray();
         darkMode = settings.value("darkmode", false).toBool();
@@ -872,10 +871,11 @@ void MainWindow::setSimplyLayoutGeometry()
     if ( !layoutProfile.profileName.isEmpty() )
         clearNonVfoBandmaps();
 
+    openNonVfoBandmaps(layoutProfile.addlBandmaps);
+
     if ( layoutProfile.mainGeometry != QByteArray()
         || layoutProfile.mainState != QByteArray() )
     {
-        openNonVfoBandmaps(layoutProfile.addlBandmaps);
 
 #ifdef Q_OS_LINUX
         // workaround for QTBUG-46620
