@@ -630,14 +630,27 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
     const Band &band = BandPlan::bandName2Band(bandName);
     BandmapWidget *bandmap = new BandmapWidget(widgetID, band, this);
 
-    QDockWidget *dock = new QDockWidget(tr("Bandmap"), this);
-    dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
-    dock->setObjectName(widgetID + "-dock");
+    QDockWidget *dock = nullptr;
+
+    // bandmap docks stay open. Therefore it is necessary to decide whether
+    // to reuse the dock or create a new one.
+    dock = findChild<QDockWidget*>(widgetID + "-dock");
+
+    if ( dock == nullptr )
+    {
+        qCDebug(runtime) << "Creating a new Bandmap dock";
+        dock = new QDockWidget(tr("Bandmap"), this);
+        dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
+        dock->setObjectName(widgetID + "-dock");
+        addDockWidget(Qt::RightDockWidgetArea, dock);
+        dock->setFloating(true);
+    }
+
     bandmap->setParent(dock);
     dock->setWidget(bandmap);
-    dock->setFloating(true);
 
-    addDockWidget(Qt::RightDockWidgetArea, dock);
+    if ( !dock->isVisible() ) // show reused docks
+        dock->show();
 
     // the vfo bandmap takes care of managing the spot map, which is shared with the non vfo bandmaps. spotsUpdated
     // is triggered when spot map is dirty and the bandmaps should re-render.
@@ -684,7 +697,7 @@ void MainWindow::clearNonVfoBandmaps()
             {
                 widgetDock->close();
                 addDockWidget(Qt::RightDockWidgetArea, widgetDock); // without this, sometime is does not close the dock if it is floating
-                widgetDock->deleteLater();
+                //widgetDock->deleteLater(); // Do not delete the dock – Qlog will reuse it. This is a more reliable method when switching layouts.
             }
         }
     }

@@ -182,7 +182,7 @@ void ActivityEditor::clearMainLayoutClick()
 
     mainGeometry = QByteArray();
     mainState = QByteArray();
-    //addlBandmaps = QList<QPair<QString, QString>>(); // do not remove it - clear only layout
+    addlBandmaps = QList<QPair<QString, QString>>();
     darkMode = false;
     ui->mainLayoutStateLabel->setText(statusUnSavedText);
     ui->mainLayoutClearButton->setEnabled(false);
