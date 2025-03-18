@@ -642,6 +642,13 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
         dock->setObjectName(widgetID + "-dock");
         addDockWidget(Qt::RightDockWidgetArea, dock);
         dock->setFloating(true);
+        const QRect &mainGeometry = geometry();
+        const QSize &dockSize = dock->sizeHint();
+
+        // middle
+        int x = mainGeometry.x() + (mainGeometry.width() - dockSize.width()) / 2;
+        int y = mainGeometry.y() + (mainGeometry.height() - dockSize.height()) / 2;
+        dock->move(x, y);
     }
 
     BandmapWidget *bandmap = new BandmapWidget(widgetID, band, dock);
