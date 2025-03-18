@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Please reserve the issue tracker for reporting presumed bugs in QLog. If you have a question about usage or installation, please use the [QLog Discussions](https://github.com/foldynl/QLog/discussions).**
-  
+        **Please reserve the issue tracker for reporting presumed bugs in QLog. If you have a question about usage or installation, please use the [QLog Discussions](https://github.com/foldynl/QLog/di[...]
+
   - type: textarea
     id: what-happened
     attributes:
@@ -15,7 +15,7 @@ body:
     validations:
       required: true
 
- - type: input
+  - type: input
     id: specific-version
     attributes:
       label: QLog Version
@@ -34,7 +34,7 @@ body:
         - Windows
     validations:
       required: true
- 
+
   - type: dropdown
     id: osinstallation
     attributes:
@@ -56,4 +56,3 @@ body:
       label: Installation Details
       description: |
         If you're not familiar with the QLog Installation Method mentioned above, please attach a screenshot of Main Menu → Help → About or provide more details about your OS.
-  
