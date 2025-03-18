@@ -1,0 +1,46 @@
+name: Bug Report
+description: File a bug report
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Please reserve the issue tracker for reporting presumed bugs in QLog. If you have a question about usage or installation, please use the [QLog Discussions](https://github.com/foldynl/QLog/discussions).**
+  
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? How can it be reproduced? Provide as much information as possible.
+      description: Also, what did you expect to happen?
+      value: "A bug happened!"
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: ostype
+    attributes:
+      label: Which OS are you using?
+      options:
+        - Linux
+        - macOS
+        - Windows
+    validations:
+      required: true
+  
+  - type: textarea
+    id: system-information
+    attributes:
+      label: OS and Installation Details
+      description: |
+        Provide details about your OS and how QLog was installed.  
+        This is **not required** for macOS and Windows.  
+        However, for Linux, please specify whether you used native distro packages (DEB, RPM), Flatpak, or a self-compiled version.  
+        If unsure, attach a screenshot of **Main Menu → Help → About**.
+  
+  - type: input
+    id: specific-version
+    attributes:
+      label: Specific Version (if applicable)
+      description: "Version reported in **Main Menu → Help → About**"
+      value: "0.0.0"
+
