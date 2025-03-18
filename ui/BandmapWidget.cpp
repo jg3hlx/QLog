@@ -29,6 +29,8 @@ MODULE_IDENTIFICATION("qlog.ui.bandmapwidget");
 
 #define WIDGET_CENTER ( height()/2 - 50 )
 
+#define MAIN_WIDGET_OBJECT_NAME "bandmapWidget"
+
 QMap<double, DxSpot> BandmapWidget::spots;
 QList<BandmapWidget *> BandmapWidget::nonVfoWidgets;
 double BandmapWidget::lastSeenVFOFreq = 0.0;
@@ -55,7 +57,7 @@ BandmapWidget::BandmapWidget(const QString &widgetID,
     FCT_IDENTIFICATION;
 
     ui->setupUi(this);
-    setObjectName((isNonVfo) ? widgetID : "bandmapWidget");
+    setObjectName((isNonVfo) ? widgetID : MAIN_WIDGET_OBJECT_NAME);
 
     QSettings settings;
     double newContactFreq = (lastSeenVFOFreq == 0.0 ) ? settings.value("newcontact/frequency", 3.5).toDouble()
@@ -621,7 +623,9 @@ BandmapWidget::BandmapZoom BandmapWidget::getSavedZoom(Band band)
 {
     FCT_IDENTIFICATION;
 
-    QVariant zoomVariant = LogParam::getBandmapZoom(objectName(), band.name, ZOOM_10KHZ);
+    // if a zoom is not set, try to get it from the main Bandmap widget
+    const QVariant &zoomVariantMain = LogParam::getBandmapZoom(MAIN_WIDGET_OBJECT_NAME, band.name, ZOOM_10KHZ);
+    QVariant zoomVariant = LogParam::getBandmapZoom(objectName(), band.name, zoomVariantMain);
     return zoomVariant.value<BandmapWidget::BandmapZoom>();
 }
 
@@ -883,6 +887,7 @@ void BandmapWidget::clickNewBandmapWindow()
     FCT_IDENTIFICATION;
 
     const QString widgetID = QString("bandmap%1").arg(QDateTime::currentMSecsSinceEpoch());
+    saveCurrentZoom();
     emit requestNewNonVfoBandmapWindow(widgetID, currentBand.name);
 }
 
