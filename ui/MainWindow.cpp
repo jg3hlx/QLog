@@ -649,6 +649,7 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
         int x = mainGeometry.x() + (mainGeometry.width() - dockSize.width()) / 2;
         int y = mainGeometry.y() + (mainGeometry.height() - dockSize.height()) / 2;
         dock->move(x, y);
+        dock->resize(ui->bandmapDockWidget->size());
     }
 
     BandmapWidget *bandmap = new BandmapWidget(widgetID, band, dock);
