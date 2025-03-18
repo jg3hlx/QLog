@@ -474,7 +474,7 @@ void BandmapWidget::addSpot(DxSpot spot)
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget adds spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -563,7 +563,7 @@ void BandmapWidget::updateNearestSpot(bool force)
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spot
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -692,7 +692,7 @@ void BandmapWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget modifies spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -747,7 +747,7 @@ void BandmapWidget::updateSpotsDupeWhenQSODeleted(const QSqlRecord &record)
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -778,7 +778,7 @@ void BandmapWidget::updateSpotsDxccStatusWhenQSODeleted(const QSet<uint> &entiti
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -807,7 +807,7 @@ void BandmapWidget::recalculateDxccStatus()
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -827,7 +827,7 @@ void BandmapWidget::resetDupe()
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
@@ -844,7 +844,7 @@ void BandmapWidget::recalculateDupe()
 {
     FCT_IDENTIFICATION;
 
-    // only master Widget removes spots
+    // only master Widget updates spots
     if ( isNonVfo )
     {
         qCDebug(runtime) << "NonVFO widget - skipping";
