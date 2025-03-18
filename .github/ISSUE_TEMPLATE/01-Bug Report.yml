@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Please reserve the issue tracker for reporting presumed bugs in QLog. If you have a question about usage or installation, please use the [QLog Discussions](https://github.com/foldynl/QLog/di[...]
+        **Please reserve the issue tracker for reporting presumed bugs in QLog. If you have a question about usage or installation, please use the [QLog Discussions](https://github.com/foldynl/QLog/discussions)
 
   - type: textarea
     id: what-happened
