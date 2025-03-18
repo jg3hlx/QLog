@@ -604,6 +604,10 @@ void BandmapWidget::setBand(const Band &newBand, bool savePrevBandZoom)
     ui->zoomSlider->blockSignals(true);
     ui->zoomSlider->setSliderPosition(zoom);
     ui->zoomSlider->blockSignals(false);
+
+    QWidget *dock = parentWidget();
+    if ( dock )
+        dock->setWindowTitle(tr("Bandmap") + " " + newBand.name);
 }
 
 void BandmapWidget::saveCurrentZoom()

@@ -628,8 +628,6 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
     qCDebug(function_parameters) << widgetID << bandName;
 
     const Band &band = BandPlan::bandName2Band(bandName);
-    BandmapWidget *bandmap = new BandmapWidget(widgetID, band, this);
-
     QDockWidget *dock = nullptr;
 
     // bandmap docks stay open. Therefore it is necessary to decide whether
@@ -639,14 +637,14 @@ void MainWindow::openNonVfoBandmap(const QString &widgetID, const QString &bandN
     if ( dock == nullptr )
     {
         qCDebug(runtime) << "Creating a new Bandmap dock";
-        dock = new QDockWidget(tr("Bandmap"), this);
+        dock = new QDockWidget(this);
         dock->setAttribute(Qt::WA_MacAlwaysShowToolWindow, true);
         dock->setObjectName(widgetID + "-dock");
         addDockWidget(Qt::RightDockWidgetArea, dock);
         dock->setFloating(true);
     }
 
-    bandmap->setParent(dock);
+    BandmapWidget *bandmap = new BandmapWidget(widgetID, band, dock);
     dock->setWidget(bandmap);
 
     if ( !dock->isVisible() ) // show reused docks
