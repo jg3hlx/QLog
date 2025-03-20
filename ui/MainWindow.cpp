@@ -433,7 +433,13 @@ void MainWindow::closeEvent(QCloseEvent* event)
 
     // cleanup Bandmap config
     const QStringList configBandmapList = LogParam::bandmapsWidgets();
-    QSet<QString> configBandmapSet(configBandmapList.begin(), configBandmapList.end());
+
+    QSet<QString> configBandmapSet;
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+    configBandmapSet = QSet<QString>(configBandmapList.begin(), configBandmapList.end());
+#else
+    configBandmapSet = QSet<QString>::fromList(configBandmapList);
+#endif
 
     MainLayoutProfilesManager *layoutManager = MainLayoutProfilesManager::instance();
     QSet<QString> layoutBandmapSet;

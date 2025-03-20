@@ -155,8 +155,11 @@ QStringList LogParam::getKeys(const QString &group)
         if ( !subKey.isEmpty() )
             keys.insert(subKey);
     }
-
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
     return QStringList(keys.begin(), keys.end());
+#else
+    return keys.toList();
+#endif
 }
 
 QCache<QString, QVariant> LogParam::localCache(30);
