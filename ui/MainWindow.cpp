@@ -1602,7 +1602,8 @@ void MainWindow::showAwards()
     dialog.exec();
 }
 
-void MainWindow::showAbout() {
+void MainWindow::showAbout()
+{
     FCT_IDENTIFICATION;
 
     QString aboutText = tr("<h1>QLog %1</h1>"
@@ -1634,12 +1635,7 @@ void MainWindow::showAbout() {
     OSName.append(" Flatpak");
 #endif
 
-    aboutText = aboutText.arg(version)
-                         .arg(qVersion())
-                         .arg(hamlibVersion)
-                         .arg(QSslSocket::sslLibraryVersionString())
-                         .arg(OSName);
-
+    aboutText = aboutText.arg(version, qVersion(), hamlibVersion, QSslSocket::sslLibraryVersionString(), OSName);
 
     QMessageBox::about(this, tr("About"), aboutText);
 }
