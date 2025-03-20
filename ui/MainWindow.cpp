@@ -1629,6 +1629,11 @@ void MainWindow::showAbout() {
 #endif
 
     QString OSName = QString("%1 %2 (%3)").arg(QSysInfo::prettyProductName(), QSysInfo::currentCpuArchitecture(), QGuiApplication::platformName() );
+
+#ifdef QLOG_FLATPAK
+    OSName.append(" Flatpak");
+#endif
+
     aboutText = aboutText.arg(version)
                          .arg(qVersion())
                          .arg(hamlibVersion)
