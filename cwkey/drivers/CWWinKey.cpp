@@ -551,7 +551,7 @@ unsigned char CWWinKey2::buildWKModeByte() const
     unsigned char settingByte = 0;
 
     settingByte |= 1 << 7;  // Disabled Paddle Watchdog
-    settingByte |= 1 << 6;  // Paddle Echoback Enabled
+    settingByte |= 0 << 6;  // Paddle Echoback Enabled
 
     switch (keyMode)        // Key Mode
     {
