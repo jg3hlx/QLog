@@ -375,6 +375,8 @@ bool CWWinKey2::setWPM(const qint16 wpm)
 {
     FCT_IDENTIFICATION;
 
+    qCDebug(function_parameters) << wpm;
+
     qCDebug(runtime) << "Waiting for Command Mutex";
     QMutexLocker locker(&commandMutex);
     bool ret = __setWPM(wpm);
@@ -390,6 +392,8 @@ bool CWWinKey2::setWPM(const qint16 wpm)
 bool CWWinKey2::__setWPM(const qint16 wpm)
 {
     FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << wpm;
 
     if ( !isInHostMode )
     {
