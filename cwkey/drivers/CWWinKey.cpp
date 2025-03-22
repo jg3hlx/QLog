@@ -337,7 +337,7 @@ void CWWinKey2::handleReadyRead()
         qint32 potValue = (rcvByte & 0x7F);
         qint32 currentWPM = minWPMRange + potValue;
         qCDebug(runtime) << "\tPot: " << potValue << "; WPM=" << currentWPM;
-        emit keyChangedWPMSpeed(currentWPM);
+        setWPM(currentWPM);
     }
     else
     {
