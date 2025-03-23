@@ -104,7 +104,7 @@ void CWKeyer::__openCWKey()
         cwKey = new CWDummyKey(this);
         break;
     case CWKey::WINKEY2_KEYER:
-        cwKey = new CWWinKey2(newProfile.portPath,
+        cwKey = new CWWinKey(newProfile.portPath,
                               newProfile.baudrate,
                               newProfile.keyMode,
                               newProfile.defaultSpeed,
