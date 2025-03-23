@@ -337,7 +337,7 @@ void CWWinKey2::handleReadyRead()
         qint32 potValue = (rcvByte & 0x7F);
         qint32 currentWPM = minWPMRange + potValue;
         qCDebug(runtime) << "\tPot: " << potValue << "; WPM=" << currentWPM;
-        emit keyChangedWPMSpeed(currentWPM);
+        setWPM(currentWPM);
     }
     else
     {
@@ -375,6 +375,8 @@ bool CWWinKey2::setWPM(const qint16 wpm)
 {
     FCT_IDENTIFICATION;
 
+    qCDebug(function_parameters) << wpm;
+
     qCDebug(runtime) << "Waiting for Command Mutex";
     QMutexLocker locker(&commandMutex);
     bool ret = __setWPM(wpm);
@@ -390,6 +392,8 @@ bool CWWinKey2::setWPM(const qint16 wpm)
 bool CWWinKey2::__setWPM(const qint16 wpm)
 {
     FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << wpm;
 
     if ( !isInHostMode )
     {
@@ -551,7 +555,7 @@ unsigned char CWWinKey2::buildWKModeByte() const
     unsigned char settingByte = 0;
 
     settingByte |= 1 << 7;  // Disabled Paddle Watchdog
-    settingByte |= 1 << 6;  // Paddle Echoback Enabled
+    settingByte |= 0 << 6;  // Paddle Echoback Enabled
 
     switch (keyMode)        // Key Mode
     {
