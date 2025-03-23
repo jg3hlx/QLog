@@ -3,7 +3,9 @@
 #include "CWWinKey.h"
 #include "core/debug.h"
 
-/* Based on WinKey v2 Spec: https://k1el.tripod.com/WinkeyUSBman.pdf */
+/* Based on WinKey Spec
+ * https://k1el.tripod.com/files/Winkey10.pdf
+ * https://k1el.tripod.com/WinkeyUSBman.pdf */
 
 MODULE_IDENTIFICATION("qlog.cwkey.driver.cwwinkey");
 
@@ -140,7 +142,7 @@ bool CWWinKey::open()
 
     /* Based on the WinKey Spec, it is needed to call read:
           The host must wait for this return code before
-          any other commands or data can be sent to Winkeyer2
+          any other commands or data can be sent to Winkeyer
     */
     if ( receiveDataAndWait(cmd) < 1 )
     {
@@ -150,13 +152,7 @@ bool CWWinKey::open()
         return false;
     }
 
-    if ( (unsigned char)cmd.at(0) < 20 )
-    {
-        qWarning() << "Winkey version < 2.0 is not supported";
-        lastLogicalError = tr("Connected device is not WinKey v2 or newer");
-        __close();
-        return false;
-    }
+    qCDebug(runtime) << "Winkey version" << (unsigned char)cmd.at(0);
 
     lastLogicalError = QString();
 

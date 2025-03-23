@@ -103,7 +103,7 @@ void CWKeyer::__openCWKey()
     case CWKey::DUMMY_KEYER:
         cwKey = new CWDummyKey(this);
         break;
-    case CWKey::WINKEY2_KEYER:
+    case CWKey::WINKEY_KEYER:
         cwKey = new CWWinKey(newProfile.portPath,
                               newProfile.baudrate,
                               newProfile.keyMode,
