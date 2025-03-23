@@ -1,6 +1,7 @@
 TBC - 0.43.0
 - [NEW] - Added support to receive QSOs from CSN SAT Device (PR #610 @aa5sh)
 - [NEW] - Bandmap - Multiple independent bandmap windows (PR #593 @kyleboyle @foldynl)
+- Fixed Speed pot doesn't seem to work with a WinKeyer; double chars (issue #618)
 
 2025/03/07 - 0.42.2
 - Fixed Logbook country translations (issue #608)
