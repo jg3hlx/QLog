@@ -1616,7 +1616,7 @@ void MainWindow::showAbout()
                            "<p>&copy; 2019 Thomas Gatzweiler DL2IC<br/>"
                            "&copy; 2021-2025 Ladislav Foldyna OK1MLG<br/>"
                            "&copy; 2025 Michael Morgan AA5SH<br/>"
-                           "&copy; 2025 Kyle Boyle</p>"
+                           "&copy; 2025 Kyle Boyle VE9KZ</p>"
                            "<p>Based on Qt %2<br/>"
                            "%3<br/>"
                            "%4<br/>"
