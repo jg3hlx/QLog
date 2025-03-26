@@ -2,6 +2,7 @@ TBC - 0.43.0
 - [NEW] - Added support to receive QSOs from CSN SAT Device (PR #610 @aa5sh)
 - [NEW] - Bandmap - Multiple independent bandmap windows (PR #593 @kyleboyle @foldynl)
 - [NEW] - Winkey Keyer driver currently supports v1 and v2 hardware
+- [CHANGED] - HamlibDrv - Enabled Power, RIT, XIT, Morse for RIG Netctl
 - Fixed Speed pot doesn't seem to work with a WinKeyer; double chars (issue #618)
 - Fixed BandMap Spots colour change after a QSO (issue #632)
 
