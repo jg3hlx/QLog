@@ -374,7 +374,7 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     mapper->addMapping(ui->qslEqslSentStatusBox, LogbookModel::COLUMN_EQSL_QSL_SENT);
     mapper->addMapping(ui->qslLotwReceiveStatusLabel, LogbookModel::COLUMN_LOTW_RCVD);
     mapper->addMapping(ui->qslLotwSentStatusBox, LogbookModel::COLUMN_LOTW_SENT);
-    mapper->addMapping(ui->qslReceivedMsgEdit, LogbookModel::COLUMN_QSLMSG, "text");
+    mapper->addMapping(ui->qslReceivedMsgEdit, LogbookModel::COLUMN_QSLMSG_RCVD, "text");
     mapper->addMapping(ui->qslSentViaBox, LogbookModel::COLUMN_QSL_SENT_VIA);
     mapper->addMapping(ui->qslViaEdit, LogbookModel::COLUMN_QSL_VIA);
     mapper->addMapping(ui->qslPaperReceiveDateEdit, LogbookModel::COLUMN_QSL_RCVD_DATE);
