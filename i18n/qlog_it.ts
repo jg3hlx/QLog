@@ -208,7 +208,7 @@
         <translation>Non deve essere vuoto</translation>
     </message>
     <message>
-        <location filename="../ui/ActivityEditor.h" line="115"/>
+        <location filename="../ui/ActivityEditor.h" line="116"/>
         <source>Unsaved</source>
         <translation>Non Salvato</translation>
     </message>
@@ -781,42 +781,47 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.ui" line="126"/>
+        <location filename="../ui/BandmapWidget.ui" line="53"/>
+        <source>Create an additional Bandmap Window</source>
+        <translation>Creare una finestra aggiuntiva di Bandmap</translation>
+    </message>
+    <message>
+        <location filename="../ui/BandmapWidget.ui" line="109"/>
         <source>Clear All</source>
         <translation>Cancella Tutto</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.ui" line="136"/>
-        <source>In</source>
-        <translation>zoom in</translation>
+        <location filename="../ui/BandmapWidget.ui" line="207"/>
+        <source>Clear the current band</source>
+        <translation>Cancellare la banda attuale</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.ui" line="150"/>
-        <source>Out</source>
-        <translation>zoom out</translation>
-    </message>
-    <message>
-        <location filename="../ui/BandmapWidget.ui" line="165"/>
+        <location filename="../ui/BandmapWidget.ui" line="80"/>
         <source>Clear older than</source>
         <translation>Cancella più vecchio di</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.ui" line="178"/>
+        <location filename="../ui/BandmapWidget.ui" line="93"/>
         <source>Never</source>
         <translation>Mai</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.ui" line="181"/>
+        <location filename="../ui/BandmapWidget.ui" line="96"/>
         <source> min(s)</source>
         <translation> min(s)</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.cpp" line="810"/>
+        <location filename="../ui/BandmapWidget.cpp" line="612"/>
+        <source>Bandmap</source>
+        <translation>Bandmap</translation>
+    </message>
+    <message>
+        <location filename="../ui/BandmapWidget.cpp" line="935"/>
         <source>Show Band</source>
         <translation>Mostra Banda</translation>
     </message>
     <message>
-        <location filename="../ui/BandmapWidget.cpp" line="823"/>
+        <location filename="../ui/BandmapWidget.cpp" line="953"/>
         <source>Center RX</source>
         <translation>Centra RX</translation>
     </message>
@@ -1122,31 +1127,26 @@
     </message>
 </context>
 <context>
-    <name>CWWinKey2</name>
+    <name>CWWinKey</name>
     <message>
-        <location filename="../cwkey/drivers/CWWinKey.cpp" line="117"/>
+        <location filename="../cwkey/drivers/CWWinKey.cpp" line="119"/>
         <source>Connected device is not WinKey</source>
         <translation>Il dispositivo connesso non è Winkey</translation>
     </message>
     <message>
-        <location filename="../cwkey/drivers/CWWinKey.cpp" line="156"/>
-        <source>Connected device is not WinKey v2 or newer</source>
-        <translation>Il dispositivo connesso non è Winkey v2 o successivo</translation>
-    </message>
-    <message>
-        <location filename="../cwkey/drivers/CWWinKey.cpp" line="232"/>
+        <location filename="../cwkey/drivers/CWWinKey.cpp" line="228"/>
         <source>Cannot send Text to Rig</source>
         <translation>Impossibile inviare Testo alla Radio</translation>
     </message>
     <message>
-        <location filename="../cwkey/drivers/CWWinKey.cpp" line="232"/>
+        <location filename="../cwkey/drivers/CWWinKey.cpp" line="228"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="397"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="436"/>
         <source>Keyer is not connected</source>
         <translation>Keyer non connesso</translation>
     </message>
     <message>
-        <location filename="../cwkey/drivers/CWWinKey.cpp" line="371"/>
+        <location filename="../cwkey/drivers/CWWinKey.cpp" line="367"/>
         <source>Communication Error</source>
         <translation>Errore di comunicazione</translation>
     </message>
@@ -3121,57 +3121,57 @@
 <context>
     <name>Data</name>
     <message>
-        <location filename="../data/Data.cpp" line="523"/>
+        <location filename="../data/Data.cpp" line="530"/>
         <source>New Entity</source>
         <translation>Nuova Entità</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="525"/>
+        <location filename="../data/Data.cpp" line="532"/>
         <source>New Band</source>
         <translation>Nuova Banda</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="527"/>
+        <location filename="../data/Data.cpp" line="534"/>
         <source>New Mode</source>
         <translation>Nuovo Modo</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="529"/>
+        <location filename="../data/Data.cpp" line="536"/>
         <source>New Band&amp;Mode</source>
         <translation>Nuovi  Banda&amp;Modo</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="531"/>
+        <location filename="../data/Data.cpp" line="538"/>
         <source>New Slot</source>
         <translation>Nuovo Slot</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="533"/>
+        <location filename="../data/Data.cpp" line="540"/>
         <source>Confirmed</source>
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="535"/>
+        <location filename="../data/Data.cpp" line="542"/>
         <source>Worked</source>
         <translation>Lavorato</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="645"/>
+        <location filename="../data/Data.cpp" line="652"/>
         <source>Hz</source>
         <translation>Hz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="652"/>
+        <location filename="../data/Data.cpp" line="659"/>
         <source>kHz</source>
         <translation>kHz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="659"/>
+        <location filename="../data/Data.cpp" line="666"/>
         <source>GHz</source>
         <translation>GHz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="664"/>
+        <location filename="../data/Data.cpp" line="671"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
@@ -4487,123 +4487,123 @@
         <translation>RTS</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="149"/>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="212"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="157"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="220"/>
         <source>Initialization Error</source>
         <translation>Errore di inizializzazione</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="245"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="253"/>
         <source>Cannot set PTT Type</source>
         <translation>Impossibile impostare Tipo PTT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="252"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="260"/>
         <source>Cannot set PTT Share</source>
         <translation>Impossibile impostare Condividi PTT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="259"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="267"/>
         <source>Unsupported Rig Driver</source>
         <translation>Driver della Radio non Supportato</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="266"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="274"/>
         <source>Rig Open Error</source>
         <translation>Connessione Radio fallita</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="321"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="329"/>
         <source>Set Frequency Error</source>
         <translation>Errore impostazione fequenza</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="369"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="377"/>
         <source>Set Mode Error</source>
         <translation>Errore impostazione Modo</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="392"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="400"/>
         <source>Set PTT Error</source>
         <translation>Errore impostazione PTT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="457"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="465"/>
         <source>Cannot sent Morse</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>impossibile inviare il codice Morse</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="476"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="484"/>
         <source>Cannot stop Morse</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>impossibile fermare codice Morse</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="579"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="587"/>
         <source>Get PTT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore PTT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="614"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="622"/>
         <source>Get Frequency Error</source>
         <translation>Errore della Frequenza</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="655"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="663"/>
         <source>Get Mode Error</source>
         <translation>Errore del Modo</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="704"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="712"/>
         <source>Get VFO Error</source>
         <translation>Errore VFO</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="742"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="750"/>
         <source>Get PWR Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore PWR</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="746"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="754"/>
         <source>Get PWR (power2mw) Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore PWR (power2mw)</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="784"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="792"/>
         <source>Get RIT Function Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore funzione RIT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="790"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="798"/>
         <source>Get RIT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore RIT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="841"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="849"/>
         <source>Get XIT Function Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore funzione XIT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="847"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="855"/>
         <source>Get XIT Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore XIT</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="896"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="904"/>
         <source>Get KeySpeed Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore di KeySpeed</translation>
     </message>
     <message>
-        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="948"/>
+        <location filename="../rig/drivers/HamlibRigDrv.cpp" line="956"/>
         <source>Set KeySpeed Error</source>
         <translatorcomment>This cannot be displayed</translatorcomment>
         <translation>Errore impostazione KeySpeed</translation>
@@ -5124,17 +5124,17 @@
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="946"/>
-        <location filename="../logformat/LogFormat.cpp" line="1020"/>
+        <location filename="../logformat/LogFormat.cpp" line="1021"/>
         <source>DXCC State:</source>
         <translation>Stato DXCC:</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1144"/>
+        <location filename="../logformat/LogFormat.cpp" line="1145"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1147"/>
+        <location filename="../logformat/LogFormat.cpp" line="1148"/>
         <source>Warning</source>
         <translation>Attenzione</translation>
     </message>
@@ -6723,7 +6723,7 @@
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="126"/>
-        <location filename="../ui/MainWindow.cpp" line="1161"/>
+        <location filename="../ui/MainWindow.cpp" line="1322"/>
         <source>Contest</source>
         <translation>Contest</translation>
     </message>
@@ -6905,83 +6905,83 @@
         <translation>Premi per sintonizzare l&apos;allarme</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="364"/>
+        <location filename="../ui/MainWindow.cpp" line="365"/>
         <source>Clublog Immediately Upload Error</source>
         <translation>Errore di caricamento immediato di Clublog</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="530"/>
-        <location filename="../ui/MainWindow.cpp" line="540"/>
-        <location filename="../ui/MainWindow.cpp" line="550"/>
+        <location filename="../ui/MainWindow.cpp" line="583"/>
+        <location filename="../ui/MainWindow.cpp" line="593"/>
+        <location filename="../ui/MainWindow.cpp" line="603"/>
         <source>&lt;b&gt;Error Detail:&lt;/b&gt; </source>
         <translation>&lt;b&gt;Dettagli errore:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="574"/>
+        <location filename="../ui/MainWindow.cpp" line="627"/>
         <source>op: </source>
         <translation>op: </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="840"/>
+        <location filename="../ui/MainWindow.cpp" line="1001"/>
         <source>Classic</source>
         <translation>Classico</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1162"/>
+        <location filename="../ui/MainWindow.cpp" line="1323"/>
         <source>Do you want to remove the Contest filter %1?</source>
         <translation>Vuoi rimuovere il Contest filter %1?</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1193"/>
+        <location filename="../ui/MainWindow.cpp" line="1354"/>
         <source>Contest: </source>
         <translation>Contest: </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1367"/>
-        <location filename="../ui/MainWindow.cpp" line="1383"/>
-        <location filename="../ui/MainWindow.cpp" line="1399"/>
-        <location filename="../ui/MainWindow.cpp" line="1415"/>
-        <location filename="../ui/MainWindow.cpp" line="1433"/>
+        <location filename="../ui/MainWindow.cpp" line="1528"/>
+        <location filename="../ui/MainWindow.cpp" line="1544"/>
+        <location filename="../ui/MainWindow.cpp" line="1560"/>
+        <location filename="../ui/MainWindow.cpp" line="1576"/>
+        <location filename="../ui/MainWindow.cpp" line="1594"/>
         <source>QLog Warning</source>
         <translation>Avviso QLog</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1367"/>
+        <location filename="../ui/MainWindow.cpp" line="1528"/>
         <source>LoTW is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>LoTW non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1383"/>
+        <location filename="../ui/MainWindow.cpp" line="1544"/>
         <source>eQSL is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>eQSL non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1399"/>
+        <location filename="../ui/MainWindow.cpp" line="1560"/>
         <source>Clublog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>Clublog non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1415"/>
+        <location filename="../ui/MainWindow.cpp" line="1576"/>
         <source>HRDLog is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>HRDLog non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1433"/>
+        <location filename="../ui/MainWindow.cpp" line="1594"/>
         <source>QRZ.com is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
         <translation>QRZ.com non è configurato correttamente.&lt;p&gt; Utilizza la finestra di dialogo &lt;b&gt;Impostazioni&lt;/b&gt; per configurarlo.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1453"/>
-        <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2025 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
-        <translation>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copia; 2021-2025 Ladislav Foldyna OK1MLG&lt;/p&gt;&lt;p&gt;Basato su Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icona di &lt;a href=&apos; http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Immagini satellitari di &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect di &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;Database TimeZone di &lt;a href=&apos;https://github.com/evansiroky/timezone -boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</translation>
+        <location filename="../ui/MainWindow.cpp" line="1615"/>
+        <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2025 Ladislav Foldyna OK1MLG&lt;br/&gt;&amp;copy; 2025 Michael Morgan AA5SH&lt;br/&gt;&amp;copy; 2025 Kyle Boyle VE9KZ&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
+        <translation type="unfinished">&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2025 Ladislav Foldyna OK1MLG&lt;br/&gt;&amp;copy; 2025 Michael Morgan AA5SH&lt;br/&gt;&amp;copy; 2025 Kyle Boyle VE9KZ&lt;/p&gt;&lt;p&gt;Basato su Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icona di &lt;a href=&apos; http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Immagini satellitari di &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect di &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;Database TimeZone di &lt;a href=&apos;https://github.com/evansiroky/timezone -boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1482"/>
+        <location filename="../ui/MainWindow.cpp" line="1646"/>
         <source>About</source>
         <translation>A proposito di</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="1526"/>
+        <location filename="../ui/MainWindow.cpp" line="1690"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -7687,9 +7687,9 @@
         <location filename="../core/Migration.cpp" line="412"/>
         <location filename="../ui/ExportDialog.cpp" line="130"/>
         <location filename="../ui/ImportDialog.cpp" line="240"/>
-        <location filename="../ui/MainWindow.cpp" line="528"/>
-        <location filename="../ui/MainWindow.cpp" line="538"/>
-        <location filename="../ui/MainWindow.cpp" line="548"/>
+        <location filename="../ui/MainWindow.cpp" line="581"/>
+        <location filename="../ui/MainWindow.cpp" line="591"/>
+        <location filename="../ui/MainWindow.cpp" line="601"/>
         <location filename="../ui/NewContactWidget.cpp" line="1384"/>
         <location filename="../ui/SettingsDialog.cpp" line="310"/>
         <location filename="../ui/SettingsDialog.cpp" line="320"/>
@@ -7744,11 +7744,11 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore di rete. Impossibile scaricare l&apos;elenco dei club per</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="487"/>
-        <location filename="../core/main.cpp" line="502"/>
-        <location filename="../core/main.cpp" line="512"/>
-        <location filename="../core/main.cpp" line="519"/>
-        <location filename="../core/main.cpp" line="526"/>
+        <location filename="../core/main.cpp" line="488"/>
+        <location filename="../core/main.cpp" line="503"/>
+        <location filename="../core/main.cpp" line="513"/>
+        <location filename="../core/main.cpp" line="520"/>
+        <location filename="../core/main.cpp" line="527"/>
         <location filename="../ui/AlertRuleDetail.cpp" line="406"/>
         <location filename="../ui/ExportDialog.cpp" line="139"/>
         <location filename="../ui/KSTChatWidget.cpp" line="311"/>
@@ -7760,27 +7760,27 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore di QLog</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="488"/>
+        <location filename="../core/main.cpp" line="489"/>
         <source>QLog is already running</source>
         <translation>QLog è già in esecuzione</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="503"/>
+        <location filename="../core/main.cpp" line="504"/>
         <source>Could not connect to database.</source>
         <translation>Impossibile collegare il Database.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="513"/>
+        <location filename="../core/main.cpp" line="514"/>
         <source>Could not export a QLog database to ADIF as a backup.&lt;p&gt;Try to export your log to ADIF manually</source>
         <translation>Impossibile esportare un database QLog in ADIF come backup.&lt;p&gt;Prova a esportare manualmente il tuo Log in ADIF</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="520"/>
+        <location filename="../core/main.cpp" line="521"/>
         <source>Database migration failed.</source>
         <translation>Errore nella Migrazione del database.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="527"/>
+        <location filename="../core/main.cpp" line="528"/>
         <source>Could not connect to database (2).</source>
         <translation>Impossibile connettere il Database (2).</translation>
     </message>
@@ -7886,17 +7886,17 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Il nome del filtro esiste già.</translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="529"/>
+        <location filename="../ui/MainWindow.cpp" line="582"/>
         <source>&lt;b&gt;Rig Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;Errore della Radio:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="539"/>
+        <location filename="../ui/MainWindow.cpp" line="592"/>
         <source>&lt;b&gt;Rotator Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;Errore del rotore:&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/MainWindow.cpp" line="549"/>
+        <location filename="../ui/MainWindow.cpp" line="602"/>
         <source>&lt;b&gt;CW Keyer Error:&lt;/b&gt; </source>
         <translation>&lt;b&gt;Errore Keyer CW:&lt;/b&gt; </translation>
     </message>
@@ -8057,22 +8057,22 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore Interno</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="499"/>
+        <location filename="../core/main.cpp" line="500"/>
         <source>Opening Database</source>
         <translation>Apertura Database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="507"/>
+        <location filename="../core/main.cpp" line="508"/>
         <source>Backuping Database</source>
         <translation>Backup del database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="516"/>
+        <location filename="../core/main.cpp" line="517"/>
         <source>Migrating Database</source>
         <translation>Migrazione del database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="531"/>
+        <location filename="../core/main.cpp" line="532"/>
         <source>Starting Application</source>
         <translation>Avvio applicazione</translation>
     </message>
@@ -10630,8 +10630,8 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="286"/>
-        <source>WinKey v2</source>
-        <translation></translation>
+        <source>WinKey</source>
+        <translation>WinKey</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="287"/>
@@ -10666,7 +10666,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="315"/>
         <source>Press &lt;b&gt;Modify&lt;/b&gt; to confirm the profile changes or &lt;b&gt;Cancel&lt;/b&gt;.</source>
-        <translation>Premi &lt;b&gt;Modifica&lt;/b&gt; per confermare le modifiche al profilo o &lt;b&gt;Annulla&lt;/b&gt;.</translation>
+        <translation type="unfinished">Premi &lt;b&gt;Modifica&lt;/b&gt; per confermare le modifiche al profilo o &lt;b&gt;Annulla&lt;/b&gt;.</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="317"/>
