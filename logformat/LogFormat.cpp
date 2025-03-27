@@ -1000,9 +1000,10 @@ void LogFormat::runQSLImport(QSLFrom fromService)
                     }
                 }
 
-                originalRecord.setValue("qslmsg", QSLRecord.value("qslmsg"));
+                originalRecord.setValue("qslmsg_rcvd", QSLRecord.value("qslmsg"));
 
-                originalRecord.setValue("qslmsg_int", QSLRecord.value("qslmsg_int"));
+                // temporary removed - ADIF 3.1.5 has no INTL equivalent for qslmsg_rcvd
+                //originalRecord.setValue("qslmsg_int", QSLRecord.value("qslmsg_int"));
 
                 originalRecord.setValue("qsl_rcvd_via", QSLRecord.value("qsl_sent_via"));
 
