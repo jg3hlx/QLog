@@ -3192,6 +3192,8 @@ void NewContactWidget::setValuesFromActivity(const QString &name)
     setFieldValueCombo(LogbookModel::LogbookModel::COLUMN_PROP_MODE, ui->propagationModeEdit);
     setFieldValueCombo(LogbookModel::LogbookModel::COLUMN_SAT_MODE, uiDynamic->satModeEdit);
     setFieldValue(LogbookModel::COLUMN_SAT_NAME, uiDynamic->satNameEdit);
+
+    setContestFieldsState();
 }
 
 void NewContactWidget::rigProfileComboChanged(const QString &profileName)
