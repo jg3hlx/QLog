@@ -1,4 +1,4 @@
-TBC - 0.43.0
+2025/04/04 - 0.43.0
 - [NEW] - Added support to receive QSOs from CSN SAT Device (PR #610 @aa5sh)
 - [NEW] - Bandmap - Multiple independent bandmap windows (PR #593 @kyleboyle @foldynl)
 - [NEW] - Winkey Keyer driver currently supports v1 and v2 hardware
