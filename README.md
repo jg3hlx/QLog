@@ -19,7 +19,7 @@ QLogs は可能な限りシンプルであることを目指していますが�
 - **Secure Password Storage** for all services with password or security token
 - **Online** and **Offline** map
 - Club Member lookup
-- CW Keyer Support - CWDaemon, FLDigi (all supported modes), Morse Over CAT, WinKey V2
+- CW Keyer Support - CWDaemon, FLDigi (all supported modes), Morse Over CAT, WinKey v1 or v2
 - Bandmap
 - CW Console
 - WSJT-X integration
@@ -49,7 +49,7 @@ QLogs は可能な限りシンプルであることを目指していますが�
 * [CWDaemon](https://cwdaemon.sourceforge.net/)
 * [FLDigi](http://www.w1hkj.com/)
 * Morse Over CAT
-* WinKey v2 compatible hardware
+* WinKey v1 or v2 compatible hardware
 
 ### Supported Secure Password Storage
 * Linux: LibSecretKeyring, GnomeKeyring, Kwallet4, Kwallet5
