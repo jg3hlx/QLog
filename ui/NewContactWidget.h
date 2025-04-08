@@ -265,7 +265,7 @@ private slots:
     void stopContactTimer();
     void finalizeCallsignEdit();
     void setCallbookFields(const QMap<QString, QString>& data);
-    void setMembershipList(const QString&, QMap<QString, ClubStatusQuery::ClubStatus>);
+    void setMembershipList(const QString&, QMap<QString, ClubStatusQuery::ClubInfo>);
     void propModeChanged(const QString&);
     void sotaChanged(const QString&);
     void sotaEditFinished();

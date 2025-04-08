@@ -1306,7 +1306,7 @@ void QSODetailDialog::myWWFFChanged(const QString &newWWFF)
 }
 
 void QSODetailDialog::clubQueryResult(const QString &in_callsign,
-                                      QMap<QString, ClubStatusQuery::ClubStatus> data)
+                                      QMap<QString, ClubStatusQuery::ClubInfo> data)
 {
     FCT_IDENTIFICATION;
 
@@ -1318,7 +1318,7 @@ void QSODetailDialog::clubQueryResult(const QString &in_callsign,
 
     QString memberText;
 
-    QMapIterator<QString, ClubStatusQuery::ClubStatus> clubs(data);
+    QMapIterator<QString, ClubStatusQuery::ClubInfo> clubs(data);
 
     QPalette palette;
 
@@ -1326,7 +1326,7 @@ void QSODetailDialog::clubQueryResult(const QString &in_callsign,
     while ( clubs.hasNext() )
     {
         clubs.next();
-        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), false, palette.color(QPalette::Text));
+        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value().status), false, palette.color(QPalette::Text));
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
     ui->memberListLabel->setText(memberText);

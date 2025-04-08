@@ -712,7 +712,7 @@ void NewContactWidget::setCallbookFields(const QMap<QString, QString>& data)
 }
 
 void NewContactWidget::setMembershipList(const QString &in_callsign,
-                                         QMap<QString, ClubStatusQuery::ClubStatus> data)
+                                         QMap<QString, ClubStatusQuery::ClubInfo> data)
 {
     FCT_IDENTIFICATION;
 
@@ -720,13 +720,13 @@ void NewContactWidget::setMembershipList(const QString &in_callsign,
         return;
 
     QString memberText;
-    QMapIterator<QString, ClubStatusQuery::ClubStatus> clubs(data);
+    QMapIterator<QString, ClubStatusQuery::ClubInfo> clubs(data);
     QPalette palette;
 
     while ( clubs.hasNext() )
     {
         clubs.next();
-        const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), false, palette.color(QPalette::Text));
+        const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value().status), false, palette.color(QPalette::Text));
         //"<font color='red'>Hello</font> <font color='green'>World</font>"
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
