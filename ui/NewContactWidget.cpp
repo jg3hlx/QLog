@@ -729,6 +729,28 @@ void NewContactWidget::setMembershipList(const QString &in_callsign,
         const QColor &color = Data::statusToColor(static_cast<DxccStatus>(clubs.value().status), false, palette.color(QPalette::Text));
         //"<font color='red'>Hello</font> <font color='green'>World</font>"
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
+
+        if ( clubs.key().toUpper() == "SKCC"
+             && uiDynamic->skccEdit->text().isEmpty()
+             && !clubs.value().membershipID.isEmpty() )
+        {
+            uiDynamic->skccEdit->setText(clubs.value().membershipID);
+        }
+
+        // Currently UKSMG does not provide Member# - I leave it - maybe UKSMG will start providing MemberIDs.
+        if ( clubs.key().toUpper() == "UKSMG"
+            && uiDynamic->uksmgEdit->text().isEmpty()
+            && !clubs.value().membershipID.isEmpty() )
+        {
+            uiDynamic->uksmgEdit->setText(clubs.value().membershipID);
+        }
+
+        if ( clubs.key().toUpper() == "FISTS"
+            && uiDynamic->fistsEdit->text().isEmpty()
+            && !clubs.value().membershipID.isEmpty() )
+        {
+            uiDynamic->fistsEdit->setText(clubs.value().membershipID);
+        }
     }
     ui->memberListLabel->setText(memberText);
 }
@@ -3897,6 +3919,10 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         powerEdit->setSuffix(QCoreApplication::translate("NewContactWidget", " W"));
 
         rigEdit->setToolTip(QCoreApplication::translate("NewContactWidget", "Description of the contacted station's equipment", nullptr));
+
+        uksmgEdit->setValidator(new QIntValidator(0, INT_MAX, uksmgEdit));
+
+        fistsEdit->setValidator(new QIntValidator(0, INT_MAX, fistsEdit));
     }
 }
 
