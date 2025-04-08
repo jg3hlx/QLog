@@ -134,6 +134,15 @@ public:
     QLabel *qslMsgSLabel;
     NewContactEditLine *qslMsgSEdit;
 
+    QLabel *skccLabel;
+    NewContactEditLine *skccEdit;
+
+    QLabel *uksmgLabel;
+    NewContactEditLine *uksmgEdit;
+
+    QLabel *fistsLabel;
+    NewContactEditLine *fistsEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);

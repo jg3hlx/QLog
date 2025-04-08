@@ -1045,6 +1045,9 @@ void NewContactWidget::resetContact()
     uiDynamic->rxPWREdit->clear();
     uiDynamic->rigEdit->clear();
     uiDynamic->qslMsgSEdit->clear();
+    uiDynamic->skccEdit->clear();
+    uiDynamic->uksmgEdit->clear();
+    uiDynamic->fistsEdit->clear();
     ui->dupeLabel->setVisible(false);
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1607,6 +1610,15 @@ void NewContactWidget::connectFieldChanged()
     connect(uiDynamic->qslMsgSEdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
+    connect(uiDynamic->skccEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->uksmgEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
+    connect(uiDynamic->fistsEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
     /* no other fields are currently considered
      * as an attempt to fill out the form */
 }
@@ -1805,6 +1817,21 @@ void NewContactWidget::saveContact()
     if ( ! uiDynamic->qslMsgSEdit->text().isEmpty() )
     {
         record.setValue("qslmsg_intl", uiDynamic->qslMsgSEdit->text());
+    }
+
+    if ( ! uiDynamic->skccEdit->text().isEmpty() )
+    {
+        record.setValue("skcc", uiDynamic->skccEdit->text());
+    }
+
+    if ( ! uiDynamic->uksmgEdit->text().isEmpty() )
+    {
+        record.setValue("uksmg", uiDynamic->uksmgEdit->text());
+    }
+
+    if ( ! uiDynamic->fistsEdit->text().isEmpty() )
+    {
+        record.setValue("fists", uiDynamic->fistsEdit->text());
     }
 
     AdiFormat::preprocessINTLFields<QSqlRecord>(record);
@@ -3748,6 +3775,9 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_TX_POWER, "power", powerLabel, powerEdit);
     initializeWidgets(LogbookModel::COLUMN_RIG_INTL, "rigDX", rigLabel, rigEdit);
     initializeWidgets(LogbookModel::COLUMN_QSLMSG_INTL, "qslMsgS", qslMsgSLabel, qslMsgSEdit);
+    initializeWidgets(LogbookModel::COLUMN_SKCC, "skcc", skccLabel, skccEdit);
+    initializeWidgets(LogbookModel::COLUMN_UKSMG, "uksmg", uksmgLabel, uksmgEdit);
+    initializeWidgets(LogbookModel::COLUMN_FISTS, "uksmg", fistsLabel, fistsEdit);
 
     if ( allocateWidgets )
     {
