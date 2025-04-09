@@ -296,6 +296,10 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     ui->myGridEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridRegEx(), this));
     ui->vuccEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
     ui->myVUCCEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
+    ui->fistsEdit->setValidator(new QIntValidator(0, INT_MAX, ui->fistsEdit));
+    ui->fistsCCEdit->setValidator(new QIntValidator(0, INT_MAX, ui->fistsCCEdit));
+    ui->tentenEdit->setValidator(new QIntValidator(0, INT_MAX, ui->tentenEdit));
+    ui->uksmgEdit->setValidator(new QIntValidator(0, INT_MAX, ui->uksmgEdit));
 
     /***********/
     /* Mapping */
@@ -337,6 +341,11 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     mapper->addMapping(ui->propagationModeEdit, LogbookModel::COLUMN_PROP_MODE);
     mapper->addMapping(ui->satNameEdit, LogbookModel::COLUMN_SAT_NAME);
     mapper->addMapping(ui->satModeEdit,LogbookModel::COLUMN_SAT_MODE);
+    mapper->addMapping(ui->fistsEdit,LogbookModel::COLUMN_FISTS);
+    mapper->addMapping(ui->fistsCCEdit,LogbookModel::COLUMN_FISTS_CC);
+    mapper->addMapping(ui->skccEdit,LogbookModel::COLUMN_SKCC);
+    mapper->addMapping(ui->tentenEdit,LogbookModel::COLUMN_TEN_TEN);
+    mapper->addMapping(ui->uksmgEdit,LogbookModel::COLUMN_UKSMG);
 
     /* My Station */
     mapper->addMapping(ui->myCallsignEdit, LogbookModel::COLUMN_STATION_CALLSIGN);
