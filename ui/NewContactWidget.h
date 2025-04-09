@@ -143,6 +143,9 @@ public:
     QLabel *fistsLabel;
     NewContactEditLine *fistsEdit;
 
+    QLabel *fistsCCLabel;
+    NewContactEditLine *fistsCCEdit;
+
     explicit NewContactDynamicWidgets(bool allocateWidgets,
                                       QWidget *parent);
     QWidget* getRowWidget(int index);

@@ -1070,6 +1070,7 @@ void NewContactWidget::resetContact()
     uiDynamic->skccEdit->clear();
     uiDynamic->uksmgEdit->clear();
     uiDynamic->fistsEdit->clear();
+    uiDynamic->fistsCCEdit->clear();
     ui->dupeLabel->setVisible(false);
     clearCallbookQueryFields();
     clearMemberQueryFields();
@@ -1641,6 +1642,9 @@ void NewContactWidget::connectFieldChanged()
     connect(uiDynamic->fistsEdit, &QLineEdit::textChanged,
             this, &NewContactWidget::formFieldChangedString);
 
+    connect(uiDynamic->fistsCCEdit, &QLineEdit::textChanged,
+            this, &NewContactWidget::formFieldChangedString);
+
     /* no other fields are currently considered
      * as an attempt to fill out the form */
 }
@@ -1854,6 +1858,11 @@ void NewContactWidget::saveContact()
     if ( ! uiDynamic->fistsEdit->text().isEmpty() )
     {
         record.setValue("fists", uiDynamic->fistsEdit->text());
+    }
+
+    if ( ! uiDynamic->fistsCCEdit->text().isEmpty() )
+    {
+        record.setValue("fists_cc", uiDynamic->fistsCCEdit->text());
     }
 
     AdiFormat::preprocessINTLFields<QSqlRecord>(record);
@@ -3799,7 +3808,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
     initializeWidgets(LogbookModel::COLUMN_QSLMSG_INTL, "qslMsgS", qslMsgSLabel, qslMsgSEdit);
     initializeWidgets(LogbookModel::COLUMN_SKCC, "skcc", skccLabel, skccEdit);
     initializeWidgets(LogbookModel::COLUMN_UKSMG, "uksmg", uksmgLabel, uksmgEdit);
-    initializeWidgets(LogbookModel::COLUMN_FISTS, "uksmg", fistsLabel, fistsEdit);
+    initializeWidgets(LogbookModel::COLUMN_FISTS, "fists", fistsLabel, fistsEdit);
+    initializeWidgets(LogbookModel::COLUMN_FISTS_CC, "fistscc", fistsCCLabel, fistsCCEdit);
 
     if ( allocateWidgets )
     {
@@ -3923,6 +3933,8 @@ NewContactDynamicWidgets::NewContactDynamicWidgets(bool allocateWidgets,
         uksmgEdit->setValidator(new QIntValidator(0, INT_MAX, uksmgEdit));
 
         fistsEdit->setValidator(new QIntValidator(0, INT_MAX, fistsEdit));
+
+        fistsCCEdit->setValidator(new QIntValidator(0, INT_MAX, fistsCCEdit));
     }
 }
 
