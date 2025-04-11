@@ -36,6 +36,7 @@ public slots:
     void rotConnected();
     void rotDisconnected();
     void refreshRotProfileCombo();
+    void setQSOBearing(double, double);
 
 protected:
     void showEvent(QShowEvent* event);
@@ -58,12 +59,15 @@ private:
     void setUserButtonDesc(QPushButton *button, const QString&, const double);
     double getQSOBearing();
 
-    QGraphicsPathItem* compassNeedle;
-    QGraphicsPathItem* destinationAzimuthNeedle;
+    QGraphicsPathItem* antennaNeedle;
+    QGraphicsPathItem* requestedAzimuthNeedle;
+    QGraphicsPathItem* QSOAzimuthNeedle;
     bool waitingFirstValue;
     QGraphicsScene* compassScene;
     Ui::RotatorWidget *ui;
     double azimuth;
+    double requestedAzimuth;
+    double qsoAzimuth;
     const NewContactWidget *contact;
 };
 
