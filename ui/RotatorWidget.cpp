@@ -13,9 +13,6 @@
 
 MODULE_IDENTIFICATION("qlog.ui.rotatorwidget");
 
-#define MAP_RESOLUTION 1000
-#define GLOBE_RADIUS 100.0
-
 RotatorWidget::RotatorWidget(QWidget *parent) :
     QWidget(parent),
     waitingFirstValue(true),
@@ -131,7 +128,7 @@ void RotatorWidget::positionChanged(double in_azimuth, double in_elevation)
     ui->gotoDoubleSpinBox->blockSignals(true);
     ui->gotoDoubleSpinBox->setValue(azimuth);
     ui->gotoDoubleSpinBox->blockSignals(false);
-    if ( qRound(requestedAzimuth) == qRound(in_azimuth) )
+    if ( qAbs(qRound(requestedAzimuth) - qRound(in_azimuth)) <= AZIMUTH_DEAD_BAND )
         requestedAzimuthNeedle->hide();
 }
 

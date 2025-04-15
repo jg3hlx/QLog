@@ -69,6 +69,10 @@ private:
     double requestedAzimuth;
     double qsoAzimuth;
     const NewContactWidget *contact;
+
+    const int MAP_RESOLUTION = 1000;
+    const float GLOBE_RADIUS = 100.0;
+    const int AZIMUTH_DEAD_BAND = 2;
 };
 
 #endif // QLOG_UI_ROTATORWIDGET_H
