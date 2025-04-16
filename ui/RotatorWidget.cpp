@@ -95,20 +95,31 @@ void RotatorWidget::qsoBearingSP()
     setBearing(getQSOBearing());
 }
 
+void RotatorWidget::setRequestedAz(double requestedAz)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << requestedAz;
+
+    if ( qIsNaN(requestedAz) )
+        return;
+
+    requestedAzimuth = requestedAz;
+    requestedAzimuthNeedle->show();
+    requestedAzimuthNeedle->setRotation(requestedAz);
+}
+
 void RotatorWidget::setBearing(double in_azimuth)
 {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << in_azimuth;
 
-    if ( qIsNaN(in_azimuth)
-         || !ui->gotoDoubleSpinBox->isEnabled() )
+    if ( qIsNaN(in_azimuth) || !ui->gotoDoubleSpinBox->isEnabled() )
         return;
 
-    requestedAzimuth = in_azimuth;
+    setRequestedAz(in_azimuth);
     Rotator::instance()->setPosition(in_azimuth, 0);
-    requestedAzimuthNeedle->show();
-    requestedAzimuthNeedle->setRotation(in_azimuth);
 }
 
 void RotatorWidget::positionChanged(double in_azimuth, double in_elevation)
@@ -418,9 +429,7 @@ void RotatorWidget::redrawMap()
                                                    QBrush(QColor(255,255,255),
                                                           Qt::SolidPattern));
     if ( !qIsNaN(requestedAzimuth) )
-    {
         requestedAzimuthNeedle->setRotation(requestedAzimuth);
-    }
     else
         requestedAzimuthNeedle->hide();
 

@@ -51,6 +51,7 @@ private slots:
     void gotoPosition();
     void qsoBearingLP();
     void qsoBearingSP();
+    void setRequestedAz(double);
 
 private:
 
