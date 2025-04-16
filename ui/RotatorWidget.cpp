@@ -19,7 +19,7 @@ RotatorWidget::RotatorWidget(QWidget *parent) :
     compassScene(nullptr),
     ui(new Ui::RotatorWidget),
     azimuth(0.0),
-    requestedAzimuth(0.0),
+    requestedAzimuth(qQNaN()),
     qsoAzimuth(qQNaN()),
     contact(nullptr)
 {
@@ -92,10 +92,7 @@ void RotatorWidget::qsoBearingSP()
 
     ui->qsoBearingButton->setDefaultAction(ui->actionQSO_SP);
 
-    double qsoBearing = getQSOBearing();
-
-    if ( !qIsNaN(qsoBearing) )
-        setBearing(qsoBearing);
+    setBearing(getQSOBearing());
 }
 
 void RotatorWidget::setBearing(double in_azimuth)
@@ -104,7 +101,8 @@ void RotatorWidget::setBearing(double in_azimuth)
 
     qCDebug(function_parameters) << in_azimuth;
 
-    if ( !ui->gotoDoubleSpinBox->isEnabled() )
+    if ( qIsNaN(in_azimuth)
+         || !ui->gotoDoubleSpinBox->isEnabled() )
         return;
 
     requestedAzimuth = in_azimuth;
@@ -117,7 +115,8 @@ void RotatorWidget::positionChanged(double in_azimuth, double in_elevation)
 {
     FCT_IDENTIFICATION;
 
-    qCDebug(function_parameters)<<in_azimuth<<" "<<in_elevation;
+    qCDebug(function_parameters) << in_azimuth <<in_elevation;
+
     azimuth = (in_azimuth < 0.0 ) ? 360.0 + in_azimuth : in_azimuth;
     antennaNeedle->setRotation(azimuth);
     if ( waitingFirstValue )
@@ -138,6 +137,8 @@ void RotatorWidget::setQSOBearing(double , double )
 
     qsoAzimuth = getQSOBearing();
 
+    qCDebug(runtime) << qsoAzimuth;
+
     if ( !qIsNaN(qsoAzimuth) )
     {
         QSOAzimuthNeedle->show();
@@ -148,14 +149,16 @@ void RotatorWidget::setQSOBearing(double , double )
 }
 
 
-void RotatorWidget::showEvent(QShowEvent* event) {
+void RotatorWidget::showEvent(QShowEvent* event)
+{
     FCT_IDENTIFICATION;
 
     ui->compassView->fitInView(compassScene->sceneRect(), Qt::KeepAspectRatio);
     QWidget::showEvent(event);
 }
 
-void RotatorWidget::resizeEvent(QResizeEvent* event) {
+void RotatorWidget::resizeEvent(QResizeEvent* event)
+{
     FCT_IDENTIFICATION;
 
     ui->compassView->fitInView(compassScene->sceneRect(), Qt::KeepAspectRatio);
@@ -314,9 +317,7 @@ void RotatorWidget::setUserButtonDesc(QPushButton *button,
         button->setEnabled(true);
     }
     else
-    {
         button->setText("");
-    }
 }
 
 void RotatorWidget::redrawMap()
@@ -415,14 +416,21 @@ void RotatorWidget::redrawMap()
     requestedAzimuthNeedle = compassScene->addPath(QPainterPath(path2),
                                                    QPen(Qt::NoPen),
                                                    QBrush(QColor(255,255,255),
-                                                   Qt::SolidPattern));
-    requestedAzimuthNeedle->setRotation(requestedAzimuth);
+                                                          Qt::SolidPattern));
+    if ( !qIsNaN(requestedAzimuth) )
+    {
+        requestedAzimuthNeedle->setRotation(requestedAzimuth);
+    }
+    else
+        requestedAzimuthNeedle->hide();
 
     antennaNeedle = compassScene->addPath(path,
                                           QPen(QColor(0, 0, 0, 150)),
                                           QBrush(QColor(255, 191, 0),
                                           Qt::SolidPattern));
     antennaNeedle->setRotation(azimuth);
+    if ( !ui->gotoButton->isEnabled() )
+        antennaNeedle->hide();
 
     QSOAzimuthNeedle = compassScene->addPath(QPainterPath(path2),
                                              QPen(Qt::NoPen),
@@ -430,12 +438,6 @@ void RotatorWidget::redrawMap()
                                              Qt::SolidPattern));
 
     setQSOBearing(qQNaN(), qQNaN()); // only call the function; input parameters are ignored
-
-    if ( !ui->gotoButton->isEnabled() )
-    {
-        requestedAzimuthNeedle->hide();
-        antennaNeedle->hide();
-    }
 }
 
 void RotatorWidget::rotProfileComboChanged(QString profileName)
