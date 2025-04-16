@@ -18,7 +18,7 @@ RotatorWidget::RotatorWidget(QWidget *parent) :
     waitingFirstValue(true),
     compassScene(nullptr),
     ui(new Ui::RotatorWidget),
-    azimuth(0.0),
+    antennaAzimuth(0.0),
     requestedAzimuth(qQNaN()),
     qsoAzimuth(qQNaN()),
     contact(nullptr)
@@ -128,15 +128,15 @@ void RotatorWidget::positionChanged(double in_azimuth, double in_elevation)
 
     qCDebug(function_parameters) << in_azimuth <<in_elevation;
 
-    azimuth = (in_azimuth < 0.0 ) ? 360.0 + in_azimuth : in_azimuth;
-    antennaNeedle->setRotation(azimuth);
+    antennaAzimuth = (in_azimuth < 0.0 ) ? 360.0 + in_azimuth : in_azimuth;
+    antennaNeedle->setRotation(antennaAzimuth);
     if ( waitingFirstValue )
     {
         waitingFirstValue = false;
         requestedAzimuthNeedle->setRotation(in_azimuth);
     }
     ui->gotoDoubleSpinBox->blockSignals(true);
-    ui->gotoDoubleSpinBox->setValue(azimuth);
+    ui->gotoDoubleSpinBox->setValue(antennaAzimuth);
     ui->gotoDoubleSpinBox->blockSignals(false);
     if ( qAbs(qRound(requestedAzimuth) - qRound(in_azimuth)) <= AZIMUTH_DEAD_BAND )
         requestedAzimuthNeedle->hide();
@@ -437,7 +437,7 @@ void RotatorWidget::redrawMap()
                                           QPen(QColor(0, 0, 0, 150)),
                                           QBrush(QColor(255, 191, 0),
                                           Qt::SolidPattern));
-    antennaNeedle->setRotation(azimuth);
+    antennaNeedle->setRotation(antennaAzimuth);
     if ( !ui->gotoButton->isEnabled() )
         antennaNeedle->hide();
 

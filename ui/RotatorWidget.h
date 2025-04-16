@@ -66,7 +66,7 @@ private:
     bool waitingFirstValue;
     QGraphicsScene* compassScene;
     Ui::RotatorWidget *ui;
-    double azimuth;
+    double antennaAzimuth;
     double requestedAzimuth;
     double qsoAzimuth;
     const NewContactWidget *contact;
