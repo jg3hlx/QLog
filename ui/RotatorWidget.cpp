@@ -385,12 +385,16 @@ void RotatorWidget::redrawMap()
     pixMapItem->setScale(GLOBE_RADIUS * 2/MAP_RESOLUTION);
 
     // circle around the globe - globe "antialiasing"
-    compassScene->addEllipse(-100, -100, GLOBE_RADIUS * 2, GLOBE_RADIUS * 2, QPen(QColor(100, 100, 100)),
-                                             QBrush(QColor(0, 0, 0), Qt::NoBrush));
+    compassScene->addEllipse(-100, -100, GLOBE_RADIUS * 2, GLOBE_RADIUS * 2,
+                             QPen(QColor(100, 100, 100)),
+                             QBrush(QColor(0, 0, 0),
+                             Qt::NoBrush));
 
     // point in the middle of globe
-    compassScene->addEllipse(-1, -1, 2, 2, QPen(Qt::NoPen),
-                                             QBrush(QColor(0, 0, 0), Qt::SolidPattern));
+    compassScene->addEllipse(-1, -1, 2, 2,
+                             QPen(Qt::NoPen),
+                             QBrush(QColor(0, 0, 0),
+                             Qt::SolidPattern));
 
     // draw needles
     QPainterPath path;
@@ -398,16 +402,30 @@ void RotatorWidget::redrawMap()
     path.lineTo(0, -90);
     path.lineTo(2, 0);
     path.closeSubpath();
-    requestedAzimuthNeedle = compassScene->addPath(QPainterPath(path), QPen(Qt::NoPen),
-                                                   QBrush(QColor(255,255,255), Qt::SolidPattern));
+
+    QPainterPath path2;
+    path2.lineTo(-1, 0);
+    path2.lineTo(0, -90);
+    path2.lineTo(1, 0);
+    path2.closeSubpath();
+
+    requestedAzimuthNeedle = compassScene->addPath(QPainterPath(path2),
+                                                   QPen(Qt::NoPen),
+                                                   QBrush(QColor(255,255,255),
+                                                   Qt::SolidPattern));
     requestedAzimuthNeedle->setRotation(requestedAzimuth);
 
-    antennaNeedle = compassScene->addPath(path, QPen(Qt::NoPen),
-                    QBrush(QColor(255, 191, 0), Qt::SolidPattern));
+    antennaNeedle = compassScene->addPath(path,
+                                          QPen(QColor(0, 0, 0, 150)),
+                                          QBrush(QColor(255, 191, 0),
+                                          Qt::SolidPattern));
     antennaNeedle->setRotation(azimuth);
 
-    QSOAzimuthNeedle = compassScene->addPath(QPainterPath(path), QPen(Qt::NoPen),
-                                                   QBrush(QColor(255,0,255), Qt::SolidPattern));
+    QSOAzimuthNeedle = compassScene->addPath(QPainterPath(path2),
+                                             QPen(Qt::NoPen),
+                                             QBrush(QColor(255,0,255),
+                                             Qt::SolidPattern));
+
     setQSOBearing(qQNaN(), qQNaN()); // only call the function; input parameters are ignored
 
     if ( !ui->gotoButton->isEnabled() )
