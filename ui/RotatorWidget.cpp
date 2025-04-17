@@ -493,7 +493,6 @@ void RotatorWidget::rotConnected()
     refreshRotUserButtons();
     waitingFirstValue = true;
     antennaNeedle->show();
-    requestedAzimuthNeedle->show();
 }
 
 void RotatorWidget::rotDisconnected()
@@ -511,6 +510,7 @@ void RotatorWidget::rotDisconnected()
     ui->userButton_4->setEnabled(false);
     antennaNeedle->hide();
     requestedAzimuthNeedle->hide();
+    requestedAzimuth = qQNaN();
 }
 
 RotatorWidget::~RotatorWidget()
