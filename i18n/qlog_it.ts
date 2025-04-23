@@ -7063,7 +7063,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="61"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="93"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="164"/>
-        <source>Paths</source>
+        <source>Path</source>
         <translation>Direzioni</translation>
     </message>
 </context>
@@ -7301,12 +7301,12 @@
         <translation>Antenna</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3866"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3868"/>
         <source>Blank</source>
         <translation>Vuoto</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3867"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -7426,72 +7426,72 @@
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2960"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2962"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2970"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2972"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2976"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2978"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3289"/>
         <source> m</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3624"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3626"/>
         <source>Callbook search is inactive</source>
         <translation>Ricerca sul Callbook inattiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3629"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3631"/>
         <source>Callbook search is active</source>
         <translation>Ricerca sul Callbook attiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3702"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3704"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>L&apos;ID del contest deve essere compilato per attivare</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3795"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3797"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>due o quattro localizzatori di griglia Maidenhead adiacenti, ciascuno lungo quattro caratteri, (es. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3798"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3800"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>il DARC DOK (District Location Code) della stazione contattata (ex. A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3818"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3820"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3822"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3824"/>
         <source>Special Activity Group</source>
         <translation>Gruppo di Attività Speciali</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3826"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3828"/>
         <source>Special Activity Group Information</source>
         <translation>Informazioni sul gruppo di attività speciali</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3854"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3856"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Non è il nome del Contest ma è un ID del Contest assegnato (ad esempio CQ-WW-CW per CQ WW DX Contest (CW)) </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3871"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Descrizione dell&apos;attrezzatura della stazione contattata</translation>
     </message>
@@ -8877,7 +8877,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <location filename="../ui/QSODetailDialog.cpp" line="428"/>
         <location filename="../ui/QSODetailDialog.cpp" line="474"/>
         <location filename="../ui/QSODetailDialog.cpp" line="674"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>QLog Error</source>
         <translation>Errore di QLog</translation>
     </message>
@@ -9089,33 +9089,33 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>La data deve essere presente per lo stato di invio cartaceo &lt;b&gt;Sì&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>Callbook error: </source>
         <translation>Errore del Callbook: </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1349"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1354"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1357"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1362"/>
         <source>&lt;b&gt;Warning: &lt;/b&gt;</source>
         <translation>&lt;b&gt;Allarme: &lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Validation</source>
         <translation>Validazione</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Yellow marked fields are invalid.&lt;p&gt;Nevertheless, save the changes?&lt;/p&gt;</source>
         <translation>I campi contrassegnati in giallo non sono validi.&lt;p&gt;Salvare comunque le modifiche?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1602"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1635"/>
         <source>&amp;Save</source>
         <translation>&amp;Salva</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1603"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1636"/>
         <source>&amp;Edit</source>
         <translation>&amp;Modifica</translation>
     </message>

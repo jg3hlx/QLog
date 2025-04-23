@@ -7065,7 +7065,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="61"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="93"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="164"/>
-        <source>Paths</source>
+        <source>Path</source>
         <translation>Weg</translation>
     </message>
 </context>
@@ -7140,7 +7140,7 @@
         <translation>Startzeit</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3867"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
         <source> W</source>
         <translation></translation>
     </message>
@@ -7180,7 +7180,7 @@
         <translation>&amp;Details</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3798"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3800"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>DARC-DOK (Ortsverbandkenner) der kontaktierten Station (z.B. A01)</translation>
     </message>
@@ -7215,7 +7215,7 @@
         <translation>Dauer</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3818"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3820"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation></translation>
     </message>
@@ -7268,7 +7268,7 @@
         <translation>&lt;b&gt;Stationsstatistik&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3866"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3868"/>
         <source>Blank</source>
         <translation>Leer</translation>
     </message>
@@ -7433,47 +7433,47 @@
         <translation>Bestätigt</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2960"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2962"/>
         <source>GE</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2970"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2972"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2976"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2978"/>
         <source>GA</source>
         <translation>GT</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3289"/>
         <source> m</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3629"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3631"/>
         <source>Callbook search is active</source>
         <translation>Callbook-Suche ist aktiv</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3702"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3704"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>Zur Aktivierung muss die Contest-ID ausgefüllt werden</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3854"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3856"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3871"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Beschreibung der Ausrüstung der kontaktierten Station</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3624"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3626"/>
         <source>Callbook search is inactive</source>
         <translation>Callbook-Suche ist inaktiv</translation>
     </message>
@@ -7483,17 +7483,17 @@
         <translation>Erweitern/Zusammenklappen</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3795"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3797"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>zwei oder vier nebeneinander liegende, jeweils vier Zeichen lange Gitterfelder (z. B. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3822"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3824"/>
         <source>Special Activity Group</source>
         <translation>Spezielle Aktivitätsgruppe</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3826"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3828"/>
         <source>Special Activity Group Information</source>
         <translation></translation>
     </message>
@@ -8878,7 +8878,7 @@
         <location filename="../ui/QSODetailDialog.cpp" line="428"/>
         <location filename="../ui/QSODetailDialog.cpp" line="474"/>
         <location filename="../ui/QSODetailDialog.cpp" line="674"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>QLog Error</source>
         <translation>QLog Fehler</translation>
     </message>
@@ -9090,33 +9090,33 @@
         <translation>Auf Grundlage der POTA Daten, stimmt das eigene Gitterfeld nicht mit dem POTA-Gitterfeld überein - erwartend </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>Callbook error: </source>
         <translation>Callbook-Fehler: </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1349"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1354"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1357"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1362"/>
         <source>&lt;b&gt;Warning: &lt;/b&gt;</source>
         <translation>&lt;b&gt;Warnung: &lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Validation</source>
         <translation>Überprüfung</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Yellow marked fields are invalid.&lt;p&gt;Nevertheless, save the changes?&lt;/p&gt;</source>
         <translation>Gelb markierte Felder sind ungültig.&lt;p&gt;Dennoch die Änderungen speichern?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1602"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1635"/>
         <source>&amp;Save</source>
         <translation>&amp;Speichern</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1603"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1636"/>
         <source>&amp;Edit</source>
         <translation>B&amp;earbeiten</translation>
     </message>

@@ -7073,7 +7073,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="61"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="93"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="164"/>
-        <source>Paths</source>
+        <source>Path</source>
         <translation>Cesta</translation>
     </message>
 </context>
@@ -7238,7 +7238,7 @@
         <translation>Člen:</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3818"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3820"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
@@ -7276,7 +7276,7 @@
         <translation>QSL odeslat přes</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3866"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3868"/>
         <source>Blank</source>
         <translation>Nevyplněno</translation>
     </message>
@@ -7301,7 +7301,7 @@
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3798"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3800"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>DARC DOK (kód uzemí) (např A01)</translation>
     </message>
@@ -7326,7 +7326,7 @@
         <translation>Rig</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3867"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -7441,47 +7441,47 @@
         <translation>Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2960"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2962"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2970"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2972"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2976"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2978"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3289"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3629"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3631"/>
         <source>Callbook search is active</source>
         <translation>Hledání v Callbooku je aktivní</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3702"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3704"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>Pro aktivaci je nutné vyplnit Contest ID</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3854"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3856"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Není to jméno Contestu ale jeho přiřazené Contest ID (např. CQ-WW-CW pro CQ WW DX Contest (CW)) </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3871"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Popis vybavení kontaktované stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3624"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3626"/>
         <source>Callbook search is inactive</source>
         <translation>Hledání v Callbooku není aktivní</translation>
     </message>
@@ -7491,17 +7491,17 @@
         <translation>Rozbalit/sbalit</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3795"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3797"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>dva nebo čtyři sousední lokátory, každý o délce čtyř znaků (např. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3822"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3824"/>
         <source>Special Activity Group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3826"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3828"/>
         <source>Special Activity Group Information</source>
         <translation></translation>
     </message>
@@ -8891,7 +8891,7 @@
         <location filename="../ui/QSODetailDialog.cpp" line="428"/>
         <location filename="../ui/QSODetailDialog.cpp" line="474"/>
         <location filename="../ui/QSODetailDialog.cpp" line="674"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>QLog Error</source>
         <translation>Chyba QLog</translation>
     </message>
@@ -9103,33 +9103,33 @@
         <translation>Na základě POTA Summit, Můj Lokátor neodpovídat POTA definici - očekáváno </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>Callbook error: </source>
         <translation>Chyba Callbooku: </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1349"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1354"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1357"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1362"/>
         <source>&lt;b&gt;Warning: &lt;/b&gt;</source>
         <translation>&lt;b&gt;Upozornění: &lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Validation</source>
         <translation>Kontrola</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Yellow marked fields are invalid.&lt;p&gt;Nevertheless, save the changes?&lt;/p&gt;</source>
         <translation>Žlutě vyznačená pole obsahují neplatné hodnoty&lt;p&gt;I přes to uložit změny?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1602"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1635"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1603"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1636"/>
         <source>&amp;Edit</source>
         <translation>U&amp;pravit</translation>
     </message>
