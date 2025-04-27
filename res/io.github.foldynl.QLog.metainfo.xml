@@ -18,14 +18,15 @@
     <p>Features:</p>
     <ul>
       <li>Customizable GUI</li>
-      <li>Rig and rotator control via Hamlib</li>
+      <li>Rig control via Hamlib, TCI</li>
+      <li>Rotator control via Hamlib</li>
       <li>HamQTH and QRZ.com callbook integration</li>
       <li>DX cluster integration</li>
       <li>LoTW, eQSL, QRZ.com, Clublog, HRDLog.net, ON4KST Chat integration (eQSL includes QSL pictures download)</li>
       <li>Secure Password Storage for all services with password or security token</li>
       <li>Online and Offline map</li>
       <li>Club Member lookup</li>
-      <li>CW Keyer Support - CWDaemon, FLDigi (all supported modes), Morse Over CAT, WinKey V2</li>
+      <li>CW Keyer Support - CWDaemon, FLDigi (all supported modes), Morse Over CAT, WinKey v1 or v2</li>
       <li>Bandmap</li>
       <li>CW Console</li>
       <li>WSJT-X integration</li>
