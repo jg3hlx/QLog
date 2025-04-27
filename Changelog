@@ -1,6 +1,7 @@
 TBC - 0.44.0
 - [NEW] - Rotator - Added QSO destination needle (issue #644)
 - [CHANGED] - Rotator - Needle colors correspond to the online map
+- Improved DXC Mode detection
 
 2025/04/19 - 0.43.1
 - Fixed Click on PHONE DX Spots sets wrong mode (issue #453)
