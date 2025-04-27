@@ -91,7 +91,7 @@ private slots:
     void myPOTAChanged(const QString&);
     void myWWFFChanged(const QString&);
     void clubQueryResult(const QString &in_callsign,
-                         QMap<QString, ClubStatusQuery::ClubStatus> data);
+                         QMap<QString, ClubStatusQuery::ClubInfo> data);
 
 private:
     /* It is modified logbook model when only basic

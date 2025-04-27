@@ -296,6 +296,10 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     ui->myGridEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridRegEx(), this));
     ui->vuccEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
     ui->myVUCCEdit->setValidator(new QRegularExpressionValidator(Gridsquare::gridVUCCRegEx(), this));
+    ui->fistsEdit->setValidator(new QIntValidator(0, INT_MAX, ui->fistsEdit));
+    ui->fistsCCEdit->setValidator(new QIntValidator(0, INT_MAX, ui->fistsCCEdit));
+    ui->tentenEdit->setValidator(new QIntValidator(0, INT_MAX, ui->tentenEdit));
+    ui->uksmgEdit->setValidator(new QIntValidator(0, INT_MAX, ui->uksmgEdit));
 
     /***********/
     /* Mapping */
@@ -337,6 +341,11 @@ QSODetailDialog::QSODetailDialog(const QSqlRecord &qso,
     mapper->addMapping(ui->propagationModeEdit, LogbookModel::COLUMN_PROP_MODE);
     mapper->addMapping(ui->satNameEdit, LogbookModel::COLUMN_SAT_NAME);
     mapper->addMapping(ui->satModeEdit,LogbookModel::COLUMN_SAT_MODE);
+    mapper->addMapping(ui->fistsEdit,LogbookModel::COLUMN_FISTS);
+    mapper->addMapping(ui->fistsCCEdit,LogbookModel::COLUMN_FISTS_CC);
+    mapper->addMapping(ui->skccEdit,LogbookModel::COLUMN_SKCC);
+    mapper->addMapping(ui->tentenEdit,LogbookModel::COLUMN_TEN_TEN);
+    mapper->addMapping(ui->uksmgEdit,LogbookModel::COLUMN_UKSMG);
 
     /* My Station */
     mapper->addMapping(ui->myCallsignEdit, LogbookModel::COLUMN_STATION_CALLSIGN);
@@ -1306,7 +1315,7 @@ void QSODetailDialog::myWWFFChanged(const QString &newWWFF)
 }
 
 void QSODetailDialog::clubQueryResult(const QString &in_callsign,
-                                      QMap<QString, ClubStatusQuery::ClubStatus> data)
+                                      QMap<QString, ClubStatusQuery::ClubInfo> data)
 {
     FCT_IDENTIFICATION;
 
@@ -1318,7 +1327,7 @@ void QSODetailDialog::clubQueryResult(const QString &in_callsign,
 
     QString memberText;
 
-    QMapIterator<QString, ClubStatusQuery::ClubStatus> clubs(data);
+    QMapIterator<QString, ClubStatusQuery::ClubInfo> clubs(data);
 
     QPalette palette;
 
@@ -1326,7 +1335,7 @@ void QSODetailDialog::clubQueryResult(const QString &in_callsign,
     while ( clubs.hasNext() )
     {
         clubs.next();
-        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value()), false, palette.color(QPalette::Text));
+        QColor color = Data::statusToColor(static_cast<DxccStatus>(clubs.value().status), false, palette.color(QPalette::Text));
         memberText.append(QString("<font color='%1'>%2</font>&nbsp;&nbsp;&nbsp;").arg(Data::colorToHTMLColor(color), clubs.key()));
     }
     ui->memberListLabel->setText(memberText);
