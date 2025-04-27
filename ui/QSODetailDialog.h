@@ -119,6 +119,7 @@ private:
     void blockMappedWidgetSignals(bool);
     void drawDXOnMap(const QString &label, const Gridsquare &dxGrid);
     void drawMyQTHOnMap(const QString &label, const Gridsquare &myGrid);
+    void setStaticMapTime(const QDateTime &dateTime);
     void enableWidgetChangeHandlers();
     void lookupButtonWaitingStyle(bool);
     SubmitError submitAllChanges();

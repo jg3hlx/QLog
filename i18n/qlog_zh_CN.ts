@@ -7044,7 +7044,7 @@
         <location filename="../ui/MapWebChannelHandler.cpp" line="61"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="93"/>
         <location filename="../ui/MapWebChannelHandler.cpp" line="164"/>
-        <source>Paths</source>
+        <source>Path</source>
         <translation>路径</translation>
     </message>
 </context>
@@ -7282,12 +7282,12 @@
         <translation>天线</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3866"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3868"/>
         <source>Blank</source>
         <translation>空白</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3867"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -7402,47 +7402,47 @@
         <translation>已确认</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2960"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2962"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2970"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2972"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2976"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2978"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3289"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3629"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3631"/>
         <source>Callbook search is active</source>
         <translation>电台黄页搜索可用</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3702"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3704"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>必须填写 竞赛标识 才能激活</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3854"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3856"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>这里要填的不是比赛名称，而是分配的竞赛标识&lt;br&gt;（例如CQ-WW-CW 代表CQ WW DX比赛(CW)） </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3869"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3871"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3624"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3626"/>
         <source>Callbook search is inactive</source>
         <translation>电台黄页搜索不可用</translation>
     </message>
@@ -7452,27 +7452,27 @@
         <translation>展开/折叠</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3795"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3797"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>两个或四个相邻的梅登黑德网格定位器，每个四个字符长，(例如 EN98, FM08, EM97, FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3798"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3800"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>联络电台的DARC DOK (地区位置代码) (例如 A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3818"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3820"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>世界动植物 (可选参数)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3822"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3824"/>
         <source>Special Activity Group</source>
         <translation>特别活动或兴趣团体名称</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3826"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3828"/>
         <source>Special Activity Group Information</source>
         <translation>特别活动或兴趣团体信息</translation>
     </message>
@@ -8853,7 +8853,7 @@
         <location filename="../ui/QSODetailDialog.cpp" line="428"/>
         <location filename="../ui/QSODetailDialog.cpp" line="474"/>
         <location filename="../ui/QSODetailDialog.cpp" line="674"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>QLog Error</source>
         <translation>QLog 错误</translation>
     </message>
@@ -9065,33 +9065,33 @@
         <translation>需要为纸质卡片发送状态提供日期 &lt;b&gt;是&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1214"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1222"/>
         <source>Callbook error: </source>
         <translation>电台黄页错误: </translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1349"/>
-        <location filename="../ui/QSODetailDialog.cpp" line="1354"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1357"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1362"/>
         <source>&lt;b&gt;Warning: &lt;/b&gt;</source>
         <translation>&lt;b&gt;告警&lt;/b&gt;: %n</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Validation</source>
         <translation>验证</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1544"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1577"/>
         <source>Yellow marked fields are invalid.&lt;p&gt;Nevertheless, save the changes?&lt;/p&gt;</source>
         <translation>黄色标记的字段无效。&lt;p&gt;依然保存更改?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1602"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1635"/>
         <source>&amp;Save</source>
         <translation>保存(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../ui/QSODetailDialog.cpp" line="1603"/>
+        <location filename="../ui/QSODetailDialog.cpp" line="1636"/>
         <source>&amp;Edit</source>
         <translation>编辑(&amp;E)</translation>
     </message>
