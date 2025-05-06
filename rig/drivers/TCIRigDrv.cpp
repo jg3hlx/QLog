@@ -187,6 +187,7 @@ void TCIRigDrv::setKeySpeed(qint16 wpm)
 
     QStringList args = {QString::number(wpm)};
     sendCmd("cw_keyer_speed", false, args);
+    sendCmd("cw_macros_speed", false, args);
 }
 
 void TCIRigDrv::syncKeySpeed(qint16 wpm)
