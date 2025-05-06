@@ -215,7 +215,7 @@ void TCIRigDrv::sendMorse(const QString &text)
     }
 
     QStringList args {text};
-    sendCmd("cw_macros", false, args);
+    sendCmd("cw_macros", true, args);
 }
 
 void TCIRigDrv::stopMorse()
