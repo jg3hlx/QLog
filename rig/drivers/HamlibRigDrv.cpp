@@ -281,6 +281,28 @@ bool HamlibRigDrv::open()
     currXIT = MHz(rigProfile.xitOffset);
     morseOverCatSupported = ( rig->caps->send_morse != nullptr );
 
+    if (portType == RigProfile::NETWORK_ATTACHED)
+    {
+        rmode_t localRigModes = RIG_MODE_NONE;
+
+        localRigModes = static_cast<rmode_t>(rig->state.mode_list);
+
+        /* hamlib 3.x and 4.x are very different - workaround */
+        for ( unsigned char i = 0; i < (sizeof(rmode_t)*8)-1; i++ )
+        {
+            /* hamlib 3.x and 4.x are very different - workaround */
+            const char *ms = rig_strrmode(static_cast<rmode_t>(localRigModes & rig_idx2setting(i)));
+
+            if (!ms || !ms[0])
+            {
+                continue;
+            }
+            qCDebug(runtime) << "Supported Mode :" << ms;
+
+            modeList.append(QString(ms));
+        }
+    }
+
     connect(&timer, &QTimer::timeout, this, &HamlibRigDrv::checkRigStateChange);
     timer.start(rigProfile.pollInterval);
     emit rigIsReady();
