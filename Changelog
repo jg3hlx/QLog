@@ -4,6 +4,8 @@ TBC - 0.44.0
 - [NEW] - Rotator - Added QSO destination needle (issue #644)
 - [NEW] - QSO Detail - Adds grayline and short path (PR #653 @kyleboyle)
 - [CHANGED] - Rotator - Needle colors correspond to the online map (issue #644)
+- Fixed TCI cw_macros must contain RigID (issue #663)
+- Fixed TCI setKeySpeed sets keyer and macros speed (issue #663)
 - Improved DXC Mode detection
 - Updated Simplified Chinese translation
 
