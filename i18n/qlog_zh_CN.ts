@@ -6,12 +6,12 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="14"/>
         <source>Activity Editor</source>
-        <translation>活动编辑器</translation>
+        <translation>竞赛/活动 编辑器</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="39"/>
         <source>Activity Name</source>
-        <translation>活动名称</translation>
+        <translation>竞赛/活动 名称</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="73"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="161"/>
         <source>List of fields that can be used</source>
-        <translation>可以使用的字段列表</translation>
+        <translation>可用字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="213"/>
@@ -67,7 +67,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="313"/>
         <source>List of fields in the first variable row</source>
-        <translation>第一个变量行的字段列表</translation>
+        <translation>第一可变行字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="359"/>
@@ -105,7 +105,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="520"/>
         <source>List of fields in the second variable row</source>
-        <translation>第二个变量行的字段列表</translation>
+        <translation>第二可变行的字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="643"/>
@@ -115,7 +115,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="743"/>
         <source>List of fields in the first QSO Detail Column</source>
-        <translation>第一个 QSO 详细列中的字段列表</translation>
+        <translation>第一列新通联详细列字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="847"/>
@@ -125,7 +125,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="947"/>
         <source>List of fields in the second QSO Detail Column</source>
-        <translation>第二个 QSO 详细列中的字段列表</translation>
+        <translation>第二列新通联详细列字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1051"/>
@@ -135,17 +135,17 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1151"/>
         <source>List of fields in the third QSO Detail Column</source>
-        <translation>第三个QSO详细列中的字段列表</translation>
+        <translation>第三列新通联详细列字段列表</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1260"/>
         <source>New QSO Rows</source>
-        <translation>新 QSO 行</translation>
+        <translation>新通联行</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1265"/>
         <source>New QSO Detail Columns</source>
-        <translation>新 QSO 详情列</translation>
+        <translation>新通联详情列</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1278"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="14"/>
         <source>Alert Rule Detail</source>
-        <translation>告警规则详细信息</translation>
+        <translation>提醒规则详情</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="30"/>
@@ -228,7 +228,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="40"/>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation>启用</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="57"/>
@@ -281,7 +281,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="169"/>
         <source>Spot Comment</source>
-        <translation>报告备注</translation>
+        <translation>报点备注</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="197"/>
@@ -404,7 +404,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="595"/>
         <source>Spotter</source>
-        <translation>报告者</translation>
+        <translation>报点者</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="61"/>
@@ -428,7 +428,7 @@
     <message>
         <location filename="../ui/AlertSettingDialog.ui" line="14"/>
         <source>Alerts Rules</source>
-        <translation>预警规则</translation>
+        <translation>提醒规则</translation>
     </message>
     <message>
         <location filename="../ui/AlertSettingDialog.ui" line="22"/>
@@ -509,7 +509,7 @@
     <message>
         <location filename="../ui/AlertWidget.ui" line="14"/>
         <source>Alerts</source>
-        <translation>警报</translation>
+        <translation>提醒</translation>
     </message>
     <message>
         <location filename="../ui/AlertWidget.ui" line="86"/>
@@ -672,17 +672,17 @@
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="44"/>
         <source>Gridsquare 2-Chars</source>
-        <translation type="unfinished"></translation>
+        <translation>网格坐标 2字符</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="45"/>
         <source>Gridsquare 4-Chars</source>
-        <translation type="unfinished"></translation>
+        <translation>网格坐标 4字符</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="46"/>
         <source>Gridsquare 6-Chars</source>
-        <translation type="unfinished"></translation>
+        <translation>网格坐标 6字符</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="48"/>
@@ -692,7 +692,7 @@
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="154"/>
         <source>Unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>未知</translation>
     </message>
     <message>
         <location filename="../ui/AwardsDialog.cpp" line="204"/>
@@ -755,7 +755,7 @@
     <message>
         <location filename="../models/AwardsTableModel.cpp" line="31"/>
         <source>Slots: </source>
-        <translation type="unfinished"></translation>
+        <translation>组合： </translation>
     </message>
     <message>
         <location filename="../models/AwardsTableModel.cpp" line="51"/>
@@ -783,7 +783,7 @@
     <message>
         <location filename="../ui/BandmapWidget.ui" line="53"/>
         <source>Create an additional Bandmap Window</source>
-        <translation type="unfinished"></translation>
+        <translation>创建额外的波段地图窗口</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.ui" line="109"/>
@@ -793,7 +793,7 @@
     <message>
         <location filename="../ui/BandmapWidget.ui" line="207"/>
         <source>Clear the current band</source>
-        <translation type="unfinished"></translation>
+        <translation>清除当前波段</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.ui" line="80"/>
@@ -813,7 +813,7 @@
     <message>
         <location filename="../ui/BandmapWidget.cpp" line="612"/>
         <source>Bandmap</source>
-        <translation type="unfinished">波段地图</translation>
+        <translation>波段地图</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.cpp" line="935"/>
@@ -930,7 +930,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="193"/>
         <source>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</source>
-        <translation>在发送 &lt;b&gt;单词&lt;/b&gt;(空格分隔) 和 &lt;b&gt;整句&lt;/b&gt;(回车分割) 间进行切换。</translation>
+        <translation>切换「逐个发送单词」（空格分隔）与「整段发送文本」（换行分隔）模式。</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="233"/>
@@ -1131,34 +1131,34 @@
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="119"/>
         <source>Connected device is not WinKey</source>
-        <translation type="unfinished">已连接的设备不是 WinKey</translation>
+        <translation>已连接的设备不是 WinKey</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="228"/>
         <source>Cannot send Text to Rig</source>
-        <translation type="unfinished">无法发送文字至电台</translation>
+        <translation>无法发送文字至设备</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="228"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="397"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="436"/>
         <source>Keyer is not connected</source>
-        <translation type="unfinished">电键未连接</translation>
+        <translation>电键未连接</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="367"/>
         <source>Communication Error</source>
-        <translation type="unfinished">通讯出错</translation>
+        <translation>通讯出错</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="397"/>
         <source>Cannot set Keyer Speed</source>
-        <translation type="unfinished">无法设置电键速度</translation>
+        <translation>无法设置电键速度</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="436"/>
         <source>Cannot stop Text Sending</source>
-        <translation type="unfinished"></translation>
+        <translation>无法停止文字发送</translation>
     </message>
 </context>
 <context>
@@ -3550,17 +3550,17 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="274"/>
         <source>Spotter Continent</source>
-        <translation>报告者大洲</translation>
+        <translation>报点者大洲</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="336"/>
         <source>Do not show the following spots when they have the same Callsign and their time difference is lower than Time Diff and their frequency difference is lower than Freq Diff</source>
-        <translation>当具有相同的呼号并且时间差低于 “时间偏差” 并且频差低于 “频率偏差” 时，不要显示DX动态</translation>
+        <translation>若以下报点满足：呼号相同、时间差小于【时间差阈值】且频率差小于【频率差阈值】，则自动过滤</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="339"/>
         <source>Spots Dedup</source>
-        <translation>报告去重</translation>
+        <translation>报点去重</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="366"/>
@@ -3618,7 +3618,7 @@
     <message>
         <location filename="../ui/DxWidget.cpp" line="108"/>
         <source>Spotter</source>
-        <translation>报告者</translation>
+        <translation>报点者</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="109"/>
@@ -3633,7 +3633,7 @@
     <message>
         <location filename="../ui/DxWidget.cpp" line="111"/>
         <source>Spotter Continent</source>
-        <translation>报告者大洲</translation>
+        <translation>报点者大洲</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="112"/>
@@ -3667,7 +3667,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="124"/>
         <source>Spots</source>
-        <translation>报告</translation>
+        <translation>报点</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="129"/>
@@ -3692,7 +3692,7 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="149"/>
         <source>15-min Trend</source>
-        <translation type="unfinished"></translation>
+        <translation>15分钟趋势</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="244"/>
@@ -3752,12 +3752,12 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="665"/>
         <source>Keep Spots</source>
-        <translation>保留报告</translation>
+        <translation>保留报点</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="668"/>
         <source>Spots are not cleared when connecting to a new DX Cluster.</source>
-        <translation>连接至新的 DX 集群后，不清除旧的报告。</translation>
+        <translation>连接至新的 DX 集群后，不清除旧的报点。</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="673"/>
@@ -3787,12 +3787,12 @@
     <message>
         <location filename="../ui/DxWidget.ui" line="602"/>
         <source>Spot Last QSO</source>
-        <translation>报告最新的 QSO</translation>
+        <translation>最后通联报点</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="605"/>
         <source>Send last QSO spot</source>
-        <translation>发送最新的 QSO 报告</translation>
+        <translation>发送最后的通联报点</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.ui" line="610"/>
@@ -3822,12 +3822,12 @@
     <message>
         <location filename="../ui/DxWidget.cpp" line="469"/>
         <source>My Continent</source>
-        <translation type="unfinished"></translation>
+        <translation>我的大洲</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="474"/>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>自动</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="569"/>
@@ -4043,22 +4043,22 @@
     <message>
         <location filename="../ui/Eqsldialog.ui" line="93"/>
         <source>QSL Message Field</source>
-        <translation type="unfinished"></translation>
+        <translation>QSL 确认信息字段</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="116"/>
         <source>None</source>
-        <translation type="unfinished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="129"/>
         <source>QSLs Message</source>
-        <translation type="unfinished">QSLs 信息</translation>
+        <translation>QSLs 信息</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="139"/>
         <source>Comment</source>
-        <translation type="unfinished">备注</translation>
+        <translation>备注</translation>
     </message>
     <message>
         <location filename="../ui/Eqsldialog.ui" line="154"/>
@@ -5124,7 +5124,7 @@
         <location filename="../logformat/LogFormat.cpp" line="946"/>
         <location filename="../logformat/LogFormat.cpp" line="1025"/>
         <source>DXCC State:</source>
-        <translation type="unfinished"></translation>
+        <translation>DXCC状态：</translation>
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="1149"/>
@@ -5245,7 +5245,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="609"/>
         <source>County</source>
-        <translation>郡/县</translation>
+        <translation>县/郡</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="611"/>
@@ -5417,7 +5417,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="610"/>
         <source>County Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>县/郡备用标识</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="644"/>
@@ -5603,12 +5603,12 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="682"/>
         <source>My County</source>
-        <translation>我的郡/县</translation>
+        <translation>我的县/郡</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="683"/>
         <source>My County Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>我的县/郡备用标识</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="684"/>
@@ -5738,7 +5738,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="711"/>
         <source>My State</source>
-        <translation>我的省/郡</translation>
+        <translation>我的省/州</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="712"/>
@@ -5975,7 +5975,7 @@
     <message>
         <location filename="../models/LogbookModel.cpp" line="751"/>
         <source>Silent Key</source>
-        <translation>安息键</translation>
+        <translation>静默电键</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="752"/>
@@ -6187,12 +6187,12 @@
     <message>
         <location filename="../ui/LogbookWidget.ui" line="324"/>
         <source>Send DX Spot</source>
-        <translation>发送DX报告</translation>
+        <translation>发送DX报点</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.ui" line="327"/>
         <source>Logbook - Send DX Spot</source>
-        <translation>Logbook - 发送DX报告</translation>
+        <translation>Logbook - 发送DX报点</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="739"/>
@@ -6603,7 +6603,7 @@
         <location filename="../ui/MainWindow.ui" line="304"/>
         <location filename="../ui/MainWindow.ui" line="800"/>
         <source>Alerts</source>
-        <translation>警报</translation>
+        <translation>提醒</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="338"/>
@@ -6710,7 +6710,7 @@
     <message>
         <location filename="../ui/MainWindow.ui" line="810"/>
         <source>Show Alerts</source>
-        <translation>显示告警</translation>
+        <translation>显示提醒</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="534"/>
@@ -6969,7 +6969,7 @@
     <message>
         <location filename="../ui/MainWindow.cpp" line="1615"/>
         <source>&lt;h1&gt;QLog %1&lt;/h1&gt;&lt;p&gt;&amp;copy; 2019 Thomas Gatzweiler DL2IC&lt;br/&gt;&amp;copy; 2021-2025 Ladislav Foldyna OK1MLG&lt;br/&gt;&amp;copy; 2025 Michael Morgan AA5SH&lt;br/&gt;&amp;copy; 2025 Kyle Boyle VE9KZ&lt;/p&gt;&lt;p&gt;Based on Qt %2&lt;br/&gt;%3&lt;br/&gt;%4&lt;br/&gt;%5&lt;/p&gt;&lt;p&gt;Icon by &lt;a href=&apos;http://www.iconshock.com&apos;&gt;Icon Shock&lt;/a&gt;&lt;br /&gt;Satellite images by &lt;a href=&apos;http://www.nasa.gov&apos;&gt;NASA&lt;/a&gt;&lt;br /&gt;ZoneDetect by &lt;a href=&apos;https://github.com/BertoldVdb/ZoneDetect&apos;&gt;Bertold Van den Bergh&lt;/a&gt;&lt;br /&gt;TimeZone Database by &lt;a href=&apos;https://github.com/evansiroky/timezone-boundary-builder&apos;&gt;Evan Siroky&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1646"/>
@@ -7439,7 +7439,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3871"/>
         <source>Description of the contacted station&apos;s equipment</source>
-        <translation type="unfinished"></translation>
+        <translation>已通联台站的设备描述</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3626"/>
@@ -7812,7 +7812,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="407"/>
         <source>Cannot Update Alert Rules</source>
-        <translation>无法更新告警规则</translation>
+        <translation>无法更新提醒规则</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="524"/>
@@ -7897,7 +7897,7 @@
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1386"/>
         <source>The fields &lt;b&gt;%0&lt;/b&gt; will not be saved because the &lt;b&gt;%1&lt;/b&gt; is not filled.</source>
-        <translation type="unfinished"></translation>
+        <translation>不会保存字段&lt;b&gt;%0&lt;/b&gt;，因为&lt;b&gt;%1&lt;/b&gt;未填充。</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1623"/>
@@ -8108,7 +8108,7 @@
     <message>
         <location filename="../data/StationProfile.cpp" line="194"/>
         <source>My County</source>
-        <translation>我的郡/县</translation>
+        <translation>我的县/郡</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="195"/>
@@ -8331,7 +8331,7 @@
     <message>
         <location filename="../ui/QSLImportStatDialog.cpp" line="33"/>
         <source>Updated QSOs: </source>
-        <translation type="unfinished"></translation>
+        <translation>更新 QSOs： </translation>
     </message>
     <message>
         <location filename="../ui/QSLImportStatDialog.cpp" line="43"/>
@@ -8485,7 +8485,7 @@
         <location filename="../ui/QSODetailDialog.ui" line="844"/>
         <location filename="../ui/QSODetailDialog.ui" line="1426"/>
         <source>County</source>
-        <translation>郡/县</translation>
+        <translation>县/郡</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="870"/>
@@ -8647,12 +8647,12 @@
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="2016"/>
         <source>QSLr Message</source>
-        <translation type="unfinished">QSLr 信息</translation>
+        <translation>QSLr 信息</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="2041"/>
         <source>QSLs Message</source>
-        <translation type="unfinished">QSLs 信息</translation>
+        <translation>QSLs 信息</translation>
     </message>
     <message>
         <location filename="../ui/QSODetailDialog.ui" line="2070"/>
@@ -9771,7 +9771,28 @@
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
 &lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;DXCALL&gt; = DX 呼号
+&lt;NAME&gt; = DX 操作员姓名
+&lt;RST&gt; = 报告 599
+&lt;RSTN&gt; = 报告 5NN
+&lt;GREETING&gt; = 打招呼 GM/GA/GE
+&lt;QTH&gt; = QTH
+&lt;MYCALL&gt; = 我的呼号
+&lt;MYNAME&gt; = 我的姓名
+&lt;MYQTH&gt; = 我的 QTH
+&lt;MYLOCATOR&gt; = 我的定位
+&lt;MYGRID&gt; = 我的网格坐标
+&lt;MYSIG&gt; = 我的兴趣组
+&lt;MYSIGINFO&gt; = 我的兴趣组信息
+&lt;MYIOTA&gt; = 我的 IOTA
+&lt;MYSOTA&gt; = 我的 SOTA
+&lt;MYWWFT&gt; = 我的 WWFT
+&lt;MYVUCC&gt; = 我的 VUCC
+&lt;MYPWR&gt; = 我的发射功率（W）
+&lt;EXCHSTR&gt; = 竞赛交换信息
+&lt;EXCHNR&gt; = 竞赛交换序列号
+&lt;EXCHNRN&gt; = 竞赛交换序列号 (9→N, 0→T) 
+</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1094"/>
@@ -10030,7 +10051,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2321"/>
         <source>DX Spots to Rig</source>
-        <translation>DX 报告到电台</translation>
+        <translation>DX 报点到电台</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3385"/>
@@ -10065,42 +10086,42 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4217"/>
         <source>GUI</source>
-        <translation type="unfinished"></translation>
+        <translation>用户界面</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4225"/>
         <source>Time Format</source>
-        <translation type="unfinished"></translation>
+        <translation>时间格式</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4234"/>
         <source>24-hour</source>
-        <translation type="unfinished"></translation>
+        <translation>24小时</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4244"/>
         <source>AM/PM</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4269"/>
         <source>Date Format</source>
-        <translation type="unfinished"></translation>
+        <translation>日期格式</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4278"/>
         <source>System</source>
-        <translation type="unfinished"></translation>
+        <translation>系统</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4288"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>自定义</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4347"/>
         <source>&lt;a href=&quot;https://doc.qt.io/qt-6/qdate.html#fromString-1&quot;&gt;Time Format Documentation&lt;/a&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;a href=&quot;https://doc.qt.io/qt-6/qdate.html#fromString-1&quot;&gt;时间格式文档&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1950"/>
@@ -10144,7 +10165,7 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="179"/>
         <source>County</source>
-        <translation>郡/县</translation>
+        <translation>县/郡</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="245"/>
@@ -10483,22 +10504,22 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4115"/>
         <source>DX Spots</source>
-        <translation>DX 报告</translation>
+        <translation>DX 报点</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4122"/>
         <source>&lt;p&gt; List of IP addresses to which QLog sends  UDP notification packets with DX Cluster Spots.&lt;/p&gt;The IP addresses are separated by a space and have the form IP:PORT</source>
-        <translation>&lt;p&gt; QLog 发送 DX 集群报告 UDP 通知报文的 IP 地址列表。&lt;/p&gt; IP 地址之间用空格分隔，格式为 IP:PORT</translation>
+        <translation>&lt;p&gt; QLog 发送 DX 集群报点 UDP 通知报文的 IP 地址列表。&lt;/p&gt; IP 地址之间用空格分隔，格式为 IP:PORT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4132"/>
         <source>Spot Alerts</source>
-        <translation>报告预警</translation>
+        <translation>实时报点提醒</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4139"/>
         <source>&lt;p&gt; List of IP addresses to which QLog sends  UDP notification packets about user Spot Alerts.&lt;/p&gt;The IP addresses are separated by a space and have the form IP:PORT</source>
-        <translation>&lt;p&gt; QLog 向用户发送 报告预警 UDP 报文的 IP 地址列表。&lt;/p&gt; IP 地址之间用空格分隔，格式为 IP:PORT</translation>
+        <translation>&lt;p&gt; QLog 向用户发送 实时报点提醒 UDP 报文的 IP 地址列表。&lt;/p&gt; IP 地址之间用空格分隔，格式为 IP:PORT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4149"/>
@@ -10513,12 +10534,12 @@
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4166"/>
         <source>Wsjtx CQ Spots</source>
-        <translation>WSJTX CQ 报告</translation>
+        <translation>WSJTX CQ 报点</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4173"/>
         <source>&lt;p&gt; List of IP addresses to which QLog sends  UDP notification packets with WSJTX CQ Spots.&lt;/p&gt;The IP addresses are separated by a space and have the form IP:PORT</source>
-        <translation>&lt;p&gt; QLog 通过 WSJTX CQ 报告 发送 UDP 通知报文的 IP 地址列表。&lt;/p&gt; IP地址之间用空格分隔，格式为 IP:PORT</translation>
+        <translation>&lt;p&gt; QLog 通过 WSJTX CQ 报点 发送 UDP 通知报文的 IP 地址列表。&lt;/p&gt; IP地址之间用空格分隔，格式为 IP:PORT</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="92"/>
@@ -10626,7 +10647,7 @@
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="286"/>
         <source>WinKey</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="287"/>
@@ -11048,7 +11069,7 @@
     <message>
         <location filename="../ui/DxWidget.cpp" line="339"/>
         <source>Spotter</source>
-        <translation>报告者</translation>
+        <translation>报点者</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="340"/>
@@ -11346,7 +11367,7 @@
     <message>
         <location filename="../ui/WsjtxWidget.ui" line="134"/>
         <source>Filter Spots</source>
-        <translation>报告过滤器</translation>
+        <translation>报点过滤器</translation>
     </message>
 </context>
 <context>
