@@ -4137,6 +4137,7 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4460,6 +4461,7 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4806,6 +4808,7 @@
         <source>Imported: %n contact(s)</source>
         <translation>
             <numerusform>Importado: %n contacto/s</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4813,6 +4816,7 @@
         <source>Warning(s): %n</source>
         <translation>
             <numerusform>Alerta/s: %n</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -4820,6 +4824,7 @@
         <source>Error(s): %n</source>
         <translation>
             <numerusform>Error/s: %n</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -6252,6 +6257,7 @@
         <source>Count: %n</source>
         <translation>
             <numerusform>QSO: %n</numerusform>
+            <numerusform>QSOs: %n</numerusform>
         </translation>
     </message>
     <message>
@@ -6507,6 +6513,7 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -7896,6 +7903,7 @@
         <source>Exported %n contact(s).</source>
         <translation>
             <numerusform>Exportado: %n contacto/s.</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -8213,6 +8221,7 @@
         <source>&lt;b&gt;Warning(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;Alerta/s&lt;/b&gt;: %n</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -8220,6 +8229,7 @@
         <source>&lt;b&gt;Error(s)&lt;/b&gt;: %n</source>
         <translation>
             <numerusform>&lt;b&gt;Error/es&lt;/b&gt;: %n</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -8299,6 +8309,7 @@
         <source>%n QSO(s) uploaded.</source>
         <translation>
             <numerusform>%n QSO/s subido/s.</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
