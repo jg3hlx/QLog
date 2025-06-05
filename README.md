@@ -1,4 +1,4 @@
-# QLog(0.44.1+JP) 日本語対応版(暫定)
+# [QLog(0.44.1+JP) 日本語対応版(暫定)](https://github.com/jg3hlx/QLog/)
 
 QLog は、Linux、Windows 用のアマチュア無線ログ アプリケーションです。
 Qt フレームワークに基づいており、データベース バックエンドとして SQLite を使用します。
